@@ -5,9 +5,14 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dar
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dart';
 import 'package:event_planner_light/view/screens/EventDetailScreen.dart';
+import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
+import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
+import 'package:event_planner_light/view/screens/top_ups/buy_top_ups_screen.dart';
+import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
@@ -177,6 +182,49 @@ class Pages {
           // binding: Createportfoliobindings(),
           transition: _routeTransition,
         );
+      case AdsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => AdsScreen(),
+          // binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+      case AddAdsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => AddAdsScreen(),
+          // binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+      case TopUpScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => TopUpScreen(),
+          // binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+
+      case BuyTopUpsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => BuyTopUpsScreen(),
+          // binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+      case EditProfileScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => EditProfileScreen(),
+          binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+      // case BuyTopUpsScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => BuyTopUpsScreen(),
+      //     // binding: Createportfoliobindings(),
+      //     transition: _routeTransition,
+      //   );
 
       default:
         return null;

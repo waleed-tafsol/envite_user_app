@@ -1,12 +1,10 @@
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/CustomChipWidgets.dart';
 import '../../../../widgets/SearchEventWidget.dart';
-import '../../../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 
 class MyEventsScreen extends StatelessWidget {
   const MyEventsScreen({super.key});

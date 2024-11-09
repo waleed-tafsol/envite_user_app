@@ -4,9 +4,7 @@ import 'package:event_planner_light/view/screens/SignUp/Widgets/Terms_of_service
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../constants/assets.dart';
 import '../../../constants/colors_constants.dart';
-import '../Drawer/DrawerScreen.dart';
 
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});

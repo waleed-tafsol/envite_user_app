@@ -4,8 +4,9 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
+import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
+import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -100,22 +101,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 SizedBox(
                   height: 4.h,
                 ),
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      SvgAssets.sendArrow,
-                      height: 4.h,
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Text("Invites",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: AppColors.kBlueMediumShade)),
-                  ],
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(AdsScreen.routeName);
+                  },
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.support_agent,
+                        color: AppColors.kBlueMediumShade,
+                      ),
+                      SizedBox(
+                        width: 4.w,
+                      ),
+                      Text("Ads",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: AppColors.kBlueMediumShade)),
+                    ],
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -128,21 +133,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.history_toggle_off,
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Text("History",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: AppColors.kBlueMediumShade)),
-                  ],
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(TopUpScreen.routeName);
+                  },
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.support_agent,
+                        color: AppColors.kBlueMediumShade,
+                      ),
+                      SizedBox(
+                        width: 4.w,
+                      ),
+                      Text("Top Ups",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: AppColors.kBlueMediumShade)),
+                    ],
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -171,38 +181,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             .copyWith(color: AppColors.kBlueMediumShade)),
                   ],
                 ),
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: SizedBox(
-                //     width: 40.w,
-                //     child: const Divider(
-                //       // thickness: 2,
-
-                //       color: AppColors.kBlueMediumShade,
-                //     ),
-                //   ),
-                // ),
-                // InkWell(
-                //   onTap: () {
-                //     Get.toNamed(NotificationScreen.routeName);
-                //   },
-                //   child: Row(
-                //     children: [
-                //       const Icon(
-                //         Icons.notifications_none,
-                //         color: AppColors.kBlueMediumShade,
-                //       ),
-                //       SizedBox(
-                //         width: 4.w,
-                //       ),
-                //       Text("Notifications",
-                //           style: Theme.of(context)
-                //               .textTheme
-                //               .bodyMedium!
-                //               .copyWith(color: AppColors.kBlueMediumShade)),
-                //     ],
-                //   ),
-                // ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(

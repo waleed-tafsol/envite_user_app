@@ -1,8 +1,6 @@
-import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 import 'Widgets/MynotificationTile.dart';
 

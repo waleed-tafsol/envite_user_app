@@ -50,14 +50,7 @@ class AddEAnventsScreens extends GetView<Addeventcontroller> {
                 SizedBox(
                   height: 2.h,
                 ),
-                // const TextField(
-                //     decoration: InputDecoration(
-                //   hintText: "Phone number",
-                //   prefixIcon: Icon(Icons.phone_iphone_rounded),
-                // )),
-                // SizedBox(
-                //   height: 2.h,
-                // ),
+                
                 const TextField(
                     decoration: InputDecoration(
                   hintText: "Address",

@@ -129,7 +129,7 @@ class EventTileDateBadge extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(date.toString() ?? "0",
+          Text(date.toString(),
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!

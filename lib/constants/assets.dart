@@ -15,6 +15,7 @@ class Assets {
   static const String qr_Code = '${_assets}QR Code.png';
   static const String location = '${_assets}location.png';
   static const String ellips = '${_assets}Ellipse 24.png';
+  static const String myAds = '${_assets}myAds.png';
 }
 
 class SvgAssets {

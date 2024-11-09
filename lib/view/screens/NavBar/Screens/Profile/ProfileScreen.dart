@@ -3,7 +3,7 @@ import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/CreatePortfolioScreens/CreatePortfolioScreen.dart';
-import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -69,7 +69,11 @@ class Profilescreen extends StatelessWidget {
                     SizedBox(
                       width: 4.w,
                     ),
-                    CircleIcon()
+                    InkWell(
+                        onTap: () {
+                          Get.toNamed(EditProfileScreen.routeName);
+                        },
+                        child: CircleIcon())
                   ],
                 ),
                 Text(
@@ -77,24 +81,27 @@ class Profilescreen extends StatelessWidget {
                   style: TextConstants.bodySmall_black_normal(context),
                 ),
                 SizedBox(
-                  height: 1.h,
+                  height: 3.h,
                 ),
                 SizedBox(
                   height: 25.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Expanded(
-                        child: ChoosePlanContainer(
-                          title: 'Standard Plan',
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4.w,
-                      ),
-                      const Expanded(
-                        child: ChoosePlanContainer(
-                          title: 'Premium Plan',
+                      // const Expanded(
+                      //   child: ChoosePlanContainer(
+                      //     title: 'Standard Plan',
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   width: 4.w,
+                      // ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 19.w),
+                          child: ChoosePlanContainer(
+                            title: 'Premium Plan',
+                          ),
                         ),
                       ),
                     ],
@@ -103,132 +110,132 @@ class Profilescreen extends StatelessWidget {
                 SizedBox(
                   height: 1.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total events attendant",
-                      style: TextConstants.bodymedium_darkBlue_normal(context),
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    CircleIcon()
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Public events    ",
-                      style: TextConstants.bodySmall_black_normal(context),
-                    ),
-                    Text(
-                      "24",
-                      style: TextConstants.bodySmall_black_bold(context),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total score",
-                      style: TextConstants.bodymedium_darkBlue_normal(context),
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    CircleIcon()
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total points    ",
-                      style: TextConstants.bodySmall_black_normal(context),
-                    ),
-                    Text(
-                      "126",
-                      style: TextConstants.bodySmall_black_bold(context),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Credit in Wallet for Invitation",
-                      style: TextConstants.bodymedium_darkBlue_normal(context),
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    CircleIcon()
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Credit points    ",
-                      style: TextConstants.bodySmall_black_normal(context),
-                    ),
-                    Text(
-                      "69",
-                      style: TextConstants.bodySmall_black_bold(context),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Languages",
-                      style: TextConstants.bodymedium_darkBlue_normal(context),
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    CircleIcon()
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 2.w),
-                    decoration: BoxDecoration(
-                        color: AppColors.kBlueMediumShade,
-                        borderRadius: k5BorderRadius),
-                    child: Text(
-                      "English",
-                      style: TextConstants.bodySmall_black_normal(context),
-                    ),
-                  ),
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Total events attendant",
+                //       style: TextConstants.bodymedium_darkBlue_normal(context),
+                //     ),
+                //     SizedBox(
+                //       width: 4.w,
+                //     ),
+                //     CircleIcon()
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Public events    ",
+                //       style: TextConstants.bodySmall_black_normal(context),
+                //     ),
+                //     Text(
+                //       "24",
+                //       style: TextConstants.bodySmall_black_bold(context),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Total score",
+                //       style: TextConstants.bodymedium_darkBlue_normal(context),
+                //     ),
+                //     SizedBox(
+                //       width: 4.w,
+                //     ),
+                //     CircleIcon()
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Total points    ",
+                //       style: TextConstants.bodySmall_black_normal(context),
+                //     ),
+                //     Text(
+                //       "126",
+                //       style: TextConstants.bodySmall_black_bold(context),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Credit in Wallet for Invitation",
+                //       style: TextConstants.bodymedium_darkBlue_normal(context),
+                //     ),
+                //     SizedBox(
+                //       width: 4.w,
+                //     ),
+                //     CircleIcon()
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Credit points    ",
+                //       style: TextConstants.bodySmall_black_normal(context),
+                //     ),
+                //     Text(
+                //       "69",
+                //       style: TextConstants.bodySmall_black_bold(context),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Languages",
+                //       style: TextConstants.bodymedium_darkBlue_normal(context),
+                //     ),
+                //     SizedBox(
+                //       width: 4.w,
+                //     ),
+                //     CircleIcon()
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: Container(
+                //     padding:
+                //         EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 2.w),
+                //     decoration: BoxDecoration(
+                //         color: AppColors.kBlueMediumShade,
+                //         borderRadius: k5BorderRadius),
+                //     child: Text(
+                //       "English",
+                //       style: TextConstants.bodySmall_black_normal(context),
+                //     ),
+                //   ),
+                // ),
                 CustomOutlinedButton(
                   contant: [
                     Padding(
