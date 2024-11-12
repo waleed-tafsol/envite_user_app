@@ -11,6 +11,7 @@ import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dar
 import 'package:event_planner_light/view/screens/EventDetailScreen.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
+import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
 import 'package:event_planner_light/view/screens/top_ups/buy_top_ups_screen.dart';
 import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -216,6 +217,13 @@ class Pages {
           settings: settings,
           page: () => EditProfileScreen(),
           binding: Createportfoliobindings(),
+          transition: _routeTransition,
+        );
+      case MemberShipScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => MemberShipScreen(),
+          // binding: Createportfoliobindings(),
           transition: _routeTransition,
         );
       // case BuyTopUpsScreen.routeName:

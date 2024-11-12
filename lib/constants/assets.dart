@@ -16,6 +16,7 @@ class Assets {
   static const String location = '${_assets}location.png';
   static const String ellips = '${_assets}Ellipse 24.png';
   static const String myAds = '${_assets}myAds.png';
+  static const String ad = '${_assets}ad.jpg';
 }
 
 class SvgAssets {

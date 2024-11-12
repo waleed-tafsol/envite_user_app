@@ -1,5 +1,6 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -40,9 +41,19 @@ class AddAdsScreen extends StatelessWidget {
             ),
             const TextField(
                 decoration: InputDecoration(
-              hintText: "Name of the ad",
+              hintText: "Title",
               // prefixIcon: Icon(Icons.email_outlined),
             )),
+            SizedBox(
+              height: 2.h,
+            ),
+            const TextField(
+                maxLines: 4,
+                decoration: InputDecoration(
+                  hintText: "Description",
+
+                  // prefixIcon: Icon(Icons.email_outlined),
+                )),
             SizedBox(
               height: 2.h,
             ),
@@ -52,8 +63,8 @@ class AddAdsScreen extends StatelessWidget {
                 const Expanded(
                   child: TextField(
                       decoration: InputDecoration(
-                    hintText: "Start date of the event",
-                    prefixIcon: Icon(Icons.event),
+                    hintText: "Start date",
+                    // prefixIcon: Icon(Icons.event),
                   )),
                 ),
                 SizedBox(
@@ -62,28 +73,33 @@ class AddAdsScreen extends StatelessWidget {
                 const Expanded(
                   child: TextField(
                       decoration: InputDecoration(
-                    hintText: "End date of the event",
-                    prefixIcon: Icon(Icons.event),
+                    hintText: "End date",
+                    // prefixIcon: Icon(Icons.event),
                   )),
                 ),
               ],
             ),
-            SizedBox(
-              height: 3.h,
-            ),
+            // SizedBox(
+            //   height: 3.h,
+            // ),
+            Spacer(),
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.kPrimaryColor),
-                      onPressed: () {
-                        Get.toNamed(AddAdsScreen.routeName);
-                      },
-                      child: Text(
-                        'Publish Ads',
-                        style: TextStyle(color: Colors.white),
-                      )),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.kPrimaryColor),
+                        onPressed: () {
+                          Get.toNamed(MemberShipScreen.routeName);
+                        },
+                        child: Text(
+                          'Send Request',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
                 ),
               ],
             )
