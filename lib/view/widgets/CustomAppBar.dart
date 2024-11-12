@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.onDrawerToggle});
-  final VoidCallback onDrawerToggle; // Add this line
+  final VoidCallback onDrawerToggle; 
 
   @override
   Size get preferredSize => Size.fromHeight(8.h);
