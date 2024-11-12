@@ -13,7 +13,7 @@ class InviteChips extends StatefulWidget {
 class _InviteChipsState extends State<InviteChips> {
   int _selectedChipIndex = 0;
 
-  final List<String> _chipLabels = ['Pinned', 'Planned events', 'My events'];
+  final List<String> _chipLabels = ['Pinned', 'Planned events',];
 
   @override
   Widget build(BuildContext context) {

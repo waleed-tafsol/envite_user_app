@@ -6,8 +6,8 @@ import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/CustomChipWidgets.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
-class MyEventsScreen extends StatelessWidget {
-  const MyEventsScreen({super.key});
+class MyInvitesScreen extends StatelessWidget {
+  const MyInvitesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
+import 'package:event_planner_light/controllers/membership_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AdChips extends StatefulWidget {
@@ -129,15 +131,8 @@ class ByStatusFilterCipsState extends State<ByStatusFilterCips> {
   }
 }
 
-class MemberShipChips extends StatefulWidget {
-  const MemberShipChips({super.key});
-
-  @override
-  State<MemberShipChips> createState() => _MemberShipChipsState();
-}
-
-class _MemberShipChipsState extends State<MemberShipChips> {
-  int _selectedChipIndex = 0;
+class MemberShipChips extends StatelessWidget {
+  final MembershipController membershipController = Get.find();
 
   final List<String> _chipLabels = [
     'Packages',
@@ -150,39 +145,92 @@ class _MemberShipChipsState extends State<MemberShipChips> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List<Widget>.generate(
-          _chipLabels.length * 2 - 1, // Double the length minus one for spacers
+          _chipLabels.length * 2 - 1,
           (int index) {
             if (index.isEven) {
               int chipIndex = index ~/ 2;
-              return ChoiceChip(
-                backgroundColor: AppColors.kBlueMediumShade,
-                selectedColor: AppColors.kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: k5BorderRadius,
-                  side: BorderSide(
-                    color: AppColors.kBlueMediumShade,
+              return Obx(() {
+                return ChoiceChip(
+                  backgroundColor: AppColors.kBlueMediumShade,
+                  selectedColor: AppColors.kPrimaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: k5BorderRadius,
+                    side: BorderSide(color: AppColors.kBlueMediumShade),
                   ),
-                ),
-                label: Text(
-                  _chipLabels[chipIndex],
-                  style: TextStyle(
-                    color: _selectedChipIndex == chipIndex
-                        ? Colors.white
-                        : AppColors.kBluedarkShade,
+                  label: Text(
+                    _chipLabels[chipIndex],
+                    style: TextStyle(
+                      color: membershipController.selectedChipIndex.value ==
+                              chipIndex
+                          ? Colors.white
+                          : AppColors.kBluedarkShade,
+                    ),
                   ),
-                ),
-                selected: _selectedChipIndex == chipIndex,
-                onSelected: (bool selected) {
-                  setState(() {
-                    _selectedChipIndex = selected ? chipIndex : _selectedChipIndex;
-                  });
-                },
-              );
+                  selected:
+                      membershipController.selectedChipIndex.value == chipIndex,
+                  onSelected: (bool selected) {
+                    if (selected) {
+                      membershipController.updateSelectedChip(chipIndex);
+                    }
+                  },
+                );
+              });
             } else {
-              return SizedBox(width: 4.w); // A3djust the width for the desired gap
+              return SizedBox(width: 4.w);
             }
           },
         ),
+      ),
+    );
+  }
+}
+
+class SupportChip extends StatefulWidget {
+  const SupportChip({super.key});
+
+  @override
+  State<SupportChip> createState() => _SupportChipState();
+}
+
+class _SupportChipState extends State<SupportChip> {
+  int _selectedChipIndex = 0;
+
+  final List<String> _chipLabels = ['Pending', 'Completed', 'Resolved'];
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // spacing: 2.w,
+        children: List<Widget>.generate(
+          _chipLabels.length,
+          (int index) {
+            return Expanded(
+              child: ChoiceChip(
+                backgroundColor: AppColors.kBlueMediumShade,
+                selectedColor: AppColors.kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: k5BorderRadius,
+                    side: BorderSide(
+                      color: AppColors.kBlueMediumShade,
+                    )),
+                label: Text(
+                  _chipLabels[index],
+                  style: TextStyle(
+                      color: _selectedChipIndex == index
+                          ? Colors.white
+                          : AppColors.kBluedarkShade),
+                ),
+                selected: _selectedChipIndex == index,
+                onSelected: (bool selected) {
+                  setState(() {
+                    _selectedChipIndex = selected ? index : _selectedChipIndex;
+                  });
+                },
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }

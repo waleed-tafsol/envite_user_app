@@ -1,51 +1,63 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/top_ups/all_top_ups_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class GenerateTicketScreen extends StatelessWidget {
-  static const routeName = 'GenerateTicketScreen';
-  const GenerateTicketScreen({super.key});
+class AddTopUpsScreen extends StatelessWidget {
+  static const routeName = 'AddTopUpsScreen';
+  const AddTopUpsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Support'),
+        title: const Text(' Top Ups'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(),
-            SizedBox(
-              height: 2.h,
-            ),
             Text(
-              'Generate Ticket',
-              style: TextStyle(
-                  color: AppColors.kBerkeleyBlue, fontWeight: FontWeight.bold),
+              'Top Ups',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Color(0xff457B9D)),
             ),
             SizedBox(
-              height: 1.5.h,
+              height: 3.h,
             ),
-            const TextField(
+            TextField(
                 decoration: InputDecoration(
-              hintText: "Title",
+              hintText: "Enter No Of Invites",
               // prefixIcon: Icon(Icons.email_outlined),
             )),
             SizedBox(
-              height: 1.h,
+              height: 2.h,
             ),
-            const TextField(
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: "Description",
-
-                  // prefixIcon: Icon(Icons.email_outlined),
-                )),
+            Divider(),
+            Row(
+              children: [
+                Text(
+                  'Total',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Color(0xff457B9D)),
+                ),
+                Spacer(),
+                Text(
+                  '\$45',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Color(0xff457B9D)),
+                ),
+              ],
+            ),
             Spacer(),
             Row(
               children: [
@@ -54,10 +66,10 @@ class GenerateTicketScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.kPrimaryColor),
                       onPressed: () {
-                        Get.toNamed(GenerateTicketScreen.routeName);
+                        Get.toNamed(AllTopUpsScreen.routeName);
                       },
                       child: Text(
-                        'Send',
+                        'Add Top Ups',
                         style: TextStyle(color: Colors.white),
                       )),
                 ),

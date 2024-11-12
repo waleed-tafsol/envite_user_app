@@ -1,3 +1,4 @@
+import 'package:event_planner_light/bindings/membership_binding.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/CreatePortfolioScreens/CreatePortfolioScreen.dart';
@@ -6,12 +7,17 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/ge
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dart';
 import 'package:event_planner_light/view/screens/EventDetailScreen.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
 import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
+import 'package:event_planner_light/view/screens/top_ups/add_top_ups_screen.dart';
+import 'package:event_planner_light/view/screens/top_ups/all_top_ups_screen.dart';
 import 'package:event_planner_light/view/screens/top_ups/buy_top_ups_screen.dart';
 import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +83,10 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case Eventdetailscreen.routeName:
+      case MyInvitesEventdetailscreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const Eventdetailscreen(),
+          page: () => const MyInvitesEventdetailscreen(),
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
@@ -223,7 +229,42 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => MemberShipScreen(),
-          // binding: Createportfoliobindings(),
+          binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case AddTopUpsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => AddTopUpsScreen(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case AllTopUpsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => AllTopUpsScreen(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case MyEventsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => MyEventsScreen(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case MyEventsDetailScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => MyEventsDetailScreen(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case SendInviteScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => SendInviteScreen(),
+          // binding: MembershipBindings(),
           transition: _routeTransition,
         );
       // case BuyTopUpsScreen.routeName:

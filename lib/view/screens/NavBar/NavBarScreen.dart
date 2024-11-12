@@ -1,4 +1,5 @@
-import 'package:event_planner_light/view/screens/NavBar/Screens/My_Events/My_EventsScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const ExploreScreen(),
+    const MyInvitesScreen(),
     const MyEventsScreen(),
     const Profilescreen(),
   ];
@@ -63,6 +65,10 @@ class _NavBarScreenState extends State<NavBarScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_outlined),
             label: 'My Invites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'My Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),

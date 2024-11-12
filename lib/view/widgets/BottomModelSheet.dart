@@ -1,5 +1,6 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
 import 'package:flutter/material.dart';
@@ -280,6 +281,33 @@ class BottomSheetManager {
         child: ElevatedButton(
           onPressed: () {
             Get.toNamed(ConfirmorAddMoreEvents.routeName);
+          },
+          child: const Text('Send now'),
+        ),
+      ),
+    ]);
+  }
+
+  static void sendInvite(
+    BuildContext context,
+  ) {
+    _CustomBottomSheet(context, [
+      Text('Send Invite!',
+          textAlign: TextAlign.center,
+          style: TextConstants.bodyMedium_white_bold(context)
+              .copyWith(fontSize: 17.sp)),
+      SizedBox(height: 2.h),
+      SvgPicture.asset(SvgAssets.sendArrow),
+      Text('Send it to a private list of contacts',
+          textAlign: TextAlign.center,
+          style: TextConstants.bodyMedium_white_normal(context)),
+      SizedBox(height: 2.h),
+      SizedBox(
+        width: double.infinity,
+        height: 6.h,
+        child: ElevatedButton(
+          onPressed: () {
+            Get.toNamed(SendInviteScreen.routeName);
           },
           child: const Text('Send now'),
         ),

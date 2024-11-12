@@ -1,14 +1,17 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
+import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
+import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../widgets/EventTileWidget.dart';
-import '../widgets/PublicBadgeWidget.dart';
 
-class MyInvitesEventdetailscreen extends StatelessWidget {
-  const MyInvitesEventdetailscreen({super.key});
-  static const routeName = "Eventdetailscreen";
+class MyEventsDetailScreen extends StatelessWidget {
+  static const routeName = 'MyEventsDetailScreen';
+  const MyEventsDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,12 @@ class MyInvitesEventdetailscreen extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         centerTitle: true,
+        actions: [
+          SvgPicture.asset(SvgAssets.image_pen),
+          SizedBox(
+            width: 2.w,
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -206,10 +215,25 @@ class MyInvitesEventdetailscreen extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.kPrimaryColor),
                                 onPressed: () {
+                                  BottomSheetManager.sendInvite(context);
+                                },
+                                child: Text(
+                                  'Send Invite',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.kBerkeleyBlue),
+                                onPressed: () {
                                   // Get.toNamed(GenerateTicketScreen.routeName);
                                 },
                                 child: Text(
-                                  'Mark As Attendees',
+                                  'Pin',
                                   style: TextStyle(color: Colors.white),
                                 )),
                           ),
