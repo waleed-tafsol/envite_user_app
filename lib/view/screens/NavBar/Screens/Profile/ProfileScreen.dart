@@ -4,6 +4,8 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/CreatePortfolioScreens/CreatePortfolioScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
+import 'package:event_planner_light/view/widgets/membership_container.dart';
+import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -63,8 +65,11 @@ class Profilescreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Ghanem Abdallah",
-                      style: TextConstants.bodyLargeBlackBold(context),
+                      "Imane Al Khassim",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: AppColors.kBerkeleyBlue),
                     ),
                     SizedBox(
                       width: 4.w,
@@ -77,39 +82,106 @@ class Profilescreen extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "Basic Plan (Free)",
+                  "Event Planner",
                   style: TextConstants.bodySmall_black_normal(context),
                 ),
                 SizedBox(
                   height: 3.h,
                 ),
-                SizedBox(
-                  height: 25.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // const Expanded(
-                      //   child: ChoosePlanContainer(
-                      //     title: 'Standard Plan',
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   width: 4.w,
-                      // ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 19.w),
-                          child: ChoosePlanContainer(
-                            title: 'Premium Plan',
-                          ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Text(
+                          'About Me',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: Color(0xff457B9D)),
                         ),
-                      ),
-                    ],
+                        k3wSizedBox,
+                        InkWell(
+                            onTap: () {
+                              Get.toNamed(EditProfileScreen.routeName);
+                            },
+                            child: CircleIcon())
+                      ],
+                    )),
+                k1hSizedBox,
+                Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque tincidunt mi. Suspendisse in libero eu lorem vehicula blandit a ut mauris. Curabitur tincidunt mattis arcu vitae finibus. Morbi eleifend felis sit amet est efficitur, sit amet venenatis metus rhoncus.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: AppColors.kBerkeleyBlue),
+                ),
+                k3hSizedBox,
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Contact Info',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: Color(0xff457B9D)),
+                        ),
+                        k3wSizedBox,
+                        InkWell(
+                            onTap: () {
+                              Get.toNamed(EditProfileScreen.routeName);
+                            },
+                            child: CircleIcon())
+                      ],
+                    )),
+                k1hSizedBox,
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Email: examplemail@gmail.com',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: AppColors.kBerkeleyBlue),
+                    )),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Contact: 97644 2078789',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: AppColors.kBerkeleyBlue),
+                    )),
+                k3hSizedBox,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'My Packages',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: Color(0xff457B9D)),
                   ),
                 ),
-                SizedBox(
-                  height: 1.h,
+                k1hSizedBox,
+                MembershipContainer(),
+                k1hSizedBox,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Top Up',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: Color(0xff457B9D)),
+                  ),
                 ),
+                k1hSizedBox,
+                TopupContainer(),
+                TopupContainer(),
+
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.start,
                 //   children: [

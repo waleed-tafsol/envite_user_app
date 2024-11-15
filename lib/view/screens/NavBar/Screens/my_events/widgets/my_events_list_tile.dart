@@ -1,18 +1,16 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
+import 'package:event_planner_light/constants/assets.dart';
+import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../constants/assets.dart';
-import '../../constants/colors_constants.dart';
-import '../screens/EventDetailScreen.dart';
 
-class EventTileWidget extends StatelessWidget {
+class MyEventsListTile extends StatelessWidget {
   // Optional parameters with default values of false
   final bool pinned;
 
-  const EventTileWidget({
+  const MyEventsListTile({
     super.key,
     this.pinned = false,
   });
@@ -20,7 +18,7 @@ class EventTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
+      onTap: () => Get.toNamed(MyEventsDetailScreen.routeName),
       child: Container(
         height: 14.h,
         margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),

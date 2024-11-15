@@ -133,38 +133,38 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(TopUpScreen.routeName);
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.support_agent,
-                        color: AppColors.kBlueMediumShade,
-                      ),
-                      SizedBox(
-                        width: 4.w,
-                      ),
-                      Text("Top Ups",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.kBlueMediumShade)),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: 40.w,
-                    child: const Divider(
-                      // thickness: 2,
+                // InkWell(
+                //   onTap: () {
+                //     Get.toNamed(TopUpScreen.routeName);
+                //   },
+                //   child: Row(
+                //     children: [
+                //       const Icon(
+                //         Icons.support_agent,
+                //         color: AppColors.kBlueMediumShade,
+                //       ),
+                //       SizedBox(
+                //         width: 4.w,
+                //       ),
+                //       Text("Top Ups",
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .bodyMedium!
+                //               .copyWith(color: AppColors.kBlueMediumShade)),
+                //     ],
+                //   ),
+                // ),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: SizedBox(
+                //     width: 40.w,
+                //     child: const Divider(
+                //       // thickness: 2,
 
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                  ),
-                ),
+                //       color: AppColors.kBlueMediumShade,
+                //     ),
+                //   ),
+                // ),
                 Row(
                   children: [
                     const Icon(

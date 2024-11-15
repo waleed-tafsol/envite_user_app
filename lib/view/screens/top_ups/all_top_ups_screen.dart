@@ -1,45 +1,56 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/widgets/support_container.dart';
-import 'package:event_planner_light/view/widgets/ad_chips.dart';
+import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SupportScreen extends StatelessWidget {
-  const SupportScreen({super.key});
-  static const routeName = "SupportScreen";
+class AllTopUpsScreen extends StatelessWidget {
+  static const routeName = 'AllTopUpsScreen';
+  const AllTopUpsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Support'),
+        centerTitle: true,
+        title: Text('Top Ups'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SupportChip(),
+            Text(
+              'Top Ups',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Color(0xff457B9D)),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            // SizedBox(
+            //   height: 2.h,
+            // ),
+            TopupContainer(),
+            SizedBox(
+              height: 1.h,
+            ),
+            TopupContainer(),
+            SizedBox(
+              height: 1.h,
+            ),
+            TopupContainer(),
+            SizedBox(
+              height: 1.h,
+            ),
+            TopupContainer(),
+            SizedBox(
+              height: 1.h,
+            ),
+            TopupContainer(),
             SizedBox(
               height: 3.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
             ),
             Spacer(),
             Row(
@@ -49,10 +60,10 @@ class SupportScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.kPrimaryColor),
                       onPressed: () {
-                        Get.toNamed(GenerateTicketScreen.routeName);
+                        // Get.toNamed(AllTopUpsScreen.routeName);
                       },
                       child: Text(
-                        'Generate Ticket',
+                        'Add Top Ups',
                         style: TextStyle(color: Colors.white),
                       )),
                 ),

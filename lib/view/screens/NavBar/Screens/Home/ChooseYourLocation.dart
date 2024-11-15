@@ -1,6 +1,8 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Home/nearby_events.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ChooseyourlocationScreen extends StatelessWidget {
@@ -47,7 +49,9 @@ class ChooseyourlocationScreen extends StatelessWidget {
               width: double.infinity,
               height: 6.h,
               child: OutlinedButton(
-                onPressed: () async {},
+                onPressed: () {
+                  Get.toNamed(NearbyEvents.routeName);
+                },
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   side: const BorderSide(
