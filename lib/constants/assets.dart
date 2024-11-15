@@ -19,6 +19,7 @@ class Assets {
   static const String ad = '${_assets}ad.jpg';
   static const String m1 = '${_assets}m1.png';
   static const String m2 = '${_assets}m2.png';
+  static const String saad = '${_assets}saad.png';
 }
 
 class SvgAssets {
@@ -38,4 +39,5 @@ class SvgAssets {
   static const String emoji_happy = '${_assets}Emoji_happy.svg';
   static const String my_fatoorah = '${_assets}MyFatoorah.svg';
   static const String image_pen = '${_assets}image_pen.svg';
+  static const String up = '${_assets}up.svg';
 }

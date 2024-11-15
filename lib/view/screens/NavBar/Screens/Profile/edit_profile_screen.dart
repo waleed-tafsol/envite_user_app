@@ -1,11 +1,13 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
+import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/CreateProfileController.dart';
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -17,7 +19,7 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile '),
+        title: Text('Update Profile '),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -28,6 +30,19 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
               SizedBox(
                 height: 1.h,
               ),
+              Stack(children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      fit: BoxFit.cover,
+                      Assets.eventCanvas,
+                      width: double.infinity,
+                    )),
+                    Positioned(
+                      right: 1.w,
+                      child: SvgPicture.asset(SvgAssets.image_pen))
+              ]),
+              SizedBox(height: 1.h),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -39,19 +54,19 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
                 height: 1.h,
               ),
               TextField(
-                decoration: InputDecoration(hintText: "Edit Name"),
+                decoration: InputDecoration(hintText: "Name"),
               ),
               SizedBox(
                 height: 1.h,
               ),
               TextField(
-                decoration: InputDecoration(hintText: "Edit Email"),
+                decoration: InputDecoration(hintText: "Email"),
               ),
               SizedBox(
                 height: 1.h,
               ),
               TextField(
-                decoration: InputDecoration(hintText: "Edit Phone Number"),
+                decoration: InputDecoration(hintText: "Phone Number"),
               ),
               SizedBox(
                 height: 1.h,
@@ -63,103 +78,14 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
                   textAlignVertical: TextAlignVertical.top,
                   maxLines: null, // Set this
                   expands: true,
-                  decoration: InputDecoration(hintText: "Edit Bio"),
+                  decoration: InputDecoration(hintText: "Bio"),
                 ),
               ),
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: Text(
-              //     "Price",
-              //     style: TextConstants.bodyLargeBlackBold(context),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
-              // TextField(
-              //   decoration: InputDecoration(hintText: "Type Here"),
-              // ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       "Specialty",
-              //       style: TextConstants.bodyLargeBlackBold(context),
-              //     ),
-              //     IconButton(
-              //         onPressed: () {
-              //           if (controller
-              //               .specialityController.value.text.isNotEmpty) {
-              //             controller.spacialities
-              //                 .add(controller.specialityController.value.text);
-              //             controller.specialityController.clear();
-              //           } else {
-              //             Get.snackbar("Invalid", "Please enter something");
-              //           }
-              //         },
-              //         icon: Icon(Icons.add))
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 1.h),
-              //   child: Obx(() {
-              //     return Wrap(
-              //       runSpacing: 1.h,
-              //       children: controller.spacialities.map((text) {
-              //         return Container(
-              //             padding: EdgeInsets.symmetric(
-              //                 vertical: 1.h, horizontal: 4.w),
-              //             margin: EdgeInsets.symmetric(horizontal: 2.w),
-              //             decoration: BoxDecoration(
-              //                 color: Colors.white,
-              //                 borderRadius: k5BorderRadius),
-              //             child: Text(
-              //               text,
-              //               style:
-              //                   TextConstants.bodyMedium_black_normal(context),
-              //             ));
-              //       }).toList(),
-              //     );
-              //   }),
-              // ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
-              // TextField(
-              //   decoration: InputDecoration(
-              //     hintText: "Type Here",
-              //   ),
-              //   controller: controller.specialityController,
-              //   onSubmitted: (value) {
-              //     if (value.isNotEmpty) {
-              //       controller.spacialities
-              //           .add(controller.specialityController.value.text);
 
-              //       controller.specialityController.clear();
-              //     } else {
-              //       Get.snackbar("Invalid", "Please enter something");
-              //     }
-              //   },
-              // ),
               SizedBox(
                 height: 1.h,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       "Verification Document",
-              //       style: TextConstants.bodyLargeBlackBold(context),
-              //     ),
-              //     IconButton(onPressed: () {}, icon: Icon(Icons.add))
-              //   ],
-              // ),
+
               SizedBox(
                 height: 1.h,
               ),
@@ -269,7 +195,7 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
                     onPressed: () {
                       Get.offNamed(DrawerScreen.routeName);
                     },
-                    child: Text("Edit Profile")),
+                    child: Text("Update Profile")),
               ),
               SizedBox(
                 height: 1.h,

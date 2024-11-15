@@ -8,6 +8,7 @@ class TopupContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 1.h),
       width: double.infinity,
       decoration: BoxDecoration(
           border: Border.all(color: Color(0xff457B9D)),

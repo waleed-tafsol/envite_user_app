@@ -10,9 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class MyEventsDetailScreen extends StatelessWidget {
-  static const routeName = 'MyEventsDetailScreen';
-  const MyEventsDetailScreen({super.key});
+class MyInvitesEventsDetailScreen extends StatelessWidget {
+  static const routeName = 'MyInvitesEventsDetailScreen';
+  const MyInvitesEventsDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MyEventsDetailScreen extends StatelessWidget {
         actions: [
           InkWell(
               onTap: () {
-                Get.toNamed(EditEventsDetailScreen.routeName);
+                // Get.toNamed(EditEventsDetailScreen.routeName);
               },
               child: SvgPicture.asset(SvgAssets.image_pen)),
           SizedBox(
@@ -220,25 +220,10 @@ class MyEventsDetailScreen extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.kPrimaryColor),
                                 onPressed: () {
-                                  BottomSheetManager.sendInvite(context);
+                                  // BottomSheetManager.sendInvite(context);
                                 },
                                 child: Text(
-                                  'Send Invite',
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.kBerkeleyBlue),
-                                onPressed: () {
-                                  // Get.toNamed(GenerateTicketScreen.routeName);
-                                },
-                                child: Text(
-                                  'Pin',
+                                  'Mark As Attendees',
                                   style: TextStyle(color: Colors.white),
                                 )),
                           ),

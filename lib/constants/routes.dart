@@ -1,3 +1,4 @@
+import 'package:event_planner_light/bindings/EditEventBindings.dart';
 import 'package:event_planner_light/bindings/membership_binding.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
@@ -6,10 +7,14 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dar
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Home/nearby_events.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/edit_event_details.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dart';
 import 'package:event_planner_light/view/screens/EventDetailScreen.dart';
@@ -83,10 +88,10 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case MyInvitesEventdetailscreen.routeName:
+      case MyInvitesEventsDetailScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const MyInvitesEventdetailscreen(),
+          page: () => const MyInvitesEventsDetailScreen(),
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
@@ -140,10 +145,10 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case AddEAnventsScreens.routeName:
+      case AddEventsScreens.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const AddEAnventsScreens(),
+          page: () => const AddEventsScreens(),
           binding: AddeventBindings(),
           transition: _routeTransition,
         );
@@ -265,6 +270,27 @@ class Pages {
           settings: settings,
           page: () => SendInviteScreen(),
           // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case PackagesScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => PackagesScreen(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case NearbyEvents.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => NearbyEvents(),
+          // binding: MembershipBindings(),
+          transition: _routeTransition,
+        );
+      case EditEventsDetailScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => EditEventsDetailScreen(),
+          binding: AddeventBindings(),
           transition: _routeTransition,
         );
       // case BuyTopUpsScreen.routeName:

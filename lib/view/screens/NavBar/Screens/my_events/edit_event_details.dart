@@ -8,15 +8,15 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 
-class AddEventsScreens extends GetView<Addeventcontroller> {
-  const AddEventsScreens({super.key});
-  static const routeName = "AddEventsScreens";
+class EditEventsDetailScreen extends GetView<Addeventcontroller> {
+  const EditEventsDetailScreen({super.key});
+  static const routeName = "EditEventsDetailScreen";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Your event"),
+        title: const Text("Edit Your Event"),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -159,7 +159,7 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                       onPressed: () {
                         Get.toNamed(ConfirmorAddMoreEvents.routeName);
                       },
-                      child: const Text("Add the event")),
+                      child: const Text("Edit Event")),
                 ),
                 SizedBox(
                   height: 2.h,

@@ -90,7 +90,7 @@ class _MyEventsScreenState extends State<MyEventsScreen> {
                 ),
               ),
               ListView.builder(
-                  itemCount: 2,
+                  itemCount: 6,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -114,13 +114,13 @@ class _MyEventsScreenState extends State<MyEventsScreen> {
               //     )
               //   ],
               // ),
-              ListView.builder(
-                  itemCount: 10,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const EventTileWidget();
-                  }),
+              // ListView.builder(
+              //     itemCount: 10,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     shrinkWrap: true,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return const EventTileWidget();
+              //     }),
               // SizedBox(
               //   height: 6.h,
               //   width: double.infinity,

@@ -1,3 +1,5 @@
+import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -18,7 +20,7 @@ class EventTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(MyInvitesEventdetailscreen.routeName),
+      onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
       child: Container(
         height: 14.h,
         margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),

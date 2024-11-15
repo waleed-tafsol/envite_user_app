@@ -80,7 +80,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
-          Get.toNamed(AddEAnventsScreens.routeName);
+          Get.toNamed(AddEventsScreens.routeName);
         },
         child: Icon(
           Icons.add,

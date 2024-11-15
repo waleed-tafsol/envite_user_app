@@ -1,5 +1,7 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
+import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
@@ -292,16 +294,20 @@ class BottomSheetManager {
     BuildContext context,
   ) {
     _CustomBottomSheet(context, [
-      Text('Send Invite!',
-          textAlign: TextAlign.center,
-          style: TextConstants.bodyMedium_white_bold(context)
-              .copyWith(fontSize: 17.sp)),
-      SizedBox(height: 2.h),
-      SvgPicture.asset(SvgAssets.sendArrow),
+      k3hSizedBox,
+      Center(
+        child: Text('Send Invite!',
+            textAlign: TextAlign.center,
+            style: TextConstants.bodyMedium_white_bold(context)
+                .copyWith(fontSize: 17.sp)),
+      ),
+      k4hSizedBox,
+      Center(child: SvgPicture.asset(SvgAssets.sendArrow)),
       Text('Send it to a private list of contacts',
           textAlign: TextAlign.center,
           style: TextConstants.bodyMedium_white_normal(context)),
-      SizedBox(height: 2.h),
+      // SizedBox(height: 2.h),
+      Spacer(),
       SizedBox(
         width: double.infinity,
         height: 6.h,
@@ -413,6 +419,48 @@ class BottomSheetManager {
           // primary: Colors.blueAccent, // Background color
         ),
         child: const Text('Upgrade Your Plan'),
+      ),
+    ]);
+  }
+
+  static void upgradEvent(
+    BuildContext context,
+  ) {
+    _CustomBottomSheet(context, [
+      // const Spacer(),
+      SizedBox(
+        height: 5.h,
+      ),
+      Text(
+        'You Have consume your invites upgrade your package or Purchase The Top Up ',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodyMedium_white_bold(context),
+      ),
+      SizedBox(height: 2.h),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(SvgAssets.up),
+        ],
+      ),
+      SizedBox(height: 2.h),
+      Text(
+        'You Need to upgrade Your plan',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodysmall_white_normal(context),
+      ),
+      // SizedBox(height: 2.h),
+      Spacer(),
+      ElevatedButton(
+        onPressed: () {
+          Get.toNamed(PackagesScreen.routeName);
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          minimumSize: Size(double.infinity, 6.h),
+          // primary: Colors.blueAccent, // Background color
+        ),
+        child: const Text('Upgrade Now'),
       ),
     ]);
   }
