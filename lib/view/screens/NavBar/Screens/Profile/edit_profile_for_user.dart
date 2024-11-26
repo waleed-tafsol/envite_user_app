@@ -1,15 +1,12 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
-import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/controllers/CreateProfileController.dart';
+
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class EditProfileForUser extends GetView<Createprofilecontroller> {
+class EditProfileForUser extends StatelessWidget {
   static const routeName = 'EditProfileForUser';
   const EditProfileForUser({super.key});
 

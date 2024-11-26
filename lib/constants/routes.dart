@@ -1,8 +1,8 @@
-import 'package:event_planner_light/bindings/EditEventBindings.dart';
+import 'package:event_planner_light/bindings/SignInController.dart';
+import 'package:event_planner_light/bindings/SignUpBindings.dart';
 import 'package:event_planner_light/bindings/membership_binding.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/CreatePortfolioScreens/CreatePortfolioScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
@@ -17,7 +17,6 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_i
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dart';
-import 'package:event_planner_light/view/screens/EventDetailScreen.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
 import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
@@ -28,7 +27,6 @@ import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
-import '../bindings/CreatePortfolioBindings.dart';
 import '../bindings/splash_binding.dart';
 import '../view/screens/Drawer/DrawerScreen.dart';
 import '../view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
@@ -56,8 +54,8 @@ class Pages {
       case SignUpScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const SignUpScreen(),
-          // binding: SplashBinding(),
+          page: () => SignUpScreen(),
+          binding: SignUpBindings(),
           transition: _routeTransition,
         );
       case ChooseyourlocationScreen.routeName:
@@ -77,8 +75,8 @@ class Pages {
       case SigninScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const SigninScreen(),
-          // binding: AuthBinding(),
+          page: () => SigninScreen(),
+          binding: SignInBindings(),
           transition: _routeTransition,
         );
       case HomeScreen.routeName:
@@ -166,13 +164,13 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case CreatePortfolioScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => CreatePortfolioScreen(),
-          binding: Createportfoliobindings(),
-          transition: _routeTransition,
-        );
+      // case CreatePortfolioScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => CreatePortfolioScreen(),
+      //     binding: Createportfoliobindings(),
+      //     transition: _routeTransition,
+      //   );
       case SupportScreen.routeName:
         return GetPageRoute(
           settings: settings,
@@ -227,7 +225,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => EditProfileScreen(),
-          binding: Createportfoliobindings(),
+          // binding: Createportfoliobindings(),
           transition: _routeTransition,
         );
       case MemberShipScreen.routeName:

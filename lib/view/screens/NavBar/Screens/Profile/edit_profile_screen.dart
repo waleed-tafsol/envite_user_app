@@ -4,14 +4,13 @@ import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/controllers/CreateProfileController.dart';
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class EditProfileScreen extends GetView<Createprofilecontroller> {
+class EditProfileScreen extends StatelessWidget {
   static const routeName = 'EditProfileScreen';
   const EditProfileScreen({super.key});
 
@@ -38,9 +37,8 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
                       Assets.eventCanvas,
                       width: double.infinity,
                     )),
-                    Positioned(
-                      right: 1.w,
-                      child: SvgPicture.asset(SvgAssets.image_pen))
+                Positioned(
+                    right: 1.w, child: SvgPicture.asset(SvgAssets.image_pen))
               ]),
               SizedBox(height: 1.h),
               Align(
@@ -93,7 +91,7 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
                 alignment: Alignment.centerLeft,
                 child: InkWell(
                   onTap: () {
-                    controller.pickImageOrVideo();
+                    // controller.pickImageOrVideo();
                   },
                   child: DottedBorder(
                     dashPattern: [5],
@@ -127,57 +125,57 @@ class EditProfileScreen extends GetView<Createprofilecontroller> {
               SizedBox(
                 height: 1.h,
               ),
-              Obx(() {
-                if (controller.pickedFiles.isEmpty) {
-                  return const SizedBox();
-                }
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics:
-                      const NeverScrollableScrollPhysics(), // Disable scrolling
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of columns
-                      childAspectRatio: 1.1, // Aspect ratio of grid items
-                      mainAxisSpacing: 3.h,
-                      crossAxisSpacing: 4.w),
-                  itemCount: controller.pickedFiles.length,
-                  itemBuilder: (context, index) {
-                    final file = controller.pickedFiles[index];
-                    return Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: k5BorderRadius,
-                              color: AppColors.kBlueLightShade,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.h, horizontal: 4.w),
-                            child: ClipRRect(
-                              borderRadius: k5BorderRadius,
-                              child: Image.file(
-                                file,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                            right: 0,
-                            top: 0,
-                            child: IconButton(
-                                icon: const Icon(
-                                  Icons.cancel,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  controller.removeFile(file);
-                                }))
-                      ],
-                    );
-                  },
-                );
-              }),
+              // Obx(() {
+              //   if (controller.pickedFiles.isEmpty) {
+              //     return const SizedBox();
+              //   }
+              //   return GridView.builder(
+              //     shrinkWrap: true,
+              //     physics:
+              //         const NeverScrollableScrollPhysics(), // Disable scrolling
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 2, // Number of columns
+              //         childAspectRatio: 1.1, // Aspect ratio of grid items
+              //         mainAxisSpacing: 3.h,
+              //         crossAxisSpacing: 4.w),
+              //     itemCount: controller.pickedFiles.length,
+              //     itemBuilder: (context, index) {
+              //       final file = controller.pickedFiles[index];
+              //       return Stack(
+              //         children: [
+              //           Positioned.fill(
+              //             child: Container(
+              //               decoration: BoxDecoration(
+              //                 borderRadius: k5BorderRadius,
+              //                 color: AppColors.kBlueLightShade,
+              //               ),
+              //               padding: EdgeInsets.symmetric(
+              //                   vertical: 2.h, horizontal: 4.w),
+              //               child: ClipRRect(
+              //                 borderRadius: k5BorderRadius,
+              //                 child: Image.file(
+              //                   file,
+              //                   fit: BoxFit.cover,
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //           Positioned(
+              //               right: 0,
+              //               top: 0,
+              //               child: IconButton(
+              //                   icon: const Icon(
+              //                     Icons.cancel,
+              //                     color: Colors.white,
+              //                   ),
+              //                   onPressed: () {
+              //                     controller.removeFile(file);
+              //                   }))
+              //         ],
+              //       );
+              //     },
+              //   );
+              // }),
               SizedBox(
                 height: 1.h,
               ),

@@ -2,7 +2,6 @@ import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/CreatePortfolioScreens/CreatePortfolioScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/widgets/membership_container.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../widgets/CircleButton.dart';
-import '../../../Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 import '../../../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 
 class Profilescreen extends StatelessWidget {
@@ -330,7 +328,7 @@ class Profilescreen extends StatelessWidget {
                   ],
                   ontap: () {
                     // Get.offAllNamed(SigninScreen.routeName);
-                    Get.toNamed(CreatePortfolioScreen.routeName);
+                    // Get.toNamed(CreatePortfolioScreen.routeName);
                   },
                 ),
                 SizedBox(

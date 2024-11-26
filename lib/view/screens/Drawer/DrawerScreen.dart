@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
@@ -299,7 +300,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     height: 6.h,
                     child: OutlinedButton(
                       onPressed: () async {
-                        Get.offAllNamed(SigninScreen.routeName);
+                        // authService.logout();
+                        authService.deleteAuthTokenAndNavigate();
                       },
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.transparent,
