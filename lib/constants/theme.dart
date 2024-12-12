@@ -101,6 +101,10 @@ class CustomTheme {
             // color: AppColors.kTextblackColor,
             fontWeight: FontWeight.normal),
         hintStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.normal),
+        // errorStyle: TextStyle(
+        //     fontSize: 12.sp,
+        //     // color: AppColors.kErrorBorderColor,
+        //     fontWeight: FontWeight.normal),
 
         // enabledBorder: OutlineInputBorder(
         //     borderSide: const BorderSide(

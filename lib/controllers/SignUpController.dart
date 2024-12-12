@@ -7,7 +7,6 @@ import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -54,19 +53,19 @@ class Signupcontroller extends GetxController {
   }
 
   Future<void> pickADocument() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-          // allowedExtensions: ['pdf', 'docx', 'txt'],
-          );
-      if (result != null) {
-        PlatformFile file = result.files.first;
-        pickedFiles.add(File(file.path!));
-      } else {
-        Get.snackbar('No file selected', 'No document was picked.');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to pick document: $e');
-    }
+    // try {
+    //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+    //       // allowedExtensions: ['pdf', 'docx', 'txt'],
+    //       );
+    //   if (result != null) {
+    //     PlatformFile file = result.files.first;
+    //     pickedFiles.add(File(file.path!));
+    //   } else {
+    //     Get.snackbar('No file selected', 'No document was picked.');
+    //   }
+    // } catch (e) {
+    //   Get.snackbar('Error', 'Failed to pick document: $e');
+    // }
   }
 
   // Future<void> takePhotoOrVideo() async {
