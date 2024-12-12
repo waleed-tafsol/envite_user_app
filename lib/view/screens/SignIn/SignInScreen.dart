@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/SigninController.dart';
-import '../Drawer/DrawerScreen.dart';
 
 class SigninScreen extends GetView<SignIncontroller> {
   SigninScreen({super.key});
@@ -61,23 +60,33 @@ class SigninScreen extends GetView<SignIncontroller> {
                     SizedBox(
                       height: 2.h,
                     ),
-                    TextFormField(
-                        controller: controller.passwordController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter a Password";
-                          } else if (value.length < 6) {
-                            return "Password must be at least 6 characters long";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: const InputDecoration(
-                            hintText: "password",
-                            prefixIcon: Icon(
-                              Icons.lock_outline,
-                            ),
-                            suffixIcon: Icon(Icons.visibility_off_outlined))),
+                    Obx(() {
+                      return TextFormField(
+                          controller: controller.passwordController,
+                          obscureText: !controller.isPasswordVisible.value,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter a Password";
+                            } else if (value.length < 6) {
+                              return "Password must be at least 6 characters long";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                              hintText: "password",
+                              prefixIcon: Icon(
+                                Icons.lock_outline,
+                              ),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller.isPasswordVisible.value =
+                                        !controller.isPasswordVisible.value;
+                                  },
+                                  icon: Icon(controller.isPasswordVisible.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined))));
+                    }),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -141,8 +150,8 @@ class SigninScreen extends GetView<SignIncontroller> {
                     InkWell(
                       onTap: () {
                         if (formKey.currentState!.validate()) {
-                          // controller.login();
-                          Get.toNamed(DrawerScreen.routeName);
+                          controller.login();
+                          // Get.toNamed(DrawerScreen.routeName);
                         }
                       },
                       child: Container(

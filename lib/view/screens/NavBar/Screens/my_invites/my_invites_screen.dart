@@ -1,12 +1,14 @@
+import 'package:event_planner_light/controllers/MyInvitesController.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/CustomChipWidgets.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
-class MyInvitesScreen extends StatelessWidget {
+class MyInvitesScreen extends GetView<MyInvitesController> {
   const MyInvitesScreen({super.key});
 
   @override
@@ -30,7 +32,7 @@ class MyInvitesScreen extends StatelessWidget {
               ),
               const InviteChips(),
               ListView.builder(
-                  itemCount: 2,
+                  itemCount: 0,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -55,7 +57,7 @@ class MyInvitesScreen extends StatelessWidget {
                 ],
               ),
               ListView.builder(
-                  itemCount: 10,
+                  itemCount: 0,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {

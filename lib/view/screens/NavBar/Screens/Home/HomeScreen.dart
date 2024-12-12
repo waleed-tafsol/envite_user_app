@@ -1,11 +1,12 @@
+import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
-
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
   static const routeName = "HomeScreen";
 
@@ -64,33 +65,42 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 10.h,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 1.w,
-                            ),
-                            decoration: BoxDecoration(
-                                color: AppColors.kBlueLightShade,
-                                borderRadius: BorderRadius.circular(10)),
-                            height: 8.h,
-                            width: 25.w,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.mic),
-                                Text(
-                                  "Entertainment",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                  child: Obx(() {
+                    return controller.isloadingCatagories.value
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.categories.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 1.w,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.kBlueLightShade,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 8.h,
+                                  width: 25.w,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(Icons.mic),
+                                      Text(
+                                        controller.categories[index].name?.en ??
+                                            "",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
+                              );
+                            });
+                  }),
                 ),
                 SizedBox(
                   height: 1.h,
@@ -113,13 +123,21 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: ListView.builder(
-                      itemCount: 100,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return const EventTileWidget();
-                      }),
+                  child: Obx(() {
+                    return controller.isEventLoading.value
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.events.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return EventTileWidget(
+                                event: controller.events[index],
+                              );
+                            });
+                  }),
                 ),
               ],
             ),

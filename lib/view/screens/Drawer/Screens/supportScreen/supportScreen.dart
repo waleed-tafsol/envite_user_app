@@ -1,4 +1,5 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/SupportController.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/widgets/support_container.dart';
 import 'package:event_planner_light/view/widgets/ad_chips.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SupportScreen extends StatelessWidget {
+class SupportScreen extends GetView<Supportcontroller> {
   const SupportScreen({super.key});
   static const routeName = "SupportScreen";
 
@@ -25,23 +26,23 @@ class SupportScreen extends StatelessWidget {
             SizedBox(
               height: 3.h,
             ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
+            Expanded(
+              child: Obx(() {
+                return controller.isloading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemCount: controller.tickets.length,
+                        itemBuilder: (context, index) {
+                          return SupportContainer(
+                            title: controller.tickets[index].title ?? "",
+                            subTitle:
+                                controller.tickets[index].description ?? "",
+                          );
+                        });
+              }),
             ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            SupportContainer(),
-            SizedBox(
-              height: 1.h,
-            ),
-            Spacer(),
             Row(
               children: [
                 Expanded(

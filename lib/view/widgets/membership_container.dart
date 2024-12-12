@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MembershipContainer extends StatelessWidget {
-  const MembershipContainer({super.key});
+  const MembershipContainer(
+      {super.key, required this.price, required this.type});
+  final int price;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 1.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -30,14 +34,14 @@ class MembershipContainer extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                  text: '\$354.90/',
+                  text: '\$$price/',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
                       .copyWith(color: AppColors.kBerkeleyBlue),
                   children: [
                     TextSpan(
-                      text: 'Monthly',
+                      text: type,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -45,23 +49,23 @@ class MembershipContainer extends StatelessWidget {
                     )
                   ]),
             ),
-            Text(
-              'See Benefits',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: AppColors.kBerkeleyBlue),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w),
-              child: BulletPoints(
-                items: [
-                  'Limited invites',
-                  'Online support',
-                  'View exclusif events',
-                ],
-              ),
-            )
+            // Text(
+            //   'See Benefits',
+            //   style: Theme.of(context)
+            //       .textTheme
+            //       .bodyLarge!
+            //       .copyWith(color: AppColors.kBerkeleyBlue),
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 2.w),
+            //   child: BulletPoints(
+            //     items: [
+            //       'Limited invites',
+            //       'Online support',
+            //       'View exclusif events',
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),

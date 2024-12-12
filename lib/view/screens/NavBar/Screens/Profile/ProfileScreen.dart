@@ -2,6 +2,8 @@ import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
+import 'package:event_planner_light/controllers/Auth_services.dart';
+import 'package:event_planner_light/controllers/MyProfileController.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/widgets/membership_container.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
@@ -9,9 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../widgets/CircleButton.dart';
-import '../../../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 
-class Profilescreen extends StatelessWidget {
+class Profilescreen extends GetView<MyProfileController> {
   const Profilescreen({super.key});
 
   @override
@@ -62,13 +63,15 @@ class Profilescreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Imane Al Khassim",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(color: AppColors.kBerkeleyBlue),
-                    ),
+                    Obx(() {
+                      return Text(
+                        authService.me.value?.fullName ?? "User Name",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: AppColors.kBerkeleyBlue),
+                      );
+                    }),
                     SizedBox(
                       width: 4.w,
                     ),
@@ -79,10 +82,26 @@ class Profilescreen extends StatelessWidget {
                         child: CircleIcon())
                   ],
                 ),
-                Text(
-                  "Event Planner",
-                  style: TextConstants.bodySmall_black_normal(context),
-                ),
+                Obx(() {
+                  final roles = authService.me.value?.role;
+                  if (roles == null || roles.isEmpty) {
+                    return SizedBox();
+                  }
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: roles.map((item) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 1.h),
+                        child: Text(
+                          item,
+                          style: TextConstants.bodySmall_black_normal(context),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }),
+
                 SizedBox(
                   height: 3.h,
                 ),
@@ -106,13 +125,15 @@ class Profilescreen extends StatelessWidget {
                       ],
                     )),
                 k1hSizedBox,
-                Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque tincidunt mi. Suspendisse in libero eu lorem vehicula blandit a ut mauris. Curabitur tincidunt mattis arcu vitae finibus. Morbi eleifend felis sit amet est efficitur, sit amet venenatis metus rhoncus.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(color: AppColors.kBerkeleyBlue),
-                ),
+                Obx(() {
+                  return Text(
+                    authService.me.value?.description ?? "About Me",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: AppColors.kBerkeleyBlue),
+                  );
+                }),
                 k3hSizedBox,
                 Align(
                     alignment: Alignment.centerLeft,
@@ -136,22 +157,26 @@ class Profilescreen extends StatelessWidget {
                 k1hSizedBox,
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Email: examplemail@gmail.com',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: AppColors.kBerkeleyBlue),
-                    )),
+                    child: Obx(() {
+                      return Text(
+                        'Email: ${authService.me.value?.email ?? "About Me"}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColors.kBerkeleyBlue),
+                      );
+                    })),
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Contact: 97644 2078789',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: AppColors.kBerkeleyBlue),
-                    )),
+                    child: Obx(() {
+                      return Text(
+                        'Contact: ${authService.me.value?.phoneNumber ?? "About Me"}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColors.kBerkeleyBlue),
+                      );
+                    })),
                 k3hSizedBox,
                 Align(
                   alignment: Alignment.centerLeft,
@@ -164,7 +189,23 @@ class Profilescreen extends StatelessWidget {
                   ),
                 ),
                 k1hSizedBox,
-                MembershipContainer(),
+                Obx(() {
+                  final subscriptions = authService.me.value?.subscriptions;
+                  if (subscriptions == null || subscriptions.isEmpty) {
+                    return SizedBox(); // Return an empty widget if the list is null or empty
+                  }
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: subscriptions.map((item) {
+                      return MembershipContainer(
+                        price: item.price ?? 0,
+                        type: item.type ?? "",
+                      );
+                    }).toList(),
+                  );
+                }),
+
                 k1hSizedBox,
                 Align(
                   alignment: Alignment.centerLeft,
@@ -177,160 +218,33 @@ class Profilescreen extends StatelessWidget {
                   ),
                 ),
                 k1hSizedBox,
-                TopupContainer(),
-                TopupContainer(),
 
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Total events attendant",
-                //       style: TextConstants.bodymedium_darkBlue_normal(context),
-                //     ),
-                //     SizedBox(
-                //       width: 4.w,
-                //     ),
-                //     CircleIcon()
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Public events    ",
-                //       style: TextConstants.bodySmall_black_normal(context),
-                //     ),
-                //     Text(
-                //       "24",
-                //       style: TextConstants.bodySmall_black_bold(context),
+                TopupContainer(),
+                // CustomOutlinedButton(
+                //   contant: [
+                //     Padding(
+                //       padding: EdgeInsets.symmetric(horizontal: 4.w),
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: [
+                //           const Icon(
+                //             Icons.delete_outline,
+                //             color: AppColors.kBlueMediumShade,
+                //           ),
+                //           Text(
+                //             "Delete my account",
+                //             style:
+                //                 TextConstants.bodyLargeMediumBlueBold(context),
+                //           ),
+                //         ],
+                //       ),
                 //     ),
                 //   ],
+                //   ontap: () {
+                //     // Get.offAllNamed(SigninScreen.routeName);
+                //     // Get.toNamed(CreatePortfolioScreen.routeName);
+                //   },
                 // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Total score",
-                //       style: TextConstants.bodymedium_darkBlue_normal(context),
-                //     ),
-                //     SizedBox(
-                //       width: 4.w,
-                //     ),
-                //     CircleIcon()
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Total points    ",
-                //       style: TextConstants.bodySmall_black_normal(context),
-                //     ),
-                //     Text(
-                //       "126",
-                //       style: TextConstants.bodySmall_black_bold(context),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Credit in Wallet for Invitation",
-                //       style: TextConstants.bodymedium_darkBlue_normal(context),
-                //     ),
-                //     SizedBox(
-                //       width: 4.w,
-                //     ),
-                //     CircleIcon()
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Credit points    ",
-                //       style: TextConstants.bodySmall_black_normal(context),
-                //     ),
-                //     Text(
-                //       "69",
-                //       style: TextConstants.bodySmall_black_bold(context),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Languages",
-                //       style: TextConstants.bodymedium_darkBlue_normal(context),
-                //     ),
-                //     SizedBox(
-                //       width: 4.w,
-                //     ),
-                //     CircleIcon()
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: Container(
-                //     padding:
-                //         EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 2.w),
-                //     decoration: BoxDecoration(
-                //         color: AppColors.kBlueMediumShade,
-                //         borderRadius: k5BorderRadius),
-                //     child: Text(
-                //       "English",
-                //       style: TextConstants.bodySmall_black_normal(context),
-                //     ),
-                //   ),
-                // ),
-                CustomOutlinedButton(
-                  contant: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.w),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.delete_outline,
-                            color: AppColors.kBlueMediumShade,
-                          ),
-                          Text(
-                            "Delete my account",
-                            style:
-                                TextConstants.bodyLargeMediumBlueBold(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                  ontap: () {
-                    // Get.offAllNamed(SigninScreen.routeName);
-                    // Get.toNamed(CreatePortfolioScreen.routeName);
-                  },
-                ),
                 SizedBox(
                   height: 5.h,
                 )

@@ -1,5 +1,6 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
+import 'package:event_planner_light/controllers/SupportController.dart';
 import 'package:event_planner_light/controllers/membership_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -185,53 +186,48 @@ class MemberShipChips extends StatelessWidget {
   }
 }
 
-class SupportChip extends StatefulWidget {
+class SupportChip extends GetWidget<Supportcontroller> {
   const SupportChip({super.key});
 
   @override
-  State<SupportChip> createState() => _SupportChipState();
-}
-
-class _SupportChipState extends State<SupportChip> {
-  int _selectedChipIndex = 0;
-
-  final List<String> _chipLabels = ['Pending', 'Completed', 'Resolved'];
-  @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // spacing: 2.w,
-        children: List<Widget>.generate(
-          _chipLabels.length,
-          (int index) {
-            return Expanded(
-              child: ChoiceChip(
-                backgroundColor: AppColors.kBlueMediumShade,
-                selectedColor: AppColors.kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: k5BorderRadius,
-                    side: BorderSide(
-                      color: AppColors.kBlueMediumShade,
-                    )),
-                label: Text(
-                  _chipLabels[index],
-                  style: TextStyle(
-                      color: _selectedChipIndex == index
-                          ? Colors.white
-                          : AppColors.kBluedarkShade),
+      child: Obx(() {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // spacing: 2.w,
+          children: List<Widget>.generate(
+            controller.allTypes.length,
+            (int index) {
+              return Expanded(
+                child: ChoiceChip(
+                  backgroundColor: AppColors.kBlueMediumShade,
+                  selectedColor: AppColors.kPrimaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: k5BorderRadius,
+                      side: BorderSide(
+                        color: AppColors.kBlueMediumShade,
+                      )),
+                  label: Text(
+                    controller.allTypes[index],
+                    style: TextStyle(
+                        color: controller.selectedType.value ==
+                                controller.allTypes[index]
+                            ? Colors.white
+                            : AppColors.kBluedarkShade),
+                  ),
+                  selected: controller.selectedType.value ==
+                      controller.allTypes[index],
+                  onSelected: (bool selected) {
+                    controller.selectedType.value = controller.allTypes[index];
+                    controller.getAllTickets();
+                  },
                 ),
-                selected: _selectedChipIndex == index,
-                onSelected: (bool selected) {
-                  setState(() {
-                    _selectedChipIndex = selected ? index : _selectedChipIndex;
-                  });
-                },
-              ),
-            );
-          },
-        ).toList(),
-      ),
+              );
+            },
+          ).toList(),
+        );
+      }),
     );
   }
 }

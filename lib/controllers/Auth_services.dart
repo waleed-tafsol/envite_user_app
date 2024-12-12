@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:event_planner_light/services/customPrint.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
+import 'package:event_planner_light/services/LocationServices.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../constants/ApiConstant.dart';
+import '../model/UserModel.dart';
 import '../utills/CustomSnackbar.dart';
 import '../view/screens/SplashScreen.dart';
 import 'Auth_token_services.dart';
@@ -20,45 +21,35 @@ class AuthService extends GetxService {
     if (await _tokenStorage.hasToken()) {
       isAuthenticated.value = true;
       authToken = await _tokenStorage.getToken();
+      await getMe();
     }
   }
 
   var isAuthenticated = false.obs;
   final TokenService _tokenStorage = TokenService();
   String? authToken;
+  Rx<UserModel?> me = UserModel().obs;
 
-  // Biometric authentication function
-  // Future<bool?> loginWithFingerPrint() async {
-  //   final authenticated = await LocalAuthService.authenticateUser();
+  Future<void> getMe() async {
+    try {
+      final response = await http.get(Uri.parse(ApiConstants.getme), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $authToken',
+      });
+      final jsonResponse = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final responseData = UserModel.fromJson(jsonResponse["data"]["user"]);
+        me.value = responseData;
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+            errorData["message"]["error"][0] ?? "An error occurred");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 
-  //   if (authenticated) {
-  //     try {
-  //       final response = await http.post(
-  //         Uri.parse(ApiConstants.verifyFingerPrint),
-  //         body: jsonEncode({
-  //           "validationKey": FirebaseService.fcmToken,
-  //         }),
-  //         headers: {'Content-Type': 'application/json'},
-  //       );
-
-  //       if (response.statusCode == 200) {
-  //         final responseData = jsonDecode(response.body);
-  //         platform.value = "finger";
-  //         authToken = responseData["data"]["token"];
-  //         _tokenStorage.saveToken(authToken!);
-  //         isAuthenticated.value = true;
-  //         return true;
-  //       } else {
-  //         throw Exception("An error occurred: ${response.body}");
-  //       }
-  //     } catch (e) {
-  //       CustomSnackbar.showError("Error", e.toString());
-  //       return false;
-  //     }
-  //   } else {
-  //     return false;
-  //   }
-  // }
   Future<Map<dynamic, dynamic>> login(
       {required String email, required String password}) async {
     try {
@@ -70,15 +61,21 @@ class AuthService extends GetxService {
         }),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
-        authToken = responseData["data"]["token"];
-        _tokenStorage.saveToken(authToken!);
-        isAuthenticated.value = true;
-        return responseData;
+        if (responseData["data"]["user"]["isVerified"] == true) {
+          authToken = responseData["data"]["token"];
+          _tokenStorage.saveToken(authToken!);
+          isAuthenticated.value = true;
+          await getMe();
+          return responseData;
+        } else {
+          throw Exception("Please verify your email to login");
+        }
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
@@ -88,42 +85,6 @@ class AuthService extends GetxService {
       throw Exception(e.toString());
     }
   }
-
-  // Future<bool?> loginWithGoogle() async {
-  //   try {
-  //     final user = await FirebaseService.signInWithGoogle();
-  //     if (user != null) {
-  //       final response = await http.post(
-  //         Uri.parse(ApiConstants.socialLogin),
-  //         body: jsonEncode({
-  //           "email": user.email,
-  //           "displayName": user.displayName,
-  //           "photo": user.photoURL,
-  //           "fcmToken": FirebaseService.fcmToken,
-  //           "validationKey": FirebaseService.fcmToken,
-  //           "platform": "google",
-  //         }),
-  //         headers: {'Content-Type': 'application/json'},
-  //       );
-
-  //       if (response.statusCode == 200) {
-  //         final responseData = jsonDecode(response.body);
-  //         platform.value = "google";
-  //         authToken = responseData["data"]["token"];
-  //         _tokenStorage.saveToken(authToken!);
-  //         isAuthenticated.value = true;
-  //         return true;
-  //       } else {
-  //         throw Exception("An error occurred: ${response.body}");
-  //       }
-  //     } else {
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     CustomSnackbar.showError("Error", e.toString());
-  //     return false;
-  //   }
-  // }
 
   Future<Map<String, dynamic>?> signup({
     required String fullName,
@@ -135,13 +96,15 @@ class AuthService extends GetxService {
     required String passCnfrm,
   }) async {
     final url = Uri.parse(ApiConstants.register);
+    // Get location
+    Position position = await LocationServices.getCurrentLocation();
 
     try {
       final request = http.MultipartRequest('POST', url);
 
       request.fields['fullName'] = fullName;
-      request.fields['lat'] = "0";
-      request.fields['lng'] = "0";
+      request.fields['lat'] = position.latitude.toString();
+      request.fields['lng'] = position.longitude.toString();
       request.fields['email'] = email;
       request.fields['phoneNumber'] = phoneNumber;
       request.fields['password'] = password;
@@ -165,20 +128,18 @@ class AuthService extends GetxService {
         final responseData = jsonDecode(response.body);
 
         authToken = responseData["data"]["token"];
-        _tokenStorage.saveToken(authToken!);
-        isAuthenticated.value = true;
+        // _tokenStorage.saveToken(authToken!);
+        // isAuthenticated.value = true;
+        // await getMe();
 
         return responseData;
       } else {
         final errorData = jsonDecode(response.body);
-        CustomSnackbar.showError(
-            "Error", errorData["message"]["error"][0] ?? "An error occurred");
-        return null;
+        throw Exception(
+            errorData["message"]["error"][0] ?? "An error occurred");
       }
     } catch (e) {
-      ColoredPrint.red(e.toString());
-      CustomSnackbar.showError("Error", e.toString());
-      return null;
+      throw Exception(e.toString());
     }
   }
 
@@ -203,6 +164,7 @@ class AuthService extends GetxService {
       }
     } catch (e) {
       Get.back();
+
       CustomSnackbar.showError("Error", e.toString());
     }
   }

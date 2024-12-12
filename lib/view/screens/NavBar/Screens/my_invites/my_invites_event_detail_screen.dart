@@ -1,13 +1,10 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/edit_event_details.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MyInvitesEventsDetailScreen extends StatelessWidget {

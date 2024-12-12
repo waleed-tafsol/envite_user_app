@@ -2,6 +2,8 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../controllers/Auth_services.dart';
+
 class TopupContainer extends StatelessWidget {
   const TopupContainer({super.key});
 
@@ -19,7 +21,15 @@ class TopupContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '20 Invites',
+              'Total Invites:',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColors.kBerkeleyBlue, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              '${authService.me.value?.totalInvites} Invites',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -29,10 +39,57 @@ class TopupContainer extends StatelessWidget {
               height: 1.h,
             ),
             Text(
-              '\$354.90',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              'Remaining Invites:',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: AppColors.kBerkeleyBlue),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              '${authService.me.value?.remainingInvites} Invites',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: AppColors.kBerkeleyBlue),
+            ),
+            Text(
+              'Total Addon Invites:',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: AppColors.kBerkeleyBlue, fontWeight: FontWeight.bold),
-            )
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              '${authService.me.value?.totalAddonInvites} Invites',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: AppColors.kBerkeleyBlue),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              'Remaining Addon Invites:',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: AppColors.kBerkeleyBlue),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              '${authService.me.value?.remainingAddonInvites} Invites',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: AppColors.kBerkeleyBlue),
+            ),
           ],
         ),
       ),

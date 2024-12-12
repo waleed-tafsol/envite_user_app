@@ -1,6 +1,7 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
@@ -411,7 +412,9 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(ChooseaplanScreen.routeName);
+          Get.toNamed(
+            BuyPackagesScreen.routeName,
+          );
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -461,6 +464,48 @@ class BottomSheetManager {
           // primary: Colors.blueAccent, // Background color
         ),
         child: const Text('Upgrade Now'),
+      ),
+    ]);
+  }
+
+  static void buySubscriptionForPublic(
+    BuildContext context,
+  ) {
+    _CustomBottomSheet(context, [
+      // const Spacer(),
+      SizedBox(
+        height: 5.h,
+      ),
+      Text(
+        'You do not Have the Subscription to Create Public Events',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodyMedium_white_bold(context),
+      ),
+      SizedBox(height: 2.h),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(SvgAssets.up),
+        ],
+      ),
+      SizedBox(height: 2.h),
+      Text(
+        'You Need to But A plan For Public Events',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodysmall_white_normal(context),
+      ),
+      // SizedBox(height: 2.h),
+      Spacer(),
+      ElevatedButton(
+        onPressed: () {
+          Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          minimumSize: Size(double.infinity, 6.h),
+          // primary: Colors.blueAccent, // Background color
+        ),
+        child: const Text('Buy Now'),
       ),
     ]);
   }

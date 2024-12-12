@@ -1,4 +1,4 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
+import 'package:event_planner_light/model/EventModel.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,15 +6,17 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
-import '../screens/EventDetailScreen.dart';
+import '../../utills/ConvertDateTime.dart';
 
 class EventTileWidget extends StatelessWidget {
   // Optional parameters with default values of false
   final bool pinned;
+  final EventModel? event;
 
   const EventTileWidget({
     super.key,
     this.pinned = false,
+    this.event,
   });
 
   @override
@@ -38,12 +40,12 @@ class EventTileWidget extends StatelessWidget {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.asset(Assets.squareImage)),
-                    const Positioned(
+                    Positioned(
                       top: 2,
                       left: 2,
                       child: EventTileDateBadge(
-                        date: 04,
-                        month: "aug",
+                        date: extractDate(event?.startDate ?? ""),
+                        month: extractMonthName(event?.startDate ?? ""),
                       ),
                     ),
                   ],
@@ -58,7 +60,7 @@ class EventTileWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Understanding Parents’ Journey Through Autism",
+                        event?.name ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -91,7 +93,7 @@ class EventTileWidget extends StatelessWidget {
                   // width: 10.w,
                   child: Center(
                     child: Text(
-                      "Public",
+                      event?.eventType ?? "",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -116,7 +118,7 @@ class EventTileDateBadge extends StatelessWidget {
     this.date,
     this.month,
   });
-  final int? date;
+  final String? date;
   final String? month;
 
   @override
@@ -131,7 +133,7 @@ class EventTileDateBadge extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(date.toString(),
+          Text(date ?? "",
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!

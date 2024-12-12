@@ -1,10 +1,12 @@
+import 'package:event_planner_light/controllers/ExploreController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
-class ExploreScreen extends StatelessWidget {
+class ExploreScreen extends GetView<ExploreController> {
   const ExploreScreen({super.key});
 
   @override
@@ -38,7 +40,7 @@ class ExploreScreen extends StatelessWidget {
                 ),
               ),
               ListView.builder(
-                  itemCount: 10,
+                  itemCount: 0,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {

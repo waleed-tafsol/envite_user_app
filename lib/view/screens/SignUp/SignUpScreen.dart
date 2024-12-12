@@ -279,7 +279,10 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                     TextConstants.bodyLargeBlackBold(context),
                               ),
                               IconButton(
-                                  onPressed: () {}, icon: Icon(Icons.add))
+                                  onPressed: () {
+                                    controller.pickADocument();
+                                  },
+                                  icon: Icon(Icons.add))
                             ],
                           ),
                           SizedBox(
@@ -289,7 +292,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                             alignment: Alignment.centerLeft,
                             child: InkWell(
                               onTap: () {
-                                controller.pickImageOrVideo();
+                                controller.pickADocument();
                               },
                               child: DottedBorder(
                                 dashPattern: [5],
@@ -307,7 +310,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                         color: Colors.grey,
                                       ),
                                       Text(
-                                        "Upload Image",
+                                        "Upload Document",
                                         style: TextStyle(
                                           fontSize: 17.sp,
                                           color: Colors.grey,
@@ -341,6 +344,115 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               itemCount: controller.pickedFiles.length,
                               itemBuilder: (context, index) {
                                 final file = controller.pickedFiles[index];
+                                return Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: k5BorderRadius,
+                                          color: AppColors.kBlueLightShade,
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 2.h, horizontal: 4.w),
+                                        child: ClipRRect(
+                                          borderRadius: k5BorderRadius,
+                                          child: Image.file(
+                                            file,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        right: 0,
+                                        top: 0,
+                                        child: IconButton(
+                                            icon: const Icon(
+                                              Icons.cancel,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              controller.removeFile(file);
+                                            }))
+                                  ],
+                                );
+                              },
+                            );
+                          }),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Previous Event Images",
+                                style:
+                                    TextConstants.bodyLargeBlackBold(context),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    controller.pickImage();
+                                  },
+                                  icon: Icon(Icons.add))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: InkWell(
+                              onTap: () {
+                                controller.pickImage();
+                              },
+                              child: DottedBorder(
+                                dashPattern: [5],
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(5),
+                                child: SizedBox(
+                                  height: 20.h,
+                                  width: 20.h,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        size: 10.h,
+                                        Icons.image_outlined,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(
+                                        "Upload image",
+                                        style: TextStyle(
+                                          fontSize: 17.sp,
+                                          color: Colors.grey,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Obx(() {
+                            if (controller.pickedImages.isEmpty) {
+                              return const SizedBox();
+                            }
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics:
+                                  const NeverScrollableScrollPhysics(), // Disable scrolling
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Number of columns
+                                      childAspectRatio:
+                                          1.1, // Aspect ratio of grid items
+                                      mainAxisSpacing: 3.h,
+                                      crossAxisSpacing: 4.w),
+                              itemCount: controller.pickedImages.length,
+                              itemBuilder: (context, index) {
+                                final file = controller.pickedImages[index];
                                 return Stack(
                                   children: [
                                     Positioned.fill(

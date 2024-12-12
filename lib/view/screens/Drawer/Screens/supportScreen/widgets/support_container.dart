@@ -1,11 +1,14 @@
-import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/constants/constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SupportContainer extends StatelessWidget {
-  const SupportContainer({super.key});
+  const SupportContainer(
+      {super.key, required this.title, required this.subTitle});
+
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +26,21 @@ class SupportContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Reset Password',
+              title,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColors.kBerkeleyBlue,
-                  fontWeight: FontWeight.w700),
+                  color: AppColors.kBerkeleyBlue, fontWeight: FontWeight.w700),
             ),
             SizedBox(
               height: 0.7.h,
             ),
             Expanded(
               child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis condimentum sapien, et volutpat nunc feugiat nec. Sed et interdum quam. In ipsum ',
+                subTitle,
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
                       color: AppColors.kBerkeleyBlue,
                     ),
               ),
             ),
-            
           ],
         ),
       ),

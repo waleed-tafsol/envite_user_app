@@ -6,13 +6,11 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreen
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
-import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../NavBar/NavBarScreen.dart';
-import '../SignIn/SignInScreen.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -92,7 +90,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     SizedBox(
                       width: 4.w,
                     ),
-                    Text("Ghanem Abdallah",
+                    Text(authService.me.value?.fullName ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
@@ -134,38 +132,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                   ),
                 ),
-                // InkWell(
-                //   onTap: () {
-                //     Get.toNamed(TopUpScreen.routeName);
-                //   },
-                //   child: Row(
-                //     children: [
-                //       const Icon(
-                //         Icons.support_agent,
-                //         color: AppColors.kBlueMediumShade,
-                //       ),
-                //       SizedBox(
-                //         width: 4.w,
-                //       ),
-                //       Text("Top Ups",
-                //           style: Theme.of(context)
-                //               .textTheme
-                //               .bodyMedium!
-                //               .copyWith(color: AppColors.kBlueMediumShade)),
-                //     ],
-                //   ),
-                // ),
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: SizedBox(
-                //     width: 40.w,
-                //     child: const Divider(
-                //       // thickness: 2,
-
-                //       color: AppColors.kBlueMediumShade,
-                //     ),
-                //   ),
-                // ),
                 Row(
                   children: [
                     const Icon(

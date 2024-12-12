@@ -6,6 +6,8 @@ import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
+import 'package:event_planner_light/view/screens/OtpScreen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +33,7 @@ class Signupcontroller extends GetxController {
   RxBool isConfirmPasswordVisible = false.obs;
   final ImagePicker _picker = ImagePicker();
   var pickedFiles = <File>[].obs;
+  var pickedImages = <File>[].obs;
 
   // Additional variables
   RxDouble lat = 0.0.obs;
@@ -39,31 +42,50 @@ class Signupcontroller extends GetxController {
   RxList<CatagoryModel> selectedCategory = <CatagoryModel>[].obs;
 
   RxBool isloading = false.obs;
-  Future<void> pickImageOrVideo() async {
+  Future<void> pickImage() async {
     try {
       final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
       if (file != null) {
-        pickedFiles.add(File(file.path));
+        pickedImages.add(File(file.path));
       }
     } catch (e) {
       Get.snackbar('Error', 'Failed to pick image or video: $e');
     }
   }
 
-  Future<void> takePhotoOrVideo() async {
+  Future<void> pickADocument() async {
     try {
-      final XFile? file = await _picker.pickImage(source: ImageSource.camera);
-      if (file != null) {
-        pickedFiles.add(File(file.path));
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+          // allowedExtensions: ['pdf', 'docx', 'txt'],
+          );
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        pickedFiles.add(File(file.path!));
+      } else {
+        Get.snackbar('No file selected', 'No document was picked.');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to take photo or video: $e');
+      Get.snackbar('Error', 'Failed to pick document: $e');
     }
   }
 
+  // Future<void> takePhotoOrVideo() async {
+  //   try {
+  //     final XFile? file = await _picker.pickImage(source: ImageSource.camera);
+  //     if (file != null) {
+  //       pickedFiles.add(File(file.path));
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar('Error', 'Failed to take photo or video: $e');
+  //   }
+  // }
+
   void removeFile(File file) {
     pickedFiles.remove(file);
-    print("function ontap");
+  }
+
+  void removeimage(File file) {
+    pickedImages.remove(file);
   }
 
   getcatagories() async {
@@ -102,14 +124,16 @@ class Signupcontroller extends GetxController {
       if (response != null) {
         isloading.value = false;
         CustomSnackbar.showSuccess('Success', 'Signup successful');
-        Get.offAllNamed(DrawerScreen.routeName);
+        Get.offAllNamed(OtpScreen.routeName, arguments: {
+          'email': emailController.value.text,
+        });
+      } else {
+        isloading.value = false;
       }
     } catch (e) {
       isloading.value = false;
       CustomSnackbar.showError('Error', e.toString());
     }
-    isloading.value = false;
-    CustomSnackbar.showError('Success', 'Signup successful');
   }
 
   // Login

@@ -1,9 +1,14 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/BuyTopUps.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
+import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../../../../constants/constants.dart';
 
 class MembershipScreen extends StatelessWidget {
   const MembershipScreen({super.key});
@@ -92,7 +97,36 @@ class MembershipScreen extends StatelessWidget {
                   ),
                 ],
                 ontap: () {
-                  Get.toNamed(ChooseaplanScreen.routeName);
+                  Get.toNamed(BuyPackagesScreen.routeName);
+                },
+              ),
+            ),
+            k1hSizedBox,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Top Up',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: AppColors.kBlueMediumShade),
+              ),
+            ),
+            k1hSizedBox,
+            TopupContainer(),
+            k1hSizedBox,
+            SizedBox(
+              width: double.infinity,
+              height: 6.h,
+              child: CustomOutlinedButton(
+                contant: [
+                  Text(
+                    "Buy More Invites",
+                    style: TextConstants.bodyLargeMediumBlueBold(context),
+                  ),
+                ],
+                ontap: () {
+                  Get.toNamed(Buytopups.routeName);
                 },
               ),
             ),

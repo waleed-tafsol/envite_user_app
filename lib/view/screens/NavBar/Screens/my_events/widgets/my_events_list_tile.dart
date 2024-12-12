@@ -1,18 +1,24 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/model/EventModel.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../../utills/ConvertDateTime.dart';
+import '../../../../../widgets/EventTileWidget.dart';
+
 class MyEventsListTile extends StatelessWidget {
   // Optional parameters with default values of false
   final bool pinned;
+  final EventModel? event;
 
   const MyEventsListTile({
     super.key,
     this.pinned = false,
+    this.event,
   });
 
   @override
@@ -36,12 +42,12 @@ class MyEventsListTile extends StatelessWidget {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.asset(Assets.squareImage)),
-                    const Positioned(
+                    Positioned(
                       top: 2,
                       left: 2,
                       child: EventTileDateBadge(
-                        date: 04,
-                        month: "aug",
+                        date: extractDate(event?.startDate ?? ""),
+                        month: extractMonthName(event?.startDate ?? ""),
                       ),
                     ),
                   ],
@@ -56,7 +62,7 @@ class MyEventsListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Understanding Parents’ Journey Through Autism",
+                        event?.name ?? "Event Title",
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -89,7 +95,7 @@ class MyEventsListTile extends StatelessWidget {
                   // width: 10.w,
                   child: Center(
                     child: Text(
-                      "Public",
+                      event?.eventType ?? "",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -103,43 +109,6 @@ class MyEventsListTile extends StatelessWidget {
                 top: 0.5.h, right: 1.w, child: SvgPicture.asset(SvgAssets.pin)),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class EventTileDateBadge extends StatelessWidget {
-  const EventTileDateBadge({
-    super.key,
-    this.date,
-    this.month,
-  });
-  final int? date;
-  final String? month;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 5.5.h,
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: AppColors.kBluedarkShade,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(date.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: AppColors.kBlueLightShade)),
-          Text(month ?? "",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.kBlueLightShade)),
-        ],
       ),
     );
   }

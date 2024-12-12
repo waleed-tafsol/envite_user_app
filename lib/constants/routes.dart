@@ -1,8 +1,15 @@
-import 'package:event_planner_light/bindings/SignInController.dart';
+import 'package:event_planner_light/bindings/CuponsBindings.dart';
+import 'package:event_planner_light/bindings/DrawerBindings.dart';
+import 'package:event_planner_light/bindings/PackagesControllerBindings.dart';
+import 'package:event_planner_light/bindings/SignInBindings.dart';
 import 'package:event_planner_light/bindings/SignUpBindings.dart';
 import 'package:event_planner_light/bindings/membership_binding.dart';
+import 'package:event_planner_light/bindings/supportBindings.dart';
+import 'package:event_planner_light/controllers/PackagesController.dart';
+import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/BuyTopUps.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
@@ -15,21 +22,21 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_eve
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
+import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
-import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
-import 'package:event_planner_light/view/screens/top_ups/add_top_ups_screen.dart';
-import 'package:event_planner_light/view/screens/top_ups/all_top_ups_screen.dart';
-import 'package:event_planner_light/view/screens/top_ups/buy_top_ups_screen.dart';
-import 'package:event_planner_light/view/screens/top_ups/top_up_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
+import '../bindings/OtpBindings.dart';
+import '../bindings/TopUpsControllerBindings.dart';
 import '../bindings/splash_binding.dart';
 import '../view/screens/Drawer/DrawerScreen.dart';
 import '../view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import '../view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
@@ -43,6 +50,7 @@ class Pages {
   static Transition get _routeTransition => Transition.fade;
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     Get.routing.args = settings.arguments;
+    ColoredPrint.yellow("Arguments: ${Get.routing.args}");
     switch (settings.name) {
       case Splash_screen.routeName:
         return GetPageRoute(
@@ -69,7 +77,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => const DrawerScreen(),
-          // binding: SplashBinding(),
+          binding: DrawerBindings(),
           transition: _routeTransition,
         );
       case SigninScreen.routeName:
@@ -121,33 +129,33 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case ChooseaplanScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => const ChooseaplanScreen(),
-          // binding: AuthBinding(),
-          transition: _routeTransition,
-        );
 
       case ForgotMyPasswordEmailScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const ForgotMyPasswordEmailScreen(),
+          page: () => ForgotMyPasswordEmailScreen(),
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
       case ForgotMyPasswordConfirmScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const ForgotMyPasswordConfirmScreen(),
+          page: () => ForgotMyPasswordConfirmScreen(),
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
       case AddEventsScreens.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const AddEventsScreens(),
+          page: () => AddEventsScreens(),
           binding: AddeventBindings(),
+          transition: _routeTransition,
+        );
+      case OtpScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => OtpScreen(),
+          binding: OtpBindings(),
           transition: _routeTransition,
         );
       case CreateAnInvitationScreen.routeName:
@@ -175,14 +183,14 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => SupportScreen(),
-          // binding: Createportfoliobindings(),
+          binding: SupportBindings(),
           transition: _routeTransition,
         );
       case CouponScreen.routeName:
         return GetPageRoute(
           settings: settings,
           page: () => CouponScreen(),
-          // binding: Createportfoliobindings(),
+          binding: CouponsBindings(),
           transition: _routeTransition,
         );
       case GenerateTicketScreen.routeName:
@@ -206,21 +214,7 @@ class Pages {
           // binding: Createportfoliobindings(),
           transition: _routeTransition,
         );
-      case TopUpScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => TopUpScreen(),
-          // binding: Createportfoliobindings(),
-          transition: _routeTransition,
-        );
 
-      case BuyTopUpsScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => BuyTopUpsScreen(),
-          // binding: Createportfoliobindings(),
-          transition: _routeTransition,
-        );
       case EditProfileScreen.routeName:
         return GetPageRoute(
           settings: settings,
@@ -228,27 +222,28 @@ class Pages {
           // binding: Createportfoliobindings(),
           transition: _routeTransition,
         );
-      case MemberShipScreen.routeName:
+      case Buytopups.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => MemberShipScreen(),
-          binding: MembershipBindings(),
+          page: () => Buytopups(),
+          binding: AddTopupsBindings(),
           transition: _routeTransition,
         );
-      case AddTopUpsScreen.routeName:
+      case BuyPackagesScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => AddTopUpsScreen(),
-          // binding: MembershipBindings(),
+          page: () => BuyPackagesScreen(),
+          binding: Packagescontrollerbindings(),
           transition: _routeTransition,
         );
-      case AllTopUpsScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => AllTopUpsScreen(),
-          // binding: MembershipBindings(),
-          transition: _routeTransition,
-        );
+      // case MembershipScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => Member(),
+      //     binding: MembershipBindings(),
+      //     transition: _routeTransition,
+      //   );
+
       case MyEventsScreen.routeName:
         return GetPageRoute(
           settings: settings,

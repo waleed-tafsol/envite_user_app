@@ -1,9 +1,10 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/screens/membership_screen/membership_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 
 class AddAdsScreen extends StatelessWidget {
   static const routeName = 'AddAdsScreen';
@@ -93,7 +94,7 @@ class AddAdsScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.kPrimaryColor),
                         onPressed: () {
-                          Get.toNamed(MemberShipScreen.routeName);
+                          Get.toNamed(MembershipScreen.routeName);
                         },
                         child: Text(
                           'Send Request',

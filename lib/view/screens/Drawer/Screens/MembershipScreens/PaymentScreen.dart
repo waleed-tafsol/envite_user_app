@@ -1,14 +1,39 @@
+import 'dart:convert';
+
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/view/screens/SignUp/Widgets/Terms_of_services_dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../../../../constants/ApiConstant.dart';
 import '../../../../../constants/StyleConstants.dart';
+import '../../../../../controllers/Auth_services.dart';
+import '../../../../../utills/CustomSnackbar.dart';
 import 'Widget/PaymentMethodsWidget.dart';
+import 'package:http/http.dart' as http;
 
 class MemberShipPaymentScreen extends StatelessWidget {
   MemberShipPaymentScreen({super.key});
   static const routeName = "MemberShipPaymentScreen";
+
+  Future<void> paynow(String? type) async {
+    try {
+      final response = await http
+          .patch(Uri.parse(ApiConstants.buyPackages + type!), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${authService.authToken}',
+      });
+      if (response.statusCode == 201) {
+        final jsonResponse = json.decode(response.body);
+        await authService.getMe();
+      } else {
+        throw Exception('Failed to buy subscription');
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +93,15 @@ class MemberShipPaymentScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  final args = Get.arguments;
+                  Get.dialog(Center(
+                    child: CircularProgressIndicator(),
+                  ));
+
+                  await paynow(args);
+                  Get.back();
+
                   Get.until((route) => route.isFirst);
                 },
               ),
