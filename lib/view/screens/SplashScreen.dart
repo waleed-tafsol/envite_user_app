@@ -1,4 +1,5 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
@@ -144,7 +145,7 @@ class Splash_screen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: GestureDetector(
-                      onTap: () => Get.offAndToNamed(DrawerScreen.routeName),
+                      onTap: () => Get.offAndToNamed(NavBarScreen.routeName),
                       child: Text(
                         "Start As A Guest",
                         style: TextConstants.bodyMedium_black_normal(context),

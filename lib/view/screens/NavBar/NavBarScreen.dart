@@ -7,15 +7,19 @@ import 'package:get/get.dart';
 import '../../../constants/colors_constants.dart';
 import '../../widgets/CustomAppBar.dart';
 import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
+import 'DrawerWidget.dart';
 import 'Screens/Explore/ExploreScreen.dart';
 import 'Screens/Home/HomeScreen.dart';
 
 class NavBarScreen extends StatefulWidget {
   static const routeName = "NavBarScreen";
 
-  final VoidCallback onDrawerToggle;
+  // final VoidCallback onDrawerToggle;
 
-  const NavBarScreen({super.key, required this.onDrawerToggle});
+  const NavBarScreen({
+    super.key,
+    //  required this.onDrawerToggle
+  });
 
   @override
   _NavBarScreenState createState() => _NavBarScreenState();
@@ -42,8 +46,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: CustomAppBar(
-        onDrawerToggle: widget.onDrawerToggle,
+        onDrawerToggle: () {},
       ),
       body: IndexedStack(
         index: _currentIndex,

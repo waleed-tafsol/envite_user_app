@@ -1,8 +1,17 @@
 import 'package:intl/intl.dart';
 
-String formatDateTime(DateTime dateTime) {
-  DateFormat dateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-  return dateFormat.format(dateTime.toUtc());
+String formatToIso8601WithTimezone(DateTime date) {
+  // Convert the DateTime object to UTC
+  DateTime utcDate = date.toUtc();
+
+  // Format the DateTime object into the desired format
+  String formattedDate =
+      DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(utcDate);
+
+  // Replace the 'Z' with the timezone offset (+00:00)
+  formattedDate = formattedDate.replaceFirst('Z', '+00:00');
+
+  return formattedDate;
 }
 
 String formatISOToCustom(String isoTime) {

@@ -2,6 +2,7 @@ import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -74,7 +75,7 @@ class EditProfileForUser extends StatelessWidget {
                 child: ElevatedButton(
                     style: StylesConstants.elevated_b_redBack_whiteFore,
                     onPressed: () {
-                      Get.offNamed(DrawerScreen.routeName);
+                      Get.offNamed(NavBarScreen.routeName);
                     },
                     child: Text("Edit Profile")),
               ),

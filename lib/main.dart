@@ -1,4 +1,6 @@
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Home/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: CustomTheme().lightTheme,
         initialRoute: authService.isAuthenticated.value
-            ? DrawerScreen.routeName
+            ? NavBarScreen.routeName
             : Splash_screen.routeName,
         onGenerateRoute: Pages.onGenerateRoute,
         defaultTransition: Transition.rightToLeft,

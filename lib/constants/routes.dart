@@ -13,6 +13,7 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreen
 import 'package:event_planner_light/view/screens/Drawer/Screens/couponScreen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/generate_ticket_screen.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/nearby_events.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
@@ -37,7 +38,6 @@ import '../bindings/splash_binding.dart';
 import '../view/screens/Drawer/DrawerScreen.dart';
 import '../view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
-import '../view/screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import '../view/screens/NavBar/Screens/Home/HomeScreen.dart';
@@ -50,7 +50,8 @@ class Pages {
   static Transition get _routeTransition => Transition.fade;
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     Get.routing.args = settings.arguments;
-    ColoredPrint.yellow("Arguments: ${Get.routing.args}");
+    ColoredPrint.yellow(
+        "Arguments: ${Get.routing.args}  routeName: ${settings.name}");
     switch (settings.name) {
       case Splash_screen.routeName:
         return GetPageRoute(
@@ -73,18 +74,25 @@ class Pages {
           // binding: SplashBinding(),
           transition: _routeTransition,
         );
-      case DrawerScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => const DrawerScreen(),
-          binding: DrawerBindings(),
-          transition: _routeTransition,
-        );
+      // case DrawerScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => const DrawerScreen(),
+      //     binding: DrawerBindings(),
+      //     transition: _routeTransition,
+      //   );
       case SigninScreen.routeName:
         return GetPageRoute(
           settings: settings,
           page: () => SigninScreen(),
           binding: SignInBindings(),
+          transition: _routeTransition,
+        );
+      case NavBarScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => NavBarScreen(),
+          binding: NavbarBindings(),
           transition: _routeTransition,
         );
       case HomeScreen.routeName:

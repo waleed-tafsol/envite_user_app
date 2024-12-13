@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.onDrawerToggle});
-  final VoidCallback onDrawerToggle; 
+  final VoidCallback onDrawerToggle;
 
   @override
   Size get preferredSize => Size.fromHeight(8.h);
@@ -38,17 +38,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
+      // leading: IconButton(
+      //     onPressed: () {
+      //       onDrawerToggle();
+      //     },
+      //     icon: const Icon(Icons.menu)),
       actions: [
         IconButton(
             onPressed: () {
               Get.toNamed(NotificationScreen.routeName);
             },
             icon: Icon(Icons.notifications)),
-        IconButton(
-            onPressed: () {
-              onDrawerToggle();
-            },
-            icon: const Icon(Icons.menu)),
       ],
     );
   }

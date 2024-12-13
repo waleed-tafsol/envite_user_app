@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 
@@ -183,6 +184,22 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                           SizedBox(
                             height: 2.h,
                           ),
+                          TextFormField(
+                              // controller: controller.descriptionController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter A number";
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: "Max Number of people",
+                                prefixIcon: Icon(Icons.description_outlined),
+                              )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -239,7 +256,9 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "Start date of the event",
+                                            formatISOToCustom(controller
+                                                .selectedStartDate.value
+                                                .toIso8601String()),
                                             style: TextStyle(
                                                 fontSize: 15.sp,
                                                 color: Colors.black,
@@ -310,7 +329,9 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            "End date of the event",
+                                            formatISOToCustom(controller
+                                                .selectedEndDate.value
+                                                .toIso8601String()),
                                             style: TextStyle(
                                                 fontSize: 15.sp,
                                                 color: Colors.black,
@@ -329,9 +350,6 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                             height: 2.h,
                           ),
 
-                          SizedBox(
-                            height: 2.h,
-                          ),
                           ListTile(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),

@@ -5,7 +5,7 @@ import 'package:event_planner_light/controllers/MyInvitesController.dart';
 import 'package:event_planner_light/controllers/MyProfileController.dart';
 import 'package:get/get.dart';
 
-class DrawerBindings extends Bindings {
+class NavbarBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeScreenController>(() => HomeScreenController());

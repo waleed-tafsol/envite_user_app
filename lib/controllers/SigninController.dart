@@ -2,6 +2,7 @@ import 'package:event_planner_light/controllers/Auth_services.dart';
 
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,7 @@ class SignIncontroller extends GetxController {
       );
       isloading.value = false;
       CustomSnackbar.showSuccess('Success', 'Signup successful');
-      Get.offAllNamed(DrawerScreen.routeName);
+      Get.offAllNamed(NavBarScreen.routeName);
     } catch (e) {
       isloading.value = false;
       CustomSnackbar.showError('Error', e.toString());

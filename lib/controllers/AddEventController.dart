@@ -83,16 +83,20 @@ class Addeventcontroller extends GetxController {
       isloading.value = true;
 
       final request = http.MultipartRequest('POST', url);
-      ColoredPrint.green(formatDateTime(selectedStartDate.value));
-      ColoredPrint.green(formatDateTime(selectedEndDate.value));
+      ColoredPrint.green(formatToIso8601WithTimezone(selectedStartDate.value));
+      ColoredPrint.green(formatToIso8601WithTimezone(selectedStartDate.value));
 
       request.fields['name'] = nameController.value.text;
       request.fields['latitude'] = "0.00";
       request.fields['longitude'] = "0.00";
       request.fields['email'] = emailController.value.text;
       request.fields['eventType'] = selectedOption.value ?? "";
-      request.fields['startDate'] = formatDateTime(selectedStartDate.value);
-      request.fields['endDate'] = formatDateTime(selectedEndDate.value);
+      request.fields['startDate'] =
+          formatToIso8601WithTimezone(selectedStartDate.value);
+      request.fields['endDate'] =
+          formatToIso8601WithTimezone(selectedEndDate.value);
+      // "2024-12-30T15:32:04.962+00:00";
+      formatToIso8601WithTimezone(selectedEndDate.value);
       request.fields['description'] = descriptionController.value.text;
       request.fields['avenue'] = avnueController.value.text;
       request.fields['address'] = addressController.value.text;
@@ -118,7 +122,8 @@ class Addeventcontroller extends GetxController {
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
 
-        CustomSnackbar.showSuccess('Success', responseData["message"]);
+        CustomSnackbar.showSuccess(
+            'Success', responseData["message"] ?? "event created successfully");
         isloading.value = false;
         Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
 
