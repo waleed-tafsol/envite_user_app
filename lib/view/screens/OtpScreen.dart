@@ -124,7 +124,13 @@ class OtpScreen extends GetView<OtpController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter OTP'),
+        centerTitle: true,
+        elevation: 0,
+        automaticallyImplyLeading: true,
+        title: Text(
+          "Enter OTP",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -141,7 +147,7 @@ class OtpScreen extends GetView<OtpController> {
                       textAlign: TextAlign.center,
                       style: TextConstants.bodySmall_black_bold(context),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 6.h),
                     TextField(
                       onChanged: controller.updateOtp,
                       maxLength: 6,
@@ -151,7 +157,7 @@ class OtpScreen extends GetView<OtpController> {
                         counterText: '',
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 4.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
