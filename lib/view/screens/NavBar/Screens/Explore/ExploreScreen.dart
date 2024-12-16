@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../Test.dart';
-import '../../../../../constants/assets.dart';
 import '../../../../../constants/colors_constants.dart';
-import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
@@ -31,32 +29,20 @@ class ExploreScreen extends GetView<ExploreController> {
                         .copyWith(color: AppColors.kTextBlack)),
               ),
               SizedBox(
-                height: 10.h,
+                height: 15.h,
                 child: ListView.builder(
                     itemCount: 3,
                     scrollDirection: Axis.horizontal,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     // shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Image.asset(Assets.squareImage)),
-                            Positioned(
-                              top: 2,
-                              left: 2,
-                              child: EventTileDateBadge(
-                                date: extractDate(eventObject.startDate ?? ""),
-                                month: extractMonthInitials(
-                                    eventObject.startDate ?? ""),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: EventTileWidget(
+                            width: 80.w,
+                            pinned: true,
+                            event: eventObject,
+                          ));
                     }),
               ),
               Padding(

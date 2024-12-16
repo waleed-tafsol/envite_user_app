@@ -9,14 +9,15 @@ import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
 
 class EventTileWidget extends StatelessWidget {
-  // Optional parameters with default values of false
   final bool pinned;
   final EventModel? event;
+  final double? width;
 
   const EventTileWidget({
     super.key,
     this.pinned = false,
     this.event,
+    this.width,
   });
 
   @override
@@ -25,6 +26,7 @@ class EventTileWidget extends StatelessWidget {
       onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
       child: Container(
         height: 14.h,
+        width: width,
         margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
         padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
         decoration: BoxDecoration(
