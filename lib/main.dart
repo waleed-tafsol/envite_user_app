@@ -1,6 +1,7 @@
 import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/HomeScreen.dart';
+import 'package:event_planner_light/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'constants/routes.dart';
 import 'constants/theme.dart';
 import 'controllers/Auth_services.dart';
-import 'view/screens/SplashScreen.dart';
+import 'view/screens/auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         theme: CustomTheme().lightTheme,
         initialRoute: authService.isAuthenticated.value
             ? NavBarScreen.routeName
-            : Splash_screen.routeName,
+            : SplashScreen.routeName,
         onGenerateRoute: Pages.onGenerateRoute,
         defaultTransition: Transition.rightToLeft,
         smartManagement: SmartManagement.full,

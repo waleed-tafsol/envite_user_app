@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../constants/ApiConstant.dart';
 import '../model/UserModel.dart';
 import '../utills/CustomSnackbar.dart';
-import '../view/screens/SplashScreen.dart';
+import '../view/screens/auth_screen.dart';
 import 'Auth_token_services.dart';
 
 class AuthService extends GetxService {
@@ -175,7 +175,7 @@ class AuthService extends GetxService {
     isAuthenticated.value = false;
     Get.back();
     CustomSnackbar.showSuccess("Success", message ?? "Logged Out");
-    Get.offAllNamed(Splash_screen.routeName);
+    Get.offAllNamed(AuthScreen.routeName);
   }
 
   // Future<Map<String, dynamic>> forgotPassword(String email) async {

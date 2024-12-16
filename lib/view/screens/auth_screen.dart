@@ -11,9 +11,9 @@ import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import 'Drawer/DrawerScreen.dart';
 
-class Splash_screen extends StatelessWidget {
-  const Splash_screen({super.key});
-  static const routeName = "Splash_screen";
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
+  static const routeName = "auth_screen";
 
   @override
   Widget build(BuildContext context) {
