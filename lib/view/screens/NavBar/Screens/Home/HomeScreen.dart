@@ -15,21 +15,18 @@ class HomeScreen extends GetView<HomeScreenController> {
     return Scaffold(
       body: PopScope(
         canPop: false,
-        child: SafeArea(
+        child: Padding(
+          padding:  EdgeInsets.symmetric(horizontal:4.w,vertical: 2.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SearchEventWidget(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: const SearchEventWidget(),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(vertical: 2.h),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 2.h),
                     padding:
                         EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-                    height: 15.h,
+                    height: 20.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: AppColors.kBerkeleyBlue,

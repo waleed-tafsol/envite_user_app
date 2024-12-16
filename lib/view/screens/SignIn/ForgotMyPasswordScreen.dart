@@ -79,7 +79,7 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 6.h,
                   ),
                   Form(
                     key: _formKey,
@@ -100,7 +100,7 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
                         )),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 4.h,
                   ),
                   SizedBox(
                     width: double.infinity,

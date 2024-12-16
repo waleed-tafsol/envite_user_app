@@ -8,6 +8,7 @@ import '../../../controllers/SigninController.dart';
 
 class SigninScreen extends GetView<SignIncontroller> {
   SigninScreen({super.key});
+
   static const routeName = "SigninScreen";
   final formKey = GlobalKey<FormState>();
 
@@ -111,6 +112,39 @@ class SigninScreen extends GetView<SignIncontroller> {
                     SizedBox(
                       height: 2.h,
                     ),
+                    InkWell(
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          controller.login();
+                          // Get.toNamed(DrawerScreen.routeName);
+                        }
+                      },
+                      child: Container(
+                        height: 7.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColors.kPrimaryColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Obx(() {
+                            return controller.isloading.value
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    "Sign In",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  );
+                          }),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 45.h,
+                    ),
                     GestureDetector(
                       onTap: () {
                         terms_0f_services_Dialog(context);
@@ -146,36 +180,6 @@ class SigninScreen extends GetView<SignIncontroller> {
                     ),
                     SizedBox(
                       height: 1.h,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          controller.login();
-                          // Get.toNamed(DrawerScreen.routeName);
-                        }
-                      },
-                      child: Container(
-                        height: 7.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: AppColors.kPrimaryColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Obx(() {
-                            return controller.isloading.value
-                                ? CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : Text(
-                                    "Sign In",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  );
-                          }),
-                        ),
-                      ),
                     ),
                   ],
                 ),

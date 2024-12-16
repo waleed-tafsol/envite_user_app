@@ -11,21 +11,22 @@ class SearchEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 1.h),
-      child: Row(
-        children: [
-          InkWell(
+    return Row(
+      children: [
+        SizedBox(
+          width: 10.w,
+          child: InkWell(
               onTap: () => BottomSheetManager.filter(context),
               child: SvgPicture.asset(SvgAssets.filter)),
-          const Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.search), hintText: "Search an event"),
-            ),
-          )
-        ],
-      ),
+        ),
+        SizedBox(width: 1.w,),
+        const Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+                suffixIcon: Icon(Icons.search), hintText: "Search an event"),
+          ),
+        )
+      ],
     );
   }
 }
