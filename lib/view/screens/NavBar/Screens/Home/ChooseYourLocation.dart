@@ -1,11 +1,15 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/ChooseYourLocationController.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/nearby_events.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/place_type.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ChooseyourlocationScreen extends StatelessWidget {
+class ChooseyourlocationScreen extends GetView<Chooseyourlocationcontroller> {
   const ChooseyourlocationScreen({super.key});
   static const routeName = "ChooseyourlocationScreen";
 
@@ -28,10 +32,66 @@ class ChooseyourlocationScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 4.h),
               child: Image.asset(Assets.location),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            GooglePlaceAutoCompleteTextField(
+              textEditingController: controller.googlemapfieldController,
+              googleAPIKey: "",
+              inputDecoration: InputDecoration(
+                  prefixIcon: Icon(Icons.location_on_outlined),
                   hintText: "Search event in...",
-                  prefixIcon: Icon(Icons.location_on_outlined)),
+                  fillColor: Colors.transparent),
+              boxDecoration: BoxDecoration(
+                color: AppColors.kTextfieldColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              debounceTime: 800,
+              isLatLngRequired: true,
+              getPlaceDetailWithLatLng: (Prediction prediction) {
+                controller.lat = prediction.lat;
+                controller.lng = prediction.lng;
+              },
+              itemClick: (Prediction prediction) {
+                String description = prediction.description ?? "";
+
+                // Set the text in the controller
+                controller.googlemapfieldController.text = description;
+
+                // Ensure the cursor is within the valid range
+                int cursorPosition = description.length;
+
+                // Set the cursor to the end of the text
+                controller.googlemapfieldController.selection =
+                    TextSelection.fromPosition(
+                  TextPosition(offset: cursorPosition),
+                );
+                Get.toNamed(NearbyEvents.routeName);
+              },
+              itemBuilder: (context, index, Prediction prediction) {
+                return Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: AppColors.kTextfieldColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: AppColors.kIconColor,
+                      ),
+                      SizedBox(
+                        width: 7,
+                      ),
+                      Expanded(
+                          child: Text("${prediction.description ?? ""}",
+                              style: TextStyle(color: Colors.black))),
+                    ],
+                  ),
+                );
+              },
+              seperatedBuilder: Divider(),
+              isCrossBtnShown: true,
+              containerHorizontalPadding: 10,
+              placeType: PlaceType.geocode,
             ),
             SizedBox(
               height: 4.h,

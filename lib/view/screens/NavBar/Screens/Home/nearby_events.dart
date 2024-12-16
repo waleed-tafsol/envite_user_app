@@ -1,14 +1,12 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
-import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
-import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class NearbyEvents extends StatelessWidget {
+import '../../../../../controllers/ChooseYourLocationController.dart';
+
+class NearbyEvents extends GetView<Chooseyourlocationcontroller> {
   static const routeName = '/NearbyEvents';
   const NearbyEvents({super.key});
 
@@ -46,6 +44,7 @@ class NearbyEvents extends StatelessWidget {
               height: 1.h,
             ),
             TextField(
+              controller: controller.googlemapfieldController,
               decoration: InputDecoration(hintText: "Address"),
             ),
             SizedBox(

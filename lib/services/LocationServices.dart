@@ -1,14 +1,10 @@
 import 'package:geolocator/geolocator.dart';
 
 class LocationServices {
-  /// Fetch the user's current location.
-  /// Returns `Position` with latitude and longitude or a default `Position` with (0.0, 0.0) if unable to fetch.
   static Future<Position> getCurrentLocation() async {
     try {
-      // Check if location services are enabled
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        // Return default position if services are disabled
         return _defaultPosition();
       }
 

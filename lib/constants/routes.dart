@@ -6,6 +6,7 @@ import 'package:event_planner_light/bindings/SignUpBindings.dart';
 import 'package:event_planner_light/bindings/membership_binding.dart';
 import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/bindings/supportBindings.dart';
+import 'package:event_planner_light/controllers/ChooseYourLocationController.dart';
 import 'package:event_planner_light/controllers/PackagesController.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
@@ -34,6 +35,7 @@ import 'package:event_planner_light/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
+import '../bindings/ChooseYourLocationBindings.dart';
 import '../bindings/OtpBindings.dart';
 import '../bindings/TopUpsControllerBindings.dart';
 import '../bindings/auth_binding.dart';
@@ -79,8 +81,8 @@ class Pages {
       case ChooseyourlocationScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const ChooseyourlocationScreen(),
-          // binding: SplashBinding(),
+          page: () => ChooseyourlocationScreen(),
+          binding: ChooseyourLocationBindings(),
           transition: _routeTransition,
         );
       // case DrawerScreen.routeName:
