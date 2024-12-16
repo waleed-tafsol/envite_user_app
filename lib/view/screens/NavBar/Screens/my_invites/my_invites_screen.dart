@@ -16,7 +16,7 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
           child: Column(
             children: [
               const SearchEventWidget(),

@@ -17,7 +17,7 @@ class SearchEventWidget extends StatelessWidget {
           width: 10.w,
           child: InkWell(
               onTap: () => BottomSheetManager.filter(context),
-              child: SvgPicture.asset(SvgAssets.filter)),
+              child: SvgPicture.asset(SvgAssets.filter,width: 5.w,)),
         ),
         SizedBox(width: 1.w,),
         const Expanded(

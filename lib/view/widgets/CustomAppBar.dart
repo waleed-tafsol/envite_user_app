@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.onDrawerToggle});
+
   final VoidCallback onDrawerToggle;
 
   @override
@@ -19,20 +20,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: InkWell(
           onTap: () => Get.toNamed(ChooseyourlocationScreen.routeName),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.location_on_outlined),
+                  Icon(Icons.location_on_outlined,),
                   Text(
                     "Events near to you",
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall,
                   ),
                 ],
               ),
               Text(
                 "Salmiya, Kuwait",
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineMedium,
               ),
             ],
           ),

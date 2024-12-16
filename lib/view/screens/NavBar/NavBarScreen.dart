@@ -34,7 +34,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
     const ExploreScreen(),
     const MyInvitesScreen(),
     const MyEventsScreen(),
-    const Profilescreen(),
+    const ProfileScreen(),
   ];
 
   void _onTap(int index) {

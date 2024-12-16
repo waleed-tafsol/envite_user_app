@@ -91,7 +91,7 @@ class CustomTheme {
     inputDecorationTheme: const InputDecorationTheme().copyWith(
         contentPadding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 1.h),
         filled: true,
-        fillColor: AppColors.kTextfieldColor,
+        fillColor: AppColors.kLightBlueColor2,
         prefixIconColor: AppColors.kPrimaryColor,
         suffixIconColor: AppColors.kPrimaryColor,
 
