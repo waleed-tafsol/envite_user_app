@@ -15,7 +15,7 @@ class ExploreScreen extends GetView<ExploreController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 2.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

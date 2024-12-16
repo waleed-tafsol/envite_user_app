@@ -15,27 +15,30 @@ class MyEventsScreen extends GetView<MyEventsController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SearchEventWidget(),
-              Obx(() {
-                return controller.isEventLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemCount: controller.events.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MyEventsListTile(
-                            pinned: true,
-                            event: controller.events[index],
-                          );
-                        });
-              }),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Obx(() {
+                  return controller.isEventLoading.value
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: controller.events.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return MyEventsListTile(
+                              pinned: true,
+                              event: controller.events[index],
+                            );
+                          });
+                }),
+              ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //   children: [

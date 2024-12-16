@@ -61,7 +61,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 9.h,
                   child: Obx(() {
                     return controller.isloadingCatagories.value
                         ? Center(
@@ -77,14 +77,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                                     horizontal: 1.w,
                                   ),
                                   decoration: BoxDecoration(
-                                      color: AppColors.kBlueLightShade,
+                                      color: AppColors.kLightBlueColor,
                                       borderRadius: BorderRadius.circular(10)),
-                                  height: 8.h,
                                   width: 25.w,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(Icons.mic),
+                                      const Icon(Icons.mic,color: Colors.redAccent,),
                                       Text(
                                         controller.categories[index].name?.en ??
                                             "",
@@ -109,7 +108,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                     children: [
                       Text(
                         "Suggestion for you",
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          color: AppColors.kTextBlack
+                        ),
                       ),
                       Text(
                         "All events",

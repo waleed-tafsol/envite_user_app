@@ -291,6 +291,47 @@ class BottomSheetManager {
     ]);
   }
 
+  static void addPastEvents(BuildContext context) {
+    _CustomBottomSheet(context, [
+      Text(
+        'You’re almost there!',
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: Colors.white),
+      ),
+      SizedBox(height: 1.h),
+      SvgPicture.asset(SvgAssets.clapping),
+      SizedBox(height: 2.h),
+      Text(
+        'Our admin team will review your account soon.',
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(fontSize: 15.sp, color: Colors.white),
+      ),
+      SizedBox(height: 8.h),
+      ElevatedButton(
+        onPressed: () {
+          // Action to rate the event
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          minimumSize: Size(double.infinity, 6.h),
+          // primary: Colors.blueAccent, // Background color
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        child: const Text('Go to the Main page'),
+      ),
+    ]);
+  }
+
+
   static void sendInvite(
     BuildContext context,
   ) {
