@@ -45,7 +45,7 @@ class EventTileWidget extends StatelessWidget {
                       left: 2,
                       child: EventTileDateBadge(
                         date: extractDate(event?.startDate ?? ""),
-                        month: extractMonthName(event?.startDate ?? ""),
+                        month: extractMonthInitials(event?.startDate ?? ""),
                       ),
                     ),
                   ],

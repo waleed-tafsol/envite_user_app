@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 
-
 String formatToIso8601WithTimezone(DateTime date) {
   // Get the timezone offset (e.g., +00:00 or -05:00)
   Duration timezoneOffset = date.timeZoneOffset;
@@ -20,7 +19,8 @@ String _formatTimezoneOffset(Duration offset) {
   int minutes = offset.inMinutes % 60;
 
   // Format the offset to match the required format (+00:00 or -05:00)
-  String formattedOffset = '${hours >= 0 ? '+' : '-'}${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
+  String formattedOffset =
+      '${hours >= 0 ? '+' : '-'}${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
 
   return formattedOffset;
 }
@@ -90,6 +90,26 @@ String extractMonthName(String isoTimestamp) {
     "October",
     "November",
     "December"
+  ];
+  return monthNames[
+      dateTime.month - 1]; // Subtract 1 because array is zero-indexed
+}
+
+String extractMonthInitials(String isoTimestamp) {
+  final dateTime = DateTime.parse(isoTimestamp);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
   ];
   return monthNames[
       dateTime.month - 1]; // Subtract 1 because array is zero-indexed
