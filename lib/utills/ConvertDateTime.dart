@@ -1,17 +1,28 @@
 import 'package:intl/intl.dart';
 
+
 String formatToIso8601WithTimezone(DateTime date) {
-  // Convert the DateTime object to UTC
-  DateTime utcDate = date.toUtc();
+  // Get the timezone offset (e.g., +00:00 or -05:00)
+  Duration timezoneOffset = date.timeZoneOffset;
+  String formattedOffset = _formatTimezoneOffset(timezoneOffset);
 
   // Format the DateTime object into the desired format
-  String formattedDate =
-      DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(utcDate);
+  String formattedDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(date);
 
-  // Replace the 'Z' with the timezone offset (+00:00)
-  formattedDate = formattedDate.replaceFirst('Z', '+00:00');
+  // Append the timezone offset to the formatted date string
+  return '$formattedDate$formattedOffset';
+}
 
-  return formattedDate;
+// Helper function to format the timezone offset
+String _formatTimezoneOffset(Duration offset) {
+  // Get the total hours and minutes from the duration
+  int hours = offset.inHours;
+  int minutes = offset.inMinutes % 60;
+
+  // Format the offset to match the required format (+00:00 or -05:00)
+  String formattedOffset = '${hours >= 0 ? '+' : '-'}${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}';
+
+  return formattedOffset;
 }
 
 String formatISOToCustom(String isoTime) {
