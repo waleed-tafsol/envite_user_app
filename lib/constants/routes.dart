@@ -1,3 +1,4 @@
+import 'package:event_planner_light/bindings/AdsBindings.dart';
 import 'package:event_planner_light/bindings/CuponsBindings.dart';
 import 'package:event_planner_light/bindings/DrawerBindings.dart';
 import 'package:event_planner_light/bindings/PackagesControllerBindings.dart';
@@ -223,7 +224,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => AdsScreen(),
-          // binding: Createportfoliobindings(),
+          binding: AdsBindings(),
           transition: _routeTransition,
         );
       case AddAdsScreen.routeName:

@@ -3,7 +3,6 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 
 class AddAdsScreen extends StatelessWidget {
