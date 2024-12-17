@@ -34,7 +34,7 @@ class ChooseyourlocationScreen extends GetView<Chooseyourlocationcontroller> {
             ),
             GooglePlaceAutoCompleteTextField(
               textEditingController: controller.googlemapfieldController,
-              googleAPIKey: "",
+              googleAPIKey: "AIzaSyDhG_PrHOY7HZx-G87mnLko087RyCUqgKM",
               inputDecoration: InputDecoration(
                   prefixIcon: Icon(Icons.location_on_outlined),
                   hintText: "Search event in...",

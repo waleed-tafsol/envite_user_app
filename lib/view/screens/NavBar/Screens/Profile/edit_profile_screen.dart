@@ -1,19 +1,18 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
-import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../../../../constants/colors_constants.dart';
+import '../../../../../controllers/EditProfileController.dart';
 
-class EditProfileScreen extends StatelessWidget {
+class EditProfileScreen extends GetView<EditProfileController> {
   static const routeName = 'EditProfileScreen';
-  const EditProfileScreen({super.key});
+  EditProfileScreen({super.key});
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +30,22 @@ class EditProfileScreen extends StatelessWidget {
                 height: 1.h,
               ),
               Stack(children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                ClipOval(
                     child: Image.asset(
-                      fit: BoxFit.cover,
-                      Assets.eventCanvas,
-                      width: double.infinity,
-                    )),
+                  height: 30.w,
+                  width: 30.w,
+                  fit: BoxFit.cover,
+                  Assets.eventCanvas,
+                )),
                 Positioned(
-                    right: 1.w, child: SvgPicture.asset(SvgAssets.image_pen))
+                    right: 1.w,
+                    child: InkWell(
+                        onTap: () {
+                          controller.pickImage();
+                        },
+                        child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: SvgPicture.asset(SvgAssets.image_pen))))
               ]),
               SizedBox(height: 1.h),
               Align(
@@ -49,42 +55,70 @@ class EditProfileScreen extends StatelessWidget {
                   style: TextConstants.bodyLargeBlackBold(context),
                 ),
               ),
+              TextFormField(
+                  controller: controller.fullNameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty)
+                      return 'Full Name cannot be empty';
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Full Name",
+                    prefixIcon: Icon(Icons.person_2_outlined),
+                  )),
               SizedBox(
-                height: 1.h,
+                height: 2.h,
               ),
-              TextField(
-                decoration: InputDecoration(hintText: "Name"),
+              // TextFormField(
+              //     controller: controller.phoneNumberController,
+              //     keyboardType: TextInputType.phone,
+              //     validator: (value) {
+              //       if (value == null || value.isEmpty)
+              //         return 'Phone Number cannot be empty';
+              //       if (!GetUtils.isPhoneNumber(value))
+              //         return 'Enter a valid phone number';
+              //       return null;
+              //     },
+              //     decoration: const InputDecoration(
+              //       hintText: "Phone Number",
+              //       prefixIcon: Icon(Icons.phone_android_sharp),
+              //     )),
+              // SizedBox(
+              //   height: 2.h,
+              // ),
+              // SizedBox(
+              //   height: 20.h,
+              //   child: TextFormField(
+              //     controller: controller.bioController,
+              //     validator: (value) {
+              //       if (value == null || value.isEmpty)
+              //         return 'Bio cannot be empty';
+              //       return null;
+              //     },
+              //     keyboardType: TextInputType.multiline,
+              //     textAlignVertical: TextAlignVertical.top,
+              //     maxLines: null, // Set this
+              //     expands: true,
+              //     decoration: InputDecoration(hintText: "Bio"),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 1.h,
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Verification Document",
+                    style: TextConstants.bodyLargeBlackBold(context),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        controller.pickADocument();
+                      },
+                      icon: Icon(Icons.add))
+                ],
               ),
-              SizedBox(
-                height: 1.h,
-              ),
-              TextField(
-                decoration: InputDecoration(hintText: "Email"),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              TextField(
-                decoration: InputDecoration(hintText: "Phone Number"),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              SizedBox(
-                height: 20.h,
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  textAlignVertical: TextAlignVertical.top,
-                  maxLines: null, // Set this
-                  expands: true,
-                  decoration: InputDecoration(hintText: "Bio"),
-                ),
-              ),
-
-              SizedBox(
-                height: 1.h,
-              ),
-
               SizedBox(
                 height: 1.h,
               ),
@@ -92,7 +126,7 @@ class EditProfileScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: InkWell(
                   onTap: () {
-                    // controller.pickImageOrVideo();
+                    controller.pickADocument();
                   },
                   child: DottedBorder(
                     dashPattern: [5],
@@ -100,17 +134,17 @@ class EditProfileScreen extends StatelessWidget {
                     radius: Radius.circular(5),
                     child: SizedBox(
                       height: 20.h,
-                      width: 20.h,
+                      width: double.infinity,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            size: 10.h,
+                            size: 8.h,
                             Icons.image_outlined,
                             color: Colors.grey,
                           ),
                           Text(
-                            "Upload Image",
+                            "Upload Document",
                             style: TextStyle(
                               fontSize: 17.sp,
                               color: Colors.grey,
@@ -126,78 +160,36 @@ class EditProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              // Obx(() {
-              //   if (controller.pickedFiles.isEmpty) {
-              //     return const SizedBox();
-              //   }
-              //   return GridView.builder(
-              //     shrinkWrap: true,
-              //     physics:
-              //         const NeverScrollableScrollPhysics(), // Disable scrolling
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 2, // Number of columns
-              //         childAspectRatio: 1.1, // Aspect ratio of grid items
-              //         mainAxisSpacing: 3.h,
-              //         crossAxisSpacing: 4.w),
-              //     itemCount: controller.pickedFiles.length,
-              //     itemBuilder: (context, index) {
-              //       final file = controller.pickedFiles[index];
-              //       return Stack(
-              //         children: [
-              //           Positioned.fill(
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                 borderRadius: k5BorderRadius,
-              //                 color: AppColors.kBlueLightShade,
-              //               ),
-              //               padding: EdgeInsets.symmetric(
-              //                   vertical: 2.h, horizontal: 4.w),
-              //               child: ClipRRect(
-              //                 borderRadius: k5BorderRadius,
-              //                 child: Image.file(
-              //                   file,
-              //                   fit: BoxFit.cover,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Positioned(
-              //               right: 0,
-              //               top: 0,
-              //               child: IconButton(
-              //                   icon: const Icon(
-              //                     Icons.cancel,
-              //                     color: Colors.white,
-              //                   ),
-              //                   onPressed: () {
-              //                     controller.removeFile(file);
-              //                   }))
-              //         ],
-              //       );
-              //     },
-              //   );
-              // }),
-              SizedBox(
-                height: 1.h,
-              ),
-
-              // TextField(
-              //   decoration: InputDecoration(hintText: "Tilte"),
-              // ),
-              SizedBox(
-                height: 1.h,
+              InkWell(
+                onTap: () {
+                  if (controller.verifyfields()) {
+                    controller.updateProfile();
+                  }
+                },
+                child: Container(
+                  height: 7.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.kPrimaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Obx(() {
+                      return controller.isloading.value
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Update Profile",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            );
+                    }),
+                  ),
+                ),
               ),
               SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    style: StylesConstants.elevated_b_redBack_whiteFore,
-                    onPressed: () {
-                      Get.offNamed(NavBarScreen.routeName);
-                    },
-                    child: Text("Update Profile")),
-              ),
-              SizedBox(
-                height: 1.h,
+                height: 2.h,
               ),
             ],
           ),

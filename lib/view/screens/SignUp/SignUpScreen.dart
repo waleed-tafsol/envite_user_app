@@ -262,6 +262,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               },
                               keyboardType: TextInputType.multiline,
                               textAlignVertical: TextAlignVertical.top,
+
                               maxLines: null, // Set this
                               expands: true,
                               decoration: InputDecoration(hintText: "Bio"),

@@ -42,7 +42,7 @@ class ProfileScreen extends GetView<MyProfileController> {
                     child: Center(
                       child: IconButton(
                           onPressed: () {
-                           // Get.toNamed(SignUpScreen.routeName);
+                            Get.toNamed(EditProfileScreen.routeName);
                           },
                           icon: Icon(Icons.mode_edit_outlined)),
                     ),

@@ -11,8 +11,9 @@ class ApiConstants {
   static const resetPassword = "${baseUrl}auth/reset/password";
   static const resendOtp = "${baseUrl}auth/resend/otp";
   static const register = "${baseUrl}auth/event/planner/signup";
-  // Auth
+  // user
   static const getme = "${baseUrl}users/me";
+  static const updateMe = "${baseUrl}users/update/me";
   // Catagories
   static const categories = "${baseUrl}category/all";
   static const getMyCatagories = "${baseUrl}category/my/all";

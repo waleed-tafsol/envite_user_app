@@ -1,6 +1,7 @@
 import 'package:event_planner_light/bindings/AdsBindings.dart';
 import 'package:event_planner_light/bindings/CuponsBindings.dart';
 import 'package:event_planner_light/bindings/DrawerBindings.dart';
+import 'package:event_planner_light/bindings/EditProfileBindings.dart';
 import 'package:event_planner_light/bindings/PackagesControllerBindings.dart';
 import 'package:event_planner_light/bindings/SignInBindings.dart';
 import 'package:event_planner_light/bindings/SignUpBindings.dart';
@@ -239,7 +240,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => EditProfileScreen(),
-          // binding: Createportfoliobindings(),
+          binding: EditProfileBindings(),
           transition: _routeTransition,
         );
       case Buytopups.routeName:
