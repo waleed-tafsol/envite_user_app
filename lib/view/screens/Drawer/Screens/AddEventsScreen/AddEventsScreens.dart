@@ -105,13 +105,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                               controller: controller.nameController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter Your Name";
+                                  return "Please enter Event Name";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
-                                hintText: "Name",
+                                hintText: "Event Name",
                                 prefixIcon: Icon(Icons.person_2_outlined),
                               )),
                           SizedBox(
@@ -122,13 +122,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                               controller: controller.addressController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter an Your Address";
+                                  return "Please enter Event Location";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.streetAddress,
                               decoration: InputDecoration(
-                                hintText: "Address",
+                                hintText: "Avenue Location",
                                 prefixIcon: Icon(Icons.location_on_outlined),
                               )),
                           SizedBox(
@@ -144,7 +144,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         controller.socialLink1Controller,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "Please enter a Social link to your event";
+                                        return "Please enter a Facebook link to your event";
                                       }
                                       return null;
                                     },
@@ -197,13 +197,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                               controller: controller.avnueController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the Avaenue";
+                                  return "Please enter the Avenue name";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.streetAddress,
                               decoration: InputDecoration(
-                                hintText: "Avenue",
+                                hintText: "Avenue name",
                                 prefixIcon: Icon(Icons.houseboat_outlined),
                               )),
                           SizedBox(
