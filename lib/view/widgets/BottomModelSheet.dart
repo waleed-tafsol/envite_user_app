@@ -294,7 +294,7 @@ class BottomSheetManager {
   static void addPastEvents(BuildContext context) {
     _CustomBottomSheet(context, [
       Text(
-        'You’re almost there!',
+        'Add Past Events',
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
@@ -305,14 +305,14 @@ class BottomSheetManager {
       SvgPicture.asset(SvgAssets.clapping),
       SizedBox(height: 2.h),
       Text(
-        'Our admin team will review your account soon.',
+        'Do you have any past event to add into your portfolio? You can also add them later from edit portfolio screen.',
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
             .bodyMedium!
             .copyWith(fontSize: 15.sp, color: Colors.white),
       ),
-      SizedBox(height: 8.h),
+      SizedBox(height: 4.h),
       ElevatedButton(
         onPressed: () {
           // Action to rate the event
@@ -326,7 +326,22 @@ class BottomSheetManager {
             fontWeight: FontWeight.bold,
           ),
         ),
-        child: const Text('Go to the Main page'),
+        child: const Text('Yes I Have'),
+      ),
+      SizedBox(height: 2.h),
+      ElevatedButton(
+        onPressed: () {
+Get.back();        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          minimumSize: Size(double.infinity, 6.h),
+          // primary: Colors.blueAccent, // Background color
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        child: const Text('Not Now'),
       ),
     ]);
   }
