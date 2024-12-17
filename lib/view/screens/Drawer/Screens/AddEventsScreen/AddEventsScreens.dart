@@ -391,7 +391,6 @@ class AddEventsScreens extends GetView<AddEventController> {
                           SizedBox(
                             height: 2.h,
                           ),
-
                           ListTile(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),

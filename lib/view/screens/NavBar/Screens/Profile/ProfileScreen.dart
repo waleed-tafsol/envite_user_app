@@ -10,8 +10,9 @@ import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../widgets/CircleButton.dart';
-import '../../../SignUp/SignUpScreen.dart';
+import '../../../../../constants/StyleConstants.dart';
+import '../../../../../controllers/AddEventController.dart';
+import '../../../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 
 class ProfileScreen extends GetView<MyProfileController> {
   const ProfileScreen({super.key});
@@ -82,11 +83,11 @@ class ProfileScreen extends GetView<MyProfileController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: roles.map((item) {
                         return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 1.h),
+                          padding: EdgeInsets.symmetric(vertical: 0.5.h),
                           child: Text(
                             item,
                             style:
-                                TextConstants.bodySmall_black_normal(context),
+                                TextConstants.bodyLargeBlackBold(context),
                           ),
                         );
                       }).toList(),
@@ -184,7 +185,7 @@ class ProfileScreen extends GetView<MyProfileController> {
                   );
                 }),
 
-                k1hSizedBox,
+                k3hSizedBox,
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -225,7 +226,23 @@ class ProfileScreen extends GetView<MyProfileController> {
                 // ),
                 SizedBox(
                   height: 5.h,
-                )
+                ),
+                SizedBox(
+                  height: 6.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: StylesConstants
+                          .elevated_b_redBack_whiteFore,
+                      onPressed: () {
+                        var controller = Get.put(AddEventController());
+                        controller.isAddPastEvents.value = true;
+                        Get.toNamed(AddEventsScreens.routeName);
+                      },
+                      child:  Text('Add past event')),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
               ],
             ),
           )
