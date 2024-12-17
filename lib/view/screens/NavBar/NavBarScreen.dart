@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors_constants.dart';
+import '../../../controllers/AddEventController.dart';
 import '../../widgets/CustomAppBar.dart';
 import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'DrawerWidget.dart';
@@ -85,6 +86,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
+          var controller = Get.put(AddEventController());
+          controller.isAddPastEvents.value = false;
           Get.toNamed(AddEventsScreens.routeName);
         },
         child: Icon(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
@@ -12,7 +13,7 @@ import '../model/CatagoryModel.dart';
 import '../services/LocationServices.dart';
 import '../utills/ConvertDateTime.dart';
 
-class Addeventcontroller extends GetxController {
+class AddEventController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
@@ -31,12 +32,19 @@ class Addeventcontroller extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
   Rx<CatagoryModel?> selectedCategory = CatagoryModel().obs;
+  RxBool isAddPastEvents = false.obs;
   RxBool isloading = true.obs;
   List<String> options = ['public', 'private', 'exclusive'];
   Rx<String?> selectedOption = Rx<String?>(null);
+  var pickedImages = <File>[].obs;
+
 
   var selectedStartDate = DateTime.now().obs;
   var selectedEndDate = DateTime.now().obs;
+
+  void removeImage(File file) {
+    pickedImages.remove(file);
+  }
 
   void setStartDate(DateTime date) {
     selectedStartDate.value = date;

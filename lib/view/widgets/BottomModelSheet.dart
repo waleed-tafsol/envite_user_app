@@ -13,6 +13,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
+import '../../controllers/AddEventController.dart';
+import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import '../screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 
 class BottomSheetManager {
@@ -315,7 +317,10 @@ class BottomSheetManager {
       SizedBox(height: 4.h),
       ElevatedButton(
         onPressed: () {
-          // Action to rate the event
+          Get.back();
+          var controller = Get.put(AddEventController());
+          controller.isAddPastEvents.value = true;
+          Get.toNamed(AddEventsScreens.routeName);
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
