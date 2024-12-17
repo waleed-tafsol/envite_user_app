@@ -1,4 +1,5 @@
 import 'package:event_planner_light/controllers/HomeScreenController.dart';
+import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -23,40 +24,45 @@ class HomeScreen extends GetView<HomeScreenController> {
                 const SearchEventWidget(),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 2.h),
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-                    height: 20.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: AppColors.kBerkeleyBlue,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Best Event In kuwait",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(color: Colors.white)),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        Row(
-                          children: [
-                            Text("4.2",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: Colors.white)),
-                            Icon(
-                              Icons.star,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
-                      ],
+                  child: InkWell(
+                    onTap: (){
+                      BottomSheetManager.addPastEvents(context);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                      height: 20.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: AppColors.kBerkeleyBlue,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Best Event In kuwait",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(color: Colors.white)),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            children: [
+                              Text("4.2",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.white)),
+                              Icon(
+                                Icons.star,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
@@ -12,8 +13,9 @@ import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 
-class AddEventsScreens extends GetView<Addeventcontroller> {
+class AddEventsScreens extends GetView<AddEventController> {
   AddEventsScreens({super.key});
+
   static const routeName = "AddEventsScreens";
   final formKey = GlobalKey<FormState>();
 
@@ -21,7 +23,9 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Your event"),
+        title: Text(controller.isAddPastEvents.value
+            ? 'Add Past Events'
+            : 'Add Your event'),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -36,18 +40,47 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                       key: formKey,
                       child: Column(
                         children: [
-                          Image.asset(Assets.video_Thumbnail),
+                          InkWell(
+                            onTap: () {
+                              //  controller.pickImage();
+                            },
+                            child: DottedBorder(
+                              color: AppColors.kBluedarkShade,
+                              dashPattern: [5],
+                              borderType: BorderType.RRect,
+                              radius: Radius.circular(5),
+                              child: SizedBox(
+                                height: 20.h,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      size: 5.h,
+                                      Icons.photo_library_outlined,
+                                      color: AppColors.kBluedarkShade,
+                                    ),
+                                    Text(
+                                      "Upload avenue image",
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.kBluedarkShade,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           // Stack(
                           //   children: [
                           //     Image.asset(Assets.video_Thumbnail),
                           //     Positioned(top: 1.h, right: 2.w, child: CircleIcon()),
                           //   ],
                           // ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
 
-                          SizedBox(
+                          /* SizedBox(
                             height: 2.h,
                           ),
                           TextFormField(
@@ -64,7 +97,7 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               decoration: InputDecoration(
                                 hintText: "Email",
                                 prefixIcon: Icon(Icons.email_outlined),
-                              )),
+                              )),*/
                           SizedBox(
                             height: 2.h,
                           ),
@@ -72,13 +105,13 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               controller: controller.nameController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter Your Name";
+                                  return "Please enter Event Name";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
-                                hintText: "Name",
+                                hintText: "Event Name",
                                 prefixIcon: Icon(Icons.person_2_outlined),
                               )),
                           SizedBox(
@@ -89,80 +122,88 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               controller: controller.addressController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter an Your Address";
+                                  return "Please enter Event Location";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.streetAddress,
                               decoration: InputDecoration(
-                                hintText: "Address",
+                                hintText: "Avenue Location",
                                 prefixIcon: Icon(Icons.location_on_outlined),
                               )),
                           SizedBox(
                             height: 2.h,
                           ),
 
-                          TextFormField(
-                              controller: controller.socialLink1Controller,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a Social link to your event";
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.streetAddress,
-                              decoration: InputDecoration(
-                                hintText: "Social link 1",
-                                prefixIcon: Icon(Icons.link),
-                              )),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-
-                          TextFormField(
-                              controller: controller.socialLink2Controller,
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return "Please enter a Social link to your event";
-                              //   }
-                              //   return null;
-                              // },
-                              keyboardType: TextInputType.streetAddress,
-                              decoration: InputDecoration(
-                                hintText: "Social link 2",
-                                prefixIcon: Icon(Icons.link),
-                              )),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-
-                          TextFormField(
-                              controller: controller.socialLink3Controller,
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return "Please enter a Social link to your event";
-                              //   }
-                              //   return null;
-                              // },
-                              keyboardType: TextInputType.streetAddress,
-                              decoration: InputDecoration(
-                                hintText: "Social link 3",
-                                prefixIcon: Icon(Icons.link),
-                              )),
-                          SizedBox(
-                            height: 2.h,
+                          Visibility(
+                            visible: !controller.isAddPastEvents.value,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                    controller:
+                                        controller.socialLink1Controller,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please enter a Facebook link to your event";
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.streetAddress,
+                                    decoration: InputDecoration(
+                                      hintText: "Facebook link",
+                                      prefixIcon: Icon(Icons.link),
+                                    )),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                TextFormField(
+                                    controller:
+                                        controller.socialLink2Controller,
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please enter a Social link to your event";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                    keyboardType: TextInputType.streetAddress,
+                                    decoration: InputDecoration(
+                                      hintText: "Instagram link",
+                                      prefixIcon: Icon(Icons.link),
+                                    )),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                TextFormField(
+                                    controller:
+                                        controller.socialLink3Controller,
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please enter a Social link to your event";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                    keyboardType: TextInputType.streetAddress,
+                                    decoration: InputDecoration(
+                                      hintText: "Snapchat link",
+                                      prefixIcon: Icon(Icons.link),
+                                    )),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                              ],
+                            ),
                           ),
                           TextFormField(
                               controller: controller.avnueController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the Avaenue";
+                                  return "Please enter the Avenue name";
                                 }
                                 return null;
                               },
                               keyboardType: TextInputType.streetAddress,
                               decoration: InputDecoration(
-                                hintText: "Avaenue",
+                                hintText: "Avenue name",
                                 prefixIcon: Icon(Icons.houseboat_outlined),
                               )),
                           SizedBox(
@@ -170,18 +211,19 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                           ),
                           TextFormField(
                               controller: controller.descriptionController,
+                              maxLines: 5,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please enter the Description";
                                 }
                                 return null;
                               },
-                              keyboardType: TextInputType.streetAddress,
+                              keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
                                 hintText: "Description",
-                                prefixIcon: Icon(Icons.description_outlined),
+                               // prefixIcon: Icon(Icons.description_outlined),
                               )),
-                          SizedBox(
+                          /* SizedBox(
                             height: 2.h,
                           ),
                           TextFormField(
@@ -196,7 +238,7 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               decoration: InputDecoration(
                                 hintText: "Max Number of people",
                                 prefixIcon: Icon(Icons.description_outlined),
-                              )),
+                              )),*/
                           SizedBox(
                             height: 2.h,
                           ),
@@ -362,7 +404,10 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               return Text(
                                 controller.selectedCategory.value?.name?.en ??
                                     "Catagory of events",
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: AppColors.kTextBlack),
                               );
                             }),
                             trailing: PopupMenuButton<String>(
@@ -384,9 +429,14 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                                         TextConstants.bodySmall_black_normal(
                                             context),
                                     value: choice.name?.en ?? "",
-                                    child: Text(choice.name?.en ?? "",
-                                        style: TextConstants
-                                            .bodySmall_black_normal(context)),
+                                    child: Text(
+                                      choice.name?.en ?? "",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: AppColors.kTextBlack),
+                                    ),
                                   );
                                 }).toList();
                               },
@@ -407,7 +457,10 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                               return Text(
                                 controller.selectedOption.value ??
                                     "Type of events",
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: AppColors.kTextBlack),
                               );
                             }),
                             trailing: PopupMenuButton<String>(
@@ -439,14 +492,145 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                                 return controller.options.map((String choice) {
                                   return PopupMenuItem<String>(
                                     value: choice,
-                                    child: Text(choice,
-                                        style: TextConstants
-                                            .bodySmall_black_normal(context)),
+                                    child: Text(
+                                      choice,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: AppColors.kTextBlack),
+                                    ),
                                   );
                                 }).toList();
                               },
                             ),
                           ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DottedBorder(
+                                color: AppColors.kBluedarkShade,
+                                dashPattern: [5],
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(5),
+                                child: Padding(
+                                  padding:  EdgeInsets.all(4.0.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        size: 5.h,
+                                        Icons.image_outlined,
+                                        color: AppColors.kBluedarkShade,
+                                      ),
+                                      Text(
+                                        "Event Image 1",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              DottedBorder(
+                                color:AppColors.kBluedarkShade,
+                                dashPattern: [5],
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(5),
+                                child: Padding(
+                                  padding:  EdgeInsets.all(4.0.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        size: 5.h,
+                                        Icons.image_outlined,
+                                        color: AppColors.kBluedarkShade,
+                                      ),
+                                      Text(
+                                        "Event Image 1",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              DottedBorder(
+                                color: AppColors.kBluedarkShade,
+                                dashPattern: [5],
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(5),
+                                child: Padding(
+                                  padding:  EdgeInsets.all(4.0.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        size: 5.h,
+                                        Icons.image_outlined,
+                                        color: AppColors.kBluedarkShade,
+                                      ),
+                                      Text(
+                                        "Event Image 1",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                            ],
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: DottedBorder(
+                              color: AppColors.kBluedarkShade,
+                              dashPattern: [5],
+                              borderType: BorderType.RRect,
+                              radius: Radius.circular(5),
+                              child: Padding(
+                                padding:  EdgeInsets.symmetric(vertical: 4.0.w),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        size: 5.h,
+                                        Icons.movie_creation_outlined,
+                                        color: AppColors.kBluedarkShade,
+                                      ),
+                                      Text(
+                                        "Upload Event Video",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
                           SizedBox(
                             height: 2.h,
                           ),
@@ -473,7 +657,7 @@ class AddEventsScreens extends GetView<Addeventcontroller> {
                                     }
                                   }
                                 },
-                                child: const Text("Add the event")),
+                                child:  Text(controller.isAddPastEvents.value?'Add past event':'Add the event')),
                           ),
                           SizedBox(
                             height: 2.h,

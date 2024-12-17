@@ -8,7 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 
-class EditEventsDetailScreen extends GetView<Addeventcontroller> {
+class EditEventsDetailScreen extends GetView<AddEventController> {
   const EditEventsDetailScreen({super.key});
   static const routeName = "EditEventsDetailScreen";
 
