@@ -1,12 +1,14 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/AdsController.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
-import 'package:event_planner_light/view/widgets/ad_chips.dart';
 import 'package:event_planner_light/view/widgets/ads_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class AdsScreen extends StatelessWidget {
+import '../../../constants/constants.dart';
+
+class AdsScreen extends GetView<AdsController> {
   static const routeName = 'AdsScreen';
   const AdsScreen({super.key});
 
@@ -23,7 +25,47 @@ class AdsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AdChips(),
+            Center(
+              child: Obx(() {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // spacing: 2.w,
+                  children: List<Widget>.generate(
+                    controller.chipLabels.length,
+                    (int index) {
+                      return Expanded(
+                        child: ChoiceChip(
+                          backgroundColor: AppColors.kBlueMediumShade,
+                          selectedColor: AppColors.kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: k5BorderRadius,
+                              side: BorderSide(
+                                color: AppColors.kBlueMediumShade,
+                              )),
+                          label: Text(
+                            controller.chipLabels[index],
+                            style: TextStyle(
+                                color: controller.chipLabels[index] ==
+                                        controller.selectedChip.value
+                                    ? Colors.white
+                                    : AppColors.kBluedarkShade),
+                          ),
+                          selected: controller.selectedChip.value ==
+                              controller.chipLabels[index],
+                          onSelected: (bool selected) {
+                            if (selected) {
+                              controller.selectedChip.value =
+                                  controller.chipLabels[index];
+                              controller.getAllAds();
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ).toList(),
+                );
+              }),
+            ),
             SizedBox(
               height: 2.h,
             ),
