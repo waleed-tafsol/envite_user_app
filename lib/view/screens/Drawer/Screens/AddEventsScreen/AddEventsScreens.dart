@@ -48,13 +48,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              controller.pickImage();
-                            },
-                            child: Obx(() {
-                              return controller.pickedImages.isEmpty
-                                  ? DottedBorder(
+                          Obx(() {
+                            return controller.pickedImages.isEmpty
+                                ? InkWell(
+                                    onTap: () {
+                                      controller.pickImage();
+                                    },
+                                    child: DottedBorder(
                                       color: AppColors.kBluedarkShade,
                                       dashPattern: [5],
                                       borderType: BorderType.RRect,
@@ -83,17 +83,17 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           ],
                                         ),
                                       ),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(5),
-                                      child: Image.file(
-                                        controller.pickedImages[0],
-                                        height: 20.h,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                      ));
-                            }),
-                          ),
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.file(
+                                      controller.pickedImages[0],
+                                      height: 20.h,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                    ));
+                          }),
                           SizedBox(
                             height: 2.h,
                           ),
