@@ -25,89 +25,96 @@ class EventTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
       child: Container(
-        height: 14.h,
+        height: 13.h,
         width: width,
         margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
-        padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+        padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.5.h),
         decoration: BoxDecoration(
             color: AppColors.kBlueLightShade,
             borderRadius: BorderRadius.circular(10)),
-        child: Stack(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.asset(Assets.squareImage)),
-                    Positioned(
-                      top: 2,
-                      left: 2,
-                      child: EventTileDateBadge(
-                        date: extractDate(event?.startDate ?? ""),
-                        month: extractMonthInitials(event?.startDate ?? ""),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Center(
+          child: Stack(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Stack(
                     children: [
-                      Text(
-                        event?.name ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(height: 1.5),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.location_on_outlined,
-                            color: AppColors.kPrimaryColor,
-                          ),
-                          Text(
-                            "Salmiya, Kuwait",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.asset(Assets.squareImage)),
+                      Positioned(
+                        top: 3,
+                        left: 3,
+                        child: EventTileDateBadge(
+                          date: extractDate(event?.startDate ?? ""),
+                          month: extractMonthInitials(event?.startDate ?? ""),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 1.w,
-                  ),
-                  decoration: BoxDecoration(
-                      color: AppColors.kBlueMediumShade,
-                      borderRadius: BorderRadius.circular(2)),
-                  height: 2.h,
-                  // width: 10.w,
-                  child: Center(
-                    child: Text(
-                      event?.eventType ?? "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.kBluedarkShade),
+
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 3.w,vertical: 1.h),
+                          child: Text(
+                            event?.name ?? "",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(height: 1.5),
+                          ),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 3.w,vertical: 1.h),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                               Icon(
+                                size: 2.h,
+                                Icons.location_on_outlined,
+                                color: AppColors.kPrimaryColor,
+                              ),
+                              Text(
+                                "Salmiya, Kuwait",
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-            Positioned(
-                top: 0.5.h, right: 1.w, child: SvgPicture.asset(SvgAssets.pin)),
-          ],
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 1.5.w,
+                    ),
+                    decoration: BoxDecoration(
+                        color: AppColors.kBlueMediumShade,
+                        borderRadius: BorderRadius.circular(4)),
+                    height: 3.h,
+                    // width: 10.w,
+                    child: Center(
+                      child: Text(
+                        event?.eventType!.toUpperCase() ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.kBluedarkShade),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Positioned(
+                  top: 0.5.h, right: 1.w, child: SvgPicture.asset(SvgAssets.pin)),
+            ],
+          ),
         ),
       ),
     );
@@ -126,8 +133,7 @@ class EventTileDateBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 5.5.h,
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
+      padding: EdgeInsets.symmetric(horizontal: 2.5.w,vertical: 0.5.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColors.kBluedarkShade,
