@@ -286,6 +286,63 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                   icon: Icon(Icons.add))
                             ],
                           ),
+
+                          Obx(() {
+                            if (controller.pickedFiles.isEmpty) {
+                              return const SizedBox();
+                            }
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.pickedFiles.length,
+                              itemBuilder: (context, index) {
+                                final file = controller.pickedFiles[index];
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: k5BorderRadius,
+                                              color: AppColors.kBlueLightShade,
+                                            ),
+                                            width: double.infinity,
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.h, horizontal: 4.w),
+                                            child: ClipRRect(
+                                              borderRadius: k5BorderRadius,
+                                              child: Image.file(
+                                                file,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: IconButton(
+                                                icon: const Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () {
+                                                  controller.removeFile(file);
+                                                }))
+                                      ],
+                                    ),
+                                    TextFormField(
+                                      decoration: InputDecoration(
+                                          hintText: "Description"),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }),
                           SizedBox(
                             height: 1.h,
                           ),
@@ -297,24 +354,25 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               },
                               child: DottedBorder(
                                 dashPattern: [5],
+                                color: AppColors.kBluedarkShade,
                                 borderType: BorderType.RRect,
                                 radius: Radius.circular(5),
                                 child: SizedBox(
-                                  height: 20.h,
-                                  width: 20.h,
+                                  height: 10.h,
+                                  width: double.infinity,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        size: 10.h,
+                                        size: 5.h,
                                         Icons.image_outlined,
-                                        color: Colors.grey,
+                                        color: AppColors.kBluedarkShade,
                                       ),
                                       Text(
                                         "Upload Document",
                                         style: TextStyle(
-                                          fontSize: 17.sp,
-                                          color: Colors.grey,
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade,
                                           decoration: TextDecoration.underline,
                                         ),
                                       )
@@ -327,192 +385,14 @@ class SignUpScreen extends GetView<Signupcontroller> {
                           SizedBox(
                             height: 1.h,
                           ),
-                          Obx(() {
-                            if (controller.pickedFiles.isEmpty) {
-                              return const SizedBox();
-                            }
-                            return GridView.builder(
-                              shrinkWrap: true,
-                              physics:
-                                  const NeverScrollableScrollPhysics(), // Disable scrolling
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, // Number of columns
-                                      childAspectRatio:
-                                          1.1, // Aspect ratio of grid items
-                                      mainAxisSpacing: 3.h,
-                                      crossAxisSpacing: 4.w),
-                              itemCount: controller.pickedFiles.length,
-                              itemBuilder: (context, index) {
-                                final file = controller.pickedFiles[index];
-                                return Stack(
-                                  children: [
-                                    Positioned.fill(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: k5BorderRadius,
-                                          color: AppColors.kBlueLightShade,
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 2.h, horizontal: 4.w),
-                                        child: ClipRRect(
-                                          borderRadius: k5BorderRadius,
-                                          child: Image.file(
-                                            file,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                        right: 0,
-                                        top: 0,
-                                        child: IconButton(
-                                            icon: const Icon(
-                                              Icons.cancel,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              controller.removeFile(file);
-                                            }))
-                                  ],
-                                );
-                              },
-                            );
-                          }),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Previous Event Images",
-                                style:
-                                    TextConstants.bodyLargeBlackBold(context),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    controller.pickImage();
-                                  },
-                                  icon: Icon(Icons.add))
-                            ],
+                          TextFormField(
+                            decoration:
+                                InputDecoration(hintText: "Document Notes"),
+                            maxLines: 3,
                           ),
                           SizedBox(
-                            height: 1.h,
+                            height: 3.h,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: InkWell(
-                              onTap: () {
-                                controller.pickImage();
-                              },
-                              child: DottedBorder(
-                                dashPattern: [5],
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(5),
-                                child: SizedBox(
-                                  height: 20.h,
-                                  width: 20.h,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        size: 10.h,
-                                        Icons.image_outlined,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(
-                                        "Upload image",
-                                        style: TextStyle(
-                                          fontSize: 17.sp,
-                                          color: Colors.grey,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Obx(() {
-                            if (controller.pickedImages.isEmpty) {
-                              return const SizedBox();
-                            }
-                            return GridView.builder(
-                              shrinkWrap: true,
-                              physics:
-                                  const NeverScrollableScrollPhysics(), // Disable scrolling
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, // Number of columns
-                                      childAspectRatio:
-                                          1.1, // Aspect ratio of grid items
-                                      mainAxisSpacing: 3.h,
-                                      crossAxisSpacing: 4.w),
-                              itemCount: controller.pickedImages.length,
-                              itemBuilder: (context, index) {
-                                final file = controller.pickedImages[index];
-                                return Stack(
-                                  children: [
-                                    Positioned.fill(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: k5BorderRadius,
-                                          color: AppColors.kBlueLightShade,
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 2.h, horizontal: 4.w),
-                                        child: ClipRRect(
-                                          borderRadius: k5BorderRadius,
-                                          child: Image.file(
-                                            file,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                        right: 0,
-                                        top: 0,
-                                        child: IconButton(
-                                            icon: const Icon(
-                                              Icons.cancel,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              controller.removeFile(file);
-                                            }))
-                                  ],
-                                );
-                              },
-                            );
-                          }),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-
-                          // TextField(
-                          //   decoration: InputDecoration(hintText: "Tilte"),
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // SizedBox(
-                          //   width: double.infinity,
-                          //   child: ElevatedButton(
-                          //       style: StylesConstants
-                          //           .elevated_b_redBack_whiteFore,
-                          //       onPressed: () {
-                          //         Get.offNamed(DrawerScreen.routeName);
-                          //       },
-                          //       child: Text("Create Portfolio")),
-                          // ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-
                           InkWell(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
