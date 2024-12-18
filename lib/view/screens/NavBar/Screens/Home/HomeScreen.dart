@@ -74,7 +74,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     return controller.isloadingCatagories.value
                         ?  ListView(
                       scrollDirection: Axis.horizontal,
-                      children: List.generate(4, (index) => CategoriesTileShimmer()),
+                      children: List.generate(4, (index) => categoriesTileShimmer()),
                     )
                         : ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -136,7 +136,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ? ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: List.generate(5, (index) => EventTileShimmer()),
+                      children: List.generate(5, (index) => eventTileShimmer()),
                     )
                         : controller.events.isEmpty?
                         SizedBox(

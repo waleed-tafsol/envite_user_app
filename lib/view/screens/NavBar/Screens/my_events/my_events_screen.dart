@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../Test.dart';
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../widgets/EventTileWidget.dart';
 
 class MyEventsScreen extends GetView<MyEventsController> {
@@ -22,7 +23,7 @@ class MyEventsScreen extends GetView<MyEventsController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SearchEventWidget(),
+             // const SearchEventWidget(),
               Padding(
                 padding: EdgeInsets.only(bottom: 1.h,top: 2.h),
                 child: Text("My Past Events",
@@ -33,21 +34,28 @@ class MyEventsScreen extends GetView<MyEventsController> {
               ),
               SizedBox(
                 height: 15.h,
-                child: ListView.builder(
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    // shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: EventTileWidget(
-                            width: 80.w,
-                            pinned: true,
-                            event: eventObject,
-                          ));
-                    }),
-              ),
+                child:Obx(() {
+                  return controller.isEventLoading.value
+                      ? ListView(
+                   scrollDirection: Axis.horizontal,
+                    children: List.generate(5, (index) => eventTileShimmer(
+                      tileWidth: 80.w,
+
+                    )),
+                  )
+                      :
+                  ListView.builder(
+                      itemCount:  controller.events.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return EventTileWidget(
+                          width: 80.w,
+                          pinned: true,
+                          event: controller.events[index],
+                        );
+                      });},
+              ),),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.h),
                 child: Text("My Upcoming Events",
@@ -56,7 +64,15 @@ class MyEventsScreen extends GetView<MyEventsController> {
                         .headlineSmall!
                         .copyWith(color: AppColors.kTextBlack)),
               ),
-              ListView.builder(
+    Obx(() {
+    return controller.isEventLoading.value
+    ? ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      children: List.generate(5, (index) => eventTileShimmer()),
+    )
+        :
+     ListView.builder(
                   itemCount:  controller.events.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -65,7 +81,7 @@ class MyEventsScreen extends GetView<MyEventsController> {
                       pinned: true,
                       event: controller.events[index],
                     );
-                  }),
+                  });})
             ],
           ),
         ),
