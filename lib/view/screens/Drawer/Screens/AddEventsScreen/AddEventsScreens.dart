@@ -27,17 +27,20 @@ class AddEventsScreens extends GetView<AddEventController> {
             ? 'Add Past Events'
             : 'Add Your event'),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-            child: Obx(() {
-              return controller.isloading.value
-                  ? Center(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+          child: Obx(() {
+            return controller.isloading.value
+                ? SizedBox(
+              height: double.infinity,
+                  child: Center(
                       child: CircularProgressIndicator(),
-                    )
-                  : Form(
-                      key: formKey,
+                    ),
+                )
+                : Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
                       child: Column(
                         children: [
                           InkWell(
@@ -184,7 +187,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     // },
                                     keyboardType: TextInputType.streetAddress,
                                     decoration: InputDecoration(
-                                      hintText: "Snapchat link",
+                                      hintText: "X link",
                                       prefixIcon: Icon(Icons.link),
                                     )),
                                 SizedBox(
@@ -663,9 +666,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                           ),
                         ],
                       ),
-                    );
-            }),
-          ),
+                    ),
+                  );
+          }),
         ),
       ),
     );
