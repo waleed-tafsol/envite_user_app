@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/controllers/AddEventController.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
-import 'package:event_planner_light/services/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
@@ -14,6 +12,7 @@ import 'package:google_places_flutter/model/place_type.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../constants/constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
 import '../../../../widgets/BottomModelSheet.dart';
@@ -114,7 +113,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                           GooglePlaceAutoCompleteTextField(
                             textEditingController:
                                 controller.googlemapfieldController,
-                            googleAPIKey: Constants.googleAPIKey,
+                            googleAPIKey: googleAPIKey,
                             inputDecoration: InputDecoration(
                                 prefixIcon: Icon(Icons.location_on_outlined),
                                 hintText: "Avenue Location",
