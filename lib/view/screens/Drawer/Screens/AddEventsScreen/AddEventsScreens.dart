@@ -1,17 +1,22 @@
+import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
-import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/controllers/AddEventController.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/place_type.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../constants/constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
 import '../../../../widgets/BottomModelSheet.dart';
+import '../../../../widgets/VideoWidget.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
   AddEventsScreens({super.key});
@@ -45,62 +50,50 @@ class AddEventsScreens extends GetView<AddEventController> {
                         children: [
                           InkWell(
                             onTap: () {
-                              //  controller.pickImage();
+                              controller.pickImage();
                             },
-                            child: DottedBorder(
-                              color: AppColors.kBluedarkShade,
-                              dashPattern: [5],
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(5),
-                              child: SizedBox(
-                                height: 20.h,
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      size: 5.h,
-                                      Icons.photo_library_outlined,
+                            child: Obx(() {
+                              return controller.pickedImages.isEmpty
+                                  ? DottedBorder(
                                       color: AppColors.kBluedarkShade,
-                                    ),
-                                    Text(
-                                      "Upload avenue image",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: AppColors.kBluedarkShade,
-                                        decoration: TextDecoration.underline,
+                                      dashPattern: [5],
+                                      borderType: BorderType.RRect,
+                                      radius: Radius.circular(5),
+                                      child: SizedBox(
+                                        height: 20.h,
+                                        width: double.infinity,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              size: 5.h,
+                                              Icons.photo_library_outlined,
+                                              color: AppColors.kBluedarkShade,
+                                            ),
+                                            Text(
+                                              "Upload avenue image",
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: AppColors.kBluedarkShade,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: Image.file(
+                                        controller.pickedImages[0],
+                                        height: 20.h,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ));
+                            }),
                           ),
-                          // Stack(
-                          //   children: [
-                          //     Image.asset(Assets.video_Thumbnail),
-                          //     Positioned(top: 1.h, right: 2.w, child: CircleIcon()),
-                          //   ],
-                          // ),
-
-                          /* SizedBox(
-                            height: 2.h,
-                          ),
-                          TextFormField(
-                              controller: controller.emailController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter an email";
-                                } else if (!GetUtils.isEmail(value)) {
-                                  return "Please enter a valid email";
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                prefixIcon: Icon(Icons.email_outlined),
-                              )),*/
                           SizedBox(
                             height: 2.h,
                           ),
@@ -120,24 +113,71 @@ class AddEventsScreens extends GetView<AddEventController> {
                           SizedBox(
                             height: 2.h,
                           ),
-
-                          TextFormField(
-                              controller: controller.addressController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter Event Location";
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.streetAddress,
-                              decoration: InputDecoration(
-                                hintText: "Avenue Location",
+                          GooglePlaceAutoCompleteTextField(
+                            textEditingController:
+                                controller.googlemapfieldController,
+                            googleAPIKey: googleAPIKey,
+                            inputDecoration: InputDecoration(
                                 prefixIcon: Icon(Icons.location_on_outlined),
-                              )),
+                                hintText: "Avenue Location",
+                                fillColor: Colors.transparent),
+                            boxDecoration: BoxDecoration(
+                              color: AppColors.kTextfieldColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            debounceTime: 800,
+                            isLatLngRequired: true,
+                            getPlaceDetailWithLatLng: (Prediction prediction) {
+                              controller.lat = prediction.lat;
+                              controller.lng = prediction.lng;
+                            },
+                            itemClick: (Prediction prediction) {
+                              String description = prediction.description ?? "";
+
+                              controller.googlemapfieldController.text =
+                                  description;
+
+                              int cursorPosition = description.length;
+
+                              controller.googlemapfieldController.selection =
+                                  TextSelection.fromPosition(
+                                TextPosition(offset: cursorPosition),
+                              );
+                            },
+                            itemBuilder:
+                                (context, index, Prediction prediction) {
+                              return Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AppColors.kTextfieldColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      color: AppColors.kIconColor,
+                                    ),
+                                    SizedBox(
+                                      width: 7,
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                            "${prediction.description ?? ""}",
+                                            style: TextStyle(
+                                                color: Colors.black))),
+                                  ],
+                                ),
+                              );
+                            },
+                            seperatedBuilder: Divider(),
+                            isCrossBtnShown: true,
+                            containerHorizontalPadding: 10,
+                            placeType: PlaceType.geocode,
+                          ),
                           SizedBox(
                             height: 2.h,
                           ),
-
                           Visibility(
                             visible: !controller.isAddPastEvents.value,
                             child: Column(
@@ -179,12 +219,6 @@ class AddEventsScreens extends GetView<AddEventController> {
                                 TextFormField(
                                     controller:
                                         controller.socialLink3Controller,
-                                    // validator: (value) {
-                                    //   if (value!.isEmpty) {
-                                    //     return "Please enter a Social link to your event";
-                                    //   }
-                                    //   return null;
-                                    // },
                                     keyboardType: TextInputType.streetAddress,
                                     decoration: InputDecoration(
                                       hintText: "X link",
@@ -224,24 +258,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                               keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
                                 hintText: "Description",
-                               // prefixIcon: Icon(Icons.description_outlined),
+                                // prefixIcon: Icon(Icons.description_outlined),
                               )),
-                          /* SizedBox(
-                            height: 2.h,
-                          ),
-                          TextFormField(
-                              // controller: controller.descriptionController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter A number";
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: "Max Number of people",
-                                prefixIcon: Icon(Icons.description_outlined),
-                              )),*/
                           SizedBox(
                             height: 2.h,
                           ),
@@ -510,129 +528,240 @@ class AddEventsScreens extends GetView<AddEventController> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              DottedBorder(
-                                color: AppColors.kBluedarkShade,
-                                dashPattern: [5],
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(5),
-                                child: Padding(
-                                  padding:  EdgeInsets.all(4.0.w),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        size: 5.h,
-                                        Icons.image_outlined,
-                                        color: AppColors.kBluedarkShade,
-                                      ),
-                                      Text(
-                                        "Event Image 1",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
+                          Obx(() {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.pickedImages.isEmpty
+                                    ? InkWell(
+                                        onTap: () {
+                                          controller.pickImage();
+                                        },
+                                        child: DottedBorder(
                                           color: AppColors.kBluedarkShade,
-                                          decoration: TextDecoration.underline,
+                                          dashPattern: [5],
+                                          borderType: BorderType.RRect,
+                                          radius: Radius.circular(5),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0.w),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  size: 5.h,
+                                                  Icons.image_outlined,
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                ),
+                                                Text(
+                                                  "Event Image 1",
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: AppColors
+                                                        .kBluedarkShade,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              DottedBorder(
-                                color:AppColors.kBluedarkShade,
-                                dashPattern: [5],
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(5),
-                                child: Padding(
-                                  padding:  EdgeInsets.all(4.0.w),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        size: 5.h,
-                                        Icons.image_outlined,
-                                        color: AppColors.kBluedarkShade,
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.file(
+                                          controller.pickedImages[0],
+                                          fit: BoxFit.cover,
+                                          height: 25.w,
+                                          width: 25.w,
+                                        ),
                                       ),
-                                      Text(
-                                        "Event Image 1",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
+                                controller.pickedImages.length != 2
+                                    ? InkWell(
+                                        onTap: () {
+                                          controller.pickImage();
+                                        },
+                                        child: DottedBorder(
                                           color: AppColors.kBluedarkShade,
-                                          decoration: TextDecoration.underline,
+                                          dashPattern: [5],
+                                          borderType: BorderType.RRect,
+                                          radius: Radius.circular(5),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0.w),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  size: 5.h,
+                                                  Icons.image_outlined,
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                ),
+                                                Text(
+                                                  "Event Image 1",
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: AppColors
+                                                        .kBluedarkShade,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              DottedBorder(
-                                color: AppColors.kBluedarkShade,
-                                dashPattern: [5],
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(5),
-                                child: Padding(
-                                  padding:  EdgeInsets.all(4.0.w),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        size: 5.h,
-                                        Icons.image_outlined,
-                                        color: AppColors.kBluedarkShade,
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.file(
+                                          controller.pickedImages[1],
+                                          fit: BoxFit.cover,
+                                          height: 25.w,
+                                          width: 25.w,
+                                        ),
                                       ),
-                                      Text(
-                                        "Event Image 1",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
+                                controller.pickedImages.length != 3
+                                    ? InkWell(
+                                        onTap: () {
+                                          controller.pickImage();
+                                        },
+                                        child: DottedBorder(
                                           color: AppColors.kBluedarkShade,
-                                          decoration: TextDecoration.underline,
+                                          dashPattern: [5],
+                                          borderType: BorderType.RRect,
+                                          radius: Radius.circular(5),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0.w),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  size: 5.h,
+                                                  Icons.image_outlined,
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                ),
+                                                Text(
+                                                  "Event Image 1",
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: AppColors
+                                                        .kBluedarkShade,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       )
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.file(
+                                          controller.pickedImages[2],
+                                          fit: BoxFit.cover,
+                                          height: 25.w,
+                                          width: 25.w,
+                                        ),
+                                      ),
+                              ],
+                            );
+                          }),
                           SizedBox(
                             height: 2.h,
                           ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: DottedBorder(
-                              color: AppColors.kBluedarkShade,
-                              dashPattern: [5],
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(5),
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(vertical: 4.0.w),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        size: 5.h,
-                                        Icons.movie_creation_outlined,
+                          Obx(() {
+                            return controller.pickedVideo.value == null
+                                ? InkWell(
+                                    onTap: () {
+                                      controller.pickVideo();
+                                    },
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: DottedBorder(
                                         color: AppColors.kBluedarkShade,
-                                      ),
-                                      Text(
-                                        "Upload Event Video",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          color: AppColors.kBluedarkShade,
-                                          decoration: TextDecoration.underline,
+                                        dashPattern: [5],
+                                        borderType: BorderType.RRect,
+                                        radius: Radius.circular(5),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 4.0.w),
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  size: 5.h,
+                                                  Icons.movie_creation_outlined,
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                ),
+                                                Text(
+                                                  "Upload Event Video of max 30 MB",
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: AppColors
+                                                        .kBluedarkShade,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      controller.playVideo(
+                                          controller.pickedVideo.value?.path ??
+                                              "");
+                                      showVideoDialog(context);
+                                    },
+                                    child: FutureBuilder<String>(
+                                      future: controller.getThumbnail(
+                                          controller.pickedVideo.value?.path ??
+                                              ""),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                          return Container(
+                                            height: 12.h,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                    File(snapshot.data ?? "")),
+                                                fit: BoxFit.cover,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.play_circle_fill,
+                                                size: 50,
+                                                color: Colors.white
+                                                    .withOpacity(0.7),
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          return CircularProgressIndicator(); // Loading state
+                                        }
+                                      },
+                                    ),
+                                  );
+                          }),
                           SizedBox(
                             height: 2.h,
                           ),
@@ -659,7 +788,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     }
                                   }
                                 },
-                                child:  Text(controller.isAddPastEvents.value?'Add past event':'Add the event')),
+                                child: Text(controller.isAddPastEvents.value
+                                    ? 'Add past event'
+                                    : 'Add the event')),
                           ),
                           SizedBox(
                             height: 2.h,
@@ -671,6 +802,20 @@ class AddEventsScreens extends GetView<AddEventController> {
           }),
         ),
       ),
+    );
+  }
+
+  void showVideoDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          child: VideoPlayerScreen(
+              videoPath: controller.pickedVideo.value?.path ?? ""),
+        );
+      },
     );
   }
 }

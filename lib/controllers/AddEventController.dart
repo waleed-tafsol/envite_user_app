@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:event_planner_light/controllers/Auth_services.dart';
-import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../constants/ApiConstant.dart';
 import '../model/CatagoryModel.dart';
-import '../services/LocationServices.dart';
 import '../utills/ConvertDateTime.dart';
 
 class AddEventController extends GetxController {
@@ -32,18 +33,30 @@ class AddEventController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
   Rx<CatagoryModel?> selectedCategory = CatagoryModel().obs;
+  final ImagePicker _picker = ImagePicker();
   RxBool isAddPastEvents = false.obs;
   RxBool isloading = true.obs;
   List<String> options = ['public', 'private', 'exclusive'];
   Rx<String?> selectedOption = Rx<String?>(null);
-  var pickedImages = <File>[].obs;
-
+  RxList pickedImages = <File>[].obs;
+  Rx<File?> pickedVideo = Rx<File?>(null);
 
   var selectedStartDate = DateTime.now().obs;
   var selectedEndDate = DateTime.now().obs;
 
   void removeImage(File file) {
     pickedImages.remove(file);
+  }
+
+  Future<void> pickImage() async {
+    try {
+      final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+      if (file != null) {
+        pickedImages.add(File(file.path));
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to pick image or video: $e');
+    }
   }
 
   void setStartDate(DateTime date) {
@@ -53,6 +66,11 @@ class AddEventController extends GetxController {
   void setEndDate(DateTime date) {
     selectedEndDate.value = date;
   }
+
+  final TextEditingController googlemapfieldController =
+      TextEditingController();
+  String? lat;
+  String? lng;
 
   Future<void> getcatagories() async {
     try {
@@ -78,52 +96,76 @@ class AddEventController extends GetxController {
     }
   }
 
+  Future<void> pickVideo() async {
+    try {
+      final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
+      if (file != null) {
+        pickedVideo.value = File(file.path);
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to pick image or video: $e');
+    }
+  }
+
+  Future<String> getThumbnail(String videoPath) async {
+    final uint8List = await VideoThumbnail.thumbnailData(
+      video: videoPath,
+      imageFormat: ImageFormat.JPEG,
+      maxWidth: 200,
+      quality: 75,
+    );
+    final tempDir = await getTemporaryDirectory();
+    final filePath = '${tempDir.path}/thumbnail.jpg';
+    final file = File(filePath);
+    await file.writeAsBytes(uint8List!);
+    return filePath;
+  }
+
+// Method to play the video
+  void playVideo(String videoPath) {
+    final videoPlayerController = VideoPlayerController.file(File(videoPath));
+    videoPlayerController.initialize().then((_) {
+      videoPlayerController.play();
+    });
+  }
+
   void setSelectedOption(String option) {
     selectedOption.value = option;
   }
 
   Future<void> addEvent() async {
     final url = Uri.parse(ApiConstants.addEvent);
-    Position position = await LocationServices.getCurrentLocation();
 
     try {
       isloading.value = true;
 
       final request = http.MultipartRequest('POST', url);
-      ColoredPrint.green(formatToIso8601WithTimezone(selectedStartDate.value));
-      ColoredPrint.green(formatToIso8601WithTimezone(selectedStartDate.value));
 
       request.fields['name'] = nameController.value.text;
-      request.fields['latitude'] = "0.00";
-      request.fields['longitude'] = "0.00";
-      request.fields['email'] = emailController.value.text;
+      request.fields['isPastEvent'] = isAddPastEvents.value.toString();
       request.fields['eventType'] = selectedOption.value ?? "";
       request.fields['startDate'] =
           formatToIso8601WithTimezone(selectedStartDate.value);
-      request.fields['endDate'] =
-          formatToIso8601WithTimezone(selectedEndDate.value);
-      // "2024-12-30T15:32:04.962+00:00";
-      formatToIso8601WithTimezone(selectedEndDate.value);
+      request.fields['latitude'] = lat.toString();
+      request.fields['longitude'] = lng.toString();
+
       request.fields['description'] = descriptionController.value.text;
       request.fields['avenue'] = avnueController.value.text;
       request.fields['address'] = addressController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
-      request.fields['socialLinks[0]'] =
-          '{"name":"Facebook","url":"${socialLink1Controller.value.text}"}';
 
-      // if (selectedCategories.isNotEmpty) {
-      //   for (var i = 0; i < selectedCategories.length; i++) {
-      //     request.fields['categories[$i]'] = selectedCategories[i]!;
-      //   }
-      // }
+      if (isAddPastEvents.value) {
+        request.fields['endDate'] =
+            formatToIso8601WithTimezone(selectedEndDate.value);
+        request.fields['socialLinks[0]'] =
+            '{"name":"Facebook","url":"${socialLink1Controller.value.text}"}';
+      }
 
       request.headers.addAll({
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ${authService.authToken}',
       });
-
       final streamedResponse = await request.send();
-
       final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 201) {
