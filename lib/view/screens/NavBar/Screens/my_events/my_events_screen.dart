@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../Test.dart';
+import '../../../../widgets/EventTileWidget.dart';
+
 class MyEventsScreen extends GetView<MyEventsController> {
   static const routeName = 'MyEventsScreen';
   const MyEventsScreen({super.key});
@@ -15,80 +18,54 @@ class MyEventsScreen extends GetView<MyEventsController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+          padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 2.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SearchEventWidget(),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 1.h),
-                child: Obx(() {
-                  return controller.isEventLoading.value
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          itemCount: controller.events.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return MyEventsListTile(
-                              pinned: true,
-                              event: controller.events[index],
-                            );
-                          });
-                }),
+                padding: EdgeInsets.only(bottom: 1.h,top: 2.h),
+                child: Text("My Past Events",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: AppColors.kTextBlack)),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     InkWell(
-              //       onTap: () => BottomSheetManager.eventAdded(context),
-              //       child: Text(
-              //         "Ended events",
-              //         style: Theme.of(context).textTheme.headlineMedium,
-              //       ),
-              //     ),
-              //     Text(
-              //       "See all",
-              //       style: Theme.of(context).textTheme.bodySmall,
-              //     )
-              //   ],
-              // ),
-              // ListView.builder(
-              //     itemCount: 10,
-              //     physics: const NeverScrollableScrollPhysics(),
-              //     shrinkWrap: true,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return const EventTileWidget();
-              //     }),
-              // SizedBox(
-              //   height: 6.h,
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //       style: StylesConstants.elevated_b_redBack_whiteFore,
-              //       onPressed: () {},
-              //       child: const Text("Add the event")),
-              // ),
               SizedBox(
-                height: 2.h,
+                height: 15.h,
+                child: ListView.builder(
+                    itemCount: 3,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    // shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: EventTileWidget(
+                            width: 80.w,
+                            pinned: true,
+                            event: eventObject,
+                          ));
+                    }),
               ),
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //               backgroundColor: AppColors.kPrimaryColor),
-              //           onPressed: () {
-              //             // Get.toNamed(GenerateTicketScreen.routeName);
-              //           },
-              //           child: Text(
-              //             'Add the Event',
-              //             style: TextStyle(color: Colors.white),
-              //           )),
-              //     ),
-              //   ],
-              // )
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Text("My Upcoming Events",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: AppColors.kTextBlack)),
+              ),
+              ListView.builder(
+                  itemCount:  controller.events.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return EventTileWidget(
+                      pinned: true,
+                      event: controller.events[index],
+                    );
+                  }),
             ],
           ),
         ),

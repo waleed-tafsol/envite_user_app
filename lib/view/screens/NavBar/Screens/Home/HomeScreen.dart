@@ -1,9 +1,11 @@
 import 'package:event_planner_light/controllers/HomeScreenController.dart';
+import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../shimmer_loaders/categories_tile_shimmer.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
@@ -70,9 +72,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                   height: 9.h,
                   child: Obx(() {
                     return controller.isloadingCatagories.value
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
+                        ?  ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(4, (index) => CategoriesTileShimmer()),
+                    )
                         : ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: controller.categories.length,
@@ -130,10 +133,23 @@ class HomeScreen extends GetView<HomeScreenController> {
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: Obx(() {
                     return controller.isEventLoading.value
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : ListView.builder(
+                        ? ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: List.generate(5, (index) => EventTileShimmer()),
+                    )
+                        : controller.events.isEmpty?
+                        SizedBox(
+                          height: 40.h,
+                          child: Center(child: Text(
+                            "No Suggestions are available",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: AppColors.kTextBlack
+                            ),
+                          ),),
+                        ):
+                    ListView.builder(
                             itemCount: controller.events.length,
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,

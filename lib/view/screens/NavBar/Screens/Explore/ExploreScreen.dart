@@ -21,8 +21,8 @@ class ExploreScreen extends GetView<ExploreController> {
             children: [
               const SearchEventWidget(),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 1.h),
-                child: Text("Previous Events",
+                padding: EdgeInsets.only(bottom: 1.h,top: 2.h),
+                child: Text("Past Events",
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
@@ -47,7 +47,7 @@ class ExploreScreen extends GetView<ExploreController> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.h),
-                child: Text("Active Events",
+                child: Text("Upcoming Events",
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
