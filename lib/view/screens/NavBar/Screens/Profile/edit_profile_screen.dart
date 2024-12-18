@@ -58,8 +58,9 @@ class EditProfileScreen extends GetView<EditProfileController> {
               TextFormField(
                   controller: controller.fullNameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Full Name cannot be empty';
+                    }
                     return null;
                   },
                   decoration: const InputDecoration(
@@ -69,42 +70,6 @@ class EditProfileScreen extends GetView<EditProfileController> {
               SizedBox(
                 height: 2.h,
               ),
-              // TextFormField(
-              //     controller: controller.phoneNumberController,
-              //     keyboardType: TextInputType.phone,
-              //     validator: (value) {
-              //       if (value == null || value.isEmpty)
-              //         return 'Phone Number cannot be empty';
-              //       if (!GetUtils.isPhoneNumber(value))
-              //         return 'Enter a valid phone number';
-              //       return null;
-              //     },
-              //     decoration: const InputDecoration(
-              //       hintText: "Phone Number",
-              //       prefixIcon: Icon(Icons.phone_android_sharp),
-              //     )),
-              // SizedBox(
-              //   height: 2.h,
-              // ),
-              // SizedBox(
-              //   height: 20.h,
-              //   child: TextFormField(
-              //     controller: controller.bioController,
-              //     validator: (value) {
-              //       if (value == null || value.isEmpty)
-              //         return 'Bio cannot be empty';
-              //       return null;
-              //     },
-              //     keyboardType: TextInputType.multiline,
-              //     textAlignVertical: TextAlignVertical.top,
-              //     maxLines: null, // Set this
-              //     expands: true,
-              //     decoration: InputDecoration(hintText: "Bio"),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
