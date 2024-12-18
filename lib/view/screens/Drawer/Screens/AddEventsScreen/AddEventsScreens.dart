@@ -32,29 +32,26 @@ class AddEventsScreens extends GetView<AddEventController> {
             ? 'Add Past Events'
             : 'Add Your event'),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-          child: Obx(() {
-            return controller.isloading.value
-                ? SizedBox(
-              height: double.infinity,
-                  child: Center(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+            child: Obx(() {
+              return controller.isloading.value
+                  ? Center(
                       child: CircularProgressIndicator(),
-                    ),
-                )
-                : Form(
-                    key: formKey,
-                    child: SingleChildScrollView(
+                    )
+                  : Form(
+                      key: formKey,
                       child: Column(
                         children: [
-                          Obx(() {
-                            return controller.pickedImages.isEmpty
-                                ? InkWell(
-                                    onTap: () {
-                                      controller.pickImage();
-                                    },
-                                    child: DottedBorder(
+                          InkWell(
+                            onTap: () {
+                              controller.pickImage();
+                            },
+                            child: Obx(() {
+                              return controller.pickedImages.isEmpty
+                                  ? DottedBorder(
                                       color: AppColors.kBluedarkShade,
                                       dashPattern: [5],
                                       borderType: BorderType.RRect,
@@ -83,17 +80,17 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.file(
-                                      controller.pickedImages[0],
-                                      height: 20.h,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                    ));
-                          }),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: Image.file(
+                                        controller.pickedImages[0],
+                                        height: 20.h,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ));
+                            }),
+                          ),
                           SizedBox(
                             height: 2.h,
                           ),
@@ -110,6 +107,102 @@ class AddEventsScreens extends GetView<AddEventController> {
                                 hintText: "Event Name",
                                 prefixIcon: Icon(Icons.person_2_outlined),
                               )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+
+                          Obx(
+                            () {
+                              return Column(
+                                children: List.generate(
+                                    controller.socialLinksController.length,
+                                    (index) {
+                                  return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 1.h),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller: controller
+                                                .socialLinksController[index],
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Please enter Event Name";
+                                              }
+                                              return null;
+                                            },
+                                            keyboardType: TextInputType.name,
+                                            decoration: InputDecoration(
+                                              hintText: "Other Email",
+                                              prefixIcon:
+                                                  Icon(Icons.person_2_outlined),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              10, // Replace with your desired spacing
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            index == 0
+                                                ? controller
+                                                    .socialLinksController
+                                                    .add(
+                                                        TextEditingController())
+                                                : controller
+                                                    .socialLinksController
+                                                    .removeAt(index);
+                                          },
+                                          icon: Icon(
+                                            index == 0
+                                                ? Icons.add
+                                                : Icons.remove,
+                                            color: AppColors.kIconColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                              );
+                            },
+                          ),
+
+                          // ListView.builder(
+                          //     shrinkWrap: true,
+                          //     itemBuilder: (context, index) {
+                          //       return Row(
+                          //         children: [
+                          //           Expanded(
+                          //             child: TextFormField(
+                          //                 controller: controller.nameController,
+                          //                 validator: (value) {
+                          //                   if (value!.isEmpty) {
+                          //                     return "Please enter Event Name";
+                          //                   }
+                          //                   return null;
+                          //                 },
+                          //                 keyboardType: TextInputType.name,
+                          //                 decoration: InputDecoration(
+                          //                   hintText: "Other Email",
+                          //                   prefixIcon:
+                          //                       Icon(Icons.person_2_outlined),
+                          //                 )),
+                          //           ),
+                          //           SizedBox(
+                          //             width: 1.w,
+                          //           ),
+                          //           IconButton(
+                          //               onPressed: () {},
+                          //               icon: Icon(
+                          //                 Icons.add,
+                          //                 color: AppColors.kIconColor,
+                          //               ))
+                          //         ],
+                          //       );
+                          //     }),
                           SizedBox(
                             height: 2.h,
                           ),
@@ -178,58 +271,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          Visibility(
-                            visible: !controller.isAddPastEvents.value,
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                    controller:
-                                        controller.socialLink1Controller,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Please enter a Facebook link to your event";
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.streetAddress,
-                                    decoration: InputDecoration(
-                                      hintText: "Facebook link",
-                                      prefixIcon: Icon(Icons.link),
-                                    )),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                TextFormField(
-                                    controller:
-                                        controller.socialLink2Controller,
-                                    // validator: (value) {
-                                    //   if (value!.isEmpty) {
-                                    //     return "Please enter a Social link to your event";
-                                    //   }
-                                    //   return null;
-                                    // },
-                                    keyboardType: TextInputType.streetAddress,
-                                    decoration: InputDecoration(
-                                      hintText: "Instagram link",
-                                      prefixIcon: Icon(Icons.link),
-                                    )),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                TextFormField(
-                                    controller:
-                                        controller.socialLink3Controller,
-                                    keyboardType: TextInputType.streetAddress,
-                                    decoration: InputDecoration(
-                                      hintText: "X link",
-                                      prefixIcon: Icon(Icons.link),
-                                    )),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                              ],
-                            ),
-                          ),
+
                           TextFormField(
                               controller: controller.avnueController,
                               validator: (value) {
@@ -797,9 +839,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                           ),
                         ],
                       ),
-                    ),
-                  );
-          }),
+                    );
+            }),
+          ),
         ),
       ),
     );

@@ -27,9 +27,8 @@ class AddEventController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController avnueController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController socialLink1Controller = TextEditingController();
-  TextEditingController socialLink2Controller = TextEditingController();
-  TextEditingController socialLink3Controller = TextEditingController();
+  List<TextEditingController> socialLinksController =
+      <TextEditingController>[TextEditingController()].obs;
   TextEditingController descriptionController = TextEditingController();
   RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
   Rx<CatagoryModel?> selectedCategory = CatagoryModel().obs;
@@ -157,8 +156,8 @@ class AddEventController extends GetxController {
       if (isAddPastEvents.value) {
         request.fields['endDate'] =
             formatToIso8601WithTimezone(selectedEndDate.value);
-        request.fields['socialLinks[0]'] =
-            '{"name":"Facebook","url":"${socialLink1Controller.value.text}"}';
+        // request.fields['socialLinks[0]'] =
+        //     '{"name":"Facebook","url":"${socialLink1Controller.value.text}"}';
       }
 
       request.headers.addAll({
