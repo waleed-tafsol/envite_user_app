@@ -1,4 +1,4 @@
-import 'package:event_planner_light/model/EventModel.dart';
+import 'package:event_planner_light/model/event_model.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

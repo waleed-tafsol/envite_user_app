@@ -311,7 +311,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     ),
                                     Expanded(
                                         child: Text(
-                                            "${prediction.description ?? ""}",
+                                            prediction.description ?? "",
                                             style: TextStyle(
                                                 color: Colors.black))),
                                   ],

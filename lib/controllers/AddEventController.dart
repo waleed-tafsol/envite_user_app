@@ -158,25 +158,23 @@ class AddEventController extends GetxController {
       request.fields['name'] = nameController.value.text;
       request.fields['isPastEvent'] = isAddPastEvents.value.toString();
       request.fields['eventType'] = selectedOption.value ?? "";
-
-      request.fields['latitude'] = lat.toString();
-      request.fields['longitude'] = lng.toString();
+      request.fields['address'] = 'sjhdjshdjshdjsdh';
+      request.fields['latitude'] = '45454545454';
+      request.fields['longitude'] = '454545454545';
       for (int i = 0; i < emailController.length; i++) {
-        request.fields['email[$i]'] = emailController[i].text;
+        request.fields['emails[$i]'] = emailController[i].text;
       }
       for (int i = 0; i < socialLinkController.length; i++) {
         request.fields['socialLinks[$i]'] = socialLinkController[i].text;
       }
       request.fields['description'] = descriptionController.value.text;
       request.fields['avenue'] = avnueController.value.text;
-      request.fields['address'] = addressController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
 
       request.fields['startDate'] =
           formatToIso8601WithTimezone(selectedStartDate.value);
       request.fields['endDate'] =
           formatToIso8601WithTimezone(selectedEndDate.value);
-
       request.fields['startTime'] = selectedStartTime.value;
       request.fields['endTime'] = selectedEndTime.value;
 
@@ -184,6 +182,7 @@ class AddEventController extends GetxController {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ${authService.authToken}',
       });
+      print(request);
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 

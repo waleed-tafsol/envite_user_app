@@ -1,10 +1,10 @@
 class ApiConstants {
   // dev tunnel url
-  // static const baseUrl = "https://3pmq3hk5-3027.inc1.devtunnels.ms/";
+ // static const baseUrl = "https://3pmq3hk5-3028.inc1.devtunnels.ms/api/v1/";
   static const baseUrl =
       "https://envite-backend-c29dd82c64e2.herokuapp.com/api/v1/";
   // Auth
-  static const login = "${baseUrl}auth/login";
+  static const login = "${baseUrl}auth/event-planner/login";
   static const logout = "${baseUrl}auth/logout";
   static const verifyOtp = "${baseUrl}auth/verify/otp";
   static const forgotPassword = "${baseUrl}auth/forgot/password";

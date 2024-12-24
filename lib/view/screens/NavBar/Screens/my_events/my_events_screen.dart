@@ -7,18 +7,15 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../Test.dart';
-import '../../../../../controllers/view_all_events_controller.dart';
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../../utills/enums.dart';
 import '../../../../widgets/EventTileWidget.dart';
-import '../../../view_all_events_screen.dart';
+import '../../../view_all_my_events_screen.dart';
 
 class MyEventsScreen extends GetView<MyEventsController> {
   static const routeName = 'MyEventsScreen';
 
   MyEventsScreen({super.key});
-
-  final ViewAllEventsController viewAllEventsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +40,10 @@ class MyEventsScreen extends GetView<MyEventsController> {
                             .copyWith(color: AppColors.kTextBlack)),
                     InkWell(
                       onTap: () {
-                        viewAllEventsController.eventsType.value =
-                            Events.explorerPastEvent.text;
-                        Get.toNamed(ViewAllEventsScreen.routeName);
+                        controller.myEventsScreenType.value =
+                            Events.myPastEvents.text;
+                        controller.getMyPaginatedEvents();
+                        Get.toNamed(ViewAllMyEventsScreen.routeName);
                       },
                       child: Text(
                         "View All",
@@ -68,17 +66,27 @@ class MyEventsScreen extends GetView<MyEventsController> {
                                       tileWidth: 80.w,
                                     )),
                           )
-                        : ListView.builder(
-                            itemCount: controller.events.length,
+                        : controller.myEventModel.value.pastEvents!.isNotEmpty?ListView.builder(
+                            itemCount: controller.myEventModel.value.pastEvents!.length,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
                               return EventTileWidget(
                                 width: 80.w,
                                 pinned: true,
-                                event: controller.events[index],
+                                event: controller.myEventModel.value.pastEvents![index],
                               );
-                            });
+                            }) : SizedBox(
+                      height: 40.h,
+                      child: Center(
+                        child: Text(
+                          "No Past Events are available",
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              color: AppColors.kTextBlack),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -95,10 +103,10 @@ class MyEventsScreen extends GetView<MyEventsController> {
                             .copyWith(color: AppColors.kTextBlack)),
                     InkWell(
                       onTap: () {
-                        viewAllEventsController.eventsType.value =
-                            Events.explorerUpcomingEvent.text;
-
-                        Get.toNamed(ViewAllEventsScreen.routeName);
+                        controller.myEventsScreenType.value =
+                            Events.myUpcomingEvents.text;
+                        controller.getMyPaginatedEvents();
+                        Get.toNamed(ViewAllMyEventsScreen.routeName);
                       },
                       child: Text(
                         "View All",
@@ -116,16 +124,26 @@ class MyEventsScreen extends GetView<MyEventsController> {
                         children:
                             List.generate(5, (index) => eventTileShimmer()),
                       )
-                    : ListView.builder(
-                        itemCount: controller.events.length,
+                    : controller.myEventModel.value.upcomingEvents!.isNotEmpty?ListView.builder(
+                        itemCount: controller.myEventModel.value.upcomingEvents!.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return EventTileWidget(
                             pinned: true,
-                            event: controller.events[index],
+                            event: controller.myEventModel.value.upcomingEvents![index],
                           );
-                        });
+                        }) : SizedBox(
+                  height: 40.h,
+                  child: Center(
+                    child: Text(
+                      "No Upcoming Events are available",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: AppColors.kTextBlack),
+                    ),
+                  ),
+                );
               })
             ],
           ),

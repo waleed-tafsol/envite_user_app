@@ -17,7 +17,8 @@ class EventModel {
   List<String>? attendees;
   int? noOfInvites;
   List<String>? tags;
-  List<SocialLinks>? socialLinks;
+  List<String>? emails;
+  List<String>? socialLinks;
   String? status;
   String? createdAt;
   String? updatedAt;
@@ -25,28 +26,29 @@ class EventModel {
 
   EventModel(
       {this.sId,
-      this.slug,
-      this.slugId,
-      this.name,
-      this.eventType,
-      this.avenue,
-      this.description,
-      this.images,
-      this.videos,
-      this.location,
-      this.address,
-      this.startDate,
-      this.endDate,
-      this.category,
-      this.createdBy,
-      this.attendees,
-      this.noOfInvites,
-      this.tags,
-      this.socialLinks,
-      this.status,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+        this.slug,
+        this.slugId,
+        this.name,
+        this.eventType,
+        this.avenue,
+        this.description,
+        this.images,
+        this.videos,
+        this.location,
+        this.address,
+        this.startDate,
+        this.endDate,
+        this.category,
+        this.createdBy,
+        this.attendees,
+        this.noOfInvites,
+        this.tags,
+        this.emails,
+        this.socialLinks,
+        this.status,
+        this.createdAt,
+        this.updatedAt,
+        this.iV});
 
   EventModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -56,20 +58,11 @@ class EventModel {
     eventType = json['eventType'];
     avenue = json['avenue'];
     description = json['description'];
-    if (json['images'] != null) {
-      images = <String>[];
-      json['images'].forEach((v) {
-        images!.add(v);
-      });
-    }
-    if (json['videos'] != null) {
-      videos = <String>[];
-      json['videos'].forEach((v) {
-        videos!.add(v);
-      });
-    }
-    location =
-        json['location'] != null ? Location.fromJson(json['location']) : null;
+    images = json['images'].cast<String>();
+    videos = json['videos'].cast<String>();
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
     address = json['address'];
     startDate = json['startDate'];
     endDate = json['endDate'];
@@ -77,18 +70,9 @@ class EventModel {
     createdBy = json['createdBy'];
     attendees = json['attendees'].cast<String>();
     noOfInvites = json['noOfInvites'];
-    if (json['tags'] != null) {
-      tags = <String>[];
-      json['tags'].forEach((v) {
-        tags!.add(v);
-      });
-    }
-    if (json['socialLinks'] != null) {
-      socialLinks = <SocialLinks>[];
-      json['socialLinks'].forEach((v) {
-        socialLinks!.add(new SocialLinks.fromJson(v));
-      });
-    }
+    tags = json['tags'].cast<String>();
+    emails = json['emails'].cast<String>();
+    socialLinks = json['socialLinks'].cast<String>();
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -104,12 +88,8 @@ class EventModel {
     data['eventType'] = this.eventType;
     data['avenue'] = this.avenue;
     data['description'] = this.description;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v).toList();
-    }
-    if (this.videos != null) {
-      data['videos'] = this.videos!.map((v) => v).toList();
-    }
+    data['images'] = this.images;
+    data['videos'] = this.videos;
     if (this.location != null) {
       data['location'] = this.location!.toJson();
     }
@@ -120,12 +100,9 @@ class EventModel {
     data['createdBy'] = this.createdBy;
     data['attendees'] = this.attendees;
     data['noOfInvites'] = this.noOfInvites;
-    if (this.tags != null) {
-      data['tags'] = this.tags!.map((v) => v).toList();
-    }
-    if (this.socialLinks != null) {
-      data['socialLinks'] = this.socialLinks!.map((v) => v.toJson()).toList();
-    }
+    data['tags'] = this.tags;
+    data['emails'] = this.emails;
+    data['socialLinks'] = this.socialLinks;
     data['status'] = this.status;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
@@ -149,34 +126,6 @@ class Location {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['type'] = this.type;
     data['coordinates'] = this.coordinates;
-    return data;
-  }
-}
-
-class SocialLinks {
-  String? name;
-  String? url;
-  String? sId;
-  String? createdAt;
-  String? updatedAt;
-
-  SocialLinks({this.name, this.url, this.sId, this.createdAt, this.updatedAt});
-
-  SocialLinks.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    url = json['url'];
-    sId = json['_id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['url'] = this.url;
-    data['_id'] = this.sId;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
     return data;
   }
 }

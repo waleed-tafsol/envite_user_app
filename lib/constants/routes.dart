@@ -10,7 +10,6 @@ import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/bindings/supportBindings.dart';
 import 'package:event_planner_light/controllers/ChooseYourLocationController.dart';
 import 'package:event_planner_light/controllers/PackagesController.dart';
-import 'package:event_planner_light/controllers/view_all_events_controller.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
@@ -34,7 +33,7 @@ import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dar
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
 import 'package:event_planner_light/view/screens/splash_screen.dart';
-import 'package:event_planner_light/view/screens/view_all_events_screen.dart';
+import 'package:event_planner_light/view/screens/view_all_my_events_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,6 +52,7 @@ import '../view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.da
 import '../view/screens/SignIn/SignInScreen.dart';
 import '../view/screens/SignUp/SignUpScreen.dart';
 import '../view/screens/auth_screen.dart';
+import '../view_all_explorer_event_screen.dart';
 
 class Pages {
   static Transition get _routeTransition => Transition.fade;
@@ -68,10 +68,16 @@ class Pages {
           binding: SplashBinding(),
           transition: _routeTransition,
         );
-      case ViewAllEventsScreen.routeName:
+      case ViewAllMyEventsScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => const ViewAllEventsScreen(),
+          page: () => const ViewAllMyEventsScreen(),
+          transition: _routeTransition,
+        );
+      case ViewAllExplorerEventScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const ViewAllExplorerEventScreen(),
           transition: _routeTransition,
         );
       case AuthScreen.routeName:

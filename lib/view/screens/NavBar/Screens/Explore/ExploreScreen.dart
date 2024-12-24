@@ -1,19 +1,17 @@
 import 'package:event_planner_light/controllers/ExploreController.dart';
-import 'package:event_planner_light/controllers/view_all_events_controller.dart';
-import 'package:event_planner_light/view/screens/view_all_events_screen.dart';
+import 'package:event_planner_light/view/screens/view_all_my_events_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../../Test.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../../utills/enums.dart';
+import '../../../../../view_all_explorer_event_screen.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
 class ExploreScreen extends GetView<ExploreController> {
-   ExploreScreen({super.key});
-
- final ViewAllEventsController viewAllEventsController = Get.find();
+  ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +36,9 @@ class ExploreScreen extends GetView<ExploreController> {
                             .copyWith(color: AppColors.kTextBlack)),
                     InkWell(
                       onTap: () {
-                        viewAllEventsController.eventsType.value =
+                        controller.exploreEventsScreenType.value =
                             Events.explorerPastEvent.text;
-                        Get.toNamed(ViewAllEventsScreen.routeName);
+                        Get.toNamed(ViewAllExplorerEventScreen.routeName);
                       },
                       child: Text(
                         "View All",
@@ -52,20 +50,45 @@ class ExploreScreen extends GetView<ExploreController> {
               ),
               SizedBox(
                 height: 15.h,
-                child: ListView.builder(
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    // shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: EventTileWidget(
-                            width: 80.w,
-                            pinned: true,
-                            event: eventObject,
-                          ));
-                    }),
+                child: Obx(() {
+                  return controller.isEventLoading.value
+                      ? ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(
+                              5,
+                              (index) => eventTileShimmer(
+                                    tileWidth: 80.w,
+                                  )),
+                        )
+                      : controller.exploreEventModel.value.pastEvents!.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: controller.exploreEventModel.value.pastEvents!.length,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              // shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
+                                    child: EventTileWidget(
+                                      width: 80.w,
+                                      pinned: true,
+                                      event:
+                                      controller.exploreEventModel.value.pastEvents![index],
+                                    ));
+                              })
+                          : SizedBox(
+                              height: 40.h,
+                              child: Center(
+                                child: Text(
+                                  "No Past are available",
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      color: AppColors.kTextBlack),
+                                ),
+                              ),
+                            );
+                }),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.h),
@@ -80,10 +103,9 @@ class ExploreScreen extends GetView<ExploreController> {
                             .copyWith(color: AppColors.kTextBlack)),
                     InkWell(
                       onTap: () {
-                        viewAllEventsController.eventsType.value =
+                        controller.exploreEventsScreenType.value =
                             Events.explorerUpcomingEvent.text;
-
-                        Get.toNamed(ViewAllEventsScreen.routeName);
+                        Get.toNamed(ViewAllExplorerEventScreen.routeName);
                       },
                       child: Text(
                         "View All",
@@ -93,16 +115,35 @@ class ExploreScreen extends GetView<ExploreController> {
                   ],
                 ),
               ),
-              ListView.builder(
-                  itemCount: 3,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return EventTileWidget(
-                      pinned: true,
-                      event: eventObject,
-                    );
-                  }),
+              Obx(() {
+                return controller.isEventLoading.value
+                    ? ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children:
+                            List.generate(5, (index) => eventTileShimmer()),
+                      )
+                    : controller.exploreEventModel.value.upcomingEvents!.isNotEmpty?ListView.builder(
+                        itemCount: controller.exploreEventModel.value.upcomingEvents!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return EventTileWidget(
+                            pinned: true,
+                            event: controller.exploreEventModel.value.upcomingEvents![index],
+                          );
+                        }) : SizedBox(
+                  height: 40.h,
+                  child: Center(
+                    child: Text(
+                      "No Upcoming Events are available",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: AppColors.kTextBlack),
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         ),

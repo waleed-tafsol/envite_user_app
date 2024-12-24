@@ -1,4 +1,4 @@
-import 'package:event_planner_light/model/EventModel.dart';
+import 'package:event_planner_light/model/event_model.dart';
 
 final eventObject = EventModel(
   sId: "675b97d9848407996342e391",
@@ -25,7 +25,7 @@ final eventObject = EventModel(
   attendees: [],
   noOfInvites: 0,
   tags: [],
-  socialLinks: [
+/*  socialLinks: [
     SocialLinks.fromJson({
       "name": "facebook",
       "url": "https://www.google.com",
@@ -33,7 +33,7 @@ final eventObject = EventModel(
       "createdAt": "2024-12-13T02:11:37.524Z",
       "updatedAt": "2024-12-13T02:11:37.524Z"
     })
-  ],
+  ],*/
   status: "pending",
   createdAt: "2024-12-13T02:11:37.524Z",
   updatedAt: "2024-12-13T02:11:37.524Z",
