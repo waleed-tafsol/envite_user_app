@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_thumbnail_video/index.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import '../constants/ApiConstant.dart';
+import '../main.dart';
 import '../model/CatagoryModel.dart';
 import '../utills/ConvertDateTime.dart';
 
@@ -23,11 +26,12 @@ class AddEventController extends GetxController {
     isloading.value = false;
   }
 
-  TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController avnueController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  List<TextEditingController> socialLinksController =
+  List<TextEditingController> emailController =
+      <TextEditingController>[TextEditingController()].obs;
+  List<TextEditingController> socialLinkController =
       <TextEditingController>[TextEditingController()].obs;
   TextEditingController descriptionController = TextEditingController();
   RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
@@ -40,8 +44,11 @@ class AddEventController extends GetxController {
   RxList pickedImages = <File>[].obs;
   Rx<File?> pickedVideo = Rx<File?>(null);
 
-  var selectedStartDate = DateTime.now().obs;
-  var selectedEndDate = DateTime.now().obs;
+  Rx<DateTime> selectedStartDate = DateTime.now().obs;
+  Rx<DateTime> selectedEndDate = DateTime.now().obs;
+
+  Rx<String> selectedStartTime = TimeOfDay.now().format(navigatorKey.currentContext!).obs;
+  Rx<String> selectedEndTime = TimeOfDay.now().format(navigatorKey.currentContext!).obs;
 
   void removeImage(File file) {
     pickedImages.remove(file);
@@ -56,6 +63,14 @@ class AddEventController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', 'Failed to pick image or video: $e');
     }
+  }
+
+  void setStartTime(String time) {
+    selectedStartTime.value = time;
+  }
+
+  void setEndTime(String time) {
+    selectedEndTime.value = time;
   }
 
   void setStartDate(DateTime date) {
@@ -143,22 +158,27 @@ class AddEventController extends GetxController {
       request.fields['name'] = nameController.value.text;
       request.fields['isPastEvent'] = isAddPastEvents.value.toString();
       request.fields['eventType'] = selectedOption.value ?? "";
-      request.fields['startDate'] =
-          formatToIso8601WithTimezone(selectedStartDate.value);
+
       request.fields['latitude'] = lat.toString();
       request.fields['longitude'] = lng.toString();
-
+      for (int i = 0; i < emailController.length; i++) {
+        request.fields['email[$i]'] = emailController[i].text;
+      }
+      for (int i = 0; i < socialLinkController.length; i++) {
+        request.fields['socialLinks[$i]'] = socialLinkController[i].text;
+      }
       request.fields['description'] = descriptionController.value.text;
       request.fields['avenue'] = avnueController.value.text;
       request.fields['address'] = addressController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
 
-      if (isAddPastEvents.value) {
-        request.fields['endDate'] =
-            formatToIso8601WithTimezone(selectedEndDate.value);
-        // request.fields['socialLinks[0]'] =
-        //     '{"name":"Facebook","url":"${socialLink1Controller.value.text}"}';
-      }
+      request.fields['startDate'] =
+          formatToIso8601WithTimezone(selectedStartDate.value);
+      request.fields['endDate'] =
+          formatToIso8601WithTimezone(selectedEndDate.value);
+
+      request.fields['startTime'] = selectedStartTime.value;
+      request.fields['endTime'] = selectedEndTime.value;
 
       request.headers.addAll({
         'Content-Type': 'multipart/form-data',

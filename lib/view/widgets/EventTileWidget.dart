@@ -7,6 +7,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
+import '../screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
 
 class EventTileWidget extends StatelessWidget {
   final bool pinned;
@@ -23,7 +24,7 @@ class EventTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
+      onTap: () => Get.toNamed(MyEventsDetailScreen.routeName),
       child: Container(
         height: 13.h,
         width: width,
@@ -47,8 +48,8 @@ class EventTileWidget extends StatelessWidget {
                         top: 3,
                         left: 3,
                         child: EventTileDateBadge(
-                          date: extractDate(event?.startDate ?? ""),
-                          month: extractMonthInitials(event?.startDate ?? ""),
+                          date: event?.startDate == null? "": extractDate(event!.startDate!),
+                          month: event?.startDate == null? "":extractMonthInitials(event!.startDate!),
                         ),
                       ),
                     ],

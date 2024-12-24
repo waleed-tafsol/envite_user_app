@@ -1,6 +1,6 @@
 import 'package:event_planner_light/bindings/AdsBindings.dart';
 import 'package:event_planner_light/bindings/CuponsBindings.dart';
-import 'package:event_planner_light/bindings/DrawerBindings.dart';
+import 'package:event_planner_light/bindings/navBarBinding.dart';
 import 'package:event_planner_light/bindings/EditProfileBindings.dart';
 import 'package:event_planner_light/bindings/PackagesControllerBindings.dart';
 import 'package:event_planner_light/bindings/SignInBindings.dart';
@@ -10,6 +10,7 @@ import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/bindings/supportBindings.dart';
 import 'package:event_planner_light/controllers/ChooseYourLocationController.dart';
 import 'package:event_planner_light/controllers/PackagesController.dart';
+import 'package:event_planner_light/controllers/view_all_events_controller.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
@@ -33,6 +34,7 @@ import 'package:event_planner_light/view/screens/SignUp/ConfirmAccountScreen.dar
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
 import 'package:event_planner_light/view/screens/ads/ads_screen.dart';
 import 'package:event_planner_light/view/screens/splash_screen.dart';
+import 'package:event_planner_light/view/screens/view_all_events_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,6 +66,12 @@ class Pages {
           settings: settings,
           page: () => const SplashScreen(),
           binding: SplashBinding(),
+          transition: _routeTransition,
+        );
+      case ViewAllEventsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const ViewAllEventsScreen(),
           transition: _routeTransition,
         );
       case AuthScreen.routeName:

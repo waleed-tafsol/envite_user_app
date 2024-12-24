@@ -115,8 +115,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                             () {
                               return Column(
                                 children: List.generate(
-                                    controller.socialLinksController.length,
-                                    (index) {
+                                    controller.emailController.length, (index) {
                                   return Padding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 1.h),
@@ -125,10 +124,10 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         Expanded(
                                           child: TextFormField(
                                             controller: controller
-                                                .socialLinksController[index],
+                                                .emailController[index],
                                             validator: (value) {
                                               if (value!.isEmpty) {
-                                                return "Please enter Event Name";
+                                                return "Please enter Other  Emails";
                                               }
                                               return null;
                                             },
@@ -147,12 +146,68 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         IconButton(
                                           onPressed: () {
                                             index == 0
+                                                ? controller.emailController
+                                                    .add(
+                                                        TextEditingController())
+                                                : controller.emailController
+                                                    .removeAt(index);
+                                          },
+                                          icon: Icon(
+                                            index == 0
+                                                ? Icons.add
+                                                : Icons.remove,
+                                            color: AppColors.kIconColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                              );
+                            },
+                          ),
+
+                          Obx(
+                            () {
+                              return Column(
+                                children: List.generate(
+                                    controller.socialLinkController.length,
+                                    (index) {
+                                  return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 1.h),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller: controller
+                                                .socialLinkController[index],
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Please enter Social Links";
+                                              }
+                                              return null;
+                                            },
+                                            keyboardType: TextInputType.name,
+                                            decoration: InputDecoration(
+                                              hintText: "Social Links",
+                                              prefixIcon: Icon(Icons.link),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              10, // Replace with your desired spacing
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            index == 0
                                                 ? controller
-                                                    .socialLinksController
+                                                    .socialLinkController
                                                     .add(
                                                         TextEditingController())
                                                 : controller
-                                                    .socialLinksController
+                                                    .socialLinkController
                                                     .removeAt(index);
                                           },
                                           icon: Icon(
@@ -265,13 +320,12 @@ class AddEventsScreens extends GetView<AddEventController> {
                             },
                             seperatedBuilder: Divider(),
                             isCrossBtnShown: true,
-                            containerHorizontalPadding: 10,
+                            containerHorizontalPadding: 2,
                             placeType: PlaceType.geocode,
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-
                           TextFormField(
                               controller: controller.avnueController,
                               validator: (value) {
@@ -324,24 +378,25 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     );
 
                                     if (pickedDate != null) {
-                                      TimeOfDay? pickedTime =
+                                      /*   TimeOfDay? pickedTime =
                                           await showTimePicker(
                                         context: context,
                                         initialTime:
                                             TimeOfDay.fromDateTime(now),
+                                      );*/
+
+                                      /* if (pickedTime != null) {*/
+                                      DateTime finalDateTime = DateTime(
+                                        pickedDate.year,
+                                        pickedDate.month,
+                                        pickedDate
+                                            .day, /*
+                                          pickedTime.hour,
+                                          pickedTime.minute,*/
                                       );
 
-                                      if (pickedTime != null) {
-                                        DateTime finalDateTime = DateTime(
-                                          pickedDate.year,
-                                          pickedDate.month,
-                                          pickedDate.day,
-                                          pickedTime.hour,
-                                          pickedTime.minute,
-                                        );
-
-                                        controller.setStartDate(finalDateTime);
-                                      }
+                                      controller.setStartDate(finalDateTime);
+                                      /* }*/
                                     }
                                   },
                                   child: Container(
@@ -360,15 +415,32 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           width: 1.w,
                                         ),
                                         Expanded(
-                                          child: Text(
-                                            formatISOToCustom(controller
-                                                .selectedStartDate.value
-                                                .toIso8601String()),
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                color: Colors.black,
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.normal),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Start Date:',
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              Text(
+                                                dateFormater(controller
+                                                    .selectedStartDate.value),
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
@@ -395,26 +467,29 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     );
 
                                     if (pickedDate != null) {
-                                      // Show TimePicker to pick a time
+                                      /*  // Show TimePicker to pick a time
                                       TimeOfDay? pickedTime =
                                           await showTimePicker(
                                         context: context,
                                         initialTime:
                                             TimeOfDay.fromDateTime(now),
+                                      );*/
+
+                                      /*if (pickedTime != null) {*/
+                                      // Combine date and time
+                                      DateTime finalDateTime = DateTime(
+                                        pickedDate.year,
+                                        pickedDate.month,
+                                        pickedDate
+                                            .day, /*
+                                          pickedTime.hour,
+                                          pickedTime.minute,*/
                                       );
 
-                                      if (pickedTime != null) {
-                                        // Combine date and time
-                                        DateTime finalDateTime = DateTime(
-                                          pickedDate.year,
-                                          pickedDate.month,
-                                          pickedDate.day,
-                                          pickedTime.hour,
-                                          pickedTime.minute,
-                                        );
-
-                                        controller.setEndDate(finalDateTime);
+                                      controller.setEndDate(finalDateTime);
+/*
                                       }
+*/
                                     }
                                   },
                                   child: Container(
@@ -433,15 +508,179 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           width: 1.w,
                                         ),
                                         Expanded(
-                                          child: Text(
-                                            formatISOToCustom(controller
-                                                .selectedEndDate.value
-                                                .toIso8601String()),
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                color: Colors.black,
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.normal),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'End Date:',
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              Text(
+                                                dateFormater(controller
+                                                    .selectedEndDate.value),
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    if (pickedTime != null) {
+                                      TimeOfDay finalDateTime = TimeOfDay(
+                                        hour: pickedTime.hour,
+                                        minute: pickedTime.minute,
+                                      );
+                                      controller.setStartTime(finalDateTime.format(context));
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4.w, horizontal: 1.h),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.kTextfieldColor),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.watch_later_outlined,
+                                          color: AppColors.kIconColor,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Start Time:',
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              Text(
+                                                /*timeFormater(*/
+                                                controller
+                                                    .selectedStartTime.value /*)*/,
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 2.w,
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+
+                                    if (pickedTime != null) {
+                                      // Combine date and time
+                                      TimeOfDay finalDateTime = TimeOfDay(
+                                        hour: pickedTime.hour,
+                                        minute: pickedTime.minute,
+                                      );
+
+                                      controller.setEndTime(finalDateTime.format(context));
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4.w, horizontal: 1.h),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.kTextfieldColor),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.watch_later_outlined,
+                                          color: AppColors.kIconColor,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'End Time:',
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              Text(
+                                                controller.selectedEndTime.value
+                                                /* timeFormater(controller
+                                                    .selectedEndTime.value)*/
+                                                ,
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: Colors.black,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],

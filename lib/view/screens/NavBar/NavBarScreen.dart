@@ -32,9 +32,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
   // List of Screens
   final List<Widget> _screens = [
     const HomeScreen(),
-    const ExploreScreen(),
+     ExploreScreen(),
     const MyInvitesScreen(),
-    const MyEventsScreen(),
+     MyEventsScreen(),
     const ProfileScreen(),
   ];
 

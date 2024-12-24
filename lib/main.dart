@@ -11,8 +11,12 @@ import 'constants/theme.dart';
 import 'controllers/Auth_services.dart';
 import 'view/screens/auth_screen.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   // SystemChrome.setEnabledSystemUIMode(
   //   SystemUiMode.edgeToEdge,
   //   overlays: [SystemUiOverlay.bottom],
@@ -40,11 +44,12 @@ void main() async {
   // Optionally delay for other setups
   await Future.delayed(Durations.medium1);
 
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+
+   MyApp({
     super.key,
   });
 
@@ -52,6 +57,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Event Planner',
         debugShowCheckedModeBanner: false,
         theme: CustomTheme().lightTheme,

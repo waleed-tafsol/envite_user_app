@@ -21,16 +21,17 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
             children: [
               const SearchEventWidget(),
               Padding(
-                padding: EdgeInsets.only(top: 1.h),
+                padding: EdgeInsets.only(top: 2.h,bottom: 1.h),
                 child: Text(
                   "My invites",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .bodyLarge!
                       .copyWith(color: AppColors.kTextBlack),
                 ),
               ),
               const InviteChips(),
+              SizedBox(height: 2.h,),
               ListView.builder(
                   itemCount: 0,
                   physics: const NeverScrollableScrollPhysics(),

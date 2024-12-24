@@ -62,14 +62,16 @@ class MyEventsDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 2.h,
                       ),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
+                            size: 2.h,
                             Icons.location_on_outlined,
                             color: AppColors.kIconColor,
                           ),
+                          SizedBox(width: 1.w,),
                           Text(
                             "Salmiya, Kuwait",
                             style: Theme.of(context)
@@ -83,13 +85,14 @@ class MyEventsDetailScreen extends StatelessWidget {
                           SizedBox(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Show map",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
-                                      .copyWith(color: AppColors.kTextBlack),
+                                      .copyWith(color: AppColors.kTextBlack,fontSize: 12.sp),
                                 ),
                                 const Icon(
                                   Icons.keyboard_arrow_down_rounded,
@@ -100,10 +103,12 @@ class MyEventsDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          const Icon(
+                          Icon(
+                            size: 2.h,
                             Icons.groups_2_outlined,
                             color: AppColors.kIconColor,
                           ),
+                          SizedBox(width: 1.w,),
                           Text(
                             "+236",
                             style: Theme.of(context)
@@ -111,25 +116,24 @@ class MyEventsDetailScreen extends StatelessWidget {
                                 .bodySmall!
                                 .copyWith(color: AppColors.kTextBlack),
                           ),
+                          SizedBox(width: 2.w,),
+
                           const PublicBadgeWidget(text: "PUBLIC"),
                         ],
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 2.h,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Text("About the event",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: AppColors.kBluedarkShade)),
-                      ),
+                      Text("About the event",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(color: AppColors.kBluedarkShade)),
                       Text(
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis condimentum sapien, et volutpat nunc feugiat nec. Sed et interdum quam. In ipsum quam, vulputate sit amet dolor nec, egestas consectetur ante. Aenean fermentum diam arcu.",
                           style: Theme.of(context).textTheme.bodySmall),
                       SizedBox(
-                        height: 1.h,
+                        height: 2.h,
                       ),
                       Row(
                         children: [
@@ -137,7 +141,7 @@ class MyEventsDetailScreen extends StatelessWidget {
                               image: Image.asset(Assets.m1),
                               title: 'Total Attendees',
                               value: '34'),
-                          VerticalDivider(),
+                          Spacer(),
                           StatsContainer(
                               image: Image.asset(Assets.m2),
                               title: 'Total Invite Send',
