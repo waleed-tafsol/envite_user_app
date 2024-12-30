@@ -39,18 +39,23 @@ dependencies:
   get: ^4.6.6
   flutter_svg: ^2.0.10
   dotted_border: ^2.1.0
-  image_picker: ^1.1.2
   http: ^1.2.2
   shared_preferences: ^2.3.3
   geolocator: ^13.0.2
   intl: ^0.20.1
   google_places_flutter: ^2.0.9
-  video_player: ^2.9.2
-  get_thumbnail_video: ^0.7.3
+
   path_provider: ^2.1.5
   shimmer: ^3.0.0
 
-  
+  #FILES UPLOADER AND VIEWER S3 BUCKET
+  image_picker: ^1.1.2
+  video_player: ^2.9.2
+  get_thumbnail_video: ^0.7.3
+  mime: ^2.0.0
+  chewie: ^1.8.5
+
+
 
 dev_dependencies:
   flutter_test:
