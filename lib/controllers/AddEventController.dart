@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_planner_light/services/customPrint.dart';
+import 'package:event_planner_light/utills/aws_utills.dart';
+import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
@@ -8,14 +11,15 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import '../constants/ApiConstant.dart';
 import '../main.dart';
 import '../model/CatagoryModel.dart';
 import '../utills/ConvertDateTime.dart';
+import 'package:http_parser/http_parser.dart';
 
 class AddEventController extends GetxController {
   @override
@@ -41,14 +45,16 @@ class AddEventController extends GetxController {
   RxBool isloading = true.obs;
   List<String> options = ['public', 'private', 'exclusive'];
   Rx<String?> selectedOption = Rx<String?>(null);
-  RxList pickedImages = <File>[].obs;
-  Rx<File?> pickedVideo = Rx<File?>(null);
+  RxList<File> pickedImages = <File>[].obs;
+  RxList<File> pickedVideo = <File>[].obs;
 
   Rx<DateTime> selectedStartDate = DateTime.now().obs;
   Rx<DateTime> selectedEndDate = DateTime.now().obs;
 
-  Rx<String> selectedStartTime = TimeOfDay.now().format(navigatorKey.currentContext!).obs;
-  Rx<String> selectedEndTime = TimeOfDay.now().format(navigatorKey.currentContext!).obs;
+  Rx<String> selectedStartTime =
+      TimeOfDay.now().format(navigatorKey.currentContext!).obs;
+  Rx<String> selectedEndTime =
+      TimeOfDay.now().format(navigatorKey.currentContext!).obs;
 
   void removeImage(File file) {
     pickedImages.remove(file);
@@ -114,7 +120,7 @@ class AddEventController extends GetxController {
     try {
       final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
       if (file != null) {
-        pickedVideo.value = File(file.path);
+        pickedVideo.add(File(file.path));
       }
     } catch (e) {
       Get.snackbar('Error', 'Failed to pick image or video: $e');
@@ -155,6 +161,7 @@ class AddEventController extends GetxController {
 
       final request = http.MultipartRequest('POST', url);
 
+      // Add text fields
       request.fields['name'] = nameController.value.text;
       request.fields['isPastEvent'] = isAddPastEvents.value.toString();
       request.fields['eventType'] = selectedOption.value ?? "";
@@ -164,13 +171,33 @@ class AddEventController extends GetxController {
       for (int i = 0; i < emailController.length; i++) {
         request.fields['emails[$i]'] = emailController[i].text;
       }
+
+      // Add images
+      for (int i = 0; i < pickedImages.length; i++) {
+        final file = pickedImages[i];
+        final mimeType = lookupMimeType(
+            file.path); // Get MIME type based on the file extension
+        final mediaType = mimeType != null
+            ? MediaType.parse(mimeType)
+            : MediaType('image', 'jpeg'); // Default to 'image/jpeg'
+
+        var multipartFile = await http.MultipartFile.fromPath(
+          'images',
+          file.path,
+          // filename: file.uri.pathSegments.last,
+          contentType: mediaType,
+        );
+        request.files.add(multipartFile);
+      }
+
       for (int i = 0; i < socialLinkController.length; i++) {
         request.fields['socialLinks[$i]'] = socialLinkController[i].text;
       }
       request.fields['description'] = descriptionController.value.text;
+
+      request.fields['videosCount'] = pickedVideo.length.toString();
       request.fields['avenue'] = avnueController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
-
       request.fields['startDate'] =
           formatToIso8601WithTimezone(selectedStartDate.value);
       request.fields['endDate'] =
@@ -178,23 +205,36 @@ class AddEventController extends GetxController {
       request.fields['startTime'] = selectedStartTime.value;
       request.fields['endTime'] = selectedEndTime.value;
 
+      // Add headers
       request.headers.addAll({
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ${authService.authToken}',
       });
-      print(request);
+
+      // Send the request
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
+      // Handle the response
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
 
+        List<String> videoUrls =
+            List<String>.from(responseData["data"]["videoUrls"]);
+        ColoredPrint.green("Event Slug : ${responseData["data"]["videoUrls"]}");
+        await uploadFilesToS3(
+            presignedUrls: videoUrls,
+            filePaths: pickedVideo.map((file) => file.path).toList());
+        ColoredPrint.green("Event Slug : ${responseData["data"]["videoUrls"]}");
+
         CustomSnackbar.showSuccess(
-            'Success', responseData["message"] ?? "event created successfully");
+            'Success', responseData["message"] ?? "Event created successfully");
+
         isloading.value = false;
         Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
-
-        return responseData;
+        // dispose();
+        // onClose();
+        // return responseData;
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
@@ -203,6 +243,53 @@ class AddEventController extends GetxController {
     } catch (e) {
       isloading.value = false;
       CustomSnackbar.showError("Error", e.toString());
+      ColoredPrint.red(e.toString());
     }
+  }
+
+  @override
+  void onClose() {
+    // Handle cleanup here
+    nameController.dispose();
+    avnueController.dispose();
+    addressController.dispose();
+    emailController.forEach((element) {
+      element.dispose();
+    });
+    socialLinkController.forEach((element) {
+      element.dispose();
+    });
+    descriptionController.dispose();
+    googlemapfieldController.dispose();
+    pickedImages.forEach((element) {
+      element.delete();
+    });
+    pickedVideo.forEach((element) {
+      element.delete();
+    });
+    super.onClose();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // nameController.dispose();
+    // avnueController.dispose();
+    // addressController.dispose();
+    // emailController.forEach((element) {
+    //   element.dispose();
+    // });
+    // socialLinkController.forEach((element) {
+    //   element.dispose();
+    // });
+    // descriptionController.dispose();
+    // googlemapfieldController.dispose();
+    // pickedImages.forEach((element) {
+    //   element.delete();
+    // });
+    // pickedVideo.forEach((element) {
+    //   element.delete();
+    // });
+    super.dispose();
   }
 }

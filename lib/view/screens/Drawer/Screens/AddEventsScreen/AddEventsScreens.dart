@@ -365,16 +365,15 @@ class AddEventsScreens extends GetView<AddEventController> {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                    DateTime now = DateTime.now();
-                                    DateTime lastDate =
-                                        now.add(Duration(days: 365 * 10));
-
                                     // Show DatePicker to pick a date
                                     DateTime? pickedDate = await showDatePicker(
                                       context: context,
-                                      initialDate: now,
-                                      firstDate: now,
-                                      lastDate: lastDate,
+                                      initialDate:
+                                          controller.selectedStartDate.value,
+                                      firstDate: DateTime.now(),
+                                      lastDate: controller
+                                          .selectedStartDate.value
+                                          .add(Duration(days: 365 * 10)),
                                     );
 
                                     if (pickedDate != null) {
@@ -562,7 +561,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         hour: pickedTime.hour,
                                         minute: pickedTime.minute,
                                       );
-                                      controller.setStartTime(finalDateTime.format(context));
+                                      controller.setStartTime(
+                                          finalDateTime.format(context));
                                     }
                                   },
                                   child: Container(
@@ -597,8 +597,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                               ),
                                               Text(
                                                 /*timeFormater(*/
-                                                controller
-                                                    .selectedStartTime.value /*)*/,
+                                                controller.selectedStartTime
+                                                    .value /*)*/,
                                                 style: TextStyle(
                                                     fontSize: 15.sp,
                                                     color: Colors.black,
@@ -634,7 +634,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         minute: pickedTime.minute,
                                       );
 
-                                      controller.setEndTime(finalDateTime.format(context));
+                                      controller.setEndTime(
+                                          finalDateTime.format(context));
                                     }
                                   },
                                   child: Container(
@@ -958,7 +959,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                             height: 2.h,
                           ),
                           Obx(() {
-                            return controller.pickedVideo.value == null
+                            return controller.pickedVideo.isEmpty
                                 ? InkWell(
                                     onTap: () {
                                       controller.pickVideo();
@@ -1004,14 +1005,12 @@ class AddEventsScreens extends GetView<AddEventController> {
                                 : GestureDetector(
                                     onTap: () {
                                       controller.playVideo(
-                                          controller.pickedVideo.value?.path ??
-                                              "");
+                                          controller.pickedVideo[0].path);
                                       showVideoDialog(context);
                                     },
                                     child: FutureBuilder<String>(
                                       future: controller.getThumbnail(
-                                          controller.pickedVideo.value?.path ??
-                                              ""),
+                                          controller.pickedVideo[0].path),
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.done) {
@@ -1093,8 +1092,7 @@ class AddEventsScreens extends GetView<AddEventController> {
       builder: (context) {
         return Dialog(
           backgroundColor: Colors.black,
-          child: VideoPlayerScreen(
-              videoPath: controller.pickedVideo.value?.path ?? ""),
+          child: VideoPlayerScreen(videoPath: controller.pickedVideo[0].path),
         );
       },
     );

@@ -1,6 +1,7 @@
 class ApiConstants {
   // dev tunnel url
- // static const baseUrl = "https://3pmq3hk5-3028.inc1.devtunnels.ms/api/v1/";
+  // static const baseUrl =
+  //     "https://2ba6-2407-aa80-14-e3cc-e5fa-9f01-4a66-a2e2.ngrok-free.app/api/v1/";
   static const baseUrl =
       "https://envite-backend-c29dd82c64e2.herokuapp.com/api/v1/";
   // Auth
