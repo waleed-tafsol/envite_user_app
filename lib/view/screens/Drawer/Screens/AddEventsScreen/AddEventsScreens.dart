@@ -369,8 +369,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     DateTime? pickedDate = await showDatePicker(
                                       context: context,
                                       initialDate:
-                                          controller.selectedStartDate.value,
-                                      firstDate: DateTime.now(),
+                                          controller.selectedStartDate.value.add(Duration(days: 1)),
+                                      firstDate:  controller.selectedStartDate.value.add(Duration(days: 1)),
                                       lastDate: controller
                                           .selectedStartDate.value
                                           .add(Duration(days: 365 * 10)),
@@ -453,16 +453,17 @@ class AddEventsScreens extends GetView<AddEventController> {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                    DateTime now = DateTime.now();
-                                    DateTime lastDate =
-                                        now.add(Duration(days: 365 * 10));
+                                    //DateTime now = DateTime.now();
+                                    // DateTime lastDate =
+                                    //     now.add(Duration(days: 365 * 10));
 
                                     // Show DatePicker to pick a date
                                     DateTime? pickedDate = await showDatePicker(
                                       context: context,
-                                      initialDate: now,
-                                      firstDate: now,
-                                      lastDate: lastDate,
+                                      initialDate: controller.selectedEndDate.value.add(Duration(days: 1)),
+                                      firstDate: controller.selectedEndDate.value.add(Duration(days: 1)),
+                                      lastDate:
+                                      controller.selectedEndDate.value .add(Duration(days: 365 * 10)),
                                     );
 
                                     if (pickedDate != null) {
