@@ -34,16 +34,22 @@ class ExploreScreen extends GetView<ExploreController> {
                             .textTheme
                             .headlineSmall!
                             .copyWith(color: AppColors.kTextBlack)),
-                    InkWell(
-                      onTap: () {
-                        controller.exploreEventsScreenType.value =
-                            Events.explorerPastEvent.text;
-                        Get.toNamed(ViewAllExplorerEventScreen.routeName);
-                      },
-                      child: Text(
-                        "View All",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                    Obx(() {
+                        return InkWell(
+                          onTap: () {
+                            controller.exploreEventsScreenType.value =
+                                Events.explorerPastEvent.text;
+                            Get.toNamed(ViewAllExplorerEventScreen.routeName);
+                          },
+                          child: Visibility(
+                            visible: controller.exploreEventModel.value.pastEvents!.isNotEmpty,
+                            child: Text(
+                              "View All",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                        );
+                      }
                     ),
                   ],
                 ),
@@ -80,11 +86,17 @@ class ExploreScreen extends GetView<ExploreController> {
                           : SizedBox(
                               height: 40.h,
                               child: Center(
-                                child: Text(
-                                  "No Past are available",
-                                  style: TextStyle(
-                                      fontSize: 18.sp,
-                                      color: AppColors.kTextBlack),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.event_busy_outlined,color: AppColors.kBluedarkShade,),
+                                    Text(
+                                      "No Past are available",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
@@ -101,16 +113,22 @@ class ExploreScreen extends GetView<ExploreController> {
                             .textTheme
                             .headlineSmall!
                             .copyWith(color: AppColors.kTextBlack)),
-                    InkWell(
-                      onTap: () {
-                        controller.exploreEventsScreenType.value =
-                            Events.explorerUpcomingEvent.text;
-                        Get.toNamed(ViewAllExplorerEventScreen.routeName);
-                      },
-                      child: Text(
-                        "View All",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                    Obx(() {
+                        return InkWell(
+                          onTap: () {
+                            controller.exploreEventsScreenType.value =
+                                Events.explorerUpcomingEvent.text;
+                            Get.toNamed(ViewAllExplorerEventScreen.routeName);
+                          },
+                          child: Visibility(
+                            visible: controller.exploreEventModel.value.upcomingEvents!.isNotEmpty,
+                            child: Text(
+                              "View All",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                        );
+                      }
                     ),
                   ],
                 ),
@@ -135,11 +153,17 @@ class ExploreScreen extends GetView<ExploreController> {
                         }) : SizedBox(
                   height: 40.h,
                   child: Center(
-                    child: Text(
-                      "No Upcoming Events are available",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          color: AppColors.kTextBlack),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.event_busy_outlined,color: AppColors.kBluedarkShade,),
+                        Text(
+                          "No Upcoming Events are available",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.kBluedarkShade),
+                        ),
+                      ],
                     ),
                   ),
                 );

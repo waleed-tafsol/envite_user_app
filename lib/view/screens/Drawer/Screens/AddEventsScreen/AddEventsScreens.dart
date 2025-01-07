@@ -4,6 +4,7 @@ import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/controllers/AddEventController.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
+import 'package:event_planner_light/controllers/MyEventsController.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class AddEventsScreens extends GetView<AddEventController> {
 
   static const routeName = "AddEventsScreens";
   final formKey = GlobalKey<FormState>();
+  final MyEventsController myEventsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,6 @@ class AddEventsScreens extends GetView<AddEventController> {
                           SizedBox(
                             height: 2.h,
                           ),
-
                           Obx(
                             () {
                               return Column(
@@ -369,8 +370,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     DateTime? pickedDate = await showDatePicker(
                                       context: context,
                                       initialDate:
-                                          controller.selectedStartDate.value.add(Duration(days: 1)),
-                                      firstDate:  controller.selectedStartDate.value.add(Duration(days: 1)),
+                                          controller.selectedStartDate.value,
+                                      firstDate:
+                                          controller.selectedStartDate.value,
                                       lastDate: controller
                                           .selectedStartDate.value
                                           .add(Duration(days: 365 * 10)),
@@ -459,12 +461,16 @@ class AddEventsScreens extends GetView<AddEventController> {
 
                                     // Show DatePicker to pick a date
                                     DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: controller.selectedEndDate.value.add(Duration(days: 1)),
-                                      firstDate: controller.selectedEndDate.value.add(Duration(days: 1)),
-                                      lastDate:
-                                      controller.selectedEndDate.value .add(Duration(days: 365 * 10)),
-                                    );
+                                        context: context,
+                                        initialDate:
+                                            controller.selectedEndDate.value,
+                                        firstDate:
+                                            controller.selectedEndDate.value,
+                                        lastDate: controller
+                                            .selectedEndDate.value
+                                            .add(
+                                          Duration(days: 365 * 10),
+                                        ));
 
                                     if (pickedDate != null) {
                                       /*  // Show TimePicker to pick a time
@@ -1052,13 +1058,15 @@ class AddEventsScreens extends GetView<AddEventController> {
                             child: ElevatedButton(
                                 style: StylesConstants
                                     .elevated_b_redBack_whiteFore,
-                                onPressed: () {
+                                onPressed: () async {
                                   if (formKey.currentState!.validate()) {
                                     if (controller.selectedCategory.value !=
                                         null) {
                                       if (controller.selectedOption.value !=
                                           null) {
-                                        controller.addEvent();
+                                       await controller.addEvent();
+                                        await myEventsController
+                                            .getMyPaginatedEvents();
                                       } else {
                                         CustomSnackbar.showError("Error",
                                             "Please select the type of event");

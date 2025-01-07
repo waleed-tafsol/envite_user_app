@@ -48,8 +48,8 @@ class AddEventController extends GetxController {
   RxList<File> pickedImages = <File>[].obs;
   RxList<File> pickedVideo = <File>[].obs;
 
-  Rx<DateTime> selectedStartDate = DateTime.now().obs;
-  Rx<DateTime> selectedEndDate = DateTime.now().obs;
+  Rx<DateTime> selectedStartDate = DateTime.now().add(Duration(days: 1)).obs;
+  Rx<DateTime> selectedEndDate = DateTime.now().add(Duration(days: 1)).obs;
 
   Rx<String> selectedStartTime =
       TimeOfDay.now().format(navigatorKey.currentContext!).obs;
