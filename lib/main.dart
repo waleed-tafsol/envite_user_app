@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
       builder: (context,child) {
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Envite',
