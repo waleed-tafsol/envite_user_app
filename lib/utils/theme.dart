@@ -6,7 +6,7 @@ import 'colors_constants.dart';
 class CustomTheme {
   var lightTheme = ThemeData.light(useMaterial3: true).copyWith(
     scaffoldBackgroundColor: AppColors.kScaffoldBackgroundColor,
-    primaryColor: Colors.white,
+    // primaryColor: Colors.white,
     primaryIconTheme: const IconThemeData(color: AppColors.kPrimaryColor),
     iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
@@ -41,10 +41,10 @@ class CustomTheme {
       backgroundColor: Colors.transparent,
       centerTitle: false,
       titleTextStyle: TextStyle(
-          fontSize: 15.sp,
-          fontWeight: FontWeight.normal,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.bold,
           letterSpacing: 2.0,
-          color: AppColors.kTextBlack),
+          color: AppColors.berkeleyBlue),
       iconTheme: IconThemeData(
         color: AppColors.kPrimaryColor,
       ),
@@ -87,19 +87,22 @@ class CustomTheme {
       // brightness: Brightness,
     ),
 
-    inputDecorationTheme: const InputDecorationTheme().copyWith(
-        contentPadding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 1.h),
+    inputDecorationTheme: InputDecorationTheme(
+        contentPadding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 12.w),
         filled: true,
-        fillColor: AppColors.kLightBlueColor2,
-        prefixIconColor: AppColors.kPrimaryColor,
-        suffixIconColor: AppColors.kPrimaryColor,
+        fillColor: const Color(0xffAA8DADC).withOpacity(0.13),
+        // prefixIconColor: AppColors.kPrimaryColor,
+        // suffixIconColor: AppColors.kPrimaryColor,
 
         //label style for formField
         labelStyle: TextStyle(
             fontSize: 15.sp,
             // color: AppColors.kTextblackColor,
             fontWeight: FontWeight.normal),
-        hintStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.normal),
+        hintStyle: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.normal,
+            color: Color(0xff457B9D)),
         // errorStyle: TextStyle(
         //     fontSize: 12.sp,
         //     // color: AppColors.kErrorBorderColor,
@@ -110,7 +113,7 @@ class CustomTheme {
         //         color: kTextLightColor, width: kWidthOfInputBoarder),
         //     borderRadius: kBorderRadiusAll),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide.none,
         )
         //     borderRadius: kBorderRadiusAll),

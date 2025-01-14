@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color kWhite = Colors.white;
   static const Color kTextBlack = Colors.black;
-  static const Color kScaffoldBackgroundColor = Color(0xFFF9F8EF);
+  static const Color kScaffoldBackgroundColor = Color(0xffF9F8EF);
   static const Color kBerkeleyBlue = Color(0xFF1D3557);
   static const Color kTextfieldColor = Color.fromARGB(103, 168, 218, 220);
   // static const Color kBlue300 = Color(0xFFA8DADC);
@@ -14,6 +14,7 @@ class AppColors {
   static const Color kPrimaryColor = Color(0xFFE63946);
   static const Color kLightBlueColor = Color(0x33A8DADC);
   static const Color kLightBlueColor2 = Color(0xFFF1F5ED);
+  static const Color berkeleyBlue = Color(0xFF1D3557);
 
   static const Color kIconColor = kPrimaryColor;
 }

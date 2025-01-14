@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:envite_user_app/route_generator.dart';
 import 'package:envite_user_app/utils/assets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class SplashScreen extends StatefulWidget {
   static const routeName = 'Splash_screen';
 
@@ -16,15 +18,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // Get.offAndToNamed(welcomeRoute);
     Timer(const Duration(seconds: 2), () {
-      //Get.offNamed(AuthScreen.routeName);
+      Get.offAndToNamed(welcomeRoute);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:   PopScope(
+      body: PopScope(
         canPop: false,
         child: Stack(
           children: [

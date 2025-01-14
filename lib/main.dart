@@ -1,6 +1,8 @@
 import 'package:envite_user_app/route_generator.dart';
+import 'package:envite_user_app/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
@@ -17,25 +19,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
+        designSize: const Size(430, 932),
         //useInheritedMediaQuery: true,
         minTextAdapt: true,
         splitScreenMode: true,
-      builder: (context,child) {
-
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Envite',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          navigatorObservers: [routeObserver],
-          initialRoute: '/',
-          navigatorKey: navigatorKey,
-          onGenerateRoute: RouteGenerator.generateRoute,        );
-      }
-    );
+        builder: (context, child) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Envite',
+            theme: CustomTheme().lightTheme,
+            navigatorObservers: [routeObserver],
+            initialRoute: '/',
+            navigatorKey: navigatorKey,
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        });
   }
 }
-
