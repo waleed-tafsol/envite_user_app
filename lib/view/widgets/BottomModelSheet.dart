@@ -1,21 +1,13 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
-import '../../controllers/AddEventController.dart';
-import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
-import '../screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 
 class BottomSheetManager {
   static void _CustomBottomSheet(BuildContext context, List<Widget> children) {
@@ -285,7 +277,7 @@ class BottomSheetManager {
         height: 6.h,
         child: ElevatedButton(
           onPressed: () {
-            Get.toNamed(ConfirmorAddMoreEvents.routeName);
+            // Get.toNamed(ConfirmorAddMoreEvents.routeName);
           },
           child: const Text('Send now'),
         ),
@@ -317,10 +309,10 @@ class BottomSheetManager {
       SizedBox(height: 4.h),
       ElevatedButton(
         onPressed: () {
-          Get.back();
-          var controller = Get.put(AddEventController());
-          controller.isAddPastEvents.value = true;
-          Get.toNamed(AddEventsScreens.routeName);
+          // Get.back();
+          // var controller = Get.put(AddEventController());
+          // controller.isAddPastEvents.value = true;
+          // Get.toNamed(AddEventsScreens.routeName);
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -336,7 +328,8 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-Get.back();        },
+          Get.back();
+        },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           minimumSize: Size(double.infinity, 6.h),
@@ -350,7 +343,6 @@ Get.back();        },
       ),
     ]);
   }
-
 
   static void sendInvite(
     BuildContext context,
@@ -375,7 +367,7 @@ Get.back();        },
         height: 6.h,
         child: ElevatedButton(
           onPressed: () {
-            Get.toNamed(SendInviteScreen.routeName);
+            // Get.toNamed(SendInviteScreen.routeName);
           },
           child: const Text('Send now'),
         ),
@@ -473,9 +465,9 @@ Get.back();        },
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(
-            BuyPackagesScreen.routeName,
-          );
+          // Get.toNamed(
+          //   BuyPackagesScreen.routeName,
+          // );
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -517,7 +509,7 @@ Get.back();        },
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(PackagesScreen.routeName);
+          // Get.toNamed(PackagesScreen.routeName);
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -559,7 +551,7 @@ Get.back();        },
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
+          // Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

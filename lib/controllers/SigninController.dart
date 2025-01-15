@@ -1,7 +1,6 @@
 import 'package:event_planner_light/controllers/Auth_services.dart';
 
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

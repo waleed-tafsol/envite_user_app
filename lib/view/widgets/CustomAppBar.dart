@@ -1,5 +1,3 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -18,29 +16,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: true,
       title: SafeArea(
         child: InkWell(
-          onTap: () => Get.toNamed(ChooseyourlocationScreen.routeName),
+          // onTap: () => Get.toNamed(ChooseyourlocationScreen.routeName),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.location_on_outlined,),
+                  Icon(
+                    Icons.location_on_outlined,
+                  ),
                   Text(
                     "Events near to you",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
               Text(
                 "Salmiya, Kuwait",
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ],
           ),
@@ -54,7 +48,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             onPressed: () {
-              Get.toNamed(NotificationScreen.routeName);
+              // Get.toNamed(NotificationScreen.routeName);
             },
             icon: Icon(Icons.notifications)),
       ],

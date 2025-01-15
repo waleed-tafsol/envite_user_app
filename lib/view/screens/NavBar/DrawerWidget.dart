@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../constants/assets.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
-import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
-import '../Drawer/Screens/couponScreen.dart';
-import '../Drawer/Screens/supportScreen/supportScreen.dart';
-import '../ads/ads_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -68,19 +65,18 @@ class MyDrawer extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(AdsScreen.routeName);
+                      // Get.toNamed(AdsScreen.routeName);
                     },
                     child: Row(
                       children: [
-                        Icon(
-                          size: 2.h,
-                          Icons.volume_up_outlined,
+                        SvgPicture.asset(
+                          SvgAssets.navigationArrow,
                           color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
                           width: 4.w,
                         ),
-                        Text("Ads",
+                        Text("Invites",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -90,8 +86,9 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -99,33 +96,36 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(SupportScreen.routeName);
+                      // Get.toNamed(SupportScreen.routeName);
                     },
                     child: Row(
                       children: [
                         Icon(
                           size: 2.h,
-                          Icons.support_agent,
+                          Icons.event,
                           color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
                           width: 4.w,
                         ),
-                        Text("Support",
+                        Text("Events",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -133,28 +133,31 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Row(
                     children: [
                       Icon(
                         size: 2.h,
-                        Icons.settings_outlined,
+                        Icons.card_membership_rounded,
                         color: AppColors.kBlueMediumShade,
                       ),
                       SizedBox(
                         width: 4.w,
                       ),
-                      Text("Settings",
+                      Text("Membership",
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                              .copyWith(
+                                  color: AppColors.kBlueMediumShade,
+                                  fontSize: 16.sp)),
                     ],
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -162,27 +165,67 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(CouponScreen.routeName);
+                      // Get.toNamed(CouponScreen.routeName);
                     },
                     child: Row(
                       children: [
                         Icon(
                           size: 2.h,
-                          Icons.discount_outlined,
+                          Icons.settings_outlined,
                           color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
                           width: 4.w,
                         ),
-                        Text("Coupon",
+                        Text("Settings",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: const Divider(
+                      thickness: 0.1,
+                      color: AppColors.kBlueMediumShade,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.toNamed(CouponScreen.routeName);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          size: 2.h,
+                          Icons.notifications_outlined,
+                          color: AppColors.kBlueMediumShade,
+                        ),
+                        SizedBox(
+                          width: 4.w,
+                        ),
+                        Text("Notifications",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
@@ -193,7 +236,7 @@ class MyDrawer extends StatelessWidget {
                       height: 6.h,
                       child: OutlinedButton(
                         onPressed: () async {
-                          Get.toNamed(MembershipScreen.routeName);
+                          // Get.toNamed(MembershipScreen.routeName);
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor: AppColors.kBlueMediumShade,

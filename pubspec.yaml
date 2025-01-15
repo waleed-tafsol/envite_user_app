@@ -54,6 +54,7 @@ dependencies:
   get_thumbnail_video: ^0.7.3
   mime: ^2.0.0
   chewie: ^1.8.5
+  file_picker: ^8.1.7
 
 
 

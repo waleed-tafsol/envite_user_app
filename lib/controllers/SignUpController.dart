@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:flutter/widgets.dart';
@@ -31,7 +30,6 @@ class Signupcontroller extends GetxController {
   RxBool isEventPlanner = true.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
-  final ImagePicker _picker = ImagePicker();
   var pickedFiles = <File>[].obs;
   var pickedImages = <File>[].obs;
 
@@ -42,31 +40,23 @@ class Signupcontroller extends GetxController {
   RxList<CatagoryModel> selectedCategory = <CatagoryModel>[].obs;
 
   RxBool isloading = false.obs;
-  Future<void> pickImage() async {
-    try {
-      final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
-      if (file != null) {
-        pickedImages.add(File(file.path));
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to pick image or video: $e');
-    }
-  }
 
   Future<void> pickADocument() async {
-    // try {
-    //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-    //       // allowedExtensions: ['pdf', 'docx', 'txt'],
-    //       );
-    //   if (result != null) {
-    //     PlatformFile file = result.files.first;
-    //     pickedFiles.add(File(file.path!));
-    //   } else {
-    //     Get.snackbar('No file selected', 'No document was picked.');
-    //   }
-    // } catch (e) {
-    //   Get.snackbar('Error', 'Failed to pick document: $e');
-    // }
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'docx', 'txt', 'xlsx'],
+      );
+
+      if (result != null) {
+        File pickedFile = File(result.files.single.path!);
+        pickedFiles.add(pickedFile);
+      } else {
+        throw Exception('No file selected Please select a document');
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', 'Failed to pick document: $e');
+    }
   }
 
   // Future<void> takePhotoOrVideo() async {

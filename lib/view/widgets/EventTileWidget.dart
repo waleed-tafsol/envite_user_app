@@ -1,5 +1,4 @@
 import 'package:event_planner_light/model/event_model.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
-import '../screens/NavBar/Screens/my_events/my_events_detail_screen.dart';
 
 class EventTileWidget extends StatelessWidget {
   final bool pinned;
@@ -24,7 +22,7 @@ class EventTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(MyEventsDetailScreen.routeName),
+      // onTap: () => Get.toNamed(MyEventsDetailScreen.routeName),
       child: Container(
         height: 13.h,
         width: width,
@@ -48,13 +46,16 @@ class EventTileWidget extends StatelessWidget {
                         top: 3,
                         left: 3,
                         child: EventTileDateBadge(
-                          date: event?.startDate == null? "": extractDate(event!.startDate!),
-                          month: event?.startDate == null? "":extractMonthInitials(event!.startDate!),
+                          date: event?.startDate == null
+                              ? ""
+                              : extractDate(event!.startDate!),
+                          month: event?.startDate == null
+                              ? ""
+                              : extractMonthInitials(event!.startDate!),
                         ),
                       ),
                     ],
                   ),
-
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -62,7 +63,8 @@ class EventTileWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 3.w,vertical: 1.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.h),
                           child: Text(
                             event?.name ?? "",
                             style: Theme.of(context)
@@ -72,11 +74,12 @@ class EventTileWidget extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 3.w,vertical: 1.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.h),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                               Icon(
+                              Icon(
                                 size: 2.h,
                                 Icons.location_on_outlined,
                                 color: AppColors.kPrimaryColor,
@@ -113,7 +116,9 @@ class EventTileWidget extends StatelessWidget {
                 ],
               ),
               Positioned(
-                  top: 0.5.h, right: 1.w, child: SvgPicture.asset(SvgAssets.pin)),
+                  top: 0.5.h,
+                  right: 1.w,
+                  child: SvgPicture.asset(SvgAssets.pin)),
             ],
           ),
         ),
@@ -134,7 +139,7 @@ class EventTileDateBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2.5.w,vertical: 0.5.h),
+      padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.5.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColors.kBluedarkShade,

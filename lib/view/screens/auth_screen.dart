@@ -9,7 +9,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
-import 'Drawer/DrawerScreen.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

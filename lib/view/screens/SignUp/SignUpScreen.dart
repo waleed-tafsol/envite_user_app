@@ -165,31 +165,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                               .isConfirmPasswordVisible.value;
                                     },
                                   ))),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Row(
-                            children: [
-                              Switch(
-                                  value: controller.isEventPlanner.value,
-                                  onChanged: (_) {
-                                    // controller.isEventPlanner.value =
-                                    //     !controller.isEventPlanner.value;
-                                  }),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "I’m an event Planner!",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      decoration: TextDecoration.underline,
-                                    ),
-                              ),
-                            ],
-                          ),
+
                           SizedBox(
                             height: 2.h,
                           ),
@@ -299,45 +275,31 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                 final file = controller.pickedFiles[index];
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Stack(
-                                      children: [
-                                        Positioned.fill(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: k5BorderRadius,
-                                              color: AppColors.kBlueLightShade,
-                                            ),
-                                            width: double.infinity,
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 2.h, horizontal: 4.w),
-                                            child: ClipRRect(
-                                              borderRadius: k5BorderRadius,
-                                              child: Image.file(
-                                                file,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                            right: 0,
-                                            top: 0,
-                                            child: IconButton(
-                                                icon: const Icon(
-                                                  Icons.cancel,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  controller.removeFile(file);
-                                                }))
-                                      ],
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: k5BorderRadius,
+                                        color: AppColors.kBlueLightShade,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 2.h, horizontal: 4.w),
+                                      child: Text(file.path.split('/').last,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.sp)),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
                                     ),
                                     TextFormField(
                                       decoration: InputDecoration(
                                           hintText: "Description"),
-                                    )
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                   ],
                                 );
                               },
@@ -382,14 +344,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          TextFormField(
-                            decoration:
-                                InputDecoration(hintText: "Document Notes"),
-                            maxLines: 3,
-                          ),
+
                           SizedBox(
                             height: 3.h,
                           ),

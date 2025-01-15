@@ -1,4 +1,4 @@
-package com.example.envite_eventplanner_app
+package com.envite.user
 
 import io.flutter.embedding.android.FlutterActivity
 

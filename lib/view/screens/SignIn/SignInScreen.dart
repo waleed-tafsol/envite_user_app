@@ -22,7 +22,7 @@ class SigninScreen extends GetView<SignIncontroller> {
           automaticallyImplyLeading: true,
           centerTitle: true,
           title: Text(
-            "Welcome to Invites App",
+            "Welcome to Envite App",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),

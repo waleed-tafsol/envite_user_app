@@ -21,7 +21,7 @@ class AuthService extends GetxService {
     if (await _tokenStorage.hasToken()) {
       isAuthenticated.value = true;
       authToken = await _tokenStorage.getToken();
-      await getMe();
+      // await getMe();
     }
   }
 
@@ -30,25 +30,25 @@ class AuthService extends GetxService {
   String? authToken;
   Rx<UserModel?> me = UserModel().obs;
 
-  Future<void> getMe() async {
-    try {
-      final response = await http.get(Uri.parse(ApiConstants.getme), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $authToken',
-      });
-      final jsonResponse = json.decode(response.body);
-      if (response.statusCode == 200) {
-        final responseData = UserModel.fromJson(jsonResponse["data"]["user"]);
-        me.value = responseData;
-      } else {
-        final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
+  // Future<void> getMe() async {
+  //   try {
+  //     final response = await http.get(Uri.parse(ApiConstants.getme), headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $authToken',
+  //     });
+  //     final jsonResponse = json.decode(response.body);
+  //     if (response.statusCode == 200) {
+  //       final responseData = UserModel.fromJson(jsonResponse["data"]["user"]);
+  //       me.value = responseData;
+  //     } else {
+  //       final errorData = jsonDecode(response.body);
+  //       throw Exception(
+  //           errorData["message"]["error"][0] ?? "An error occurred");
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
 
   Future<Map<dynamic, dynamic>> login(
       {required String email, required String password}) async {
@@ -71,7 +71,7 @@ class AuthService extends GetxService {
           authToken = responseData["data"]["token"];
           _tokenStorage.saveToken(authToken!);
           isAuthenticated.value = true;
-          await getMe();
+          // await getMe();
           return responseData;
         } else {
           throw Exception("Please verify your email to login");

@@ -1,16 +1,13 @@
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/MyEventsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/colors_constants.dart';
-import '../../../controllers/AddEventController.dart';
 import '../../widgets/CustomAppBar.dart';
-import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'DrawerWidget.dart';
-import 'Screens/Explore/ExploreScreen.dart';
-import 'Screens/Home/HomeScreen.dart';
+import 'ExploreScreen.dart';
+import 'HomeScreen.dart';
+import 'MyInvitesScreen.dart';
+import 'ProfileScreen.dart';
 
 class NavBarScreen extends StatefulWidget {
   static const routeName = "NavBarScreen";
@@ -32,9 +29,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
   // List of Screens
   final List<Widget> _screens = [
     const HomeScreen(),
-     ExploreScreen(),
+    ExploreScreen(),
     const MyInvitesScreen(),
-     MyEventsScreen(),
+    // MyEventsScreen(),
     const ProfileScreen(),
   ];
 
@@ -72,10 +69,10 @@ class _NavBarScreenState extends State<NavBarScreen> {
             icon: Icon(Icons.calendar_today_outlined),
             label: 'My Invites',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_outlined),
-            label: 'My Events',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.calendar_today_outlined),
+          //   label: 'My Events',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),
             label: 'Profile',
@@ -86,9 +83,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
-          var controller = Get.put(AddEventController());
-          controller.isAddPastEvents.value = false;
-          Get.toNamed(AddEventsScreens.routeName);
+          // var controller = Get.put(AddEventController());
+          // controller.isAddPastEvents.value = false;
+          // Get.toNamed(AddEventsScreens.routeName);
         },
         child: Icon(
           Icons.add,

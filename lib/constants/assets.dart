@@ -40,4 +40,5 @@ class SvgAssets {
   static const String my_fatoorah = '${_assets}MyFatoorah.svg';
   static const String image_pen = '${_assets}image_pen.svg';
   static const String up = '${_assets}up.svg';
+  static const String navigationArrow = '${_assets}NavigationArrow.svg';
 }
