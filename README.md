@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # envite_eventplanner_app
 
 A new Flutter project.
+=======
+# envite_user_app
+
+User app of Envite project
+>>>>>>> 5dca189434dfc941921dc2717b94753e6bf574af
 
 ## Getting Started
 

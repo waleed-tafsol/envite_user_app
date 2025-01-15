@@ -3,6 +3,7 @@ allprojects {
         google()
         mavenCentral()
     }
+<<<<<<< HEAD
     subprojects {
         afterEvaluate { project ->
             if (project.hasProperty('android')) {
@@ -14,6 +15,8 @@ allprojects {
             }
         }
     }
+=======
+>>>>>>> 5dca189434dfc941921dc2717b94753e6bf574af
 }
 
 rootProject.buildDir = "../build"
