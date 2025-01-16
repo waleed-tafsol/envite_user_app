@@ -1,6 +1,6 @@
-# envite_user_app
+# envite_eventplanner_app
 
-User app of Envite project
+A new Flutter project.
 
 ## Getting Started
 
