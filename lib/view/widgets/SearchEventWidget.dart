@@ -1,8 +1,8 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchEventWidget extends StatelessWidget {
   const SearchEventWidget({
@@ -13,13 +13,10 @@ class SearchEventWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          width: 10.w,
-          child: InkWell(
-              onTap: () => BottomSheetManager.filter(context),
-              child: SvgPicture.asset(SvgAssets.filter,width: 5.w,)),
-        ),
-        SizedBox(width: 1.w,),
+        InkWell(
+            onTap: () => BottomSheetManager.filter(context),
+            child: SvgPicture.asset(SvgAssets.filter,width: 24.w,)),
+        SizedBox(width: 13.w,),
         const Expanded(
           child: TextField(
             decoration: InputDecoration(

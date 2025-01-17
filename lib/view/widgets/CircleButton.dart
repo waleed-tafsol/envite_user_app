@@ -1,6 +1,6 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircleIcon extends StatelessWidget {
   const CircleIcon({super.key});

@@ -1,8 +1,9 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.dart';
+import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/screens/NotiFicationScreens/NotificationScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/choose_your_location_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.onDrawerToggle});
@@ -10,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onDrawerToggle;
 
   @override
-  Size get preferredSize => Size.fromHeight(5.h);
+  Size get preferredSize => Size.fromHeight(45.h);
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +21,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: InkWell(
           onTap: () => Get.toNamed(ChooseyourlocationScreen.routeName),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.location_on_outlined,
+                    size: 18.sp,
                   ),
-                  Text(
-                    "Events near to you",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  Text("Events near to you",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.normal,
+                          color: AppColors.kBerkeleyBlue)),
                 ],
               ),
-              Text(
-                "Salmiya, Kuwait",
-                style: Theme.of(context).textTheme.headlineMedium,
+              SizedBox(
+                height: 5.h,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text("Salmiya, Kuwait",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.kBerkeleyBlue)),
+                ],
               ),
             ],
           ),

@@ -41,4 +41,8 @@ class SvgAssets {
   static const String image_pen = '${_assets}image_pen.svg';
   static const String up = '${_assets}up.svg';
   static const String navigationArrow = '${_assets}NavigationArrow.svg';
+  static const String splash_vector = '${_assets}splash_vector.svg';
+  static const String envite_logo = '${_assets}envite_logo.svg';
+  static const String or = '${_assets}or.svg';
+
 }

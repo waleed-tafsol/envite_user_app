@@ -1,6 +1,6 @@
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/CustomChipWidgets.dart';
@@ -14,19 +14,25 @@ class MyInvitesScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 29.w),
           child: Column(
             children: [
+              SizedBox(
+                height: 20.h,
+              ),
               const SearchEventWidget(),
               Padding(
-                padding: EdgeInsets.only(top: 1.h),
+                padding: EdgeInsets.only(top: 20.h),
                 child: Text(
                   "My invites",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: AppColors.kTextBlack),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: AppColors.kBerkeleyBlue,
+                      fontSize: 21.sp,
+                      fontWeight: FontWeight.w600),
                 ),
+              ),
+              SizedBox(
+                height: 8.h,
               ),
               const InviteChips(),
               ListView.builder(
@@ -45,13 +51,19 @@ class MyInvitesScreen extends StatelessWidget {
                     onTap: () => BottomSheetManager.eventAdded(context),
                     child: Text(
                       "Ended events",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppColors.kBerkeleyBlue,
+                          fontSize: 21.sp,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   Text(
                     "See all",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  )
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: AppColors.kBerkeleyBlue,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.normal),
+                  ),
                 ],
               ),
               ListView.builder(

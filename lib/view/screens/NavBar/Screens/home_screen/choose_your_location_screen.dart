@@ -1,8 +1,7 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChooseyourlocationScreen extends StatelessWidget {
   const ChooseyourlocationScreen({super.key});
@@ -12,20 +11,21 @@ class ChooseyourlocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Choose your location",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: AppColors.kTextBlack)),
+        title: Text(
+          "Choose your location",
+        ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        padding: EdgeInsets.symmetric(horizontal: 29.w),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.h),
-              child: Image.asset(Assets.location),
+              padding: EdgeInsets.symmetric(vertical: 15.h),
+              child: Image.asset(
+                Assets.location,
+                width: 200.w,
+              ),
             ),
             const TextField(
               decoration: InputDecoration(
@@ -33,20 +33,20 @@ class ChooseyourlocationScreen extends StatelessWidget {
                   prefixIcon: Icon(Icons.location_on_outlined)),
             ),
             SizedBox(
-              height: 4.h,
+              height: 19.h,
             ),
             Text(
                 "Let’s find your next event! Search for a location to get started or enable your current location below.",
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .copyWith(color: AppColors.kTextBlack)),
+                    .copyWith(color: AppColors.kTextBlack, fontSize: 11.sp)),
             SizedBox(
-              height: 5.h,
+              height: 19.h,
             ),
             SizedBox(
               width: double.infinity,
-              height: 6.h,
+              height: 60.h,
               child: OutlinedButton(
                 onPressed: () {
                   // Get.toNamed(NearbyEvents.routeName);
@@ -64,18 +64,21 @@ class ChooseyourlocationScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.location_searching_outlined,
                       color: AppColors.kIconColor,
+                      size: 24.sp,
                     ),
                     SizedBox(
-                      width: 2.w,
+                      width: 12.w,
                     ),
                     Text('Use my current location',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
-                            .copyWith(color: AppColors.kBluedarkShade)),
+                            .copyWith(
+                                color: AppColors.kBluedarkShade,
+                                fontSize: 16.sp)),
                   ],
                 ),
               ),

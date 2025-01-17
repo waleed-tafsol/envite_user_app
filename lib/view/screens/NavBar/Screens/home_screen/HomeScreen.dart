@@ -2,7 +2,7 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/SearchEventWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,19 +17,22 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 2.h,
+                  height: 20.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: const SearchEventWidget(),
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 2.h),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-                    height: 15.h,
+                        EdgeInsets.symmetric(horizontal: 18.w, vertical: 13.h),
+                    height: 175.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: AppColors.kBerkeleyBlue,
@@ -44,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                                 .headlineMedium!
                                 .copyWith(color: Colors.white)),
                         SizedBox(
-                          height: 1.h,
+                          height: 4.h,
                         ),
                         Row(
                           children: [
@@ -64,30 +67,37 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 20.h,
+                ),
+                SizedBox(
+                  height: 80.h,
                   child: ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           child: Container(
                             margin: EdgeInsets.symmetric(
-                              horizontal: 1.w,
+                              horizontal: 5.w,
                             ),
                             decoration: BoxDecoration(
                                 color: AppColors.kBlueLightShade,
-                                borderRadius: BorderRadius.circular(10)),
-                            height: 8.h,
-                            width: 25.w,
+                                borderRadius: BorderRadius.circular(15.r)),
+                            height: 77.h,
+                            width: 100.w,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.mic),
-                                Text(
-                                  "Entertainment",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                Icon(
+                                  Icons.mic,
+                                  size: 24.sp,
                                 ),
+                                Text("Entertainment",
+                                    style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.kBerkeleyBlue)),
                               ],
                             ),
                           ),
@@ -95,28 +105,30 @@ class HomeScreen extends StatelessWidget {
                       }),
                 ),
                 SizedBox(
-                  height: 1.h,
+                  height: 20.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Suggestion for you",
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      Text(
-                        "All events",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )
+                      Text("Suggestion for you",
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.kBerkeleyBlue)),
+                      Text("All events",
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.kBerkeleyBlue)),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: ListView.builder(
-                      itemCount: 100,
+                      itemCount: 10,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants/colors_constants.dart';
 
 class PublicBadgeWidget extends StatelessWidget {
@@ -8,21 +8,18 @@ class PublicBadgeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 1.w,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
           color: AppColors.kBlueMediumShade,
-          borderRadius: BorderRadius.circular(2)),
-      height: 2.h,
+          borderRadius: BorderRadius.circular(4.r)),
+      height: 30.h,
       child: Center(
         child: Text(
           text ?? "",
           style: Theme.of(context)
               .textTheme
               .bodySmall!
-              .copyWith(color: AppColors.kBluedarkShade
-              ),
+              .copyWith(color: AppColors.kBluedarkShade),
         ),
       ),
     );

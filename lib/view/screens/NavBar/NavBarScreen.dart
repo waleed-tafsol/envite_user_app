@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../widgets/CustomAppBar.dart';
 import 'DrawerWidget.dart';
-import 'Screens/ExploreScreen.dart';
+import 'Screens/explore_screen/ExploreScreen.dart';
 import 'Screens/home_screen/HomeScreen.dart';
 import 'Screens/my_invites_screen/MyInvitesScreen.dart';
-import 'Screens/ProfileScreen.dart';
+import 'Screens/profile_screen/ProfileScreen.dart';
 
 class NavBarScreen extends StatefulWidget {
   static const routeName = "NavBarScreen";

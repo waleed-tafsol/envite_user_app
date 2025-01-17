@@ -1,7 +1,7 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InviteChips extends StatefulWidget {
   const InviteChips({super.key});
@@ -13,7 +13,10 @@ class InviteChips extends StatefulWidget {
 class _InviteChipsState extends State<InviteChips> {
   int _selectedChipIndex = 0;
 
-  final List<String> _chipLabels = ['Pinned', 'Planned events',];
+  final List<String> _chipLabels = [
+    'Pinned',
+    'Planned events',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class _InviteChipsState extends State<InviteChips> {
               label: Text(
                 _chipLabels[index],
                 style: TextStyle(
+                    fontSize: 12.sp,
                     color: _selectedChipIndex == index
                         ? Colors.white
                         : AppColors.kBluedarkShade),
@@ -67,7 +71,7 @@ class _CatagoryFilterCipsState extends State<CatagoryFilterCips> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 2.w,
+      spacing: 8.w,
       children: List<Widget>.generate(
         _chipLabels.length,
         (int index) {
@@ -103,7 +107,7 @@ class ByStatusFilterCipsState extends State<ByStatusFilterCips> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 2.w,
+      spacing: 8.w,
       children: List<Widget>.generate(
         _chipLabels.length,
         (int index) {

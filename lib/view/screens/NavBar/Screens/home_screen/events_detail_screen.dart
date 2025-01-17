@@ -1,13 +1,10 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyInvitesEventsDetailScreen extends StatelessWidget {
   static const routeName = 'MyInvitesEventsDetailScreen';
@@ -16,68 +13,66 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffF9F8EF),
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: Text(
           "Event Details",
-          style: Theme.of(context).textTheme.bodyLarge,
         ),
         centerTitle: true,
-        actions: [
-          InkWell(
-              onTap: () {
-                // Get.toNamed(EditEventsDetailScreen.routeName);
-              },
-              child: SvgPicture.asset(SvgAssets.image_pen)),
-          SizedBox(
-            width: 2.w,
-          )
-        ],
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 29.w),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 7.h),
                   decoration: BoxDecoration(
                       color: AppColors.kBlueLightShade,
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10.r)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                           child: Image.asset(
                             Assets.eventCanvas,
                             width: double.infinity,
                           )),
-                      SizedBox(height: 1.h),
-                      Text(
-                        "Understanding Parents’ Journey\nThrough Autism",
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
+                      SizedBox(height: 11.h),
+                      Text("Understanding Parents’ Journey\nThrough Autism",
+                          style: TextStyle(
+                              fontSize: 21.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.kBerkeleyBlue)),
                       SizedBox(
-                        height: 1.h,
+                        height: 14.h,
                       ),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.location_on_outlined,
                             color: AppColors.kIconColor,
+                            size: 18.sp,
+                          ),
+                          SizedBox(
+                            width: 6.w,
                           ),
                           Text(
                             "Salmiya, Kuwait",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
-                                .copyWith(color: AppColors.kBluedarkShade),
+                                .copyWith(
+                                    color: AppColors.kBluedarkShade,
+                                    fontSize: 12.sp),
                           ),
                           SizedBox(
-                            width: 1.w,
+                            width: 6.w,
                           ),
                           SizedBox(
                             child: Row(
@@ -88,7 +83,9 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
-                                      .copyWith(color: AppColors.kTextBlack),
+                                      .copyWith(
+                                          color: AppColors.kTextBlack,
+                                          fontSize: 9.sp),
                                 ),
                                 const Icon(
                                   Icons.keyboard_arrow_down_rounded,
@@ -99,38 +96,50 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          const Icon(
+                          Icon(
                             Icons.groups_2_outlined,
                             color: AppColors.kIconColor,
+                            size: 18.sp,
                           ),
                           Text(
                             "+236",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
-                                .copyWith(color: AppColors.kTextBlack),
+                                .copyWith(
+                                    color: AppColors.kTextBlack,
+                                    fontSize: 12.sp),
+                          ),
+                          SizedBox(
+                            width: 16.w,
                           ),
                           const PublicBadgeWidget(text: "PUBLIC"),
                         ],
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 25.h,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Text("About the event",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: AppColors.kBluedarkShade)),
+                      Text("About the event",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  color: AppColors.kBluedarkShade,
+                                  fontSize: 14.sp)),
+                      SizedBox(
+                        height: 7.sp,
                       ),
                       Text(
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis condimentum sapien, et volutpat nunc feugiat nec. Sed et interdum quam. In ipsum quam, vulputate sit amet dolor nec, egestas consectetur ante. Aenean fermentum diam arcu.",
-                          style: Theme.of(context).textTheme.bodySmall),
+                          style: TextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.kBerkeleyBlue)),
                       SizedBox(
-                        height: 1.h,
+                        height: 21.h,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           StatsContainer(
                               image: Image.asset(Assets.m1),
@@ -143,31 +152,35 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                               value: '34')
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Text("Videos of the event",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: AppColors.kBluedarkShade)),
+                      SizedBox(
+                        height: 21.h,
                       ),
+                      Text("Videos of the event",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  color: AppColors.kBluedarkShade,
+                                  fontSize: 14.sp)),
                       ...List.generate(3, (index) {
                         return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 1.h),
+                          padding: EdgeInsets.symmetric(vertical: 5.h),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(2),
                             child: Image.asset(Assets.video_Thumbnail),
                           ),
                         );
                       }),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Text("Links",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: AppColors.kBluedarkShade)),
+                      SizedBox(
+                        height: 20.h,
                       ),
+                      Text("Links",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  color: AppColors.kBluedarkShade,
+                                  fontSize: 14.sp)),
                       Row(
                         children: [
                           const Icon(
@@ -175,12 +188,13 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                             color: AppColors.kBluedarkShade,
                           ),
                           SizedBox(
-                            width: 2.w,
+                            width: 11.w,
                           ),
-                          Text(
-                            "www.autismkuwait.com",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
+                          Text("www.autismkuwait.com",
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                color: AppColors.kBerkeleyBlue,
+                              ))
                         ],
                       ),
                       Row(
@@ -190,10 +204,13 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                             color: AppColors.kBluedarkShade,
                           ),
                           SizedBox(
-                            width: 2.w,
+                            width: 11.w,
                           ),
                           Text("@autismkuwait",
-                              style: Theme.of(context).textTheme.bodySmall)
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                color: AppColors.kBerkeleyBlue,
+                              ))
                         ],
                       ),
                       Row(
@@ -203,14 +220,17 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                             color: AppColors.kBluedarkShade,
                           ),
                           SizedBox(
-                            width: 2.w,
+                            width: 11.w,
                           ),
                           Text("@autismkuwait",
-                              style: Theme.of(context).textTheme.bodySmall)
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                color: AppColors.kBerkeleyBlue,
+                              ))
                         ],
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 20.h,
                       ),
                       Row(
                         children: [
@@ -228,11 +248,14 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 16.h,
+                      )
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 1.h,
+                  height: 33.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -243,14 +266,24 @@ class MyInvitesEventsDetailScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!
-                              .copyWith(color: AppColors.kBluedarkShade)),
+                              .copyWith(
+                                  color: AppColors.kBerkeleyBlue,
+                                  fontSize: 21.sp)),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 1.h),
                       child: Text("See all",
-                          style: Theme.of(context).textTheme.bodySmall),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  color: AppColors.kBerkeleyBlue,
+                                  fontSize: 12.sp)),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10.h,
                 ),
                 ListView.builder(
                     itemCount: 2,

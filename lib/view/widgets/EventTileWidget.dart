@@ -1,9 +1,8 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/events_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 
@@ -21,12 +20,12 @@ class EventTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
       child: Container(
-        height: 14.h,
-        margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
-        padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+        height: 119.h,
+        margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 6.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         decoration: BoxDecoration(
             color: AppColors.kBlueLightShade,
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(10.r)),
         child: Stack(
           children: [
             Row(
@@ -35,8 +34,11 @@ class EventTileWidget extends StatelessWidget {
                 Stack(
                   children: [
                     ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.asset(Assets.squareImage)),
+                        borderRadius: BorderRadius.circular(4.r),
+                        child: Image.asset(
+                          Assets.squareImage,
+                          width: 103.w,
+                        )),
                     const Positioned(
                       top: 2,
                       left: 2,
@@ -48,7 +50,7 @@ class EventTileWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 Expanded(
                   child: Column(
@@ -81,12 +83,12 @@ class EventTileWidget extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 1.w,
+                    horizontal: 5.w,
                   ),
                   decoration: BoxDecoration(
                       color: AppColors.kBlueMediumShade,
                       borderRadius: BorderRadius.circular(2)),
-                  height: 2.h,
+                  height: 20.h,
                   // width: 10.w,
                   child: Center(
                     child: Text(
@@ -121,8 +123,10 @@ class EventTileDateBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 5.5.h,
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
+      height: 50.h,
+      width: 50.w,
+      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+      margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColors.kBluedarkShade,
@@ -131,15 +135,15 @@ class EventTileDateBadge extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(date.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: AppColors.kBlueLightShade)),
+              style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffA8DADC))),
           Text(month ?? "",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.kBlueLightShade)),
+              style: TextStyle(
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffA8DADC))),
         ],
       ),
     );

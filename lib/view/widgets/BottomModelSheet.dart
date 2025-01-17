@@ -1,19 +1,15 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
+
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
-import '../../controllers/AddEventController.dart';
-import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
-import '../screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 
 class BottomSheetManager {
   static void _CustomBottomSheet(BuildContext context, List<Widget> children) {
@@ -26,7 +22,8 @@ class BottomSheetManager {
       builder: (BuildContext context) {
         return SafeArea(
           child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+              padding: EdgeInsets.only(
+                  left: 27.h, right: 27.w, top: 41.h, bottom: 15.h),
               child: Column(
                 children: children,
               )),
@@ -106,10 +103,10 @@ class BottomSheetManager {
           Text(
             'Filters',
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .copyWith(fontSize: 15.sp, color: Colors.white),
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                fontSize: 21.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w600),
           ),
           TextButton(
             onPressed: () {},
@@ -125,7 +122,7 @@ class BottomSheetManager {
         ],
       ),
       const Divider(),
-      SizedBox(height: 1.h),
+      SizedBox(height: 27.h),
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -134,11 +131,12 @@ class BottomSheetManager {
           style: Theme.of(context)
               .textTheme
               .headlineMedium!
-              .copyWith(color: Colors.white),
+              .copyWith(color: Colors.white, fontSize: 18.sp),
         ),
       ),
-      SizedBox(height: 2.h),
+      SizedBox(height: 10.h),
       const Align(alignment: Alignment.centerLeft, child: CatagoryFilterCips()),
+      SizedBox(height: 10.h),
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -150,8 +148,9 @@ class BottomSheetManager {
               .copyWith(color: Colors.white),
         ),
       ),
-      SizedBox(height: 2.h),
+      SizedBox(height: 10.h),
       const Align(alignment: Alignment.centerLeft, child: ByStatusFilterCips()),
+      SizedBox(height: 10.h),
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -163,10 +162,10 @@ class BottomSheetManager {
               .copyWith(color: Colors.white),
         ),
       ),
-      SizedBox(height: 0.5.h),
+      SizedBox(height: 10.h),
       SizedBox(
         width: double.infinity,
-        height: 6.h,
+        height: 60.h,
         child: OutlinedButton(
           onPressed: () async {
             showDatePicker(
@@ -186,33 +185,34 @@ class BottomSheetManager {
               borderRadius: BorderRadius.circular(5),
             ),
           ),
-          child: const Row(
+          child:  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Choose an interval',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 12.sp,
+             
                 ),
               ),
               Icon(
                 Icons.calendar_today,
                 color: Colors.white54,
+                size: 32.sp,
               )
             ],
           ),
         ),
       ),
-      SizedBox(height: 2.h),
+      SizedBox(height: 12.h),
       ElevatedButton(
         onPressed: () {
           // Action to rate the event
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          minimumSize: Size(double.infinity, 6.h),
+          minimumSize: Size(double.infinity, 60.h),
           // primary: Colors.blueAccent, // Background color
           textStyle: const TextStyle(
             fontSize: 16,

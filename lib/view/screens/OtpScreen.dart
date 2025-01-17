@@ -4,14 +4,12 @@ import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
-import 'package:event_planner_light/view/screens/SignUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/StyleConstants.dart';
-import 'Drawer/DrawerScreen.dart';
 import 'SignIn/ForgotMyPasswordScreen.dart';
 
 class OtpController extends GetxController {

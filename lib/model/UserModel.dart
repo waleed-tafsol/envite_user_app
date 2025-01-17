@@ -1,6 +1,7 @@
+import 'package:event_planner_light/model/SubscriptionModel.dart';
+import 'package:event_planner_light/model/WalletModel.dart';
+
 import 'LocationModel.dart';
-import 'SubscriptionModel.dart';
-import 'WalletModel.dart';
 
 class UserModel {
   Location? location;

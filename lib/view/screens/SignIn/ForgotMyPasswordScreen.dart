@@ -4,8 +4,8 @@ import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:http/http.dart' as http;
 import '../../../constants/ApiConstant.dart';
 
@@ -69,7 +69,7 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+            padding: EdgeInsets.symmetric(horizontal: 34.w, vertical: 2.h),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,7 +79,7 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   SizedBox(
-                    height: 6.h,
+                    height: 46.h,
                   ),
                   Form(
                     key: _formKey,
@@ -100,11 +100,11 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
                         )),
                   ),
                   SizedBox(
-                    height: 4.h,
+                    height: 30.h,
                   ),
                   SizedBox(
                     width: double.infinity,
-                    height: 6.h,
+                    height: 60.h,
                     child: ElevatedButton(
                       onPressed: () {
                         _submit();

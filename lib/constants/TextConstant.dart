@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,6 @@ class TextConstants {
   static TextStyle bodyLarge_White_Normal(BuildContext context) {
     return Theme.of(context).textTheme.bodyLarge!.copyWith(
           color: Colors.white,
-          // fontWeight: FontWeight.bold,
         );
   }
 

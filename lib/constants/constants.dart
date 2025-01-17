@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final googleAPIKey = "AIzaSyDhG_PrHOY7HZx-G87mnLko087RyCUqgKM";
 final k5BorderRadius = BorderRadius.circular(5);
