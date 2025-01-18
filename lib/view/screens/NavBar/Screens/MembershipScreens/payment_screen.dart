@@ -17,24 +17,25 @@ class MemberShipPaymentScreen extends StatelessWidget {
         title: const Text("Payment"),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        padding: EdgeInsets.symmetric(horizontal: 29.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 10.h,
+              height: 98.h,
             ),
-            Text(
-              "Pay now and get access in all features and offers",
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            Text("Pay now and get access in all features and offers",
+                style: TextStyle(
+                    color: AppColors.kBerkeleyBlue,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.normal)),
             SizedBox(
-              height: 2.h,
+              height: 38.h,
             ),
             PaymentMethodWidget(),
             SizedBox(
-              height: 1.h,
+              height: 20.h,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -49,6 +50,7 @@ class MemberShipPaymentScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
                         color: AppColors.kBluedarkShade),
                   ),
                 ),

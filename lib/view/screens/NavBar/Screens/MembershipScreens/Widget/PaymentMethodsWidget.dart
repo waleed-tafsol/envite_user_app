@@ -36,15 +36,19 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            "Payment method",
-            style: TextConstants.headlineLarge_MediumBlue_normal(context),
-          ),
+          Text("Payment method",
+              style: TextStyle(
+                  color: Color(0xff457B9D),
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.normal)),
           SizedBox(
-            width: 2.w,
+            height: 10.h,
           ),
           const Divider(
             color: AppColors.kBlueMediumShade,
+          ),
+          SizedBox(
+            height: 12.h,
           ),
           InkWell(
             onTap: () {
@@ -57,20 +61,21 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
                       ? Icons.radio_button_checked_rounded
                       : Icons.circle_outlined,
                   color: AppColors.kBerkeleyBlue,
+                  size: 16.sp,
                 ),
                 SizedBox(
-                  width: 4.w,
+                  width: 12.w,
                 ),
                 SvgPicture.asset(
                   SvgAssets.my_fatoorah,
                   color: AppColors.kBerkeleyBlue,
-                  height: 3.h,
+                  width: 15.w,
                 ),
                 SizedBox(
-                  width: 1.5.w,
+                  width: 8.w,
                 ),
                 Text(
-                  "Myfatoorah",
+                  "My Fatoorah",
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontWeight: _selectedPaymentMethod == 0
                           ? FontWeight.bold
@@ -80,10 +85,13 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
             ),
           ),
           SizedBox(
-            width: 2.w,
+            height: 12.h,
           ),
           const Divider(
             color: AppColors.kBlueMediumShade,
+          ),
+          SizedBox(
+            height: 12.h,
           ),
           InkWell(
             onTap: () {
@@ -96,16 +104,18 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
                       ? Icons.radio_button_checked_rounded
                       : Icons.circle_outlined,
                   color: AppColors.kBerkeleyBlue,
+                  size: 16.sp,
                 ),
                 SizedBox(
-                  width: 4.w,
+                  width: 12.w,
                 ),
-                const Icon(
+                Icon(
                   Icons.credit_card_sharp,
                   color: AppColors.kBerkeleyBlue,
+                  size: 20.sp,
                 ),
                 SizedBox(
-                  width: 1.w,
+                  width: 8.w,
                 ),
                 Text(
                   "Bank card",
@@ -117,8 +127,12 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
               ],
             ),
           ),
+          SizedBox(
+            height: 10.h,
+          ),
           Container(
-            padding: kpaddingH4V2,
+            height: 47.h,
+            padding: EdgeInsets.symmetric(horizontal: 18.w),
             decoration: BoxDecoration(
                 borderRadius: k5BorderRadius, color: const Color(0xFFF1F5ED)),
             child: Row(

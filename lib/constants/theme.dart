@@ -24,7 +24,7 @@ class CustomTheme {
     snackBarTheme: const SnackBarThemeData(),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
-      centerTitle: false,
+      centerTitle: true,
       titleTextStyle: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.bold,

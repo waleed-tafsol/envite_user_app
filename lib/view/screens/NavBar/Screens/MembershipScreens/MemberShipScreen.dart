@@ -16,80 +16,94 @@ class MembershipScreen extends StatelessWidget {
         title: const Text("Membership"),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        padding: EdgeInsets.symmetric(horizontal: 29.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 5.h,
+              height: 62.h,
             ),
             Text(
               "Basic Plan (Free)",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: Color(0xff457B9D)),
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  color: Color(0xff457B9D),
+                  fontSize: 21.sp,
+                  fontWeight: FontWeight.w600),
             ),
             SizedBox(
-              height: 2.h,
+              height: 10.h,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   "Send Private invites",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 11.sp),
                 ),
                 SizedBox(
-                  width: 2.w,
+                  width: 20.w,
                 ),
                 Text(
                   "No",
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
-                      .copyWith(fontWeight: FontWeight.bold),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 11.sp),
                 ),
               ],
             ),
             SizedBox(
-              height: 1.h,
+              height: 10.h,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   "View exclusif events",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 11.sp),
                 ),
                 SizedBox(
-                  width: 2.w,
+                  width: 20.w,
                 ),
                 Text(
                   "No",
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
-                      .copyWith(fontWeight: FontWeight.bold),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 11.sp),
                 ),
               ],
             ),
             SizedBox(
-              height: 6.h,
+              height: 57.h,
             ),
             SizedBox(
               width: double.infinity,
-              height: 6.h,
+              height: 60.h,
               child: CustomOutlinedButton(
                 contant: [
                   Text(
                     "Change Plan to premium",
-                    style: TextConstants.bodyLargeMediumBlueBold(context),
+                    style: TextStyle(
+                      color: Color(0xff457B9D),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
+                    ),
                   ),
                   Text(
                     "(12 kd per month) 120 Yearly",
-                    style: TextConstants.bodySmall_mediumBlue_normal(context),
+                    style: TextStyle(
+                      color: Color(0xff457B9D),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.sp,
+                    ),
                   ),
                 ],
                 ontap: () {
