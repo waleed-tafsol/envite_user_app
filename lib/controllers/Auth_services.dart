@@ -89,9 +89,9 @@ class AuthService extends GetxService {
   Future<Map<String, dynamic>?> signup({
     required String fullName,
     required String phoneNumber,
-    required List<String?> selectedCategories,
+   // required List<String?> selectedCategories,
     required String email,
-    required String bio,
+   // required String bio,
     required String password,
     required String passCnfrm,
   }) async {
@@ -108,14 +108,14 @@ class AuthService extends GetxService {
       request.fields['email'] = email;
       request.fields['phoneNumber'] = phoneNumber;
       request.fields['password'] = password;
-      request.fields['description'] = bio;
+    //  request.fields['description'] = bio;
       request.fields['confirmPassword'] = passCnfrm;
 
-      if (selectedCategories.isNotEmpty) {
-        for (var i = 0; i < selectedCategories.length; i++) {
-          request.fields['categories[$i]'] = selectedCategories[i]!;
-        }
-      }
+      // if (selectedCategories.isNotEmpty) {
+      //   for (var i = 0; i < selectedCategories.length; i++) {
+      //     request.fields['categories[$i]'] = selectedCategories[i]!;
+      //   }
+      // }
 
       request.headers.addAll({'Content-Type': 'multipart/form-data'});
 

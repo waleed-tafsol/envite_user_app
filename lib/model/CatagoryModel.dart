@@ -59,7 +59,7 @@ class Name {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['en'] = this.en;
     data['ar'] = this.ar;
     data['_id'] = this.sId;

@@ -115,9 +115,9 @@ class Signupcontroller extends GetxController {
       final response = await authService.signup(
         fullName: fullNameController.value.text,
         email: emailController.value.text,
-        bio: bioController.value.text,
+      //  bio: bioController.value.text,
         phoneNumber: phoneNumberController.value.text,
-        selectedCategories: selectedCategory.map((e) => e.slug).toList(),
+      //  selectedCategories: selectedCategory.map((e) => e.slug).toList(),
         passCnfrm: confirmPasswordController.value.text,
         password: passwordController.value.text,
       );

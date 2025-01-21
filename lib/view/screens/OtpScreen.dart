@@ -141,7 +141,7 @@ class OtpScreen extends GetView<OtpController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Please enter the 6-digit OTP sent to your phone',
+                      'Please enter the 6-digit OTP sent to your Email',
                       textAlign: TextAlign.center,
                       style: TextConstants.bodySmall_black_bold(context),
                     ),

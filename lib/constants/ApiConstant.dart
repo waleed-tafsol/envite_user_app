@@ -18,4 +18,5 @@ class ApiConstants {
   // Catagories
   static const categories = "${baseUrl}category/all";
   static const getMyCatagories = "${baseUrl}category/my/all";
+  static const getAllEvents = "${baseUrl}event/all";
 }

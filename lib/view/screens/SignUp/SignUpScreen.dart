@@ -180,7 +180,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                             SizedBox(
                               height: 10.h,
                             ),
-                            ListTile(
+                            /*ListTile(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -387,7 +387,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),*/
 
                             SizedBox(
                               height: 15.h,
@@ -395,12 +395,13 @@ class SignUpScreen extends GetView<Signupcontroller> {
                             InkWell(
                               onTap: () {
                                 if (formKey.currentState!.validate()) {
-                                  if (controller.selectedCategory.isEmpty) {
-                                    CustomSnackbar.showError(
-                                        'Error', 'Select a category');
-                                  } else {
-                                    controller.signup();
-                                  }
+                                   controller.signup();
+                                  // if (controller.selectedCategory.isEmpty) {
+                                  //   CustomSnackbar.showError(
+                                  //       'Error', 'Select a category');
+                                  // } else {
+                                  //   controller.signup();
+                                  // }
                                 }
                               },
                               child: Container(
@@ -422,7 +423,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                             ),
 
                             SizedBox(
-                              height: 10.h,
+                              height: 12.h,
                             ),
                             InkWell(
                               onTap: () => terms_0f_services_Dialog(context),
