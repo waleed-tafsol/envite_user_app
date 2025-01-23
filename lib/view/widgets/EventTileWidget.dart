@@ -1,3 +1,5 @@
+import 'package:event_planner_light/model/event_model.dart';
+import 'package:event_planner_light/utills/convert_date_time.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/events_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +11,19 @@ import '../../constants/colors_constants.dart';
 class EventTileWidget extends StatelessWidget {
   // Optional parameters with default values of false
   final bool pinned;
+  final EventModel? event;
+  final String? images;
+  final String? address;
+  final String? eventType;
 
   const EventTileWidget({
     super.key,
     this.pinned = false,
-  });
+    this.images,
+    this.address,
+    this.eventType,
+    this.event
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +45,21 @@ class EventTileWidget extends StatelessWidget {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(4.r),
-                        child: Image.asset(
-                          Assets.squareImage,
+                        child: Image.network(
+                          images!,
                           width: 103.w,
+                          fit: BoxFit.cover,
+                          
                         )),
-                    const Positioned(
-                      top: 2,
-                      left: 2,
+                    Positioned(
+                    
                       child: EventTileDateBadge(
-                        date: 04,
-                        month: "aug",
+                      date: event?.startDate == null
+                              ? "4"
+                              : extractDate(event!.startDate!),
+                          month: event?.startDate == null
+                              ? "Aug"
+                              : extractMonthInitials(event!.startDate!),
                       ),
                     ),
                   ],
@@ -73,7 +88,7 @@ class EventTileWidget extends StatelessWidget {
                             color: AppColors.kPrimaryColor,
                           ),
                           Text(
-                            "Salmiya, Kuwait",
+                            address!,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
@@ -92,7 +107,7 @@ class EventTileWidget extends StatelessWidget {
                   // width: 10.w,
                   child: Center(
                     child: Text(
-                      "Public",
+                     eventType!,
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -117,16 +132,16 @@ class EventTileDateBadge extends StatelessWidget {
     this.date,
     this.month,
   });
-  final int? date;
+  final String? date;
   final String? month;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50.h,
+      height: 55.h,
       width: 50.w,
-      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-      margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+      margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColors.kBluedarkShade,
@@ -136,7 +151,7 @@ class EventTileDateBadge extends StatelessWidget {
         children: [
           Text(date.toString(),
               style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                   color: Color(0xffA8DADC))),
           Text(month ?? "",

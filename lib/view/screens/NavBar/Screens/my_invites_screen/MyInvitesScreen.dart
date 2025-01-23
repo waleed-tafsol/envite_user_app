@@ -1,6 +1,9 @@
+import 'package:event_planner_light/controllers/MyInvitesController.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/CustomChipWidgets.dart';
@@ -11,6 +14,7 @@ class MyInvitesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyInvitesController controller = Get.put(MyInvitesController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -35,15 +39,27 @@ class MyInvitesScreen extends StatelessWidget {
                 height: 8.h,
               ),
               const InviteChips(),
-              ListView.builder(
-                  itemCount: 2,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const EventTileWidget(
-                      pinned: true,
-                    );
-                  }),
+              FutureBuilder(future: controller.getAllEvents(),
+                builder: (context,snapshot){
+                  if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                  return ListView.builder(
+                      itemCount: controller.data.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return  EventTileWidget(
+                           images:controller.data[index].images?[0] ,
+                           address: controller.data[index].address,
+                       eventType: controller.data[index].eventType,
+                          pinned: true,
+                          
+                        );
+                      });
+                }
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -67,11 +83,15 @@ class MyInvitesScreen extends StatelessWidget {
                 ],
               ),
               ListView.builder(
-                  itemCount: 10,
+                  itemCount:controller.data.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return const EventTileWidget();
+                    return EventTileWidget(
+                       images:controller.data[index].images?[0] ,
+                       address: controller.data[index].address,
+                       eventType: controller.data[index].eventType,
+                    );
                   }),
               // SizedBox(
               //   height: 6.h,

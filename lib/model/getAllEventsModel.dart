@@ -1,12 +1,16 @@
-class GetAllEvents {
+import 'package:event_planner_light/constants/ApiConstant.dart';
+import 'package:event_planner_light/utills/convert_date_time.dart';
+
+class GetAllEventsModel {
   String? status;
   List<Data>? data;
   int? results;
   int? totalRecords;
 
-  GetAllEvents({this.status, this.data, this.results, this.totalRecords});
+  GetAllEventsModel(jsonResponse,
+      {this.status, this.data, this.results, this.totalRecords});
 
-  GetAllEvents.fromJson(Map<String, dynamic> json) {
+  GetAllEventsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -99,6 +103,11 @@ class Data {
     avenue = json['avenue'];
     description = json['description'];
     images = json['images'].cast<String>();
+    if (json['images'] != null) {
+      images?[0] = ApiConstants.s3bucket + json['images'][0];
+    } else {
+      images?[0] = '';
+    }
     videos = json['videos'].cast<String>();
     location = json['location'] != null
         ? new Location.fromJson(json['location'])

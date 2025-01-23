@@ -1,3 +1,5 @@
+import 'package:event_planner_light/constants/ApiConstant.dart';
+
 class CatagoryModel {
   String? sId;
   String? slug;
@@ -7,6 +9,7 @@ class CatagoryModel {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  String? icon;
 
   CatagoryModel(
       {this.sId,
@@ -16,7 +19,8 @@ class CatagoryModel {
       this.isActive,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.icon});
 
   CatagoryModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -26,6 +30,12 @@ class CatagoryModel {
     isActive = json['isActive'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    iV = json['__v'];
+    icon = json["icon"];
+     if (json['icon'] != null) {
+      icon = ApiConstants.s3bucket + json['icon'];
+    }
+    else {icon = '';}
     iV = json['__v'];
   }
 
@@ -41,6 +51,7 @@ class CatagoryModel {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
+    data['icon'] = this.icon;
     return data;
   }
 }

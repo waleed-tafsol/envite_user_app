@@ -4,6 +4,12 @@ class ApiConstants {
   //     "https://2ba6-2407-aa80-14-e3cc-e5fa-9f01-4a66-a2e2.ngrok-free.app/api/v1/";
   static const baseUrl =
       "https://envite-backend-dd-d3e9220ccbc0.herokuapp.com/api/v1/";
+
+       static const googleAPIKey = "AIzaSyAsZkmP4p9OGxlhCsKKUAIW7C6VZpRiYwg";
+
+        static const s3bucket =
+      "https://envite-bucket.s3.me-central-1.amazonaws.com/";
+
   // Auth
   static const login = "${baseUrl}auth/login";
   static const logout = "${baseUrl}auth/logout";
@@ -18,5 +24,9 @@ class ApiConstants {
   // Catagories
   static const categories = "${baseUrl}category/all";
   static const getMyCatagories = "${baseUrl}category/my/all";
+  // Events
+  static const getMyEvents = "${baseUrl}event/my/all";
   static const getAllEvents = "${baseUrl}event/all";
+  static const addEvent = "${baseUrl}event";
+  static const getCategories = "${baseUrl}category/all";
 }

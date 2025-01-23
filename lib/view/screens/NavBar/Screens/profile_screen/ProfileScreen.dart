@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
         fit: StackFit.passthrough,
         children: [
           Positioned(
-              top: 0,
+              top: 7,
               right: 0,
               left: 0,
               child: Image.asset(

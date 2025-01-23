@@ -2,6 +2,7 @@ import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/MembershipScreens/choose_plan_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/MembershipScreens/payment_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/add_event%20_screen/add_event_screen.dart';
 import 'package:event_planner_light/view/screens/NotiFicationScreens/NotificationScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/choose_your_location_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/events_detail_screen.dart';
@@ -127,6 +128,13 @@ class Pages {
           binding: OtpBindings(),
           transition: _routeTransition,
         );
+        case AddEventsScreens.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page:() => AddEventsScreens(),
+          binding: OtpBindings(),
+          transition: _routeTransition, );
+        
       default:
         return null;
     }

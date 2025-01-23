@@ -1,19 +1,20 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
-
-
+import 'package:event_planner_light/controllers/HomeScreenController.dart';
+import 'package:event_planner_light/services/categories_tile_shimmer.dart';
+import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/SearchEventWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class HomeScreen extends StatelessWidget {
- const  HomeScreen({super.key});
+const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-  
+    final HomeScreenController controller = Get.put(HomeScreenController());
     return Scaffold(
       body: PopScope(
         canPop: false,
@@ -24,13 +25,13 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: const SearchEventWidget(),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                //   child: const SearchEventWidget(),
+                // ),
+                // SizedBox(
+                //   height: 20.h,
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Container(
@@ -75,39 +76,66 @@ class HomeScreen extends StatelessWidget {
                   height: 20.h,
                 ),
                 SizedBox(
-                  height: 80.h,
-                  child: ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 5.w,
-                            ),
-                            decoration: BoxDecoration(
-                                color: AppColors.kBlueLightShade,
-                                borderRadius: BorderRadius.circular(15.r)),
-                            height: 77.h,
-                            width: 100.w,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.mic,
-                                  size: 24.sp,
+                  height: 100.h,
+                  child: Obx(() {
+                    return controller.isLoadingCategories.value
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: List.generate(
+                                4, (index) => categoriesTileShimmer()),
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.categories.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  controller.selectedCategory.value =
+                                      controller.categories[index];
+                                  controller.isEventLoading.value = true;
+                                  await controller.getPaginatedEvents();
+                                },
+                                child: Obx( () {
+                                    return Container(
+                                      margin: EdgeInsets.symmetric(
+                                        horizontal: 4.w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.kLightBlueColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: controller.selectedCategory.value
+                                                        .slug ==
+                                                    controller
+                                                        .categories[index].slug
+                                                ? AppColors.kBerkeleyBlue
+                                                : Colors.transparent),
+                                      ),
+                                      width: 100.w,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.network(
+                                            scale: 1.0,
+                                            controller.categories[index].icon ?? '',
+                                            width: 70.w,
+                                            height: 50.w,
+                                          ),
+                                          Text(
+                                            controller.categories[index].name?.en ??
+                                                "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
                                 ),
-                                Text("Entertainment",
-                                    style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.kBerkeleyBlue)),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
+                              );
+                            });
+                  }),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -130,30 +158,42 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child:
-                  //  FutureBuilder(
-                  //   future:controller.getAllEvents() ,
-                  //   builder: (context,Snapshot) {
-                  //     if (Snapshot.connectionState == ConnectionState.waiting) {
-
-                  //       return const Center(child: Text('Please wait its loading...'));
-                  //     }
-                  //     if(Snapshot.hasData){
-
-                  //     }
-                  //     return 
-                  ListView.builder(
-                          itemCount: 10,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return const EventTileWidget();
-                          })
-                   // }
-                 // ),
+                
+                  
+                     Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: Obx(() {
+                    return controller.isEventLoading.value
+                        ? ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children:
+                                List.generate(5, (index) => eventTileShimmer()),
+                          )
+                        : controller.events.isEmpty
+                            ? SizedBox(
+                                height: 300.h,
+                                child: Center(
+                                  child: Text(
+                                    "No Suggestions are available",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        color: AppColors.kTextBlack),
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: controller.events.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return EventTileWidget(
+                                    event: controller.events[index],
+                                  );
+                                });
+                  }),
                 ),
+                    
               ],
             ),
           ),

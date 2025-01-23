@@ -1,4 +1,10 @@
+import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/AddEventController.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/add_event%20_screen/add_event_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../widgets/CustomAppBar.dart';
 import 'DrawerWidget.dart';
 import 'Screens/explore_screen/ExploreScreen.dart';
@@ -25,10 +31,12 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   // List of Screens
   final List<Widget> _screens = [
-    const HomeScreen(),
+     HomeScreen(),
     ExploreScreen(),
     const MyInvitesScreen(),
+    const MyEventsScreen(),
     const ProfileScreen(),
+
   ];
 
   void _onTap(int index) {
@@ -65,24 +73,26 @@ class _NavBarScreenState extends State<NavBarScreen> {
             icon: Icon(Icons.calendar_today_outlined),
             label: 'My Invites',
           ),
+          BottomNavigationBarItem(icon: Icon(Icons.event_note),label: 'My Events'),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),
             label: 'Profile',
           ),
+          
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: AppColors.kPrimaryColor,
-      //   foregroundColor: Colors.white,
-      //   onPressed: () {
-      //     // var controller = Get.put(AddEventController());
-      //     // controller.isAddPastEvents.value = false;
-      //     // Get.toNamed(AddEventsScreens.routeName);
-      //   },
-      //   child: Icon(
-      //     Icons.add,
-      //   ),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.kPrimaryColor,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          var controller = Get.put(AddEventController());
+          controller.isAddPastEvents.value = false;
+          Get.toNamed(AddEventsScreens.routeName);
+        },
+        child: Icon(
+          Icons.add,
+        ),
+      ),
     );
   }
 }
