@@ -18,9 +18,7 @@ class ExploreScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 29.w),
           child: Column(
             children: [
-              SizedBox(
-                height: 20.h,
-              ),
+             
               const SearchEventWidget(),
               SizedBox(
                 height: 20.h,
@@ -40,15 +38,9 @@ class ExploreScreen extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              FutureBuilder(
-                  future: controller.getAllEvents(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    return 
+             
                     controller.data.isEmpty?SizedBox(
-                                height: 40.h,
+                                height: 300.h,
                                 child: Center(
                                   child: Text(
                                     "No Suggestions are available",
@@ -65,12 +57,13 @@ class ExploreScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return EventTileWidget(
                             pinned: true,
-                            images:controller.data[index].images?[0] ,
+                            slug: controller.data[index].slug,
+                            listimages:controller.data[index].images ,
                              address: controller.data[index].address,
                                 eventType: controller.data[index].eventType,
                           );
-                        });
-                  }),
+                        }),
+                  
             ],
           ),
         ),

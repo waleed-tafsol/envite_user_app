@@ -459,25 +459,29 @@ SizedBox(height: 10.h,),
                                     }
                                   },
                                   child: Container(
+                                    height: 70.h,
                                     padding: EdgeInsets.symmetric(
                                         vertical: 4.w, horizontal: 1.h),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: AppColors.kTextfieldColor),
                                     child: Row(
+                                      
                                       children: [
+                                        SizedBox(width:10.w ,),
                                         Icon(
                                           Icons.event,
                                           color: AppColors.kIconColor,
                                         ),
                                         SizedBox(
-                                          width: 1.w,
+                                          width: 4.w,
                                         ),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+                                              SizedBox(height: 15.h,),
                                               Text(
                                                 'End Date:',
                                                 style: TextStyle(
@@ -510,7 +514,7 @@ SizedBox(height: 10.h,),
                             ],
                           ),
                           SizedBox(
-                            height: 5.h,
+                            height: 10.h,
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
@@ -533,6 +537,7 @@ SizedBox(height: 10.h,),
                                     }
                                   },
                                   child: Container(
+                                     height: 70.h,
                                     padding: EdgeInsets.symmetric(
                                         vertical: 4.w, horizontal: 1.h),
                                     decoration: BoxDecoration(
@@ -540,18 +545,20 @@ SizedBox(height: 10.h,),
                                         color: AppColors.kTextfieldColor),
                                     child: Row(
                                       children: [
+                                        SizedBox(width: 10.w,),
                                         Icon(
                                           Icons.watch_later_outlined,
                                           color: AppColors.kIconColor,
                                         ),
                                         SizedBox(
-                                          width: 1.w,
+                                          width: 4.w,
                                         ),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+                                              SizedBox(height:15.h ,),
                                               Text(
                                                 'Start Time:',
                                                 style: TextStyle(
@@ -583,7 +590,7 @@ SizedBox(height: 10.h,),
                                 ),
                               ),
                               SizedBox(
-                                width: 11.w,
+                                width: 10.w,
                               ),
                               Expanded(
                                 child: GestureDetector(
@@ -606,6 +613,7 @@ SizedBox(height: 10.h,),
                                     }
                                   },
                                   child: Container(
+                                    height: 70.h,
                                     padding: EdgeInsets.symmetric(
                                         vertical: 4.w, horizontal: 1.h),
                                     decoration: BoxDecoration(
@@ -613,6 +621,7 @@ SizedBox(height: 10.h,),
                                         color: AppColors.kTextfieldColor),
                                     child: Row(
                                       children: [
+                                        SizedBox(width: 10.w,),
                                         Icon(
                                           Icons.watch_later_outlined,
                                           color: AppColors.kIconColor,
@@ -625,6 +634,7 @@ SizedBox(height: 10.h,),
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+                                              SizedBox(height: 15.h,),
                                               Text(
                                                 'End Time:',
                                                 style: TextStyle(
@@ -787,34 +797,40 @@ SizedBox(height: 10.h,),
                                         onTap: () {
                                           controller.pickImage();
                                         },
-                                        child: DottedBorder(
-                                          color: AppColors.kBluedarkShade,
-                                          dashPattern: [5],
-                                          borderType: BorderType.RRect,
-                                          radius: Radius.circular(5),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0.w),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  size: 30.h,
-                                                  Icons.image_outlined,
-                                                  color:
-                                                      AppColors.kBluedarkShade,
+                                        child: SizedBox(
+                                          height: 110.h,
+                                          width: 130.w,
+                                          child: DottedBorder(
+                                            color: AppColors.kBluedarkShade,
+                                            dashPattern: [5],
+                                            borderType: BorderType.RRect,
+                                            radius: Radius.circular(5),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0.w),
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      size: 30.h,
+                                                      Icons.image_outlined,
+                                                      color:
+                                                          AppColors.kBluedarkShade,
+                                                    ),
+                                                    Text(
+                                                      "Event Image 1",
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: AppColors
+                                                            .kBluedarkShade,
+                                                        decoration: TextDecoration
+                                                            .underline,
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
-                                                Text(
-                                                  "Event Image 1",
-                                                  style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: AppColors
-                                                        .kBluedarkShade,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -824,8 +840,8 @@ SizedBox(height: 10.h,),
                                         child: Image.file(
                                           controller.pickedImages[0],
                                           fit: BoxFit.cover,
-                                          height: 25.w,
-                                          width: 25.w,
+                                          height: 100.w,
+                                          width: 120.w,
                                         ),
                                       ),
                                 controller.pickedImages.length != 2
@@ -833,34 +849,40 @@ SizedBox(height: 10.h,),
                                         onTap: () {
                                           controller.pickImage();
                                         },
-                                        child: DottedBorder(
-                                          color: AppColors.kBluedarkShade,
-                                          dashPattern: [5],
-                                          borderType: BorderType.RRect,
-                                          radius: Radius.circular(5),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0.w),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  size: 30.h,
-                                                  Icons.image_outlined,
-                                                  color:
-                                                      AppColors.kBluedarkShade,
+                                        child: SizedBox(
+                                          height: 110.h,
+                                          width: 130.w,
+                                          child: DottedBorder(
+                                            color: AppColors.kBluedarkShade,
+                                            dashPattern: [5],
+                                            borderType: BorderType.RRect,
+                                            radius: Radius.circular(5),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0.w),
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      size: 30.h,
+                                                      Icons.image_outlined,
+                                                      color:
+                                                          AppColors.kBluedarkShade,
+                                                    ),
+                                                    Text(
+                                                      "Event Image 1",
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: AppColors
+                                                            .kBluedarkShade,
+                                                        decoration: TextDecoration
+                                                            .underline,
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
-                                                Text(
-                                                  "Event Image 1",
-                                                  style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: AppColors
-                                                        .kBluedarkShade,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -870,8 +892,8 @@ SizedBox(height: 10.h,),
                                         child: Image.file(
                                           controller.pickedImages[1],
                                           fit: BoxFit.cover,
-                                          height: 25.w,
-                                          width: 25.w,
+                                          height: 100.w,
+                                          width: 120.w,
                                         ),
                                       ),
                                 controller.pickedImages.length != 3
@@ -879,34 +901,41 @@ SizedBox(height: 10.h,),
                                         onTap: () {
                                           controller.pickImage();
                                         },
-                                        child: DottedBorder(
-                                          color: AppColors.kBluedarkShade,
-                                          dashPattern: [5],
-                                          borderType: BorderType.RRect,
-                                          radius: Radius.circular(5),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0.w),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  size: 30.h,
-                                                  Icons.image_outlined,
-                                                  color:
-                                                      AppColors.kBluedarkShade,
+                                        child: SizedBox(
+                                          width: 130.w,
+                                          height: 110.h,
+                                          child: DottedBorder(
+                                            color: AppColors.kBluedarkShade,
+                                            dashPattern: [5],
+                                            borderType: BorderType.RRect,
+                                            radius: Radius.circular(5),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0.w),
+                                              child: Center(
+                                                child: Column(
+                                                  
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      size: 30.h,
+                                                      Icons.image_outlined,
+                                                      color:
+                                                          AppColors.kBluedarkShade,
+                                                    ),
+                                                    Text(
+                                                      "Event Image 1",
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: AppColors
+                                                            .kBluedarkShade,
+                                                        decoration: TextDecoration
+                                                            .underline,
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
-                                                Text(
-                                                  "Event Image 1",
-                                                  style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: AppColors
-                                                        .kBluedarkShade,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -916,15 +945,15 @@ SizedBox(height: 10.h,),
                                         child: Image.file(
                                           controller.pickedImages[2],
                                           fit: BoxFit.cover,
-                                          height: 35.w,
-                                          width: 25.w,
+                                          height: 100.w,
+                                          width: 110.w,
                                         ),
                                       ),
                               ],
                             );
                           }),
                           SizedBox(
-                            height: 5.h,
+                            height: 10.h,
                           ),
                           Obx(() {
                             return controller.pickedVideo.isEmpty
@@ -933,6 +962,7 @@ SizedBox(height: 10.h,),
                                       controller.pickVideo();
                                     },
                                     child: SizedBox(
+                                      height: 150.h,
                                       width: double.infinity,
                                       child: DottedBorder(
                                         
@@ -949,7 +979,7 @@ SizedBox(height: 10.h,),
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Icon(
-                                                  size: 40.h,
+                                                  size: 60.h,
                                                   Icons.movie_creation_outlined,
                                                   color:
                                                       AppColors.kBluedarkShade,

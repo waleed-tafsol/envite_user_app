@@ -51,7 +51,8 @@ class MyEventsScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   return EventTileWidget(
-                                   images: "",
+                                    slug: controller.myEvents[index].slug,
+                                  listimages:controller.myEvents[index].images,
                                   address: controller.myEvents[index].address,
                                   eventType: controller.myEvents[index].eventType,
                                   );

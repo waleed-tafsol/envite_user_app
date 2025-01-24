@@ -6,6 +6,11 @@ import 'package:event_planner_light/model/getAllEventsModel.dart';
 import 'package:get/get.dart';
 
 class MyInvitesController extends GetxController {
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    await getAllEvents();
+  }
     //https://envite-backend-dd-d3e9220ccbc0.herokuapp.com/api/v1
 List <Data> data = [];
    getAllEvents() async {

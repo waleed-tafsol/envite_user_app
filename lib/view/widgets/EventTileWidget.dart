@@ -1,3 +1,5 @@
+import 'package:event_planner_light/constants/ApiConstant.dart';
+import 'package:event_planner_light/controllers/event_detail_controller.dart';
 import 'package:event_planner_light/model/event_model.dart';
 import 'package:event_planner_light/utills/convert_date_time.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/events_detail_screen.dart';
@@ -12,23 +14,28 @@ class EventTileWidget extends StatelessWidget {
   // Optional parameters with default values of false
   final bool pinned;
   final EventModel? event;
-  final String? images;
+  final List? listimages;
   final String? address;
   final String? eventType;
-
+   final String? slug;
   const EventTileWidget({
     super.key,
     this.pinned = false,
-    this.images,
+    this.listimages,
     this.address,
     this.eventType,
-    this.event
+    this.event,
+    this.slug
     });
 
   @override
   Widget build(BuildContext context) {
+    EventDetailController eventDetailController =
+        Get.put(EventDetailController());
     return InkWell(
-      onTap: () => Get.toNamed(MyInvitesEventsDetailScreen.routeName),
+      onTap: () {  eventDetailController.selectedEventId.value = slug!;
+        Get.toNamed(EventsDetailScreen.routeName);
+        eventDetailController.getEventsDetail();},
       child: Container(
         height: 119.h,
         margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 6.h),
@@ -43,14 +50,32 @@ class EventTileWidget extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(4.r),
-                        child: Image.network(
-                          images!,
-                          width: 103.w,
-                          fit: BoxFit.cover,
-                          
-                        )),
+                    SizedBox(
+                      height: 100.h,
+                      width: 100.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: listimages!.isEmpty?
+                             Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "No Image",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              )
+                            : Image.network(
+                                imageUrl(),
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
                     Positioned(
                     
                       child: EventTileDateBadge(
@@ -124,6 +149,14 @@ class EventTileWidget extends StatelessWidget {
       ),
     );
   }
+  imageUrl(){
+    
+    if(listimages!.isNotEmpty){
+      listimages?[0] =  ApiConstants.s3bucket + listimages?[0];
+      return listimages![0];
+    }
+
+  }
 }
 
 class EventTileDateBadge extends StatelessWidget {
@@ -164,3 +197,4 @@ class EventTileDateBadge extends StatelessWidget {
     );
   }
 }
+ 

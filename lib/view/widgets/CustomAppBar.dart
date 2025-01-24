@@ -11,11 +11,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onDrawerToggle;
 
   @override
-  Size get preferredSize => Size.fromHeight(45.h);
+  Size get preferredSize => Size.fromHeight(70.h);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+    
+    
       automaticallyImplyLeading: true,
       title: SafeArea(
         child: InkWell(

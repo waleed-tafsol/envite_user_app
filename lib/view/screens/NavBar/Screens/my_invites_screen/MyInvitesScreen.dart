@@ -39,27 +39,31 @@ class MyInvitesScreen extends StatelessWidget {
                 height: 8.h,
               ),
               const InviteChips(),
-              FutureBuilder(future: controller.getAllEvents(),
-                builder: (context,snapshot){
-                  if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                  return ListView.builder(
-                      itemCount: controller.data.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return  EventTileWidget(
-                           images:controller.data[index].images?[0] ,
-                           address: controller.data[index].address,
-                       eventType: controller.data[index].eventType,
-                          pinned: true,
-                          
-                        );
-                      });
-                }
-              ),
+             
+                    controller.data.isEmpty?SizedBox(
+                                height: 200.h,
+                                child: Center(
+                                  child: Text(
+                                    "No Suggestions are available",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        color: AppColors.kTextBlack),
+                                  ),
+                                ),
+                              )
+                    : ListView.builder(
+                        itemCount:controller.data.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return EventTileWidget(
+                            pinned: true,
+                            listimages:controller.data[index].images ,
+                             address: controller.data[index].address,
+                                eventType: controller.data[index].eventType,
+                          );
+                        }),
+                  
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,7 +92,8 @@ class MyInvitesScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return EventTileWidget(
-                       images:controller.data[index].images?[0] ,
+                      slug: controller.data[index].slug,
+                       listimages:controller.data[index].images ,
                        address: controller.data[index].address,
                        eventType: controller.data[index].eventType,
                     );

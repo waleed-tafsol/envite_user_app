@@ -103,11 +103,6 @@ class Data {
     avenue = json['avenue'];
     description = json['description'];
     images = json['images'].cast<String>();
-    if (json['images'] != null) {
-      images?[0] = ApiConstants.s3bucket + json['images'][0];
-    } else {
-      images?[0] = '';
-    }
     videos = json['videos'].cast<String>();
     location = json['location'] != null
         ? new Location.fromJson(json['location'])

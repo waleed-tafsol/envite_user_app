@@ -22,9 +22,7 @@ const HomeScreen({super.key});
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 20.h,
-                ),
+                
                 // Padding(
                 //   padding: EdgeInsets.symmetric(horizontal: 16.w),
                 //   child: const SearchEventWidget(),
@@ -76,7 +74,7 @@ const HomeScreen({super.key});
                   height: 20.h,
                 ),
                 SizedBox(
-                  height: 100.h,
+                  height: 120.h,
                   child: Obx(() {
                     return controller.isLoadingCategories.value
                         ? ListView(
@@ -115,12 +113,42 @@ const HomeScreen({super.key});
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Image.network(
-                                            scale: 1.0,
-                                            controller.categories[index].icon ?? '',
-                                            width: 70.w,
-                                            height: 50.w,
-                                          ),
+                                          SizedBox(
+                      height: 70.h,
+                      width: 80.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: controller.categories[index].icon == ""?
+                             Padding(
+                               padding: const EdgeInsets.all(4.0),
+                               child: Container(
+                                
+                                  width: double.infinity,
+                                  color: Colors.grey,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "No Image",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                             )
+                            : Image.network(
+                                controller.categories[index].icon!,
+                                fit: BoxFit.contain
+                              ),
+                      ),
+                    ),
+                                          // Image.network(
+                                          //   scale: 1.0,
+                                          //   controller.categories[index].icon ?? '',
+                                          //   width: 70.w,
+                                          //   height: 50.w,
+                                          // ),
                                           Text(
                                             controller.categories[index].name?.en ??
                                                 "",
@@ -188,6 +216,7 @@ const HomeScreen({super.key});
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   return EventTileWidget(
+                                    slug: controller.events[index].slug,
                                     event: controller.events[index],
                                   );
                                 });

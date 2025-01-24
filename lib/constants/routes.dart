@@ -93,10 +93,10 @@ class Pages {
           binding: OtpBindings(),
           transition: _routeTransition,
         );
-      case MyInvitesEventsDetailScreen.routeName:
+      case EventsDetailScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => MyInvitesEventsDetailScreen(),
+          page: () => EventsDetailScreen(),
           binding: OtpBindings(),
           transition: _routeTransition,
         );

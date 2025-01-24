@@ -20,3 +20,19 @@ Widget eventTileShimmer ({double? tileWidth}){
     ),
   );
 }
+
+Widget sizedShimmer({double? width, double? height}) {
+  return Shimmer.fromColors(
+    baseColor: AppColors.kBluedarkShade,
+    highlightColor: AppColors.kLightBlueColor2,
+    child: Container(
+      height: height ?? 2.h,
+      width: width ?? 20.w,
+      // margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+      // padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+      decoration: BoxDecoration(
+          color: AppColors.kLightBlueColor,
+          borderRadius: BorderRadius.circular(10)),
+    ),
+  );
+}
