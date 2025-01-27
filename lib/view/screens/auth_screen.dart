@@ -1,4 +1,3 @@
-
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor: Color(0xffF9F8EF),
+      backgroundColor: Color(0xffF9F8EF),
       body: PopScope(
         canPop: false,
         child: Stack(
@@ -134,34 +133,34 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 145.h,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.w),
-                  child: SvgPicture.asset(
-                    SvgAssets.or,
-                    width: 369.w,
-                  )),
-            ),
-            Positioned(
-              bottom: 115.h,
-              right: 0,
-              left: 0,
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: GestureDetector(
-                      // onTap: () => Get.offAndToNamed(DrawerScreen.routeName),
-                      child: Text(
-                    "Start As A Guest",
-                    style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Color(0xff1D3557),
-                        fontWeight: FontWeight.w600),
-                  )),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 145.h,
+            //   child: Padding(
+            //       padding: EdgeInsets.symmetric(horizontal: 32.w),
+            //       child: SvgPicture.asset(
+            //         SvgAssets.or,
+            //         width: 369.w,
+            //       )),
+            // ),
+            // Positioned(
+            //   bottom: 115.h,
+            //   right: 0,
+            //   left: 0,
+            //   child: Center(
+            //     child: Padding(
+            //       padding: EdgeInsets.symmetric(horizontal: 4.w),
+            //       child: GestureDetector(
+            //           // onTap: () => Get.offAndToNamed(DrawerScreen.routeName),
+            //           child: Text(
+            //         "Start As A Guest",
+            //         style: TextStyle(
+            //             fontSize: 14.sp,
+            //             color: Color(0xff1D3557),
+            //             fontWeight: FontWeight.w600),
+            //       )),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -1,26 +1,18 @@
-import 'package:event_planner_light/constants/assets.dart';
-import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/controllers/event_detail_controller.dart';
-import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
-import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
-import 'package:event_planner_light/view/widgets/network_video_player_widget.dart';
-import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+
+import '../../../../../controllers/edit_event_detail_controller.dart';
+import '../../../../../controllers/event_detail_controller.dart';
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
   static const routeName = 'EventsDetailScreen';
- EventsDetailScreen({super.key});
-EventDetailController controller= Get.put(EventDetailController());
+  const EventsDetailScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -29,25 +21,35 @@ EventDetailController controller= Get.put(EventDetailController());
         ),
         centerTitle: true,
         actions: [
-          InkWell(
-              onTap: () {
-                Get.toNamed(EventsDetailScreen.routeName);
-              },
-              child: SvgPicture.asset(SvgAssets.image_pen)),
+          Obx(() {
+            return controller.isLoading.value
+                ? sizedShimmer(height: 5.h, width: 5.h)
+                : InkWell(
+                    onTap: () {
+                      final editcontroller =
+                          Get.put(EditEventDetailController());
+                      editcontroller.setEditValues(
+                          controller.eventDetailResponse.value.data!);
+                      Get.toNamed(
+                        EditEventsDetailScreen.routeName,
+                      );
+                    },
+                    child: SvgPicture.asset(SvgAssets.image_pen));
+          }),
           SizedBox(
             width: 2.w,
           )
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
                 decoration: BoxDecoration(
                     color: AppColors.kBlueLightShade,
                     borderRadius: BorderRadius.circular(10)),
@@ -56,9 +58,9 @@ EventDetailController controller= Get.put(EventDetailController());
                   children: [
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(height: 200.h, width: double.infinity)
+                          ? sizedShimmer(height: 20.h, width: double.infinity)
                           : SizedBox(
-                              height: 200.h,
+                              height: 20.h,
                               width: double.infinity,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
@@ -81,47 +83,51 @@ EventDetailController controller= Get.put(EventDetailController());
                                     : Image.network(
                                         controller.eventDetailResponse.value
                                             .data!.images!.first,
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                       ),
                               ),
                             );
                     }),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 1.h),
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(width: 70.w,height: 30.h)
+                          ? sizedShimmer(width: 20.w)
                           : Text(
                               controller.eventDetailResponse.value.data!.name!,
                               style: Theme.of(context).textTheme.headlineLarge,
                             );
                     }),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     Row(
                       children: [
                         Icon(
-                          size: 20.h,
+                          size: 2.h,
                           Icons.location_on_outlined,
                           color: AppColors.kIconColor,
                         ),
                         SizedBox(
-                          width: 5.w,
+                          width: 1.w,
                         ),
-                        Obx(() {
-                          return controller.isLoading.value
-                              ? sizedShimmer(height: 20.h,width: 70.w)
-                              : Text(
-                                  controller.eventDetailResponse.value.data!
-                                          .address ??
-                                      "",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: AppColors.kBluedarkShade),
-                                );
-                        }),
+                        Expanded(
+                          child: Obx(() {
+                            return controller.isLoading.value
+                                ? sizedShimmer()
+                                : Text(
+                                    controller.eventDetailResponse.value.data!
+                                            .address
+                                            ?.split(",")
+                                            .first ??
+                                        "",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: AppColors.kBluedarkShade),
+                                  );
+                          }),
+                        ),
                         SizedBox(
                           width: 1.w,
                         ),
@@ -149,16 +155,16 @@ EventDetailController controller= Get.put(EventDetailController());
                         ),
                         const Spacer(),
                         Icon(
-                          size: 22.h,
+                          size: 2.h,
                           Icons.groups_2_outlined,
                           color: AppColors.kIconColor,
                         ),
                         SizedBox(
-                          width: 5.w,
+                          width: 1.w,
                         ),
                         Obx(() {
                           return controller.isLoading.value
-                              ? sizedShimmer(width: 20.w,height:10 )
+                              ? sizedShimmer(width: 4.w)
                               : Text(
                                   "+${controller.eventDetailResponse.value.data?.attendees?.length ?? 0}",
                                   style: Theme.of(context)
@@ -173,7 +179,7 @@ EventDetailController controller= Get.put(EventDetailController());
                         Obx(() {
                           return controller.isLoading.value
                               ? sizedShimmer(
-                                  width: 40.w,height: 10.h
+                                  width: 20.w,
                                 )
                               : PublicBadgeWidget(
                                   text: controller.eventDetailResponse.value
@@ -182,7 +188,7 @@ EventDetailController controller= Get.put(EventDetailController());
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     Text("About the event",
                         style: Theme.of(context)
@@ -191,7 +197,7 @@ EventDetailController controller= Get.put(EventDetailController());
                             .copyWith(color: AppColors.kBluedarkShade)),
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(height: 50.h, width: double.infinity)
+                          ? sizedShimmer(height: 10.h, width: double.infinity)
                           : Text(
                               controller.eventDetailResponse.value.data
                                       ?.description ??
@@ -199,13 +205,13 @@ EventDetailController controller= Get.put(EventDetailController());
                               style: Theme.of(context).textTheme.bodySmall);
                     }),
                     SizedBox(
-                      height: 15.h,
+                      height: 2.h,
                     ),
                     Row(
                       children: [
                         Obx(() {
                           return controller.isLoading.value
-                              ? sizedShimmer(height: 100.h, width: 150.w)
+                              ? sizedShimmer(height: 5.h, width: 40.w)
                               : StatsContainer(
                                   image: Image.asset(Assets.m1),
                                   title: 'Total Attendees',
@@ -217,7 +223,7 @@ EventDetailController controller= Get.put(EventDetailController());
                         Spacer(),
                         Obx(() {
                           return controller.isLoading.value
-                              ? sizedShimmer(height: 100.h, width: 150.w)
+                              ? sizedShimmer(height: 5.h, width: 40.w)
                               : StatsContainer(
                                   image: Image.asset(Assets.m2),
                                   title: 'Total Invite Send',
@@ -229,11 +235,11 @@ EventDetailController controller= Get.put(EventDetailController());
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(height: 40.h, width: double.infinity)
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
                           : controller.eventDetailResponse.value.data?.images
                                       ?.isEmpty ??
                                   true
@@ -254,36 +260,44 @@ EventDetailController controller= Get.put(EventDetailController());
                                                     AppColors.kBluedarkShade),
                                       ),
                                     ),
-                                    Column(
-                                      children: List.generate(
-                                          controller.eventDetailResponse.value
-                                                  .data?.images?.length ??
-                                              0, (index) {
-                                        return Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 1.h),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            child: Image.network(
-                                              controller
-                                                      .eventDetailResponse
-                                                      .value
-                                                      .data
-                                                      ?.images?[index] ??
-                                                  "",
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: List.generate(
+                                            controller.eventDetailResponse.value
+                                                    .data?.images?.length ??
+                                                0, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 1.h),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(2),
+                                              child: Image.network(
+                                                controller
+                                                        .eventDetailResponse
+                                                        .value
+                                                        .data
+                                                        ?.images?[index] ??
+                                                    "",
+                                                height: 20.h,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      }),
+                                          );
+                                        }),
+                                      ),
                                     ),
                                   ],
                                 );
                     }),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(height: 40.h, width: double.infinity)
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
                           : controller.eventDetailResponse.value.data?.videos
                                       ?.isEmpty ??
                                   true
@@ -315,7 +329,7 @@ EventDetailController controller= Get.put(EventDetailController());
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 1.h),
                                             child: SizedBox(
-                                              height: 200.h,
+                                              height: 20.h,
                                               width: double.infinity,
                                               child: ClipRRect(
                                                 borderRadius:
@@ -338,11 +352,11 @@ EventDetailController controller= Get.put(EventDetailController());
                                 );
                     }),
                     SizedBox(
-                      height: 2.h,
+                      height: 1.h,
                     ),
                     Obx(() {
                       return controller.isLoading.value
-                          ? sizedShimmer(height: 20.h, width: double.infinity)
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
                           : controller.eventDetailResponse.value.data
                                       ?.socialLinks?.isEmpty ??
                                   true
@@ -404,77 +418,107 @@ EventDetailController controller= Get.put(EventDetailController());
                     //   ],
                     // ),
 
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Obx(() {
-                      return controller.isLoading.value
-                          ? sizedShimmer(height: 40.h, width: double.infinity)
-                          : Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppColors.kPrimaryColor),
-                                      onPressed: () {
-                                        BottomSheetManager.sendInvite(context);
-                                      },
-                                      child: Text(
-                                        'Send Invite',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ),
-                                SizedBox(
-                                  width: 2.w,
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppColors.kBerkeleyBlue),
-                                      onPressed: () {
-                                        // Get.toNamed(GenerateTicketScreen.routeName);
-                                      },
-                                      child: Text(
-                                        'Pin',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ),
-                              ],
-                            );
-                    }),
+                    // SizedBox(
+                    //   height: 1.h,
+                    // ),
+                    // Obx(() {
+                    //   return controller.isLoading.value
+                    //       ? sizedShimmer(height: 5.h, width: double.infinity)
+                    //       : Row(
+                    //           children: [
+                    //             Expanded(
+                    //               child: ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor:
+                    //                           AppColors.kPrimaryColor),
+                    //                   onPressed: () {
+                    //                     BottomSheetManager.sendInvite(context);
+                    //                   },
+                    //                   child: Text(
+                    //                     'Send Invite',
+                    //                     style: TextStyle(color: Colors.white),
+                    //                   )),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 2.w,
+                    //             ),
+                    //             Expanded(
+                    //               child: ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor:
+                    //                           AppColors.kBerkeleyBlue),
+                    //                   onPressed: () {
+                    //                     // Get.toNamed(GenerateTicketScreen.routeName);
+                    //                   },
+                    //                   child: Text(
+                    //                     'Pin',
+                    //                     style: TextStyle(color: Colors.white),
+                    //                   )),
+                    //             ),
+                    //           ],
+                    //         );
+                    // }),
                   ],
                 ),
               ),
               SizedBox(
                 height: 1.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 1.h),
-                    child: Text("Similar events for you",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(color: AppColors.kBluedarkShade)),
-                  ),
-                /*  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 1.h),
-                    child: Text("See all",
-                        style: Theme.of(context).textTheme.bodySmall),
-                  ),*/
-                ],
+              Obx(() {
+                return controller.isLoading.value
+                    ? sizedShimmer(width: double.infinity, height: 20.h)
+                    : controller.eventDetailResponse.value.data?.similarEvents
+                                ?.isEmpty ??
+                            true
+                        ? SizedBox()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 1.h),
+                                child: Text("Similar events for you",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                            color: AppColors.kBluedarkShade)),
+                              ),
+                              /*  Padding(
+                        padding: EdgeInsets.symmetric(vertical: 1.h),
+                        child: Text("See all",
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ),*/
+                            ],
+                          );
+              }),
+              SizedBox(
+                height: 1.h,
               ),
-              // ListView.builder(
-              //     itemCount: 2,
-              //     physics: const NeverScrollableScrollPhysics(),
-              //     shrinkWrap: true,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return const EventTileWidget();
-              //     }),
+              Obx(() {
+                return controller.isLoading.value
+                    ? ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children:
+                            List.generate(5, (index) => eventTileShimmer()),
+                      )
+                    : controller.eventDetailResponse.value.data?.similarEvents
+                                ?.isNotEmpty ??
+                            true
+                        ? ListView.builder(
+                            itemCount: controller.eventDetailResponse.value.data
+                                ?.similarEvents?.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return EventTileWidget(
+                                pinned: true,
+                                event: controller.eventDetailResponse.value.data
+                                    ?.similarEvents?[index],
+                              );
+                            })
+                        : SizedBox();
+              })
             ],
           ),
         ),

@@ -6,13 +6,9 @@ import '../constants/ApiConstant.dart';
 import 'Auth_services.dart';
 
 class EventDetailController extends GetxController {
-
-  
   RxBool isLoading = true.obs;
   RxString selectedEventId = ''.obs;
   Rx<EventDetailResponse> eventDetailResponse = EventDetailResponse().obs;
-
-
 
   Future<void> getEventsDetail() async {
     isLoading.value = true;

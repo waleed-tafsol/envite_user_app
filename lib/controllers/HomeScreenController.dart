@@ -9,24 +9,23 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenController extends GetxController {
- @override
+  @override
   void onInit() async {
     super.onInit();
     isEventLoading.value = true;
     isLoadingCategories.value = true;
     await getCategories();
-   
   }
 
 //https://envite-backend-dd-d3e9220ccbc0.herokuapp.com/api/v1
-List <Data> allEvents = [];
-RxList<EventModel> events = <EventModel>[].obs;
- RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
-  final Rx<CatagoryModel> selectedCategory = CatagoryModel().obs;
- RxBool isLoadingCategories = false.obs;
+  List<Data> allEvents = [];
+  RxList<EventModel> events = <EventModel>[].obs;
+  RxList<CategoryModel> categories = <CategoryModel>[].obs;
+  final Rx<CategoryModel> selectedCategory = CategoryModel().obs;
+  RxBool isLoadingCategories = false.obs;
   RxBool isEventLoading = false.obs;
-  
-    getAllEvents() async {
+
+  getAllEvents() async {
     try {
       final response = await http.post(
         Uri.parse(ApiConstants.getAllEvents),
@@ -37,10 +36,9 @@ RxList<EventModel> events = <EventModel>[].obs;
       );
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
-    GetAllEventsModel getAllEvents = GetAllEventsModel.fromJson(jsonResponse);
-    allEvents = getAllEvents.data!;
-
-        
+        GetAllEventsModel getAllEvents =
+            GetAllEventsModel.fromJson(jsonResponse);
+        allEvents = getAllEvents.data!;
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -54,8 +52,8 @@ RxList<EventModel> events = <EventModel>[].obs;
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         final List<dynamic> data = jsonResponse['data'];
-        categories.value = data.map((e) => CatagoryModel.fromJson(e)).toList();
-        if(categories.isNotEmpty){
+        categories.value = data.map((e) => CategoryModel.fromJson(e)).toList();
+        if (categories.isNotEmpty) {
           selectedCategory.value = categories[0];
           await getPaginatedEvents();
         }
@@ -71,6 +69,7 @@ RxList<EventModel> events = <EventModel>[].obs;
       Get.snackbar('Error', e.toString());
     }
   }
+
   Future<void> getPaginatedEvents() async {
     // isEventLoading.value = true;
     try {
@@ -78,7 +77,7 @@ RxList<EventModel> events = <EventModel>[].obs;
           body: jsonEncode({
             // "eventType": "exclusive",
             "categorySlugs": [selectedCategory.value.slug],
-           // "packageType": "all"
+            // "packageType": "all"
           }),
           headers: {
             'Content-Type': 'application/json',

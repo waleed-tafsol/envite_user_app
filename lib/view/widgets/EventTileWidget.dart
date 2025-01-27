@@ -17,25 +17,26 @@ class EventTileWidget extends StatelessWidget {
   final List? listimages;
   final String? address;
   final String? eventType;
-   final String? slug;
-  const EventTileWidget({
-    super.key,
-    this.pinned = false,
-    this.listimages,
-    this.address,
-    this.eventType,
-    this.event,
-    this.slug
-    });
+  final String? slug;
+  const EventTileWidget(
+      {super.key,
+      this.pinned = false,
+      this.listimages,
+      this.address,
+      this.eventType,
+      this.event,
+      this.slug});
 
   @override
   Widget build(BuildContext context) {
     EventDetailController eventDetailController =
         Get.put(EventDetailController());
     return InkWell(
-      onTap: () {  eventDetailController.selectedEventId.value = slug!;
+      onTap: () {
+        eventDetailController.selectedEventId.value = slug!;
         Get.toNamed(EventsDetailScreen.routeName);
-        eventDetailController.getEventsDetail();},
+        eventDetailController.getEventsDetail();
+      },
       child: Container(
         height: 119.h,
         margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 6.h),
@@ -55,8 +56,8 @@ class EventTileWidget extends StatelessWidget {
                       width: 100.w,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: listimages!.isEmpty?
-                             Container(
+                        child: listimages!.isEmpty
+                            ? Container(
                                 width: double.infinity,
                                 color: Colors.grey,
                                 child: Align(
@@ -71,20 +72,19 @@ class EventTileWidget extends StatelessWidget {
                                 ),
                               )
                             : Image.network(
-                                imageUrl(),
+                                listimages![0],
                                 fit: BoxFit.cover,
                               ),
                       ),
                     ),
                     Positioned(
-                    
                       child: EventTileDateBadge(
-                      date: event?.startDate == null
-                              ? "4"
-                              : extractDate(event!.startDate!),
-                          month: event?.startDate == null
-                              ? "Aug"
-                              : extractMonthInitials(event!.startDate!),
+                        date: event?.startDate == null
+                            ? "4"
+                            : extractDate(event!.startDate!),
+                        month: event?.startDate == null
+                            ? "Aug"
+                            : extractMonthInitials(event!.startDate!),
                       ),
                     ),
                   ],
@@ -132,7 +132,7 @@ class EventTileWidget extends StatelessWidget {
                   // width: 10.w,
                   child: Center(
                     child: Text(
-                     eventType!,
+                      eventType!,
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -148,14 +148,6 @@ class EventTileWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-  imageUrl(){
-    
-    if(listimages!.isNotEmpty){
-      listimages?[0] =  ApiConstants.s3bucket + listimages?[0];
-      return listimages![0];
-    }
-
   }
 }
 
@@ -197,4 +189,3 @@ class EventTileDateBadge extends StatelessWidget {
     );
   }
 }
- 

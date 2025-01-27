@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../constants/colors_constants.dart';
 
-Widget eventTileShimmer ({double? tileWidth}){
+Widget eventTileShimmer({double? tileWidth}) {
   return Shimmer.fromColors(
     baseColor: AppColors.kBluedarkShade,
     highlightColor: AppColors.kLightBlueColor2,
     child: Container(
-      height: 100.h,
+      height: 14.h,
       width: tileWidth ?? double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
       padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
