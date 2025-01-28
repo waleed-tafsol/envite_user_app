@@ -31,53 +31,55 @@ class ViewAllMyEventsScreen extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchEventWidget(),
-              SizedBox(
-                height: 2.h,
-              ),
-              /*  Padding(h                padding: EdgeInsets.only( top: 2.h),
-                child: Text("Past Events",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(color: AppColors.kTextBlack)),
-              ),*/
-              Expanded(
-                child: Obx(() {
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SearchEventWidget(),
+                SizedBox(
+                  height: 2.h,
+                ),
+                /*  Padding(h                padding: EdgeInsets.only( top: 2.h),
+                  child: Text("Past Events",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(color: AppColors.kTextBlack)),
+                ),*/
+                Obx(() {
                   return filtersController.isFilterActivated.value
                       ? filteredListView()
                       : myEventsController.isEventLoading.value
-                          ? ListView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              children: List.generate(
-                                  5, (index) => eventTileShimmer()),
-                            )
-                          : ListView.builder(
-                              controller: myEventsController.scrollController,
-                              itemCount: myEventsController
-                                      .myEventsViewAllList.length +
-                                  (myEventsController.hasMore.value ? 1 : 0),
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index ==
-                                    myEventsController
-                                        .myEventsViewAllList.length) {
-                                  return const Center(
-                                      child: Text(
-                                    'Loading... ',
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ));
-                                }
-                                return EventTileWidget(
-                                    event: myEventsController
-                                        .myEventsViewAllList[index]);
-                              });
+                      ? ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: List.generate(
+                        5, (index) => eventTileShimmer()),
+                  )
+                      : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      controller: myEventsController.scrollController,
+                      itemCount: myEventsController
+                          .myEventsViewAllList.length +
+                          (myEventsController.hasMore.value ? 1 : 0),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index ==
+                            myEventsController
+                                .myEventsViewAllList.length) {
+                          return const Center(
+                              child: Text(
+                                'Loading... ',
+                                style: TextStyle(color: Colors.redAccent),
+                              ));
+                        }
+                        return EventTileWidget(
+                            event: myEventsController
+                                .myEventsViewAllList[index]);
+                      });
                 }),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

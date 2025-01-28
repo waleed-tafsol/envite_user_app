@@ -19,16 +19,14 @@ class SearchEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FiltersController filtersController = Get.put(FiltersController());
-
     return Row(
       children: [
         SizedBox(
           width: 10.w,
           child: InkWell(
               onTap: () => filterBottomSheet(
-                    screenContext: context,
-                  ),
+                screenContext: context,
+              ),
               child: Obx(() {
                 return Stack(
                   children: [
@@ -51,11 +49,14 @@ class SearchEventWidget extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: filtersController.searchController,
+            onSubmitted: (value){
+              filtersController.checkFiltersActive();
+            },
             decoration: InputDecoration(
                 suffixIcon: InkWell(
-                  onTap: ()  {
-                     filtersController.checkFiltersActive();
-                  },
+                    onTap: ()  {
+                      filtersController.checkFiltersActive();
+                    },
                     child: Icon(Icons.search)), hintText: "Search an event"),
           ),
         )

@@ -25,8 +25,8 @@ class FiltersController extends GetxController {
     if ((categories.isNotEmpty) ||
         (eventType.value != Events.all.text) ||
         (searchController.text.isNotEmpty) /*||
-        (selectScreen.value.isNotEmpty) */||
-        (selectScreenStatus.value != Events.all.text)) {
+        (selectScreen.value.isNotEmpty) *//*||
+        (selectScreenStatus.value != Events.all.text)*/) {
       isFilterActivated.value = true;
       filteredEventsList.clear();
       getFilteredPaginatedEvents();
@@ -36,7 +36,7 @@ class FiltersController extends GetxController {
   }
 
   void clearFilterData() {
-    selectScreenStatus.value = Events.all.text;
+    //selectScreenStatus.value = Events.all.text;
     categories.clear();
     eventType.value = Events.all.text;
     searchController.text = '';

@@ -138,58 +138,55 @@ class HomeScreen extends GetView<HomeScreenController> {
                   }),
                 ),
                 SizedBox(
+                  height: 4.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Suggestion for you",
+                      style: TextStyle(
+                          fontSize: 18.sp, color: AppColors.kTextBlack),
+                    ),
+                    Text(
+                      "All events",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )
+                  ],
+                ),
+                SizedBox(
                   height: 1.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Suggestion for you",
-                        style: TextStyle(
-                            fontSize: 18.sp, color: AppColors.kTextBlack),
-                      ),
-                      Text(
-                        "All events",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Obx(() {
-                    return controller.isEventLoading.value
-                        ? ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children:
-                                List.generate(5, (index) => eventTileShimmer()),
-                          )
-                        : controller.events.isEmpty
-                            ? SizedBox(
-                                height: 40.h,
-                                child: Center(
-                                  child: Text(
-                                    "No Suggestions are available",
-                                    style: TextStyle(
-                                        fontSize: 18.sp,
-                                        color: AppColors.kTextBlack),
-                                  ),
+                Obx(() {
+                  return controller.isEventLoading.value
+                      ? ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          children:
+                              List.generate(5, (index) => eventTileShimmer()),
+                        )
+                      : controller.events.isEmpty
+                          ? SizedBox(
+                              height: 40.h,
+                              child: Center(
+                                child: Text(
+                                  "No Suggestions are available",
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      color: AppColors.kTextBlack),
                                 ),
-                              )
-                            : ListView.builder(
-                                itemCount: controller.events.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return EventTileWidget(
-                                    event: controller.events[index],
-                                  );
-                                });
-                  }),
-                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.events.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return EventTileWidget(
+                                  event: controller.events[index],
+                                );
+                              });
+                }),
               ],
             ),
           ),
