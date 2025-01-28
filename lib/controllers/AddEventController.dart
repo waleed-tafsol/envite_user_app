@@ -1,45 +1,58 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/services/customPrint.dart';
-import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/utills/aws_utills.dart';
-import 'package:event_planner_light/utills/convert_date_time.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:event_planner_light/constants/ApiConstant.dart';
-import 'package:event_planner_light/main.dart';
-import 'package:event_planner_light/model/CatagoryModel.dart';
+import 'package:event_planner_light/controllers/Auth_services.dart';
+import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:video_player/video_player.dart';
+import '../constants/ApiConstant.dart';
+import '../main.dart';
+import '../model/CatagoryModel.dart';
+import '../utills/ConvertDateTime.dart';
+import 'package:http_parser/http_parser.dart';
 
 class AddEventController extends GetxController {
+  @override
+  void onInit() async {
+    super.onInit();
+    isAddPastEvents.value = Get.arguments["isAddPastEvents"] ?? false;
+    //  isloading.value = true;
+    // await getcatagories();
+    //  isloading.value = false;
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController avnueController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
   List<TextEditingController> emailController =
       <TextEditingController>[TextEditingController()].obs;
   List<TextEditingController> socialLinkController =
       <TextEditingController>[TextEditingController()].obs;
   TextEditingController descriptionController = TextEditingController();
- 
- 
-  Rx<CatagoryModel> selectedCategory = CatagoryModel().obs;
+//  RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
+  Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
   final ImagePicker _picker = ImagePicker();
   RxBool isAddPastEvents = false.obs;
   RxBool isloading = false.obs;
-  List<String> options = ['public', 'private', 'exclusive'];
-  Rx<String?> selectedOption = Rx<String?>(null);
+
   RxList<File> pickedImages = <File>[].obs;
   RxList<File> pickedVideo = <File>[].obs;
-  Rx<DateTime> selectedStartDate = DateTime.now().add(Duration(days: 1)).obs;
-  Rx<DateTime> selectedEndDate = DateTime.now().add(Duration(days: 1)).obs;
+  Rx<DateTime?> selectedStartDate = Rx<DateTime?>(null);
+  Rx<DateTime?> selectedEndDate = Rx<DateTime?>(null);
+
+  final TextEditingController avenuePlaceController = TextEditingController();
+  String? avenueLat;
+  String? avenueLng;
 
   Rx<String> selectedStartTime =
       TimeOfDay.now().format(navigatorKey.currentContext!).obs;
@@ -52,6 +65,10 @@ class AddEventController extends GetxController {
 
   Future<void> pickImage() async {
     try {
+      pickedImages.length > 3
+          ? Exception('Cannot Upload Videos more than 3')
+          : null;
+
       final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
       if (file != null) {
         pickedImages.add(File(file.path));
@@ -70,17 +87,26 @@ class AddEventController extends GetxController {
   }
 
   void setStartDate(DateTime date) {
-    selectedStartDate.value = date;
+    if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
+      CustomSnackbar.showError(
+        "Invalid Date",
+        "For past events, the start date must be in the past.",
+      );
+    } else {
+      selectedStartDate.value = date;
+    }
   }
 
   void setEndDate(DateTime date) {
-    selectedEndDate.value = date;
+    if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
+      CustomSnackbar.showError(
+        "Invalid Date",
+        "For past events, the end date must be in the past.",
+      );
+    } else {
+      selectedEndDate.value = date;
+    }
   }
-
-  final TextEditingController googlemapfieldController =
-      TextEditingController();
-  String? lat;
-  String? lng;
 
 /*
   Future<void> getcatagories() async {
@@ -141,10 +167,6 @@ class AddEventController extends GetxController {
     });
   }
 
-  // void setSelectedOption(String option) {
-  //   selectedOption.value = option;
-  // }
-
   Future<void> addEvent() async {
     final url = Uri.parse(ApiConstants.addEvent);
 
@@ -156,46 +178,55 @@ class AddEventController extends GetxController {
       // Add text fields
       request.fields['name'] = nameController.value.text;
       request.fields['isPastEvent'] = isAddPastEvents.value.toString();
-      request.fields['eventType'] =  "private";
-      request.fields['address'] = addressController.text;
-      request.fields['latitude'] = '45454545454';
-      request.fields['longitude'] = '454545454545';
-      for (int i = 0; i < emailController.length; i++) {
-        request.fields['emails[$i]'] = emailController[i].text;
+      request.fields['eventType'] = "private";
+      request.fields['address'] = avenuePlaceController.text;
+      request.fields['latitude'] = avenueLat.toString();
+      request.fields['longitude'] = avenueLng.toString();
+      if (emailController.length == 1 &&
+          emailController.first.text.isNotEmpty) {
+        for (int i = 0; i < emailController.length; i++) {
+          emailController[i].text.isNotEmpty
+              ? request.fields['emails[$i]'] = emailController[i].text
+              : null;
+        }
       }
 
-      // Add images
       for (int i = 0; i < pickedImages.length; i++) {
         final file = pickedImages[i];
-        final mimeType = lookupMimeType(
-            file.path);// Get MIME type based on the file extension
+        final mimeType = lookupMimeType(file.path);
         final mediaType = mimeType != null
             ? MediaType.parse(mimeType)
-            : MediaType('image', 'jpeg'); // Default to 'image/jpeg'
+            : MediaType('image', 'jpeg');
 
         var multipartFile = await http.MultipartFile.fromPath(
           'images',
           file.path,
-          filename: file.uri.pathSegments.last,
-         contentType: mediaType,
+          contentType: mediaType,
         );
         request.files.add(multipartFile);
       }
 
-      for (int i = 0; i < socialLinkController.length; i++) {
-        request.fields['socialLinks[$i]'] = socialLinkController[i].text;
+      if (socialLinkController.length == 1 &&
+          socialLinkController.first.text.isNotEmpty) {
+        for (int i = 0; i < socialLinkController.length; i++) {
+          socialLinkController[i].text.isNotEmpty
+              ? request.fields['socialLinks[$i]'] = socialLinkController[i].text
+              : null;
+        }
       }
+
       request.fields['description'] = descriptionController.value.text;
 
       request.fields['videosCount'] = pickedVideo.length.toString();
       request.fields['avenue'] = avnueController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
       request.fields['startDate'] =
-          formatToIso8601WithTimezone(selectedStartDate.value);
+          formatToIso8601WithTimezone(selectedStartDate.value!);
       request.fields['endDate'] =
-          formatToIso8601WithTimezone(selectedEndDate.value);
+          formatToIso8601WithTimezone(selectedEndDate.value!);
       request.fields['startTime'] = selectedStartTime.value;
       request.fields['endTime'] = selectedEndTime.value;
+      // request.fields['endTime'] = selectedEndTime.value;
 
       // Add headers
       request.headers.addAll({
@@ -213,20 +244,15 @@ class AddEventController extends GetxController {
 
         List<String> videoUrls =
             List<String>.from(responseData["data"]["videoUrls"]);
-        ColoredPrint.green("Event Slug : ${responseData["data"]["videoUrls"]}");
         await uploadFilesToS3(
             presignedUrls: videoUrls,
             filePaths: pickedVideo.map((file) => file.path).toList());
-        ColoredPrint.green("Event Slug : ${responseData["data"]["videoUrls"]}");
 
         CustomSnackbar.showSuccess(
             'Success', responseData["message"] ?? "Event created successfully");
 
         isloading.value = false;
-      //Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
-        // dispose();
-        // onClose();
-        // return responseData;
+        Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
@@ -238,52 +264,4 @@ class AddEventController extends GetxController {
       ColoredPrint.red(e.toString());
     }
   }
-
-  @override
-  void onClose() {
-    // Handle cleanup here
-    nameController.dispose();
-    avnueController.dispose();
-    addressController.dispose();
-    emailController.forEach((element) {
-      element.dispose();
-    });
-    socialLinkController.forEach((element) {
-      element.dispose();
-    });
-    descriptionController.dispose();
-    googlemapfieldController.dispose();
-    pickedImages.forEach((element) {
-      element.delete();
-    });
-    pickedVideo.forEach((element) {
-      element.delete();
-    });
-    super.onClose();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    // nameController.dispose();
-    // avnueController.dispose();
-    // addressController.dispose();
-    // emailController.forEach((element) {
-    //   element.dispose();
-    // });
-    // socialLinkController.forEach((element) {
-    //   element.dispose();
-    // });
-    // descriptionController.dispose();
-    // googlemapfieldController.dispose();
-    // pickedImages.forEach((element) {
-    //   element.delete();
-    // });
-    // pickedVideo.forEach((element) {
-    //   element.delete();
-    // });
-    super.dispose();
-  }
 }
-
-

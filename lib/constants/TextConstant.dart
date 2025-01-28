@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +11,7 @@ class TextConstants {
 
   static TextStyle bodyLargeMediumBlueBold(BuildContext context) {
     return Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Color(0xff457B9D),
+          color: AppColors.kBlueMediumShade,
           fontWeight: FontWeight.bold,
         );
   }
@@ -21,6 +19,7 @@ class TextConstants {
   static TextStyle bodyLarge_White_Normal(BuildContext context) {
     return Theme.of(context).textTheme.bodyLarge!.copyWith(
           color: Colors.white,
+          // fontWeight: FontWeight.bold,
         );
   }
 
@@ -70,7 +69,7 @@ class TextConstants {
 
   static TextStyle bodySmall_mediumBlue_normal(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall!.copyWith(
-          color: Color(0xff457B9D),
+          color: AppColors.kBlueMediumShade,
         );
   }
 

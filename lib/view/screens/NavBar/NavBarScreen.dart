@@ -1,16 +1,18 @@
-import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/controllers/AddEventController.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/add_event%20_screen/add_event_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events.dart';
+import 'package:event_planner_light/controllers/filters_controller.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
+import '../../../constants/colors_constants.dart';
+import '../../../controllers/AddEventController.dart';
+import '../../../utills/enums.dart';
 import '../../widgets/CustomAppBar.dart';
+import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'DrawerWidget.dart';
-import 'Screens/explore_screen/ExploreScreen.dart';
-import 'Screens/home_screen/HomeScreen.dart';
-import 'Screens/my_invites_screen/MyInvitesScreen.dart';
-import 'Screens/profile_screen/ProfileScreen.dart';
+import 'Screens/Explore/ExploreScreen.dart';
+import 'Screens/Home/HomeScreen.dart';
 
 class NavBarScreen extends StatefulWidget {
   static const routeName = "NavBarScreen";
@@ -31,17 +33,36 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   // List of Screens
   final List<Widget> _screens = [
-     HomeScreen(),
+    const HomeScreen(),
     ExploreScreen(),
     const MyInvitesScreen(),
-    const MyEventsScreen(),
+    MyEventsScreen(),
     const ProfileScreen(),
-
   ];
 
   void _onTap(int index) {
+    FiltersController filtersController = Get.find();
     setState(() {
       _currentIndex = index;
+      switch (index) {
+        case 1:
+          filtersController.clearFilterData();
+          filtersController.setSelectedScreen(
+              value: Events.explorerEvents.text);
+          filtersController.showMyEvents.value = false;
+          break;
+        case 2:
+          filtersController.showMyEvents.value = false;
+          break;
+        case 3:
+          filtersController.clearFilterData();
+          filtersController.setSelectedScreen(value: Events.myEvents.text);
+          filtersController.showMyEvents.value = true;
+          break;
+        case 4:
+          filtersController.showMyEvents.value = false;
+          break;
+      }
     });
   }
 
@@ -71,23 +92,25 @@ class _NavBarScreenState extends State<NavBarScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_outlined),
-            label: 'My Invites',
+            label: 'My Plans',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.event_note),label: 'My Events'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'My Events',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),
             label: 'Profile',
           ),
-          
         ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
-          var controller = Get.put(AddEventController());
-          controller.isAddPastEvents.value = false;
-          Get.toNamed(AddEventsScreens.routeName);
+          Get.toNamed(AddEventsScreens.routeName, arguments: {
+            "isAddPastEvents": false,
+          });
         },
         child: Icon(
           Icons.add,

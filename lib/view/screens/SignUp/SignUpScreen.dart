@@ -1,470 +1,473 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/controllers/SignUpController.dart';
-import 'package:event_planner_light/model/CatagoryModel.dart';
-import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../constants/TextConstant.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
-import '../../../constants/constants.dart';
 import 'Widgets/Terms_of_services_dailog.dart';
 
 class SignUpScreen extends GetView<Signupcontroller> {
   SignUpScreen({super.key});
+
   static const routeName = "SignUpScreen";
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    controller.phoneNumberController.text = '+965';
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
         backgroundColor: AppColors.kScaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           "welcome to Invites App",
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 31.w, vertical: 10.h),
-            child: Obx(() {
-              return controller.isloading.value
-                  ? const Center(child: CircularProgressIndicator())
-                  : SingleChildScrollView(
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Create your account and get access to events in Kuwait",
-                              style: TextStyle(
-                                  fontSize: 11.sp,
-                                  color: AppColors.kBerkeleyBlue),
-                            ),
-                            SizedBox(
-                              height: 48.h,
-                            ),
-                            // TextFormField(
-                            //     controller: controller.fullNameController,
-                            //     validator: (value) {
-                            //       if (value == null || value.isEmpty)
-                            //         return 'Full Name cannot be empty';
-                            //       return null;
-                            //     },
-                            //     decoration: const InputDecoration(
-                            //       hintText: "Full Name",
-                            //       prefixIcon: Icon(Icons.person_2_outlined),
-                            //     )),
-                            // SizedBox(
-                            //   height: 2.h,
-                            // ),
-                            TextFormField(
-                                controller: controller.fullNameController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Full Name cannot be empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: "Full Name",
-                                  prefixIcon: Icon(Icons.person_2_outlined),
-                                )),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            TextFormField(
-                                controller: controller.phoneNumberController,
-                                keyboardType: TextInputType.phone,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Phone Number cannot be empty';
-                                  }
-                                  if (!GetUtils.isPhoneNumber(value)) {
-                                    return 'Enter a valid phone number';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: "Phone Number",
-                                  prefixIcon: Icon(Icons.phone_android_sharp),
-                                )),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            TextFormField(
-                                controller: controller.emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Email cannot be empty';
-                                  }
-                                  if (!GetUtils.isEmail(value)) {
-                                    return 'Enter a valid Email';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: "Email",
-                                  prefixIcon: Icon(Icons.email_outlined),
-                                )),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            TextFormField(
-                                controller: controller.passwordController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Password cannot be empty';
-                                  }
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+          child: Obx(() {
+            return controller.isloading.value
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Create your account and get access to events in Kuwait",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          // TextFormField(
+                          //     controller: controller.fullNameController,
+                          //     validator: (value) {
+                          //       if (value == null || value.isEmpty)
+                          //         return 'Full Name cannot be empty';
+                          //       return null;
+                          //     },
+                          //     decoration: const InputDecoration(
+                          //       hintText: "Full Name",
+                          //       prefixIcon: Icon(Icons.person_2_outlined),
+                          //     )),
+                          // SizedBox(
+                          //   height: 2.h,
+                          // ),
+                          TextFormField(
+                              controller: controller.fullNameController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty)
+                                  return 'Full Name cannot be empty';
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Full Name",
+                                prefixIcon: Icon(Icons.person_2_outlined),
+                              )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextFormField(
+                              controller: controller.phoneNumberController,
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value == null || value.isEmpty)
+                                  return 'Phone Number cannot be empty';
+                                if (!GetUtils.isPhoneNumber(value))
+                                  return 'Enter a valid phone number';
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Phone Number",
+                                prefixIcon: Icon(Icons.phone_android_sharp),
+                              )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextFormField(
+                              controller: controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value == null || value.isEmpty)
+                                  return 'Email cannot be empty';
+                                if (!GetUtils.isEmail(value))
+                                  return 'Enter a valid Email';
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Email",
+                                prefixIcon: Icon(Icons.email_outlined),
+                              )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextFormField(
+                              controller: controller.passwordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty)
+                                  return 'Password cannot be empty';
 
-                                  return null;
-                                },
-                                obscureText:
-                                    !controller.isPasswordVisible.value,
-                                decoration: InputDecoration(
-                                    hintText: "password",
-                                    prefixIcon: Icon(
-                                      Icons.lock_outline,
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                          controller.isPasswordVisible.value
-                                              ? Icons.visibility_outlined
-                                              : Icons.visibility_off_outlined),
-                                      onPressed: () {
-                                        controller.isPasswordVisible.value =
-                                            !controller.isPasswordVisible.value;
-                                      },
-                                    ))),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            TextFormField(
-                                controller:
-                                    controller.confirmPasswordController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Password cannot be empty';
-                                  } else if (value !=
-                                      controller.passwordController.text) {
-                                    return 'Password does not match';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                obscureText:
-                                    !controller.isConfirmPasswordVisible.value,
-                                decoration: InputDecoration(
-                                    hintText: "Confirm password",
-                                    prefixIcon: Icon(
-                                      Icons.lock_outline,
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(controller
-                                              .isConfirmPasswordVisible.value
-                                          ? Icons.visibility_outlined
-                                          : Icons.visibility_off_outlined),
-                                      onPressed: () {
-                                        controller.isConfirmPasswordVisible
-                                                .value =
-                                            !controller
-                                                .isConfirmPasswordVisible.value;
-                                      },
-                                    ))),
-
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            /*ListTile(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              tileColor: AppColors.kTextfieldColor,
-                              leading: const Icon(
-                                Icons.group_work_outlined,
-                                color: AppColors.kPrimaryColor,
-                              ),
-                              trailing: const Icon(Icons.arrow_downward_rounded,
-                                  color: AppColors.kPrimaryColor),
-                              title: DropdownButton<CatagoryModel?>(
-                                // value: controller.selectedCategory.value,
-                                hint: Text("Select Category",
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall!),
-                                items: controller.categories.map((category) {
-                                  return DropdownMenuItem<CatagoryModel>(
-                                    value: category,
-                                    onTap: () {
-                                      controller.selectedCategory.add(category);
-                                    },
-                                    child: Text(
-                                      category.name?.en ?? 'Unknown',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!,
-                                    ),
-                                  );
-                                }).toList(),
-
-                                onChanged: (CatagoryModel? newValue) {
-                                  // controller.selectedCategory.value = newValue;
-                                },
-                              ),
-                            ),
-                            Obx(
-                              () => Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: controller.selectedCategory
-                                    .map(
-                                      (category) => Chip(
-                                        label: Text(category.name?.en ?? ""),
-                                        // deleteIcon: const Icon(Icons.close),
-                                        onDeleted: () {
-                                          // Remove the category from the selected list
-                                          controller.selectedCategory
-                                              .remove(category);
-                                        },
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            SizedBox(
-                              height: 150.h,
-                              child: TextFormField(
-                                controller: controller.bioController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Bio cannot be empty';
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.multiline,
-                                textAlignVertical: TextAlignVertical.top,
-
-                                maxLines: null, // Set this
-                                expands: true,
-                                decoration: InputDecoration(hintText: "Bio"),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Verification Document",
-                                  style:
-                                      TextConstants.bodyLargeBlackBold(context),
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      controller.pickADocument();
-                                    },
-                                    icon: Icon(Icons.add))
-                              ],
-                            ),
-
-                            Obx(() {
-                              if (controller.pickedFiles.isEmpty) {
-                                return const SizedBox();
-                              }
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: controller.pickedFiles.length,
-                                itemBuilder: (context, index) {
-                                  final file = controller.pickedFiles[index];
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            height: 50.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius: k5BorderRadius,
-                                              color: AppColors.kBlueLightShade,
-                                            ),
-                                            width: double.infinity,
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 22.h,
-                                                horizontal: 30.w),
-                                            child: Text(
-                                              file.path.split('/').last,
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Positioned(
-                                              right: 0,
-                                              top: 0,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  controller.removeFile(file);
-                                                },
-                                                child: Icon(
-                                                  Icons.cancel,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-
-                                              // IconButton(
-                                              //     icon: const Icon(
-                                              //       Icons.cancel,
-                                              //       color: Colors.black,
-                                              //     ),
-                                              //     onPressed: () {
-                                              //       controller.removeFile(file);
-                                              //     })
-                                              )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      TextFormField(
-                                        decoration: InputDecoration(
-                                            hintText: "Description"),
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  controller.pickADocument();
-                                },
-                                child: DottedBorder(
-                                  dashPattern: [5],
-                                  color: AppColors.kBluedarkShade,
-                                  borderType: BorderType.RRect,
-                                  radius: Radius.circular(5),
-                                  child: SizedBox(
-                                    height: 100.h,
-                                    width: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          size: 40.h,
-                                          Icons.image_outlined,
-                                          color: AppColors.kBluedarkShade,
-                                        ),
-                                        Text(
-                                          "Upload Document",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: AppColors.kBluedarkShade,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                return null;
+                              },
+                              obscureText: !controller.isPasswordVisible.value,
+                              decoration: InputDecoration(
+                                  hintText: "password",
+                                  prefixIcon: Icon(
+                                    Icons.lock_outline,
                                   ),
-                                ),
-                              ),
-                            ),*/
-
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                if (formKey.currentState!.validate()) {
-                                   controller.signup();
-                                  // if (controller.selectedCategory.isEmpty) {
-                                  //   CustomSnackbar.showError(
-                                  //       'Error', 'Select a category');
-                                  // } else {
-                                  //   controller.signup();
-                                  // }
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                        controller.isPasswordVisible.value
+                                            ? Icons.visibility_outlined
+                                            : Icons.visibility_off_outlined),
+                                    onPressed: () {
+                                      controller.isPasswordVisible.value =
+                                          !controller.isPasswordVisible.value;
+                                    },
+                                  ))),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextFormField(
+                              controller: controller.confirmPasswordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Password cannot be empty';
+                                } else if (value !=
+                                    controller.passwordController.text) {
+                                  return 'Password does not match';
+                                } else {
+                                  return null;
                                 }
                               },
-                              child: Container(
-                                height: 60.h,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppColors.kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                              obscureText:
+                                  !controller.isConfirmPasswordVisible.value,
+                              decoration: InputDecoration(
+                                  hintText: "Confirm password",
+                                  prefixIcon: Icon(
+                                    Icons.lock_outline,
                                   ),
-                                ),
-                              ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(controller
+                                            .isConfirmPasswordVisible.value
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined),
+                                    onPressed: () {
+                                      controller
+                                              .isConfirmPasswordVisible.value =
+                                          !controller
+                                              .isConfirmPasswordVisible.value;
+                                    },
+                                  ))),
+                          // SizedBox(
+                          //   height: 2.h,
+                          // ),
+                          // Row(
+                          //   children: [
+                          //     Switch(
+                          //         value: controller.isEventPlanner.value,
+                          //         onChanged: (_) {
+                          //           // controller.isEventPlanner.value =
+                          //           //     !controller.isEventPlanner.value;
+                          //         }),
+                          //     SizedBox(
+                          //       width: 4.w,
+                          //     ),
+                          //     Text(
+                          //       "I’m an event Planner!",
+                          //       style: Theme.of(context)
+                          //           .textTheme
+                          //           .headlineMedium!
+                          //           .copyWith(
+                          //             decoration: TextDecoration.underline,
+                          //           ),
+                          //     ),
+                          //   ],
+                          // ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          /*  ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
+                            tileColor: AppColors.kTextfieldColor,
+                            leading: const Icon(
+                              Icons.group_work_outlined,
+                              color: AppColors.kPrimaryColor,
+                            ),
+                            trailing: const Icon(Icons.arrow_downward_rounded,
+                                color: AppColors.kPrimaryColor),
+                            title: DropdownButton<CatagoryModel?>(
+                              // value: controller.selectedCategory.value,
+                              hint: Text("Select Category",
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall!),
+                              items: controller.categories.map((category) {
+                                return DropdownMenuItem<CatagoryModel>(
+                                  value: category,
+                                  onTap: () {
+                                    controller.selectedCategory.add(category);
+                                  },
+                                  child: Text(
+                                    category.name?.en ?? 'Unknown',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall!,
+                                  ),
+                                );
+                              }).toList(),
 
-                            SizedBox(
-                              height: 12.h,
+                              onChanged: (CatagoryModel? newValue) {
+                                // controller.selectedCategory.value = newValue;
+                              },
                             ),
-                            InkWell(
-                              onTap: () => terms_0f_services_Dialog(context),
-                              child: RichText(
-                                text: TextSpan(
-                                  text: 'By Sign In, I accept the ',
+                          ),
+                          Obx(
+                            () => Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: controller.selectedCategory
+                                  .map(
+                                    (category) => Chip(
+                                      label: Text(category.name?.en ?? ""),
+                                      // deleteIcon: const Icon(Icons.close),
+                                      onDeleted: () {
+                                        // Remove the category from the selected list
+                                        controller.selectedCategory
+                                            .remove(category);
+                                      },
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 2.h,
+                          ),*/
+                          // SizedBox(
+                          //   height: 20.h,
+                          //   child: TextFormField(
+                          //     controller: controller.bioController,
+                          //     validator: (value) {
+                          //       if (value == null || value.isEmpty)
+                          //         return 'Bio cannot be empty';
+                          //       return null;
+                          //     },
+                          //     keyboardType: TextInputType.multiline,
+                          //     textAlignVertical: TextAlignVertical.top,
+
+                          //     maxLines: null,
+                          //     // Set this
+                          //     expands: true,
+                          //     decoration: InputDecoration(hintText: "Bio"),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       "Verification Document",
+                          //       style:
+                          //           TextConstants.bodyLargeBlackBold(context),
+                          //     ),
+                          //     IconButton(
+                          //         onPressed: () {
+                          //           controller.pickADocument();
+                          //         },
+                          //         icon: Icon(Icons.add))
+                          //   ],
+                          // ),
+
+                          // Obx(() {
+                          //   if (controller.pickedFiles.isEmpty) {
+                          //     return const SizedBox();
+                          //   }
+                          //   return ListView.builder(
+                          //     shrinkWrap: true,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     itemCount: controller.pickedFiles.length,
+                          //     itemBuilder: (context, index) {
+                          //       final file = controller.pickedFiles[index];
+                          //       return Stack(
+                          //         children: [
+                          //           Container(
+                          //             margin:
+                          //                 EdgeInsets.symmetric(vertical: 1.h),
+                          //             decoration: BoxDecoration(
+                          //               borderRadius: k5BorderRadius,
+                          //               color: AppColors.kBluedarkShade,
+                          //             ),
+                          //             width: double.infinity,
+                          //             padding: EdgeInsets.symmetric(
+                          //                 vertical: 2.h, horizontal: 4.w),
+                          //             child: ClipRRect(
+                          //                 borderRadius: k5BorderRadius,
+                          //                 child: Text(controller
+                          //                     .pickedFiles[index].path
+                          //                     .split('/')
+                          //                     .last)),
+                          //           ),
+                          //           Positioned(
+                          //               right: 0,
+                          //               top: 0,
+                          //               bottom: 0,
+                          //               child: IconButton(
+                          //                   icon: const Icon(
+                          //                     Icons.cancel,
+                          //                     color: Colors.white,
+                          //                   ),
+                          //                   onPressed: () {
+                          //                     controller.removeFile(file);
+                          //                   }))
+                          //         ],
+                          //       );
+                          //     },
+                          //   );
+                          // }),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Obx(() {
+                          //   return controller.pickedFiles.isNotEmpty
+                          //       ? SizedBox()
+                          //       : Align(
+                          //           alignment: Alignment.centerLeft,
+                          //           child: InkWell(
+                          //             onTap: () {
+                          //               controller.pickADocument();
+                          //             },
+                          //             child: DottedBorder(
+                          //               dashPattern: [5],
+                          //               color: AppColors.kBluedarkShade,
+                          //               borderType: BorderType.RRect,
+                          //               radius: Radius.circular(5),
+                          //               child: SizedBox(
+                          //                 height: 10.h,
+                          //                 width: double.infinity,
+                          //                 child: Column(
+                          //                   mainAxisAlignment:
+                          //                       MainAxisAlignment.center,
+                          //                   children: [
+                          //                     Icon(
+                          //                       size: 5.h,
+                          //                       Icons.image_outlined,
+                          //                       color: AppColors.kBluedarkShade,
+                          //                     ),
+                          //                     Text(
+                          //                       "Upload Document",
+                          //                       style: TextStyle(
+                          //                         fontSize: 14.sp,
+                          //                         color:
+                          //                             AppColors.kBluedarkShade,
+                          //                         decoration:
+                          //                             TextDecoration.underline,
+                          //                       ),
+                          //                     )
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         );
+                          // }),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Obx(() {
+                          //   return controller.pickedFiles.isEmpty
+                          //       ? SizedBox()
+                          //       : SizedBox(
+                          //           height: 15.h,
+                          //           width: 50.w,
+                          //           child: ListView.builder(
+                          //               shrinkWrap: true,
+                          //               itemCount:
+                          //                   controller.pickedFiles.length,
+                          //               itemBuilder: (context, index) {
+                          //                 return Container(
+                          //                   height: 20,
+                          //                   color: Colors.amber,
+                          //                   width: 30,
+                          //                 );
+                          //               }),
+                          //         );
+                          // }),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                controller.signup();
+                              }
+                            },
+                            child: Container(
+                              height: 7.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: AppColors.kPrimaryColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Sign Up",
                                   style: TextStyle(
-                                      color: AppColors.kBluedarkShade,
-                                      fontSize: 14.sp),
-                                  children: const <TextSpan>[
-                                    TextSpan(
-                                      text: 'Terms of Service',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text: ' and have read ',
-                                      style: TextStyle(
-
-                                          // fontSize: 10.sp,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: 'Privacy Policy',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text: '.',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          InkWell(
+                            onTap: () => termsOfServicesDialog(context),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'By Sign In, I accept the ',
+                                style: TextStyle(
+                                    color: AppColors.kBluedarkShade,
+                                    fontSize: 14.sp),
+                                children: const <TextSpan>[
+                                  TextSpan(
+                                    text: 'Terms of Service',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' and have read ',
+                                    style: TextStyle(
+
+                                        // fontSize: 10.sp,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Privacy Policy',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: '.',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-            }),
-          ),
+                    ),
+                  );
+          }),
         ),
       ),
     );

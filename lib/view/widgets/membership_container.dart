@@ -1,6 +1,7 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/view/widgets/bullet_points.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MembershipContainer extends StatelessWidget {
   const MembershipContainer(

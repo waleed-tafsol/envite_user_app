@@ -1,11 +1,12 @@
 import 'package:event_planner_light/controllers/Auth_services.dart';
 
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class SignIncontroller extends GetxController {
+class SignInController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
@@ -18,7 +19,7 @@ class SignIncontroller extends GetxController {
   RxBool isloading = false.obs;
 
   // Login
-  Future<void> login() async {
+  Future<void> callLogin() async {
     isloading.value = true;
     try {
       await authService.login(
@@ -26,7 +27,7 @@ class SignIncontroller extends GetxController {
         password: passwordController.value.text,
       );
       isloading.value = false;
-      CustomSnackbar.showSuccess('Success', 'Signup successful');
+      CustomSnackbar.showSuccess('Success', 'Login successful');
       Get.offAllNamed(NavBarScreen.routeName);
     } catch (e) {
       isloading.value = false;

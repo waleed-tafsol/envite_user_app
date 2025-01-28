@@ -15,7 +15,7 @@ class EventModel {
   String? startDate;
   String? endDate;
   String? category;
-  String? createdBy;
+  // String? createdBy;
   List<String>? attendees;
   int? noOfInvites;
   List<String>? tags;
@@ -28,29 +28,29 @@ class EventModel {
 
   EventModel(
       {this.sId,
-        this.slug,
-        this.slugId,
-        this.name,
-        this.eventType,
-        this.avenue,
-        this.description,
-        this.images,
-        this.videos,
-        this.location,
-        this.address,
-        this.startDate,
-        this.endDate,
-        this.category,
-        this.createdBy,
-        this.attendees,
-        this.noOfInvites,
-        this.tags,
-        this.emails,
-        this.socialLinks,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+      this.slug,
+      this.slugId,
+      this.name,
+      this.eventType,
+      this.avenue,
+      this.description,
+      this.images,
+      this.videos,
+      this.location,
+      this.address,
+      this.startDate,
+      this.endDate,
+      this.category,
+      // this.createdBy,
+      this.attendees,
+      this.noOfInvites,
+      this.tags,
+      this.emails,
+      this.socialLinks,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   EventModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -66,7 +66,8 @@ class EventModel {
       for (var i = 0; i < imagesData.length; i++) {
         images!.add(ApiConstants.s3bucket + imagesData[i]);
       }
-    }    videos = json['videos'].cast<String>();
+    }
+    videos = json['videos'].cast<String>();
     location = json['location'] != null
         ? new Location.fromJson(json['location'])
         : null;
@@ -74,7 +75,7 @@ class EventModel {
     startDate = json['startDate'];
     endDate = json['endDate'];
     category = json['category'];
-    createdBy = json['createdBy'];
+    // createdBy = json['createdBy'];
     attendees = json['attendees'].cast<String>();
     noOfInvites = json['noOfInvites'];
     tags = json['tags'].cast<String>();

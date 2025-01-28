@@ -1,7 +1,8 @@
-import 'package:event_planner_light/model/SubscriptionModel.dart';
-import 'package:event_planner_light/model/WalletModel.dart';
+import 'package:event_planner_light/constants/ApiConstant.dart';
 
 import 'LocationModel.dart';
+import 'SubscriptionModel.dart';
+import 'WalletModel.dart';
 
 class UserModel {
   Location? location;
@@ -79,7 +80,7 @@ class UserModel {
     slug = json['slug'];
     slugId = json['slugId'];
     fullName = json['fullName'];
-    photo = json['photo'];
+    photo = ApiConstants.s3bucket + json['photo'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];
     wallet =

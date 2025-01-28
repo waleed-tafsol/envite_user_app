@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:event_planner_light/view/screens/auth_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
 
@@ -27,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:   PopScope(
+      body: PopScope(
         canPop: false,
         child: Stack(
           children: [
@@ -41,7 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Center(
               child: Image.asset(
                 Assets.app_Logo,
-                fit: BoxFit.cover,
+                width: 60.w,
+                fit: BoxFit.fitWidth,
               ),
             ),
           ],

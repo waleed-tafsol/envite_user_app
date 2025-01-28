@@ -1,31 +1,24 @@
-import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
 import 'package:event_planner_light/model/event_model.dart';
-import 'package:event_planner_light/utills/convert_date_time.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/home_screen/events_detail_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
+import '../../utills/ConvertDateTime.dart';
+import '../screens/events_detail_screen.dart';
 
 class EventTileWidget extends StatelessWidget {
-  // Optional parameters with default values of false
-  final bool pinned;
   final EventModel? event;
-  final List? listimages;
-  final String? address;
-  final String? eventType;
-  final String? slug;
-  const EventTileWidget(
-      {super.key,
-      this.pinned = false,
-      this.listimages,
-      this.address,
-      this.eventType,
-      this.event,
-      this.slug});
+  final double? width;
+
+  const EventTileWidget({
+    super.key,
+    this.event,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,118 +26,124 @@ class EventTileWidget extends StatelessWidget {
         Get.put(EventDetailController());
     return InkWell(
       onTap: () {
-        eventDetailController.selectedEventId.value = slug!;
+        eventDetailController.selectedEventId.value = event!.slug!;
         Get.toNamed(EventsDetailScreen.routeName);
         eventDetailController.getEventsDetail();
       },
       child: Container(
-        height: 119.h,
-        margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 6.h),
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        height: 13.h,
+        width: width,
+        margin: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+        padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
         decoration: BoxDecoration(
             color: AppColors.kBlueLightShade,
-            borderRadius: BorderRadius.circular(10.r)),
-        child: Stack(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 100.h,
-                      width: 100.w,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: listimages!.isEmpty
-                            ? Container(
-                                width: double.infinity,
-                                color: Colors.grey,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "No Image",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              )
-                            : Image.network(
-                                listimages![0],
-                                fit: BoxFit.cover,
-                              ),
-                      ),
-                    ),
-                    Positioned(
-                      child: EventTileDateBadge(
-                        date: event?.startDate == null
-                            ? "4"
-                            : extractDate(event!.startDate!),
-                        month: event?.startDate == null
-                            ? "Aug"
-                            : extractMonthInitials(event!.startDate!),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Stack(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Stack(
                     children: [
-                      Text(
-                        "Understanding Parents’ Journey Through Autism",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(height: 1.5),
+                      SizedBox(
+                        width: 20.w,
+                        height: double.infinity,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: event!.images!.isEmpty
+                                ? Container(
+                                    width: double.infinity,
+                                    color: Colors.grey,
+                                    child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Text("No image")),
+                                  )
+                                : Image.network(event!.images![0])),
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.location_on_outlined,
-                            color: AppColors.kPrimaryColor,
-                          ),
-                          Text(
-                            address!,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
+                      Positioned(
+                        top: 3,
+                        left: 3,
+                        child: EventTileDateBadge(
+                          date: event?.startDate == null
+                              ? ""
+                              : extractDate(event!.startDate!),
+                          month: event?.startDate == null
+                              ? ""
+                              : extractMonthInitials(event!.startDate!),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5.w,
-                  ),
-                  decoration: BoxDecoration(
-                      color: AppColors.kBlueMediumShade,
-                      borderRadius: BorderRadius.circular(2)),
-                  height: 20.h,
-                  // width: 10.w,
-                  child: Center(
-                    child: Text(
-                      eventType!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.kBluedarkShade),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.h),
+                          child: Text(
+                            event?.name ?? "",
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(height: 1.5),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.h),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                size: 2.h,
+                                Icons.location_on_outlined,
+                                color: AppColors.kPrimaryColor,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  event?.address ?? "",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-            Positioned(
-                top: 0.5.h, right: 1.w, child: SvgPicture.asset(SvgAssets.pin)),
-          ],
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 1.5.w,
+                    ),
+                    decoration: BoxDecoration(
+                        color: AppColors.kBlueMediumShade,
+                        borderRadius: BorderRadius.circular(4)),
+                    height: 3.h,
+                    // width: 10.w,
+                    child: Center(
+                      child: Text(
+                        event?.eventType!.toUpperCase() ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.kBluedarkShade),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              // Positioned(
+              //     top: 0.5.h,
+              //     right: 1.w,
+              //     child: SvgPicture.asset(SvgAssets.pin)),
+            ],
+          ),
         ),
       ),
     );
@@ -157,16 +156,14 @@ class EventTileDateBadge extends StatelessWidget {
     this.date,
     this.month,
   });
+
   final String? date;
   final String? month;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55.h,
-      width: 50.w,
-      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-      margin: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+      padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.5.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColors.kBluedarkShade,
@@ -174,16 +171,16 @@ class EventTileDateBadge extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(date.toString(),
-              style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffA8DADC))),
+          Text(date ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(color: AppColors.kBlueLightShade)),
           Text(month ?? "",
-              style: TextStyle(
-                  fontSize: 9.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffA8DADC))),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: AppColors.kBlueLightShade)),
         ],
       ),
     );

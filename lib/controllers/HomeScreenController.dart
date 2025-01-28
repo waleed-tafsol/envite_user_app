@@ -1,12 +1,11 @@
 import 'dart:convert';
-
-import 'package:event_planner_light/constants/ApiConstant.dart';
-import 'package:event_planner_light/controllers/Auth_services.dart';
-import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:event_planner_light/model/event_model.dart';
-import 'package:event_planner_light/model/getAllEventsModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import '../constants/ApiConstant.dart';
+import '../model/CatagoryModel.dart';
+import 'Auth_services.dart';
 
 class HomeScreenController extends GetxController {
   @override
@@ -17,34 +16,13 @@ class HomeScreenController extends GetxController {
     await getCategories();
   }
 
-//https://envite-backend-dd-d3e9220ccbc0.herokuapp.com/api/v1
-  List<Data> allEvents = [];
-  RxList<EventModel> events = <EventModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   final Rx<CategoryModel> selectedCategory = CategoryModel().obs;
+  RxList<EventModel> events = <EventModel>[].obs;
   RxBool isLoadingCategories = false.obs;
   RxBool isEventLoading = false.obs;
 
-  getAllEvents() async {
-    try {
-      final response = await http.post(
-        Uri.parse(ApiConstants.getAllEvents),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${authService.authToken}',
-        },
-      );
-      if (response.statusCode == 201) {
-        final jsonResponse = json.decode(response.body);
-        GetAllEventsModel getAllEvents =
-            GetAllEventsModel.fromJson(jsonResponse);
-        allEvents = getAllEvents.data!;
-      }
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-    }
-  }
-
+  // get catagories
   Future<void> getCategories() async {
     // isloadingCatagories.value = true;
     try {
@@ -53,7 +31,7 @@ class HomeScreenController extends GetxController {
         final jsonResponse = json.decode(response.body);
         final List<dynamic> data = jsonResponse['data'];
         categories.value = data.map((e) => CategoryModel.fromJson(e)).toList();
-        if (categories.isNotEmpty) {
+        if(categories.isNotEmpty){
           selectedCategory.value = categories[0];
           await getPaginatedEvents();
         }
@@ -70,6 +48,7 @@ class HomeScreenController extends GetxController {
     }
   }
 
+  // get events
   Future<void> getPaginatedEvents() async {
     // isEventLoading.value = true;
     try {
@@ -77,7 +56,7 @@ class HomeScreenController extends GetxController {
           body: jsonEncode({
             // "eventType": "exclusive",
             "categorySlugs": [selectedCategory.value.slug],
-            // "packageType": "all"
+           // "packageType": "all"
           }),
           headers: {
             'Content-Type': 'application/json',

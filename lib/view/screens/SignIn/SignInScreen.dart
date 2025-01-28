@@ -1,12 +1,12 @@
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/Widgets/Terms_of_services_dailog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/SigninController.dart';
 
-class SigninScreen extends GetView<SignIncontroller> {
+class SigninScreen extends GetView<SignInController> {
   SigninScreen({super.key});
 
   static const routeName = "SigninScreen";
@@ -22,12 +22,13 @@ class SigninScreen extends GetView<SignIncontroller> {
           automaticallyImplyLeading: true,
           centerTitle: true,
           title: Text(
-            "Hello Again!",
+            "Welcome to Invites App",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 2.h),
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -35,11 +36,11 @@ class SigninScreen extends GetView<SignIncontroller> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "Welcome back to Invites App",
+                      "Login to your account and get access to events in Kuwait",
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     SizedBox(
-                      height: 48.h,
+                      height: 2.h,
                     ),
                     TextFormField(
                         controller: controller.emailController,
@@ -58,7 +59,7 @@ class SigninScreen extends GetView<SignIncontroller> {
                           prefixIcon: Icon(Icons.email_outlined),
                         )),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     Obx(() {
                       return TextFormField(
@@ -88,7 +89,7 @@ class SigninScreen extends GetView<SignIncontroller> {
                                       : Icons.visibility_off_outlined))));
                     }),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -98,27 +99,28 @@ class SigninScreen extends GetView<SignIncontroller> {
                         },
                         child: Text(
                           "Forgot your password?",
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Color(0xff457B9D),
-                              color: Color(0xff457B9D)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                color: AppColors.kBluedarkShade,
+                                decoration: TextDecoration.underline,
+                              ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 2.h,
                     ),
                     InkWell(
                       onTap: () {
                         if (formKey.currentState!.validate()) {
-                          controller.login();
+                          controller.callLogin();
                           // Get.toNamed(DrawerScreen.routeName);
                         }
                       },
                       child: Container(
-                        height: 60.h,
+                        height: 7.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColors.kPrimaryColor,
@@ -133,7 +135,7 @@ class SigninScreen extends GetView<SignIncontroller> {
                                 : Text(
                                     "Sign In",
                                     style: TextStyle(
-                                        fontSize: 16.sp,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold),
                                   );
                           }),
@@ -141,17 +143,17 @@ class SigninScreen extends GetView<SignIncontroller> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 45.h,
                     ),
                     GestureDetector(
                       onTap: () {
-                        terms_0f_services_Dialog(context);
+                        termsOfServicesDialog(context);
                       },
                       child: RichText(
                         text: TextSpan(
                           text: 'By Sign In, I accept the ',
                           style: TextStyle(
-                              color: AppColors.kBluedarkShade, fontSize: 11.sp),
+                              color: AppColors.kBluedarkShade, fontSize: 14.sp),
                           children: const <TextSpan>[
                             TextSpan(
                               text: 'Terms of Service',

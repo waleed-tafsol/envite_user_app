@@ -1,7 +1,8 @@
+import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class StatsContainer extends StatelessWidget {
   final Widget image;
@@ -16,18 +17,18 @@ class StatsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.h,
-      width: 165.w,
+      height: 7.h,
+      width: 42.w,
       decoration: BoxDecoration(
           border: Border.all(color: Color(0xff457B9D)),
           borderRadius: k5BorderRadius),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+        padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
         child: Row(
           children: [
            image,
             SizedBox(
-              width: 6.w,
+              width: 2.w,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,13 +39,12 @@ class StatsContainer extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
-                      .copyWith(color: AppColors.kBerkeleyBlue, fontSize: 11.sp),
+                      .copyWith(color: AppColors.kBerkeleyBlue),
                 ),
                 Text(
                   value,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: AppColors.kBerkeleyBlue,
-                      fontSize: 11.sp,
                       fontWeight: FontWeight.bold),
                 )
               ],

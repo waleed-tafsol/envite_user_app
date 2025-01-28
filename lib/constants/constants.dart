@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-final googleAPIKey = "AIzaSyDhG_PrHOY7HZx-G87mnLko087RyCUqgKM";
 final k5BorderRadius = BorderRadius.circular(5);
 final k10BorderRadius = BorderRadius.circular(10);
 final kpaddingH4V2 = EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w);

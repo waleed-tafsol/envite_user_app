@@ -1,4 +1,7 @@
 enum Events{
+  all("all"),
+  exclusive("exclusive"),
+  public("public"),
   explorerEvents("explore-events"),
   explorerPastEvent("Past Events"),
   explorerUpcomingEvent("Upcoming Events"),

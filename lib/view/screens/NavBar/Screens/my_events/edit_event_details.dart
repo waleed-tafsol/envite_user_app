@@ -3,11 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/view/widgets/network_video_player_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/place_type.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/ApiConstant.dart';
 import '../../../../../constants/TextConstant.dart';
 import '../../../../../constants/colors_constants.dart';
@@ -15,8 +15,8 @@ import '../../../../../controllers/Auth_services.dart';
 import '../../../../../controllers/MyEventsController.dart';
 import '../../../../../controllers/edit_event_detail_controller.dart';
 import '../../../../../model/CatagoryModel.dart';
+import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
-import '../../../../../utills/convert_date_time.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 import '../../../../widgets/VideoWidget.dart';
 
@@ -992,7 +992,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                       ),
                                     ),
                                   )
-                                : controller.pickedVideo.isEmpty
+                                : controller.pickedVideo.isNotEmpty
                                     ? Stack(
                                         children: [
                                           GestureDetector(

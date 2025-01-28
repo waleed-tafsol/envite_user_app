@@ -22,7 +22,7 @@ class VideoThumbnailWidget extends StatelessWidget {
     final tempDir = await getTemporaryDirectory();
     final filePath = '${tempDir.path}/thumbnail.jpg';
     final file = File(filePath);
-    await file.writeAsBytes(uint8List);
+    await file.writeAsBytes(uint8List!);
     return filePath;
   }
 

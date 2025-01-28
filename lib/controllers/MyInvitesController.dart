@@ -1,38 +1,44 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:event_planner_light/constants/ApiConstant.dart';
-import 'package:event_planner_light/controllers/Auth_services.dart';
-import 'package:event_planner_light/model/getAllEventsModel.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import '../constants/ApiConstant.dart';
+import '../model/CatagoryModel.dart';
 
 class MyInvitesController extends GetxController {
   @override
-  Future<void> onInit() async {
+  void onInit() async {
     super.onInit();
-    await getAllEvents();
   }
-    //https://envite-backend-dd-d3e9220ccbc0.herokuapp.com/api/v1
-List <Data> data = [];
-   getAllEvents() async {
-    try {
-      final response = await http.post(
-        Uri.parse(ApiConstants.getAllEvents),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${authService.authToken}',
-        },
-      );
-      if (response.statusCode == 201) {
-        final jsonResponse = json.decode(response.body);
-    GetAllEventsModel getAllEvents = GetAllEventsModel.fromJson(jsonResponse);
-    data = getAllEvents.data!;
 
-        
+ // RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
+
+  RxBool isloading = false.obs;
+
+  // get catagories
+/*
+  Future<void> getcatagories() async {
+    isloading.value = true;
+    try {
+      final response = await http.get(Uri.parse(ApiConstants.getCategories));
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        final List<dynamic> data = jsonResponse['data'];
+        categories.value = data.map((e) => CatagoryModel.fromJson(e)).toList();
+        isloading.value = false;
+      } else {
+        isloading.value = false;
+        throw Exception('Failed to load categories');
       }
     } catch (e) {
+      isloading.value = false;
       Get.snackbar('Error', e.toString());
     }
   }
+*/
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }
-
-

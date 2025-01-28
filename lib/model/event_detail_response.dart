@@ -1,3 +1,5 @@
+import 'package:event_planner_light/model/event_model.dart';
+
 import '../constants/ApiConstant.dart';
 
 class EventDetailResponse {
@@ -37,6 +39,7 @@ class EventDetailData {
   List<String>? tags;
   List<String>? emails;
   List<String>? socialLinks;
+  List<EventModel>? similarEvents;
   int? ratingsAverage;
   int? ratingQuantity;
   String? status;
@@ -70,6 +73,7 @@ class EventDetailData {
       this.ratingsAverage,
       this.ratingQuantity,
       this.status,
+      this.similarEvents,
       this.createdAt,
       this.updatedAt,
       this.iV});
@@ -112,6 +116,12 @@ class EventDetailData {
       attendees = <Attendees>[];
       json['attendees'].forEach((v) {
         attendees!.add(new Attendees.fromJson(v));
+      });
+    }
+    if (json['similarEvents'] != null) {
+      similarEvents = <EventModel>[];
+      json['similarEvents'].forEach((v) {
+        similarEvents!.add(EventModel.fromJson(v));
       });
     }
     noOfInvites = json['noOfInvites'];
@@ -165,12 +175,18 @@ class CreatedBy {
 
 class Location {
   String? type;
-  List<int>? coordinates;
+  List<num>? coordinates;
 
   Location({this.type, this.coordinates});
 
   Location.fromJson(Map<String, dynamic> json) {
     type = json['type'];
-    coordinates = json['coordinates'].cast<int>();
+    if (json['coordinates'] != null) {
+      coordinates = <num>[];
+      json['coordinates'].forEach((v) {
+        coordinates!.add(v);
+      });
+    }
+    // coordinates = json['coordinates'];
   }
 }

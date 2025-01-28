@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:event_planner_light/services/LocationServices.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 import '../constants/ApiConstant.dart';
 import '../model/UserModel.dart';
 import '../utills/CustomSnackbar.dart';
 import '../view/screens/auth_screen.dart';
 import 'Auth_token_services.dart';
+import 'package:http_parser/http_parser.dart';
 
 class AuthService extends GetxService {
   @override
@@ -89,9 +92,9 @@ class AuthService extends GetxService {
   Future<Map<String, dynamic>?> signup({
     required String fullName,
     required String phoneNumber,
-   // required List<String?> selectedCategories,
+    // required List<File> documents,
     required String email,
-   // required String bio,
+    // required String bio,
     required String password,
     required String passCnfrm,
   }) async {
@@ -108,13 +111,34 @@ class AuthService extends GetxService {
       request.fields['email'] = email;
       request.fields['phoneNumber'] = phoneNumber;
       request.fields['password'] = password;
-    //  request.fields['description'] = bio;
+      // request.fields['description'] = bio;
       request.fields['confirmPassword'] = passCnfrm;
+      // final file = documents[0];
+      // final mimeType = lookupMimeType(file.path);
+      // final mediaType = mimeType != null
+      //     ? MediaType.parse(mimeType)
+      //     : MediaType('application', 'pdf');
 
-      // if (selectedCategories.isNotEmpty) {
-      //   for (var i = 0; i < selectedCategories.length; i++) {
-      //     request.fields['categories[$i]'] = selectedCategories[i]!;
-      //   }
+      // var multipartFile = await http.MultipartFile.fromPath(
+      //   'document',
+      //   file.path,
+      //   contentType: mediaType,
+      // );
+      // request.files.add(multipartFile);
+
+      // for (int i = 0; i < documents.length; i++) {
+      //   final file = documents[i];
+      //   final mimeType = lookupMimeType(file.path);
+      //   final mediaType = mimeType != null
+      //       ? MediaType.parse(mimeType)
+      //       : MediaType('application', 'pdf');
+
+      //   var multipartFile = await http.MultipartFile.fromPath(
+      //     'document[$i]',
+      //     file.path,
+      //     contentType: mediaType,
+      //   );
+      //   request.files.add(multipartFile);
       // }
 
       request.headers.addAll({'Content-Type': 'multipart/form-data'});
@@ -128,7 +152,7 @@ class AuthService extends GetxService {
         final responseData = jsonDecode(response.body);
 
         authToken = responseData["data"]["token"];
-        // _tokenStorage.saveToken(authToken!);
+        _tokenStorage.saveToken(authToken!);
         // isAuthenticated.value = true;
         // await getMe();
 

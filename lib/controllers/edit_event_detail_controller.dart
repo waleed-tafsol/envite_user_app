@@ -5,6 +5,7 @@ import 'package:event_planner_light/utills/aws_utills.dart';
 import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -18,9 +19,9 @@ import '../constants/ApiConstant.dart';
 import '../main.dart';
 import '../model/CatagoryModel.dart';
 import '../model/event_detail_response.dart';
+import '../utills/ConvertDateTime.dart';
 import 'package:http_parser/http_parser.dart';
 
-import '../utills/convert_date_time.dart';
 import 'HomeScreenController.dart';
 
 class EditEventDetailController extends GetxController {
@@ -118,9 +119,7 @@ class EditEventDetailController extends GetxController {
         emailController.add(TextEditingController(text: element));
       });
     }
-    eventDetail.emails?.forEach((element) {
-      emailController.add(TextEditingController(text: element));
-    });
+
     socialLinkController.clear();
     if (eventDetail.socialLinks?.isEmpty ?? true) {
       socialLinkController.add(TextEditingController());
@@ -301,8 +300,8 @@ class EditEventDetailController extends GetxController {
           // ColoredPrint.green(
           //     "Event Slug : ${responseData["data"]["videoUrls"]}");
 
-          CustomSnackbar.showSuccess('Success',
-              responseData["message"] ?? "Event created successfully");
+          // CustomSnackbar.showSuccess('Success',
+          //     responseData["message"] ?? "Event created successfully");
         }
         CustomSnackbar.showSuccess(
             'Success', responseData["message"] ?? "Event created successfully");

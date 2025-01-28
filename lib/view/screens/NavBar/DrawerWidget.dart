@@ -1,36 +1,38 @@
-import 'package:event_planner_light/view/screens/NavBar/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../constants/assets.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
+import '../Drawer/Screens/MembershipScreens/BuyTopUps.dart';
+import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
+import '../Drawer/Screens/couponScreen.dart';
+import '../Drawer/Screens/supportScreen/supportScreen.dart';
+import '../ads/ads_screen.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topLeft,
       child: SizedBox(
-        height: 776.h,
-        width: 396.w,
+        height: 90.h,
+        width: 90.w,
         child: Drawer(
           backgroundColor: AppColors.kBerkeleyBlue,
           child: SafeArea(
             child: Padding(
-              padding: EdgeInsets.only(
-                  top: 50.h, bottom: 61.h, left: 38.w, right: 38.w),
+              padding:
+                  EdgeInsets.only(top: 2.h, bottom: 2.h, left: 4.w, right: 8.w),
               child: Column(
                 children: [
                   Row(
                     children: [
                       ClipOval(
                         child: Container(
-                          width: 73.w,
-                          height: 73.h,
+                          height: 8.h,
+                          width: 8.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             image: const DecorationImage(
@@ -53,7 +55,7 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 14.w,
+                        width: 4.w,
                       ),
                       Text(authService.me.value?.fullName ?? "",
                           style: Theme.of(context)
@@ -63,34 +65,34 @@ class MyDrawer extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 49.h,
+                    height: 4.h,
                   ),
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(AdsScreen.routeName);
+                      Get.toNamed(AdsScreen.routeName);
                     },
                     child: Row(
                       children: [
-                        SvgPicture.asset(
-                          SvgAssets.navigationArrow,
-                          color: Color(0xffA8DADC),
-                          width: 22.w,
+                        Icon(
+                          size: 2.h,
+                          Icons.volume_up_outlined,
+                          color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
-                          width: 11.w,
+                          width: 4.w,
                         ),
-                        Text("Invites",
-                            style: TextStyle(
-                              fontSize: 21.sp,
-                              color: Color(0xffA8DADC),
-                              fontWeight: FontWeight.w600,
-                            )),
+                        Text("Ads",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 1.h,),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -98,35 +100,33 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 1.h,),
+
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(SupportScreen.routeName);
+                      Get.toNamed(SupportScreen.routeName);
                     },
                     child: Row(
                       children: [
                         Icon(
-                          size: 22.h,
-                          Icons.history_toggle_off_outlined,
-                          color: Color(0xffA8DADC),
+                          size: 2.h,
+                          Icons.support_agent,
+                          color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
-                          width: 11.w,
+                          width: 4.w,
                         ),
-                        Text("History",
-                            style: TextStyle(
-                              fontSize: 21.sp,
-                              color: Color(0xffA8DADC),
-                              fontWeight: FontWeight.w600,
-                            )),
+                        Text("Support",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
+
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 1.h,),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -134,66 +134,98 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(
-                    height: 12.h,
+                  SizedBox(height: 1.h,),
+
+                  Row(
+                    children: [
+                      Icon(
+                        size: 2.h,
+                        Icons.settings_outlined,
+                        color: AppColors.kBlueMediumShade,
+                      ),
+                      SizedBox(
+                        width: 4.w,
+                      ),
+                      Text("Settings",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
+
+                    ],
                   ),
-                  Row(children: [
-                    Icon(
-                      size: 22.h,
-                      Icons.settings_outlined,
-                      color: Color(0xffA8DADC),
-                    ),
-                    SizedBox(
-                      width: 11.w,
-                    ),
-                    Text("Settings",
-                        style: TextStyle(
-                          fontSize: 21.sp,
-                          color: Color(0xffA8DADC),
-                          fontWeight: FontWeight.w600,
-                        )),
-                  ]),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 1.h,),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
-                      thickness: 0.5,
+                      thickness: 0.1,
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 1.h,),
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(CouponScreen.routeName);
+                      Get.toNamed(CouponScreen.routeName);
                     },
                     child: Row(
                       children: [
                         Icon(
-                          size: 22.h,
-                          Icons.notifications_none_outlined,
-                          color: Color(0xffA8DADC),
+                          size: 2.h,
+                          Icons.discount_outlined,
+                          color: AppColors.kBlueMediumShade,
                         ),
                         SizedBox(
-                          width: 11.w,
+                          width: 4.w,
                         ),
-                        Text("Notifications",
-                            style: TextStyle(
-                              fontSize: 21.sp,
-                              color: Color(0xffA8DADC),
-                              fontWeight: FontWeight.w600,
-                            )),
+                        Text("Coupon",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
+
                       ],
                     ),
                   ),
+                  SizedBox(height: 1.h,),
+
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: const Divider(
+                      thickness: 0.1,
+                      color: AppColors.kBlueMediumShade,
+                    ),
+                  ),
+                  SizedBox(height: 1.h,),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Buytopups.routeName);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          size: 2.h,
+                          Icons.insert_invitation,
+                          color: AppColors.kBlueMediumShade,
+                        ),
+                        SizedBox(
+                          width: 4.w,
+                        ),
+                        Text("Buy More Invites",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
+
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 1.h,),
                   Spacer(),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: SizedBox(
-                      height: 60.h,
+                      height: 6.h,
                       child: OutlinedButton(
                         onPressed: () async {
                           Get.toNamed(MembershipScreen.routeName);
@@ -202,22 +234,22 @@ class MyDrawer extends StatelessWidget {
                           backgroundColor: AppColors.kBlueMediumShade,
                           side: const BorderSide(
                               width: 1, color: AppColors.kBlueMediumShade),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 00.w, vertical: 15.h),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.r),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              size: 22.h,
+                              size: 2.h,
                               Icons.upload_rounded,
                               color: AppColors.kBerkeleyBlue,
                             ),
                             SizedBox(
-                              width: 15.w,
+                              width: 2.w,
                             ),
                             Text('Upgrade your account',
                                 style: Theme.of(context)
@@ -225,19 +257,19 @@ class MyDrawer extends StatelessWidget {
                                     .headlineMedium!
                                     .copyWith(
                                         color: AppColors.kBerkeleyBlue,
-                                        fontSize: 16.sp)),
+                                        fontSize: 14.sp)),
                           ],
                         ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 1.h,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: SizedBox(
-                      height: 60.h,
+                      height: 6.h,
                       child: OutlinedButton(
                         onPressed: () async {
                           // authService.logout();
@@ -247,8 +279,8 @@ class MyDrawer extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           side: const BorderSide(
                               width: 1, color: AppColors.kBlueMediumShade),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 63.w, vertical: 15.h),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -257,12 +289,12 @@ class MyDrawer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              size: 22.h,
+                              size: 2.h,
                               Icons.logout,
                               color: AppColors.kBlueMediumShade,
                             ),
                             SizedBox(
-                              width: 15.w,
+                              width: 2.w,
                             ),
                             Text('Log out',
                                 style: Theme.of(context)
@@ -270,7 +302,7 @@ class MyDrawer extends StatelessWidget {
                                     .headlineMedium!
                                     .copyWith(
                                         color: AppColors.kBlueMediumShade,
-                                        fontSize: 16.sp)),
+                                        fontSize: 14.sp)),
                           ],
                         ),
                       ),

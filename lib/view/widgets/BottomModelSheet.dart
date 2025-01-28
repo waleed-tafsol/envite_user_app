@@ -1,18 +1,25 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/constants.dart';
-
+import 'package:event_planner_light/controllers/HomeScreenController.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
+import '../../controllers/AddEventController.dart';
+import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
+import '../screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 
 class BottomSheetManager {
-  static void _CustomBottomSheet(BuildContext context, List<Widget> children) {
+  static void _customBottomSheet(BuildContext context, List<Widget> children) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -22,8 +29,7 @@ class BottomSheetManager {
       builder: (BuildContext context) {
         return SafeArea(
           child: Padding(
-              padding: EdgeInsets.only(
-                  left: 27.h, right: 27.w, top: 41.h, bottom: 15.h),
+              padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
               child: Column(
                 children: children,
               )),
@@ -33,7 +39,7 @@ class BottomSheetManager {
   }
 
   static void showAttendenceBottomSheet(BuildContext context) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       Text(
         'You confirmed your attendance to the event',
         textAlign: TextAlign.center,
@@ -95,137 +101,9 @@ class BottomSheetManager {
     ]);
   }
 
-  static void filter(BuildContext context) {
-    _CustomBottomSheet(context, [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Filters',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                fontSize: 21.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.w600),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Reset all',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(fontSize: 15.sp, color: Colors.white54),
-            ),
-          )
-        ],
-      ),
-      const Divider(),
-      SizedBox(height: 27.h),
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'By categories',
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium!
-              .copyWith(color: Colors.white, fontSize: 18.sp),
-        ),
-      ),
-      SizedBox(height: 10.h),
-      const Align(alignment: Alignment.centerLeft, child: CatagoryFilterCips()),
-      SizedBox(height: 10.h),
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'By status',
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium!
-              .copyWith(color: Colors.white),
-        ),
-      ),
-      SizedBox(height: 10.h),
-      const Align(alignment: Alignment.centerLeft, child: ByStatusFilterCips()),
-      SizedBox(height: 10.h),
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'By date',
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium!
-              .copyWith(color: Colors.white),
-        ),
-      ),
-      SizedBox(height: 10.h),
-      SizedBox(
-        width: double.infinity,
-        height: 60.h,
-        child: OutlinedButton(
-          onPressed: () async {
-            showDatePicker(
-              context: context,
-              initialDate: DateTime.now(), // Refer step 1
-              firstDate: DateTime(DateTime.now().year - 1, DateTime.now().month,
-                  DateTime.now().day),
-              lastDate: DateTime(DateTime.now().year + 1, DateTime.now().month,
-                  DateTime.now().day),
-            );
-          },
-          style: OutlinedButton.styleFrom(
-            backgroundColor: const Color(0x0fa8dadc),
-            side: BorderSide.none,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Choose an interval',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.sp,
-             
-                ),
-              ),
-              Icon(
-                Icons.calendar_today,
-                color: Colors.white54,
-                size: 32.sp,
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(height: 12.h),
-      ElevatedButton(
-        onPressed: () {
-          // Action to rate the event
-        },
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          minimumSize: Size(double.infinity, 60.h),
-          // primary: Colors.blueAccent, // Background color
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        child: const Text('Apply filters'),
-      ),
-    ]);
-  }
 
   static void youAreAlmostThere(BuildContext context) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       Text(
         'You’re almost there!',
         textAlign: TextAlign.center,
@@ -267,7 +145,7 @@ class BottomSheetManager {
   static void eventAdded(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       Text('Send Invite!',
           textAlign: TextAlign.center,
           style: TextConstants.bodyMedium_white_bold(context)
@@ -283,7 +161,7 @@ class BottomSheetManager {
         height: 6.h,
         child: ElevatedButton(
           onPressed: () {
-            // Get.toNamed(ConfirmorAddMoreEvents.routeName);
+            Get.toNamed(ConfirmorAddMoreEvents.routeName);
           },
           child: const Text('Send now'),
         ),
@@ -292,7 +170,7 @@ class BottomSheetManager {
   }
 
   static void addPastEvents(BuildContext context) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       Text(
         'Add Past Events',
         textAlign: TextAlign.center,
@@ -315,10 +193,10 @@ class BottomSheetManager {
       SizedBox(height: 4.h),
       ElevatedButton(
         onPressed: () {
-          // Get.back();
-          // var controller = Get.put(AddEventController());
-          // controller.isAddPastEvents.value = true;
-          // Get.toNamed(AddEventsScreens.routeName);
+          Get.back();
+          var controller = Get.put(AddEventController());
+          controller.isAddPastEvents.value = true;
+          Get.toNamed(AddEventsScreens.routeName);
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -334,8 +212,7 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-          Get.back();
-        },
+Get.back();        },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           minimumSize: Size(double.infinity, 6.h),
@@ -350,10 +227,11 @@ class BottomSheetManager {
     ]);
   }
 
+
   static void sendInvite(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       k3hSizedBox,
       Center(
         child: Text('Send Invite!',
@@ -373,7 +251,7 @@ class BottomSheetManager {
         height: 6.h,
         child: ElevatedButton(
           onPressed: () {
-            // Get.toNamed(SendInviteScreen.routeName);
+            Get.toNamed(SendInviteScreen.routeName);
           },
           child: const Text('Send now'),
         ),
@@ -384,7 +262,7 @@ class BottomSheetManager {
   static void adminWillConfirmAndSendYouTeQrCode(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       SvgPicture.asset(SvgAssets.sendArrow),
       SizedBox(height: 2.h),
       Text(
@@ -417,7 +295,7 @@ class BottomSheetManager {
   static void congratulationsAccountCreated(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       // const Spacer(),
       Text(
         'Congratulations!',
@@ -450,7 +328,7 @@ class BottomSheetManager {
   static void upgradePlan(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       // const Spacer(),
       SizedBox(
         height: 5.h,
@@ -471,9 +349,9 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-          // Get.toNamed(
-          //   BuyPackagesScreen.routeName,
-          // );
+          Get.toNamed(
+            BuyPackagesScreen.routeName,
+          );
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -488,7 +366,7 @@ class BottomSheetManager {
   static void upgradEvent(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       // const Spacer(),
       SizedBox(
         height: 5.h,
@@ -515,7 +393,7 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          // Get.toNamed(PackagesScreen.routeName);
+          Get.toNamed(PackagesScreen.routeName);
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -530,7 +408,7 @@ class BottomSheetManager {
   static void buySubscriptionForPublic(
     BuildContext context,
   ) {
-    _CustomBottomSheet(context, [
+    _customBottomSheet(context, [
       // const Spacer(),
       SizedBox(
         height: 5.h,
@@ -557,7 +435,7 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          // Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
+          Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -571,6 +449,6 @@ class BottomSheetManager {
 
   // Method to show a bottom sheet with form fields
   void showFormBottomSheet(BuildContext context, List<Widget> children) {
-    _CustomBottomSheet(context, children);
+    _customBottomSheet(context, children);
   }
 }
