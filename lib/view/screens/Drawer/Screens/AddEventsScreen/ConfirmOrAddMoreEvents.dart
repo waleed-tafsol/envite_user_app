@@ -15,9 +15,6 @@ class ConfirmorAddMoreEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          //  title: const Text("Events You Have planned Before"),
-          ),
       body: SafeArea(
         child: Padding(
           padding: kpaddingH4V2,
