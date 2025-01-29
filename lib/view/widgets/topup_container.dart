@@ -29,7 +29,7 @@ class TopupContainer extends StatelessWidget {
               height: 1.h,
             ),
             Text(
-              '${authService.me.value?.totalInvites} Invites',
+              '${authService.me.value?.totalInvites ?? 0} Invites',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -49,7 +49,7 @@ class TopupContainer extends StatelessWidget {
               height: 1.h,
             ),
             Text(
-              '${authService.me.value?.remainingInvites} Invites',
+              '${authService.me.value?.remainingInvites ?? 0} Invites',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -64,7 +64,7 @@ class TopupContainer extends StatelessWidget {
               height: 1.h,
             ),
             Text(
-              '${authService.me.value?.totalAddonInvites} Invites',
+              '${authService.me.value?.totalAddonInvites ?? 0} Invites',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
