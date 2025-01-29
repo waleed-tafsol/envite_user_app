@@ -91,7 +91,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                       child: Image.file(
                                         controller.pickedImages[0],
                                         height: 20.h,
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                         width: double.infinity,
                                       ));
                             }),
@@ -836,7 +836,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                 BorderRadius.circular(5),
                                             child: Image.file(
                                               controller.pickedImages[0],
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                               height: 25.w,
                                               width: 25.w,
                                             ),
@@ -901,7 +901,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                 BorderRadius.circular(5),
                                             child: Image.file(
                                               controller.pickedImages[1],
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                               height: 25.w,
                                               width: 25.w,
                                             ),
@@ -969,7 +969,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                 BorderRadius.circular(5),
                                             child: Image.file(
                                               controller.pickedImages[2],
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                               height: 25.w,
                                               width: 25.w,
                                             ),
@@ -1058,13 +1058,15 @@ class AddEventsScreens extends GetView<AddEventController> {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
                                               return Container(
-                                                height: 12.h,
+                                                height: 20.h,
                                                 width: double.infinity,
                                                 decoration: BoxDecoration(
+                                                  color: AppColors
+                                                      .kBlueMediumShade,
                                                   image: DecorationImage(
                                                     image: FileImage(File(
                                                         snapshot.data ?? "")),
-                                                    fit: BoxFit.cover,
+                                                    fit: BoxFit.contain,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(5),

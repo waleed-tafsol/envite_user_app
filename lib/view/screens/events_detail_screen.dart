@@ -17,7 +17,9 @@ import '../widgets/network_video_player_widget.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
   static const routeName = 'EventsDetailScreen';
+
   EventsDetailScreen({super.key});
+
   FiltersController filtersController = Get.find();
 
   @override
@@ -30,23 +32,26 @@ class EventsDetailScreen extends GetView<EventDetailController> {
         ),
         centerTitle: true,
         actions: [
-          filtersController.showMyEvents.value
-              ? Obx(() {
-                  return controller.isLoading.value
-                      ? sizedShimmer(height: 5.h, width: 5.h)
-                      : InkWell(
-                          onTap: () {
-                            final editcontroller =
-                                Get.put(EditEventDetailController());
-                            editcontroller.setEditValues(
-                                controller.eventDetailResponse.value.data!);
-                            Get.toNamed(
-                              EditEventsDetailScreen.routeName,
-                            );
-                          },
-                          child: SvgPicture.asset(SvgAssets.image_pen));
-                })
-              : SizedBox(),
+          Obx(() {
+            return filtersController.showMyEvents.value &&
+                    controller.eventDetailResponse.value.data != null &&
+                    controller.eventDetailResponse.value.data!.status ==
+                        'pending'
+                ? controller.isLoading.value
+                    ? sizedShimmer(height: 5.h, width: 5.h)
+                    : InkWell(
+                        onTap: () {
+                          final editcontroller =
+                              Get.put(EditEventDetailController());
+                          editcontroller.setEditValues(
+                              controller.eventDetailResponse.value.data!);
+                          Get.toNamed(
+                            EditEventsDetailScreen.routeName,
+                          );
+                        },
+                        child: SvgPicture.asset(SvgAssets.image_pen))
+                : SizedBox();
+          }),
           SizedBox(
             width: 2.w,
           )
@@ -233,6 +238,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           .toString() ??
                                       "");
                         }),
+                        // Spacer(),
                         SizedBox(
                           width: 2.w,
                         ),
@@ -302,6 +308,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                         ?.images?[index] ??
                                                     "",
                                                 height: 20.h,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Icon(Icons.error),
                                               ),
                                             ),
                                           );
@@ -486,57 +495,70 @@ class EventsDetailScreen extends GetView<EventDetailController> {
               Obx(() {
                 return controller.isLoading.value
                     ? sizedShimmer(width: double.infinity, height: 20.h)
-                    : controller.eventDetailResponse.value.data?.similarEvents
-                                ?.isEmpty ??
-                            true
+                    : filtersController.showMyEvents.value ||
+                            controller.eventDetailResponse.value.data!
+                                .similarEvents!.isEmpty
                         ? SizedBox()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        : Column(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 1.h),
-                                child: Text("Similar events for you",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            color: AppColors.kBluedarkShade)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 1.h),
+                                    child: Text("Similar events for you",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                color:
+                                                    AppColors.kBluedarkShade)),
+                                  ),
+                                  /*  Padding(
+                            padding: EdgeInsets.symmetric(vertical: 1.h),
+                            child: Text("See all",
+                                style: Theme.of(context).textTheme.bodySmall),
+                                                  ),*/
+                                ],
                               ),
-                              /*  Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Text("See all",
-                            style: Theme.of(context).textTheme.bodySmall),
-                      ),*/
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Obx(() {
+                                return controller.isLoading.value
+                                    ? ListView(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        children: List.generate(
+                                            5, (index) => eventTileShimmer()),
+                                      )
+                                    : ListView.builder(
+                                        itemCount: controller
+                                            .eventDetailResponse
+                                            .value
+                                            .data
+                                            ?.similarEvents
+                                            ?.length,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return EventTileWidget(
+                                            event: controller
+                                                .eventDetailResponse
+                                                .value
+                                                .data
+                                                ?.similarEvents?[index],
+                                          );
+                                        });
+                              })
                             ],
                           );
               }),
-              SizedBox(
-                height: 1.h,
-              ),
-              Obx(() {
-                return controller.isLoading.value
-                    ? ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children:
-                            List.generate(5, (index) => eventTileShimmer()),
-                      )
-                    : controller.eventDetailResponse.value.data?.similarEvents
-                                ?.isNotEmpty ??
-                            true
-                        ? ListView.builder(
-                            itemCount: controller.eventDetailResponse.value.data
-                                ?.similarEvents?.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return EventTileWidget(
-                                event: controller.eventDetailResponse.value.data
-                                    ?.similarEvents?[index],
-                              );
-                            })
-                        : SizedBox();
-              })
             ],
           ),
         ),

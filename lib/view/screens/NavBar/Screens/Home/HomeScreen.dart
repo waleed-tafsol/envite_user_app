@@ -111,7 +111,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       children: [
                                         controller
                                                 .categories[index].icon!.isEmpty
-                                            ? SizedBox()
+                                            ? SizedBox(
+                                                width: 14.w,
+                                                height: 14.w,
+                                              )
                                             : Image.network(
                                                 controller.categories[index]
                                                         .icon ??
@@ -119,15 +122,20 @@ class HomeScreen extends GetView<HomeScreenController> {
                                                 width: 14.w,
                                                 height: 14.w,
                                               ),
-                                        Text(
-                                          controller
-                                                  .categories[index].name?.en ??
-                                              "",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 4.w,
+                                          ),
+                                          child: Text(
+                                            controller.categories[index].name
+                                                    ?.en ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
                                         ),
                                       ],
                                     ),

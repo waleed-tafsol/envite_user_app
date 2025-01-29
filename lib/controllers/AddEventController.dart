@@ -248,8 +248,8 @@ class AddEventController extends GetxController {
             presignedUrls: videoUrls,
             filePaths: pickedVideo.map((file) => file.path).toList());
 
-        CustomSnackbar.showSuccess(
-            'Success', responseData["message"] ?? "Event created successfully");
+        // CustomSnackbar.showSuccess(
+        //     'Success', responseData["message"] ?? "Event created successfully");
 
         isloading.value = false;
         Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);

@@ -16,65 +16,79 @@ class ConfirmorAddMoreEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Events You Have planned Before"),
-      ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: kpaddingH4V2,
-            child: Column(
-              children: [
-                Text(
-                  "Events You Have planned Before",
-                  style: TextConstants.bodySmall_black_normal(context),
+          //  title: const Text("Events You Have planned Before"),
+          ),
+      body: SafeArea(
+        child: Padding(
+          padding: kpaddingH4V2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              /* Text(
+                "Events You Have planned Before",
+                style: TextConstants.bodySmall_black_normal(context),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Previous planned events",
+                  style: TextConstants.bodyLargeBlackBold(context),
                 ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Previous planned events",
-                    style: TextConstants.bodyLargeBlackBold(context),
-                  ),
-                ),
-                SizedBox(
-                  height: 27.h,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return PreviouslyPlannedEventWidget();
-                      }),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                SizedBox(
-                  height: 6.h,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: StylesConstants.elevated_b_redBack_whiteFore,
-                      onPressed: () {
-                        Get.until((route) => route.isFirst);
-                      },
-                      child: Text("Confirm and go to the next")),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                SizedBox(
-                  height: 6.h,
-                  width: double.infinity,
-                  child: CustomOutlinedButton(
-                      ontap: () {
-                        Get.back();
-                      },
-                      contant: [Text("Add more events")]),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 27.h,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PreviouslyPlannedEventWidget();
+                    }),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),*/
+              Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 40.w,
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Text(
+                'Event created successfully',
+                style: TextStyle(color: AppColors.kTextBlack, fontSize: 18.sp),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              SizedBox(
+                height: 6.h,
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: StylesConstants.elevated_b_redBack_whiteFore,
+                    onPressed: () {
+                      Get.until((route) => route.isFirst);
+                    },
+                    child: Text("Confirm and go to the next")),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              SizedBox(
+                height: 6.h,
+                width: double.infinity,
+                child: CustomOutlinedButton(
+                    ontap: () {
+                      Get.back();
+                    },
+                    contant: [Text("Add more events")]),
+              ),
+            ],
           ),
         ),
       ),

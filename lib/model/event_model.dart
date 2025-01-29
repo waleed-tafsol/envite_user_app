@@ -15,7 +15,7 @@ class EventModel {
   String? startDate;
   String? endDate;
   String? category;
-  String? createdBy;
+  // String? createdBy;
   List<String>? attendees;
   int? noOfInvites;
   List<String>? tags;
@@ -41,7 +41,7 @@ class EventModel {
       this.startDate,
       this.endDate,
       this.category,
-      this.createdBy,
+      // this.createdBy,
       this.attendees,
       this.noOfInvites,
       this.tags,
@@ -75,7 +75,7 @@ class EventModel {
     startDate = json['startDate'];
     endDate = json['endDate'];
     category = json['category'];
-    createdBy = json['createdBy'];
+    // createdBy = json['createdBy'];
     attendees = json['attendees'].cast<String>();
     noOfInvites = json['noOfInvites'];
     tags = json['tags'].cast<String>();
