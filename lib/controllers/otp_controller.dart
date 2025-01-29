@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
@@ -24,7 +25,8 @@ class OtpController extends GetxController {
     otpCode.value = value;
   }
 
-  Future<void> submitOtp({String? email, required bool isForgotPassword}) async {
+  Future<void> submitOtp(
+      {String? email, required bool isForgotPassword}) async {
     isLoading.value = true;
     try {
       final response = await http.post(
@@ -49,6 +51,7 @@ class OtpController extends GetxController {
           final responseData = jsonDecode(response.body);
           authToken = responseData["data"]["token"];
           _tokenStorage.saveToken(authToken!);
+          authService.getMe();
           Get.offAllNamed(NavBarScreen.routeName);
         }
       } else {
