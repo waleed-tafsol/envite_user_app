@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/screens/SignUp/Widgets/Terms_of_services_dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -9,6 +8,7 @@ import '../../../../../constants/ApiConstant.dart';
 import '../../../../../constants/StyleConstants.dart';
 import '../../../../../controllers/Auth_services.dart';
 import '../../../../../utills/CustomSnackbar.dart';
+import '../../../cms/CmsScreen.dart';
 import 'Widget/PaymentMethodsWidget.dart';
 import 'package:http/http.dart' as http;
 
@@ -67,7 +67,7 @@ class MemberShipPaymentScreen extends StatelessWidget {
                 Checkbox(value: false, onChanged: (value) {}),
                 GestureDetector(
                   onTap: () {
-                    termsOfServicesDialog(context);
+                    Get.toNamed(CmsScreen.routeName, arguments: false);
                   },
                   child: Text(
                     "I accept terms and conditions",

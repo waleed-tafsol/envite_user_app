@@ -55,6 +55,7 @@ dependencies:
   chewie: ^1.8.5
   file_picker: ^8.1.7
   responsive_sizer: ^3.3.1
+  flutter_html: ^3.0.0-beta.2
 
 
 

@@ -36,6 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
 import '../bindings/ChooseYourLocationBindings.dart';
+import '../bindings/CmsBindings.dart';
 import '../bindings/OtpBindings.dart';
 import '../bindings/TopUpsControllerBindings.dart';
 import '../bindings/auth_binding.dart';
@@ -48,6 +49,7 @@ import '../view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.da
 import '../view/screens/SignIn/SignInScreen.dart';
 import '../view/screens/SignUp/SignUpScreen.dart';
 import '../view/screens/auth_screen.dart';
+import '../view/screens/cms/CmsScreen.dart';
 import '../view_all_explorer_event_screen.dart';
 
 class Pages {
@@ -315,6 +317,13 @@ class Pages {
           settings: settings,
           page: () => EditEventsDetailScreen(),
           // binding: AddeventBindings(),
+          transition: _routeTransition,
+        );
+      case CmsScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => CmsScreen(),
+          binding: Cmsbindings(),
           transition: _routeTransition,
         );
       // case BuyTopUpsScreen.routeName:

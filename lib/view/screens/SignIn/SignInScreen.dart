@@ -1,10 +1,11 @@
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
-import 'package:event_planner_light/view/screens/SignUp/Widgets/Terms_of_services_dailog.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/SigninController.dart';
+import '../cms/CmsScreen.dart';
 
 class SigninScreen extends GetView<SignInController> {
   SigninScreen({super.key});
@@ -145,37 +146,50 @@ class SigninScreen extends GetView<SignInController> {
                     SizedBox(
                       height: 45.h,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        termsOfServicesDialog(context);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'By Sign In, I accept the ',
-                          style: TextStyle(
-                              color: AppColors.kBluedarkShade, fontSize: 14.sp),
-                          children: const <TextSpan>[
-                            TextSpan(
-                              text: 'Terms of Service',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: ' and have read ',
-                              style: TextStyle(
-                                color: AppColors.kBluedarkShade,
-                                // fontSize: 10.sp,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: '.',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
+                    RichText(
+                      text: TextSpan(
+                        text: 'By Sign In, I accept the ',
+                        style: TextStyle(
+                          color: AppColors.kBluedarkShade,
+                          fontSize: 14.sp,
                         ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Terms of Service',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration
+                                  .underline, // Underline for visibility
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.toNamed(CmsScreen.routeName,
+                                    arguments: false);
+                              },
+                          ),
+                          TextSpan(
+                            text: ' and have read ',
+                            style: TextStyle(
+                              color: AppColors.kBluedarkShade,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.toNamed(CmsScreen.routeName,
+                                    arguments: true);
+                              },
+                          ),
+                          TextSpan(
+                            text: '.',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(

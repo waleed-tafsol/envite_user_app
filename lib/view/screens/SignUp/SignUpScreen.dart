@@ -1,9 +1,10 @@
 import 'package:event_planner_light/controllers/SignUpController.dart';
+import 'package:event_planner_light/view/screens/cms/CmsScreen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
-import 'Widgets/Terms_of_services_dailog.dart';
 
 class SignUpScreen extends GetView<Signupcontroller> {
   SignUpScreen({super.key});
@@ -429,38 +430,50 @@ class SignUpScreen extends GetView<Signupcontroller> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          InkWell(
-                            onTap: () => termsOfServicesDialog(context),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'By Sign In, I accept the ',
-                                style: TextStyle(
-                                    color: AppColors.kBluedarkShade,
-                                    fontSize: 14.sp),
-                                children: const <TextSpan>[
-                                  TextSpan(
-                                    text: 'Terms of Service',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  TextSpan(
-                                    text: ' and have read ',
-                                    style: TextStyle(
-
-                                        // fontSize: 10.sp,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: 'Privacy Policy',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  TextSpan(
-                                    text: '.',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
+                          RichText(
+                            text: TextSpan(
+                              text: 'By Sign In, I accept the ',
+                              style: TextStyle(
+                                color: AppColors.kBluedarkShade,
+                                fontSize: 14.sp,
                               ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: 'Terms of Service',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration
+                                        .underline, // Underline for visibility
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Get.toNamed(CmsScreen.routeName,
+                                          arguments: false);
+                                    },
+                                ),
+                                TextSpan(
+                                  text: ' and have read ',
+                                  style: TextStyle(
+                                    color: AppColors.kBluedarkShade,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'Privacy Policy',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Get.toNamed(CmsScreen.routeName,
+                                          arguments: true);
+                                    },
+                                ),
+                                TextSpan(
+                                  text: '.',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
                             ),
                           ),
                         ],

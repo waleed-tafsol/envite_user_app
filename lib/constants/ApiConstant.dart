@@ -40,4 +40,6 @@ class ApiConstants {
   // adds
   static const getMyAds = "${baseUrl}ads/my/all";
   static const getAlldds = "${baseUrl}ads/all";
+  // cms
+  static const getallCms = "${baseUrl}cms?cmsType=all";
 }
