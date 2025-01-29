@@ -17,11 +17,9 @@ import 'package:image_picker/image_picker.dart';
 class Signupcontroller extends GetxController {
   @override
   void onInit() async {
-    // await getcatagories();
     super.onInit();
   }
 
-  // TextEditingControllers
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
@@ -32,106 +30,10 @@ class Signupcontroller extends GetxController {
   RxBool isEventPlanner = true.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
-  // final ImagePicker _picker = ImagePicker();
-  // var pickedFiles = <File>[].obs;
-  // var pickedImages = <File>[].obs;
-
-  // Additional variables
   RxDouble lat = 0.0.obs;
   RxDouble lng = 0.0.obs;
-  // RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
-  // RxList<CatagoryModel> selectedCategory = <CatagoryModel>[].obs;
 
   RxBool isloading = false.obs;
-  // Future<void> pickImage() async {
-  //   try {
-  //     final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
-  //     if (file != null) {
-  //       pickedImages.add(File(file.path));
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar('Error', 'Failed to pick image or video: $e');
-  //   }
-  // }
-
-  // Future<void> pickADocument() async {
-  //   try {
-  //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf', 'doc'],
-  //     );
-  //     if (result != null) {
-  //       PlatformFile file = result.files.first;
-  //       pickedFiles.add(File(file.path!));
-  //     } else {
-  //       Get.snackbar('No file selected', 'No document was picked.');
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar('Error', 'Failed to pick document: $e');
-  //   }
-  // }
-
-  // Future<void> updateDocumentName(int index, String newName) async {
-  //   File file = pickedFiles[index];
-
-  //   // Construct the new file path by keeping the parent directory same
-  //   String newPath = file.parent.path + '/' + newName;
-
-  //   try {
-  //     // Rename the file on the filesystem
-  //     File renamedFile = await file.rename(newPath);
-
-  //     // Update the file in the pickedFiles list
-  //     pickedFiles[index] = renamedFile;
-
-  //     // Refresh the observable list to notify listeners
-  //     pickedFiles.refresh();
-  //   } catch (e) {
-  //     print('Error renaming file: $e');
-  //   }
-  // }
-
-  // Future<void> takePhotoOrVideo() async {
-  //   try {
-  //     final XFile? file = await _picker.pickImage(source: ImageSource.camera);
-  //     if (file != null) {
-  //       pickedFiles.add(File(file.path));
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar('Error', 'Failed to take photo or video: $e');
-  //   }
-  // }
-
-  // void removeFile(File file) {
-  //   pickedFiles.remove(file);
-  // }
-
-  // void removeimage(File file) {
-  //   pickedImages.remove(file);
-  // }
-
-/*
-  getcatagories() async {
-    isloading.value = true;
-    try {
-      final response = await http.get(Uri.parse(ApiConstants.getCategories));
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        final List<dynamic> data = jsonResponse['data'];
-        categories.value = data.map((e) => CatagoryModel.fromJson(e)).toList();
-        isloading.value = false;
-      } else {
-        isloading.value = false;
-        throw Exception('Failed to load categories');
-      }
-    } catch (e) {
-      isloading.value = false;
-      Get.snackbar('Error', e.toString());
-    }
-  }
-*/
-
-  // signup
   void signup() async {
     isloading.value = true;
     try {
@@ -162,22 +64,7 @@ class Signupcontroller extends GetxController {
     }
   }
 
-  // Login
-  void login() async {
-    isloading.value = true;
-    try {
-      await authService.login(
-        email: fullNameController.value.text,
-        password: passwordController.value.text,
-      );
-      isloading.value = false;
-      CustomSnackbar.showSuccess('Success', 'Signup successful');
-      Get.offAllNamed(NavBarScreen.routeName);
-    } catch (e) {
-      isloading.value = false;
-      CustomSnackbar.showError('Error', e.toString());
-    }
-  }
+
 
   @override
   void onClose() {
