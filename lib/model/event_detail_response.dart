@@ -176,7 +176,7 @@ class CreatedBy {
 class Location {
   String? type;
   List<num>? coordinates;
-
+// demo
   Location({this.type, this.coordinates});
 
   Location.fromJson(Map<String, dynamic> json) {
