@@ -35,8 +35,11 @@ class MyDrawer extends StatelessWidget {
                           width: 8.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            image: const DecorationImage(
-                                image: AssetImage(Assets.squareImage)),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                  authService.me.value?.photo ?? "",
+                                ),
+                                fit: BoxFit.cover),
                             boxShadow: [
                               BoxShadow(
                                 color:
@@ -91,8 +94,9 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -100,8 +104,9 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.toNamed(SupportScreen.routeName);
@@ -120,13 +125,15 @@ class MyDrawer extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -134,8 +141,9 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Row(
                     children: [
                       Icon(
@@ -150,12 +158,14 @@ class MyDrawer extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                              .copyWith(
+                                  color: AppColors.kBlueMediumShade,
+                                  fontSize: 16.sp)),
                     ],
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -163,7 +173,9 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.toNamed(CouponScreen.routeName);
@@ -182,13 +194,15 @@ class MyDrawer extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Divider(
@@ -196,7 +210,9 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
-                  SizedBox(height: 1.h,),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.toNamed(Buytopups.routeName);
@@ -215,12 +231,15 @@ class MyDrawer extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(color: AppColors.kBlueMediumShade,fontSize: 16.sp)),
-
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.h,),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Spacer(),
                   Align(
                     alignment: Alignment.centerLeft,

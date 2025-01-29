@@ -75,27 +75,6 @@ class ProfileScreen extends GetView<MyProfileController> {
                     );
                   }),
                 ),
-                Center(
-                  child: Obx(() {
-                    final roles = authService.me.value?.role;
-                    if (roles == null || roles.isEmpty) {
-                      return SizedBox();
-                    }
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: roles.map((item) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 0.5.h),
-                          child: Text(
-                            item,
-                            style: TextConstants.bodyLargeBlackBold(context),
-                          ),
-                        );
-                      }).toList(),
-                    );
-                  }),
-                ),
 
                 SizedBox(
                   height: 3.h,
