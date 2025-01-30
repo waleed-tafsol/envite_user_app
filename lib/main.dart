@@ -1,15 +1,11 @@
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/Home/HomeScreen.dart';
 import 'package:event_planner_light/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'constants/routes.dart';
 import 'constants/theme.dart';
 import 'controllers/Auth_services.dart';
-import 'view/screens/auth_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
+
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/aws_utills.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
@@ -31,6 +32,65 @@ class AddEventController extends GetxController {
     // await getcatagories();
     //  isloading.value = false;
   }
+
+
+
+  final googlePlaces = FlutterGooglePlacesSdk(ApiConstants.googleAPIKey);
+
+  RxBool isPredictionsLoading = false.obs;
+  RxList<AutocompletePrediction> placesList = <AutocompletePrediction>[].obs;
+
+  getGooglePlaces({required String value}) async {
+    isPredictionsLoading.value = true;
+    final FindAutocompletePredictionsResponse predictionsData = await googlePlaces.findAutocompletePredictions(value);
+    print (predictionsData.predictions[0].fullText);
+    placesList.value = predictionsData.predictions;
+    isPredictionsLoading.value = false;
+  }
+
+void onPlaceSelected(AutocompletePrediction place) async {
+  print('Selected place: ${place.fullText}');
+  isPredictionsLoading.value = false;
+
+  try {
+    final selectedPlace = await googlePlaces.fetchPlace(
+      place.placeId,
+      fields: [
+       PlaceField.Location, // Use PlaceField.geometry
+        PlaceField.Address,
+       // "name",
+       // "place_id",
+        
+      ],
+    );
+
+    if (selectedPlace.place != null) {
+   
+      final lat = selectedPlace.place!.latLng!.lat;
+      final lng = selectedPlace.place!.latLng!.lng;
+   
+      avenueLat = lat.toString();
+      avenueLng = lng.toString();
+
+      // Update the controller's text with the selected place's full name
+      avenuePlaceController.text = place.fullText ?? '';
+
+      // Optionally clear the list of suggestions after selection
+      placesList.value = [];
+
+      // Print the lat and lng for debugging
+      print('Latitude: $avenueLat, Longitude: $avenueLng');
+    } else {
+      print('No details found for the selected place');
+      // Optional: Display an error message to the user
+    }
+  } catch (e) {
+     print("Error fetching place details: $e");
+    // Optional: Show a SnackBar or other error notification to the user
+      // You will need the context here to show a snackbar
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to get place details.")));
+  }
+}
 
   TextEditingController nameController = TextEditingController();
   TextEditingController avnueController = TextEditingController();
@@ -54,10 +114,10 @@ class AddEventController extends GetxController {
   String? avenueLat;
   String? avenueLng;
 
-  Rx<String> selectedStartTime =
-      TimeOfDay.now().format(navigatorKey.currentContext!).obs;
-  Rx<String> selectedEndTime =
-      TimeOfDay.now().format(navigatorKey.currentContext!).obs;
+  Rx<String?> selectedStartTime =
+      Rx<String?>(null);
+  Rx<String?> selectedEndTime =
+      Rx<String?>(null);
 
   void removeImage(File file) {
     pickedImages.remove(file);
@@ -79,10 +139,46 @@ class AddEventController extends GetxController {
   }
 
   void setStartTime(String time) {
+    if (selectedEndTime.value != null) {
+      DateFormat format = DateFormat("HH:mm");
+      DateTime startTime = format.parse(time);
+      DateTime endTime = format.parse(selectedEndTime.value!);
+
+      if (time == selectedEndTime.value) {
+        CustomSnackbar.showError(
+            "Error", "Start time and end time cannot be the same");
+        return;
+      }
+
+      if (startTime.isAfter(endTime)) {
+        CustomSnackbar.showError(
+            "Error", "Start time cannot be after end time");
+        return;
+      }
+    }
+
     selectedStartTime.value = time;
   }
 
   void setEndTime(String time) {
+    if (selectedStartTime.value != null) {
+      DateFormat format = DateFormat("HH:mm");
+      DateTime startTime = format.parse(selectedStartTime.value!);
+      DateTime endTime = format.parse(time);
+
+      if (selectedStartTime.value == time) {
+        CustomSnackbar.showError(
+            "Error", "End time and start time cannot be the same");
+        return;
+      }
+
+      if (endTime.isBefore(startTime)) {
+        CustomSnackbar.showError(
+            "Error", "End time cannot be before start time");
+        return;
+      }
+    }
+
     selectedEndTime.value = time;
   }
 
@@ -107,6 +203,33 @@ class AddEventController extends GetxController {
       selectedEndDate.value = date;
     }
   }
+  bool validateEventForm(GlobalKey<FormState> formKey) {
+    if (!formKey.currentState!.validate()) {
+      return false;
+    }
+
+    if (selectedCategory.value == null) {
+      CustomSnackbar.showError("Error", "Please select the category of event");
+      return false;
+    }
+
+    
+
+    if (selectedStartDate.value == null || selectedEndDate.value == null) {
+      CustomSnackbar.showError(
+          "Error", "Please select the start and end date of event");
+      return false;
+    }
+
+    if (selectedStartTime.value == null || selectedEndTime.value == null) {
+      CustomSnackbar.showError(
+          "Error", "Please select the start and end time of event");
+      return false;
+    }
+
+    return true; // All validations passed
+  }
+
 
 /*
   Future<void> getcatagories() async {
@@ -223,8 +346,8 @@ class AddEventController extends GetxController {
           formatToIso8601WithTimezone(selectedStartDate.value!);
       request.fields['endDate'] =
           formatToIso8601WithTimezone(selectedEndDate.value!);
-      request.fields['startTime'] = selectedStartTime.value;
-      request.fields['endTime'] = selectedEndTime.value;
+      request.fields['startTime'] = selectedStartTime.value ?? "";
+      request.fields['endTime'] = selectedEndTime.value ??"";
       // request.fields['endTime'] = selectedEndTime.value;
 
       // Add headers
