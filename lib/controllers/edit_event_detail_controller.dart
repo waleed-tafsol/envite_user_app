@@ -221,10 +221,11 @@ class EditEventDetailController extends GetxController {
       request.fields['address'] = avenuePlaceController.text;
       request.fields['latitude'] = avenueLat.toString();
       request.fields['longitude'] = avenueLng.toString();
-      if (emailController.length == 1 &&
-          emailController.first.text.isNotEmpty) {
+      if (emailController.first.text.isNotEmpty || emailController.length > 1) {
         for (int i = 0; i < emailController.length; i++) {
-          request.fields['emails[$i]'] = emailController[i].text;
+          emailController[i].text.isNotEmpty
+              ? request.fields['emails[$i]'] = emailController[i].text
+              : null;
         }
       }
       if (existingImages.isNotEmpty) {
@@ -255,10 +256,12 @@ class EditEventDetailController extends GetxController {
           request.files.add(multipartFile);
         }
       }
-      if (socialLinkController.length == 1 &&
-          socialLinkController.first.text.isNotEmpty) {
+      if (socialLinkController.first.text.isNotEmpty ||
+          socialLinkController.length > 1) {
         for (int i = 0; i < socialLinkController.length; i++) {
-          request.fields['socialLinks[$i]'] = socialLinkController[i].text;
+          socialLinkController[i].text.isNotEmpty
+              ? request.fields['socialLinks[$i]'] = socialLinkController[i].text
+              : null;
         }
       }
 

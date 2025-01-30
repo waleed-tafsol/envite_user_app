@@ -20,13 +20,13 @@ class StatsContainer extends StatelessWidget {
       height: 7.h,
       width: 42.w,
       decoration: BoxDecoration(
-          border: Border.all(color: Color(0xff457B9D)),
+          // border: Border.all(color: Color(0xff457B9D)),
           borderRadius: k5BorderRadius),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
         child: Row(
           children: [
-           image,
+            image,
             SizedBox(
               width: 2.w,
             ),

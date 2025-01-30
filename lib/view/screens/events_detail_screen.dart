@@ -225,7 +225,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Obx(() {
                           return controller.isLoading.value
@@ -238,10 +238,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           .toString() ??
                                       "");
                         }),
-                        // Spacer(),
-                        SizedBox(
-                          width: 2.w,
-                        ),
+                        // SizedBox(
+                        //   width: 2.w,
+                        // ),
                         Obx(() {
                           return controller.isLoading.value
                               ? sizedShimmer(height: 5.h, width: 40.w)
@@ -421,6 +420,60 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                         .value
                                                         .data
                                                         ?.socialLinks?[index] ??
+                                                    "",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall),
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  ],
+                                );
+                    }),
+
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Obx(() {
+                      return controller.isLoading.value
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
+                          : controller.eventDetailResponse.value.data
+                                      ?.socialLinks?.isEmpty ??
+                                  true
+                              ? SizedBox.shrink()
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 1.h),
+                                      child: Text(
+                                        "Emails",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                color:
+                                                    AppColors.kBluedarkShade),
+                                      ),
+                                    ),
+                                    Column(
+                                      children: List.generate(
+                                          controller.eventDetailResponse.value
+                                                  .data?.emails?.length ??
+                                              0, (index) {
+                                        return ClipRRect(
+                                          borderRadius: k5BorderRadius,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 1.h),
+                                            child: Text(
+                                                controller
+                                                        .eventDetailResponse
+                                                        .value
+                                                        .data
+                                                        ?.emails?[index] ??
                                                     "",
                                                 style: Theme.of(context)
                                                     .textTheme
