@@ -1,12 +1,8 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/MyEventsController.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/widgets/my_events_list_tile.dart';
-import 'package:event_planner_light/view/widgets/SearchEventWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../../../../Test.dart';
 import '../../../../../controllers/filters_controller.dart';
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../../utills/enums.dart';
@@ -21,13 +17,14 @@ class MyEventsScreen extends GetView<MyEventsController> {
   @override
   Widget build(BuildContext context) {
     FiltersController filtersController = Get.find();
-
+    filtersController.showMyEvents.value = false;
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () {
           return controller.getMyPaginatedEvents(callFirstTime: true);
         },
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
             child: Column(
@@ -95,7 +92,6 @@ class MyEventsScreen extends GetView<MyEventsController> {
                                       (BuildContext context, int index) {
                                     return EventTileWidget(
                                       width: 80.w,
-                                      // pinned: true,
                                       event: controller.myEventModel.value
                                           .pastEvents![index],
                                     );

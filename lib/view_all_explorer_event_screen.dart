@@ -31,19 +31,26 @@ class ViewAllExplorerEventScreen extends StatelessWidget {
         onPopInvokedWithResult: (bool didPop, Object? result) {
           filtersController.clearFilterData();
         },
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SearchEventWidget(),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Obx(() {
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SearchEventWidget(),
+              SizedBox(
+                height: 2.h,
+              ),
+              /*  Padding(h                padding: EdgeInsets.only( top: 2.h),
+                child: Text("Past Events",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: AppColors.kTextBlack)),
+              ),*/
+              Expanded(
+                child: Obx(() {
                   return filtersController.isFilterActivated.value
-                      ? filteredListView()
+                      ? FilteredListView()
                       : exploreEventsController.isEventLoading.value
                           ? ListView(
                               physics: const NeverScrollableScrollPhysics(),
@@ -52,29 +59,32 @@ class ViewAllExplorerEventScreen extends StatelessWidget {
                                   5, (index) => eventTileShimmer()),
                             )
                           : ListView.builder(
-                              itemCount: exploreEventsController
-                                          .exploreEventsScreenType.value ==
-                                      Events.explorerPastEvent.text
-                                  ? exploreEventsController
-                                      .explorePastEvents.length
-                                  : exploreEventsController
-                                      .exploreUpcomingEvents.length,
-                              physics: const NeverScrollableScrollPhysics(),
+                              // physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
+                              controller:
+                                  exploreEventsController.scrollController,
+                              itemCount: exploreEventsController
+                                      .exploreEventsViewAllList.length +
+                                  (exploreEventsController.hasMore.value
+                                      ? 1
+                                      : 0),
                               itemBuilder: (BuildContext context, int index) {
+                                if (index ==
+                                    exploreEventsController
+                                        .exploreEventsViewAllList.length) {
+                                  return const Center(
+                                      child: Text(
+                                    'Loading... ',
+                                    style: TextStyle(color: Colors.redAccent),
+                                  ));
+                                }
                                 return EventTileWidget(
-                                  event: exploreEventsController
-                                              .exploreEventsScreenType.value ==
-                                          Events.explorerPastEvent.text
-                                      ? exploreEventsController
-                                          .explorePastEvents[index]
-                                      : exploreEventsController
-                                          .exploreUpcomingEvents[index],
-                                );
+                                    event: exploreEventsController
+                                        .exploreEventsViewAllList[index]);
                               });
                 }),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

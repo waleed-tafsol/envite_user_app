@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:event_planner_light/model/events_list_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,31 +15,57 @@ class ExploreController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    getExplorerPaginatedEvents();
+    scrollController.addListener(_onScroll);
+    getExplorerPaginatedEvents(callFirstTime: true);
   }
 
   Rx<String> exploreEventsScreenType = Events.explorerEvents.text.obs;
-  RxList<EventModel> exploreUpcomingEvents = <EventModel>[].obs;
-  RxList<EventModel> explorePastEvents = <EventModel>[].obs;
+  RxList<EventModel> listResponse = <EventModel>[].obs;
+  RxList<EventModel> exploreEventsViewAllList = <EventModel>[].obs;
   Rx<EventsListResponse> exploreEventModel = EventsListResponse().obs;
+
+  int currentPage = 1;
+  final int limit = 10;
+  final ScrollController scrollController = ScrollController();
+  RxBool hasMore = false.obs;
 
   RxBool isEventLoading = false.obs;
 
+  Future<void> _onScroll() async {
+    if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent &&
+        hasMore.value) {
+      currentPage++;
+      await getExplorerPaginatedEvents(callFirstTime: false);
+      hasMore.value = true;
+      if (listResponse.isEmpty) {
+        hasMore.value = false;
+      }
+    }
+  }
 
-  Future<void> getExplorerPaginatedEvents() async {
-    isEventLoading.value = true;
+  Future<void> getExplorerPaginatedEvents({required bool callFirstTime}) async {
+    if (callFirstTime) {
+      hasMore.value = true;
+      isEventLoading.value = true;
+      currentPage = 1;
+      exploreEventsViewAllList.clear();
+    }
     try {
-      final response = await http.post(Uri.parse(ApiConstants.getAllEvents),
+      final response = await http.post(
+          Uri.parse(
+              '${ApiConstants.getAllEvents}?page=$currentPage&limit=$limit'),
           body: exploreEventsScreenType.value == Events.explorerEvents.text
               ? jsonEncode({
-            "screen": 'explore-events',
-          })
+                  "screen": 'explore-events',
+                })
               : jsonEncode({
-            "screen": 'explore-events-view-all',
-            "status": exploreEventsScreenType.value == Events.explorerPastEvent.text
-                ? 'past-events'
-                : 'upcoming-events'
-          }),
+                  "screen": 'explore-events-view-all',
+                  "status": exploreEventsScreenType.value ==
+                          Events.explorerPastEvent.text
+                      ? 'past-events'
+                      : 'upcoming-events'
+                }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authService.authToken}',
@@ -49,17 +76,15 @@ class ExploreController extends GetxController {
           exploreEventModel(EventsListResponse.fromJson(jsonResponse));
         } else {
           final List<dynamic> data = jsonResponse['data'];
-          if (exploreEventsScreenType.value == Events.explorerPastEvent.text) {
-            explorePastEvents.value = data.map((e) => EventModel.fromJson(e)).toList();
-          } else {
-            exploreUpcomingEvents.value =
-                data.map((e) => EventModel.fromJson(e)).toList();
-          }
+          listResponse.value = data.map((e) => EventModel.fromJson(e)).toList();
+          exploreEventsViewAllList.addAll(listResponse);
         }
-
-        // final List<dynamic> data = jsonResponse['data'];
-        // upcomingEvents.value = data.map((e) => EventModel.fromJson(e)).toList();
-        isEventLoading.value = false;
+        if (callFirstTime) {
+          if (listResponse.length < 10) {
+            hasMore.value = false;
+          }
+          isEventLoading.value = false;
+        }
       } else {
         isEventLoading.value = false;
         final errorData = jsonDecode(response.body);

@@ -20,10 +20,11 @@ class ExploreScreen extends GetView<ExploreController> {
   @override
   Widget build(BuildContext context) {
     FiltersController filtersController = Get.find();
-    filtersController.showMyEvents.value = false;
+    // filtersController.showMyEvents.value = true;
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => controller.getExplorerPaginatedEvents(),
+        onRefresh: () =>
+            controller.getExplorerPaginatedEvents(callFirstTime: true),
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
@@ -33,7 +34,7 @@ class ExploreScreen extends GetView<ExploreController> {
                 SearchEventWidget(),
                 Obx(() {
                   return filtersController.isFilterActivated.value
-                      ? filteredListView()
+                      ? FilteredListView()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -60,7 +61,8 @@ class ExploreScreen extends GetView<ExploreController> {
                                         filtersController.setSelectedScreen(
                                             value:
                                                 Events.explorerPastEvent.text);
-                                        controller.getExplorerPaginatedEvents();
+                                        controller.getExplorerPaginatedEvents(
+                                            callFirstTime: true);
                                         Get.toNamed(ViewAllExplorerEventScreen
                                             .routeName);
                                       },
@@ -168,7 +170,8 @@ class ExploreScreen extends GetView<ExploreController> {
                                         filtersController.setSelectedScreen(
                                             value: Events
                                                 .explorerUpcomingEvent.text);
-                                        controller.getExplorerPaginatedEvents();
+                                        controller.getExplorerPaginatedEvents(
+                                            callFirstTime: true);
                                         Get.toNamed(ViewAllExplorerEventScreen
                                             .routeName);
                                       },

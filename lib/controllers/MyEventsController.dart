@@ -17,7 +17,7 @@ class MyEventsController extends GetxController {
   }
 
   Rx<String> myEventsScreenType = Events.myEvents.text.obs;
-  RxList<EventModel> myAllEvents = <EventModel>[].obs;
+  RxList<EventModel> listResponse = <EventModel>[].obs;
 
   // RxList<EventModel> myUpcomingEvents = <EventModel>[].obs;
   RxList<EventModel> myEventsViewAllList = <EventModel>[].obs;
@@ -27,24 +27,18 @@ class MyEventsController extends GetxController {
   final int limit = 10;
   final ScrollController scrollController = ScrollController();
 
-  //final RxBool isPaginationLoading = false.obs;
   RxBool hasMore = false.obs;
 
   RxBool isEventLoading = false.obs;
 
   Future<void> _onScroll() async {
     if (scrollController.position.pixels ==
-                scrollController.position.maxScrollExtent &&
-            hasMore.value /*&&
-        !isPaginationLoading.value*/
-        ) {
+            scrollController.position.maxScrollExtent &&
+        hasMore.value) {
       currentPage++;
-      //   isPaginationLoading.value = true;
       await getMyPaginatedEvents(callFirstTime: false);
       hasMore.value = true;
-
-      // isPaginationLoading.value = false;
-      if (myAllEvents.isEmpty) {
+      if (listResponse.isEmpty) {
         hasMore.value = false;
       }
     }
@@ -57,10 +51,9 @@ class MyEventsController extends GetxController {
       isEventLoading.value = true;
       currentPage = 1;
       myEventsViewAllList.clear();
-      // myUpcomingEvents.clear();
     }
     try {
-      myAllEvents.clear();
+      listResponse.clear();
       final response = await http.post(
           Uri.parse(
               '${ApiConstants.getMyEvents}?page=$currentPage&limit=$limit'),
@@ -84,11 +77,11 @@ class MyEventsController extends GetxController {
           myEventModel(EventsListResponse.fromJson(jsonResponse));
         } else {
           final List<dynamic> data = jsonResponse['data'];
-          myAllEvents.value = data.map((e) => EventModel.fromJson(e)).toList();
-          myEventsViewAllList.addAll(myAllEvents);
+          listResponse.value = data.map((e) => EventModel.fromJson(e)).toList();
+          myEventsViewAllList.addAll(listResponse);
         }
         if (callFirstTime) {
-          if(myAllEvents.length < 10){
+          if (listResponse.length < 10) {
             hasMore.value = false;
           }
           isEventLoading.value = false;

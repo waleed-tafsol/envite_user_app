@@ -18,18 +18,31 @@ class FiltersController extends GetxController {
   RxBool isEventLoading = false.obs;
   RxString selectScreen = ''.obs;
   RxBool showMyEvents = false.obs;
+  RxList<EventModel> listResponse = <EventModel>[].obs;
   RxString selectScreenStatus = Events.all.text.obs;
+
   RxList<EventModel> filteredEventsList = <EventModel>[].obs;
+
+  RxBool hasMore = false.obs;
+  RxInt currentPage = 1.obs;
+  final int limit = 10;
+
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   void checkFiltersActive() {
     if ((categories.isNotEmpty) ||
-        (eventType.value != Events.all.text) ||
-        (searchController.text.isNotEmpty) /*||
-        (selectScreen.value.isNotEmpty) *//*||
-        (selectScreenStatus.value != Events.all.text)*/) {
+            (eventType.value != Events.all.text) ||
+            (searchController.text
+                .isNotEmpty) /*||
+        (selectScreen.value.isNotEmpty) */ /*||
+        (selectScreenStatus.value != Events.all.text)*/
+        ) {
       isFilterActivated.value = true;
       filteredEventsList.clear();
-      getFilteredPaginatedEvents();
+      getFilteredPaginatedEvents(callFirstTime: true);
     } else {
       isFilterActivated.value = false;
     }
@@ -73,13 +86,18 @@ class FiltersController extends GetxController {
     }
   }
 
-  Future<void> getFilteredPaginatedEvents() async {
-    isEventLoading.value = true;
+  Future<void> getFilteredPaginatedEvents({required bool callFirstTime}) async {
+    if (callFirstTime) {
+      hasMore.value = true;
+      isEventLoading.value = true;
+      currentPage.value = 1;
+      filteredEventsList.clear();
+    }
     try {
       final response = await http.post(
           Uri.parse(showMyEvents.value
-              ? ApiConstants.getMyEvents
-              : ApiConstants.getAllEvents),
+              ? '${ApiConstants.getMyEvents}?page=$currentPage&limit=$limit'
+              : '${ApiConstants.getAllEvents}?page=$currentPage&limit=$limit'),
           body: jsonEncode({
             "screen": selectScreen.value,
             "status": selectScreenStatus.value,
@@ -94,9 +112,14 @@ class FiltersController extends GetxController {
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
         final List<dynamic> data = jsonResponse['data'];
-        filteredEventsList.value =
-            data.map((e) => EventModel.fromJson(e)).toList();
-        isEventLoading.value = false;
+        listResponse.value = data.map((e) => EventModel.fromJson(e)).toList();
+        filteredEventsList.addAll(listResponse);
+        if (callFirstTime) {
+          if (listResponse.length < 10) {
+            hasMore.value = false;
+          }
+          isEventLoading.value = false;
+        }
       } else {
         isEventLoading.value = false;
         final errorData = jsonDecode(response.body);
