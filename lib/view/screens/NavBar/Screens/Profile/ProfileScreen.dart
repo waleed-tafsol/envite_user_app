@@ -79,25 +79,25 @@ class ProfileScreen extends GetView<MyProfileController> {
                 SizedBox(
                   height: 3.h,
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'About Me',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(color: Color(0xff457B9D)),
-                    )),
-                k1hSizedBox,
-                Obx(() {
-                  return Text(
-                    authService.me.value?.description ?? "About Me",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: AppColors.kBerkeleyBlue),
-                  );
-                }),
+                // Align(
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       'About Me',
+                //       style: Theme.of(context)
+                //           .textTheme
+                //           .titleLarge!
+                //           .copyWith(color: Color(0xff457B9D)),
+                //     )),
+                // k1hSizedBox,
+                // Obx(() {
+                //   return Text(
+                //     authService.me.value?.description ?? "About Me",
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .bodyLarge!
+                //         .copyWith(color: AppColors.kBerkeleyBlue),
+                //   );
+                // }),
                 k3hSizedBox,
                 Align(
                     alignment: Alignment.centerLeft,
