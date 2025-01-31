@@ -69,7 +69,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                 ),
                 SizedBox(
-                  height: 9.h,
+                  height: 12.h,
                   child: Obx(() {
                     return controller.isLoadingCategories.value
                         ? ListView(
@@ -129,6 +129,21 @@ class HomeScreen extends GetView<HomeScreenController> {
                                           child: Text(
                                             controller.categories[index].name
                                                     ?.en ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 4.w,
+                                          ),
+                                          child: Text(
+                                            controller.categories[index].name
+                                                ?.ar ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,

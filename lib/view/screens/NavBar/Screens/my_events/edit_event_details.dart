@@ -773,13 +773,27 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                           TextConstants.bodySmall_black_normal(
                                               context),
                                       value: choice.name?.en ?? "",
-                                      child: Text(
-                                        choice.name?.en ?? "",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: AppColors.kTextBlack),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            choice.name?.en ?? "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                color:
+                                                AppColors.kTextBlack),
+                                          ),
+                                          Text(
+                                            choice.name?.ar ?? "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                color:
+                                                AppColors.kTextBlack),
+                                          ),
+                                        ],
                                       ),
                                     );
                                   }).toList();

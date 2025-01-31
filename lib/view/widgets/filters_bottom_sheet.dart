@@ -52,7 +52,7 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                             ),
                             TextButton(
                               onPressed: () {
-                                filtersController.clearFilterData();
+                                filtersController.clearFilterData(resetSelectScreenStatus: false);
                               },
                               child: Text(
                                 'Reset all',

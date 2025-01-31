@@ -61,7 +61,7 @@ class ExploreController extends GetxController {
                 })
               : jsonEncode({
                   "screen": 'explore-events-view-all',
-                  "status": exploreEventsScreenType.value ==
+            "latestAndPast": exploreEventsScreenType.value ==
                           Events.explorerPastEvent.text
                       ? 'past-events'
                       : 'upcoming-events'

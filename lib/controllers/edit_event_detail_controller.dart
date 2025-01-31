@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/aws_utills.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
@@ -36,6 +37,62 @@ class EditEventDetailController extends GetxController {
     //  isloading.value = true;
     // await getcatagories();
     //  isloading.value = false;
+  }
+
+  final googlePlaces = FlutterGooglePlacesSdk(ApiConstants.googleAPIKey);
+
+  RxBool isPredictionsLoading = false.obs;
+  RxList<AutocompletePrediction> placesList = <AutocompletePrediction>[].obs;
+
+  getGooglePlaces({required String value}) async {
+    isPredictionsLoading.value = true;
+    final FindAutocompletePredictionsResponse predictionsData =
+    await googlePlaces.findAutocompletePredictions(value);
+    print(predictionsData.predictions[0].fullText);
+    placesList.value = predictionsData.predictions;
+    isPredictionsLoading.value = false;
+  }
+
+  void onPlaceSelected(AutocompletePrediction place) async {
+    print('Selected place: ${place.fullText}');
+    isPredictionsLoading.value = false;
+
+    try {
+      final selectedPlace = await googlePlaces.fetchPlace(
+        place.placeId,
+        fields: [
+          PlaceField.Location, // Use PlaceField.geometry
+          PlaceField.Address,
+          // "name",
+          // "place_id",
+        ],
+      );
+
+      if (selectedPlace.place != null) {
+        final lat = selectedPlace.place!.latLng!.lat;
+        final lng = selectedPlace.place!.latLng!.lng;
+
+        avenueLat = lat.toString();
+        avenueLng = lng.toString();
+
+        // Update the controller's text with the selected place's full name
+        avenuePlaceController.text = place.fullText ?? '';
+
+        // Optionally clear the list of suggestions after selection
+        placesList.value = [];
+
+        // Print the lat and lng for debugging
+        print('Latitude: $avenueLat, Longitude: $avenueLng');
+      } else {
+        print('No details found for the selected place');
+        // Optional: Display an error message to the user
+      }
+    } catch (e) {
+      print("Error fetching place details: $e");
+      // Optional: Show a SnackBar or other error notification to the user
+      // You will need the context here to show a snackbar
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to get place details.")));
+    }
   }
 
   TextEditingController nameController = TextEditingController();
@@ -231,7 +288,7 @@ class EditEventDetailController extends GetxController {
       if (existingImages.isNotEmpty) {
         for (var i = 0; i < existingImages.length; i++) {
           String imagePath =
-              existingImages[i].replaceFirst(ApiConstants.s3bucket, "");
+          existingImages[i].replaceFirst(ApiConstants.s3bucket, "");
           request.fields['keepImages[$i]'] = imagePath;
         }
       }
@@ -295,19 +352,14 @@ class EditEventDetailController extends GetxController {
 
         if (pickedVideo.isNotEmpty) {
           List<String> videoUrls =
-              List<String>.from(responseData["data"]["videoUrls"]);
+          List<String>.from(responseData["data"]["videoUrls"]);
 
           await uploadFilesToS3(
               presignedUrls: videoUrls,
               filePaths: pickedVideo.map((file) => file.path).toList());
-          // ColoredPrint.green(
-          //     "Event Slug : ${responseData["data"]["videoUrls"]}");
-
-          // CustomSnackbar.showSuccess('Success',
-          //     responseData["message"] ?? "Event created successfully");
         }
         CustomSnackbar.showSuccess(
-            'Success', responseData["message"] ?? "Event created successfully");
+            'Success', responseData["message"] ?? "Event Updated successfully");
 
         Get.until((route) => route.isFirst);
 
@@ -324,26 +376,26 @@ class EditEventDetailController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    nameController.dispose();
-    avnueController.dispose();
-    emailController.forEach((element) {
-      element.dispose();
-    });
-    socialLinkController.forEach((element) {
-      element.dispose();
-    });
-    descriptionController.dispose();
-    avenuePlaceController.dispose();
-    pickedImages.forEach((element) {
-      element.delete();
-    });
-    pickedVideo.forEach((element) {
-      element.delete();
-    });
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   nameController.dispose();
+  //   avnueController.dispose();
+  //   emailController.forEach((element) {
+  //     element.dispose();
+  //   });
+  //   socialLinkController.forEach((element) {
+  //     element.dispose();
+  //   });
+  //   descriptionController.dispose();
+  //   avenuePlaceController.dispose();
+  //   pickedImages.forEach((element) {
+  //     element.delete();
+  //   });
+  //   pickedVideo.forEach((element) {
+  //     element.delete();
+  //   });
+  //   super.onClose();
+  // }
 
   @override
   void dispose() {

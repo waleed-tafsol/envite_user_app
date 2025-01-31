@@ -29,7 +29,7 @@ class ViewAllExplorerEventScreen extends StatelessWidget {
       body: PopScope(
         canPop: true, //When false, blocks the current route from being popped.
         onPopInvokedWithResult: (bool didPop, Object? result) {
-          filtersController.clearFilterData();
+          filtersController.clearFilterData(resetSelectScreenStatus: true);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),

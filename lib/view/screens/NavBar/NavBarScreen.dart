@@ -4,9 +4,7 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_in
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/colors_constants.dart';
-import '../../../controllers/AddEventController.dart';
 import '../../../utills/enums.dart';
 import '../../widgets/CustomAppBar.dart';
 import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
@@ -46,7 +44,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
       _currentIndex = index;
       switch (index) {
         case 1:
-          filtersController.clearFilterData();
+          filtersController.clearFilterData(resetSelectScreenStatus: true);
           filtersController.setSelectedScreen(
               value: Events.explorerEvents.text);
           filtersController.showMyEvents.value = false;
@@ -55,7 +53,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
           filtersController.showMyEvents.value = false;
           break;
         case 3:
-          filtersController.clearFilterData();
+          filtersController.clearFilterData(resetSelectScreenStatus: true);
           filtersController.setSelectedScreen(value: Events.myEvents.text);
           filtersController.showMyEvents.value = true;
           break;
@@ -108,6 +106,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
+          // var controller = Get.put(AddEventController());
+          // controller.isAddPastEvents.value = false;
           Get.toNamed(AddEventsScreens.routeName, arguments: {
             "isAddPastEvents": false,
           });

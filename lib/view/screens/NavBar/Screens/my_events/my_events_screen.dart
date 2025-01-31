@@ -47,7 +47,7 @@ class MyEventsScreen extends GetView<MyEventsController> {
                           onTap: () {
                             controller.myEventsScreenType.value =
                                 Events.myPastEvents.text;
-                            filtersController.clearFilterData();
+                            filtersController.clearFilterData(resetSelectScreenStatus: false);
                             filtersController.setSelectedScreen(
                                 value: Events.myPastEvents.text);
                             controller.getMyPaginatedEvents(
@@ -136,7 +136,7 @@ class MyEventsScreen extends GetView<MyEventsController> {
                           onTap: () {
                             controller.myEventsScreenType.value =
                                 Events.myUpcomingEvents.text;
-                            filtersController.clearFilterData();
+                            filtersController.clearFilterData(resetSelectScreenStatus: false);
                             filtersController.setSelectedScreen(
                                 value: Events.myUpcomingEvents.text);
                             controller.getMyPaginatedEvents(

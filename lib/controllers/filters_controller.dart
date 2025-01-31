@@ -13,6 +13,8 @@ import 'Auth_services.dart';
 class FiltersController extends GetxController {
   RxList<String> categories = <String>[].obs;
   RxString eventType = Events.all.text.obs;
+  RxString eventStatus = Events.all.text.obs;
+
   RxBool isFilterActivated = false.obs;
   TextEditingController searchController = TextEditingController();
   RxBool isEventLoading = false.obs;
@@ -32,14 +34,16 @@ class FiltersController extends GetxController {
     super.onInit();
   }
 
+
   void checkFiltersActive() {
     if ((categories.isNotEmpty) ||
-            (eventType.value != Events.all.text) ||
-            (searchController.text
-                .isNotEmpty) /*||
+        (eventType.value != Events.all.text) ||
+        (eventStatus.value != Events.all.text) ||
+        (searchController.text
+            .isNotEmpty) /*||
         (selectScreen.value.isNotEmpty) */ /*||
         (selectScreenStatus.value != Events.all.text)*/
-        ) {
+    ) {
       isFilterActivated.value = true;
       filteredEventsList.clear();
       getFilteredPaginatedEvents(callFirstTime: true);
@@ -48,10 +52,13 @@ class FiltersController extends GetxController {
     }
   }
 
-  void clearFilterData() {
-    //selectScreenStatus.value = Events.all.text;
+  void clearFilterData({required bool resetSelectScreenStatus}) {
+    if(resetSelectScreenStatus){
+      selectScreenStatus.value = Events.all.text;
+    }
     categories.clear();
     eventType.value = Events.all.text;
+    eventStatus.value = Events.all.text;
     searchController.text = '';
     isFilterActivated.value = false;
   }
@@ -100,7 +107,9 @@ class FiltersController extends GetxController {
               : '${ApiConstants.getAllEvents}?page=$currentPage&limit=$limit'),
           body: jsonEncode({
             "screen": selectScreen.value,
-            "status": selectScreenStatus.value,
+            "status": eventStatus.value,
+            "latestAndPast": selectScreenStatus.value,
+            // "eventStatus": eventStatus.value,
             "eventType": eventType.value,
             "categorySlugs": categories,
             "search": searchController.text

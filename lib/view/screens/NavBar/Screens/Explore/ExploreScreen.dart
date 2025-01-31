@@ -57,7 +57,7 @@ class ExploreScreen extends GetView<ExploreController> {
                                         controller
                                                 .exploreEventsScreenType.value =
                                             Events.explorerPastEvent.text;
-                                        filtersController.clearFilterData();
+                                        filtersController.clearFilterData(resetSelectScreenStatus: false);
                                         filtersController.setSelectedScreen(
                                             value:
                                                 Events.explorerPastEvent.text);
@@ -166,7 +166,7 @@ class ExploreScreen extends GetView<ExploreController> {
                                         controller
                                                 .exploreEventsScreenType.value =
                                             Events.explorerUpcomingEvent.text;
-                                        filtersController.clearFilterData();
+                                        filtersController.clearFilterData(resetSelectScreenStatus: false);
                                         filtersController.setSelectedScreen(
                                             value: Events
                                                 .explorerUpcomingEvent.text);

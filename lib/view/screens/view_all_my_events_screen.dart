@@ -26,7 +26,7 @@ class ViewAllMyEventsScreen extends StatelessWidget {
       body: PopScope(
         canPop: true, //When false, blocks the current route from being popped.
         onPopInvokedWithResult: (bool didPop, Object? result) {
-          filtersController.clearFilterData();
+          filtersController.clearFilterData(resetSelectScreenStatus: true);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
@@ -49,33 +49,33 @@ class ViewAllMyEventsScreen extends StatelessWidget {
                   return filtersController.isFilterActivated.value
                       ? FilteredListView()
                       : myEventsController.isEventLoading.value
-                          ? ListView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              children: List.generate(
-                                  5, (index) => eventTileShimmer()),
-                            )
-                          : ListView.builder(
-                              // physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              controller: myEventsController.scrollController,
-                              itemCount: myEventsController
-                                      .myEventsViewAllList.length +
-                                  (myEventsController.hasMore.value ? 1 : 0),
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index ==
-                                    myEventsController
-                                        .myEventsViewAllList.length) {
-                                  return const Center(
-                                      child: Text(
-                                    'Loading... ',
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ));
-                                }
-                                return EventTileWidget(
-                                    event: myEventsController
-                                        .myEventsViewAllList[index]);
-                              });
+                      ? ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: List.generate(
+                        5, (index) => eventTileShimmer()),
+                  )
+                      : ListView.builder(
+                    // physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      controller: myEventsController.scrollController,
+                      itemCount: myEventsController
+                          .myEventsViewAllList.length +
+                          (myEventsController.hasMore.value ? 1 : 0),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index ==
+                            myEventsController
+                                .myEventsViewAllList.length) {
+                          return const Center(
+                              child: Text(
+                                'Loading... ',
+                                style: TextStyle(color: Colors.redAccent),
+                              ));
+                        }
+                        return EventTileWidget(
+                            event: myEventsController
+                                .myEventsViewAllList[index]);
+                      });
                 }),
               ),
             ],

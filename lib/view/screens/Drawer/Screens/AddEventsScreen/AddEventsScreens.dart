@@ -51,10 +51,10 @@ class AddEventsScreens extends GetView<AddEventController> {
                             Obx(() {
                               return controller.pickedImages.isEmpty
                                   ?  InkWell(
-                              onTap: () {
-                                controller.pickImage();
-                              },
-                                    child: DottedBorder(
+                                onTap: () {
+                                  controller.pickImage();
+                                },
+                                child: DottedBorder(
                                         color: AppColors.kBluedarkShade,
                                         dashPattern: [5],
                                         borderType: BorderType.RRect,
@@ -269,12 +269,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                             SizedBox(
                               height: 2.h,
                             ),
-                            Obx( () {
+                            Obx(() {
                               return Column(
                                 children: [
                                   // TextField for typing the place name
                                   TextFormField(
-                                    controller: controller.avenuePlaceController,
+                                    controller:
+                                    controller.avenuePlaceController,
                                     decoration: InputDecoration(
                                       prefixIcon:
                                       Icon(Icons.location_on_outlined),
@@ -284,17 +285,31 @@ class AddEventsScreens extends GetView<AddEventController> {
                                             ? SizedBox(
                                             height: 4.w,
                                             width: 4.w,
-                                            child: CircularProgressIndicator(color: AppColors.kBerkeleyBlue,strokeWidth: 2,))
+                                            child:
+                                            CircularProgressIndicator(
+                                              color:
+                                              AppColors.kBerkeleyBlue,
+                                              strokeWidth: 2,
+                                            ))
                                             : InkWell(
-                                            onTap: (){
-                                              controller.avenuePlaceController.clear();
-                                              controller.placesList.value = [];
+                                            onTap: () {
+                                              controller
+                                                  .avenuePlaceController
+                                                  .clear();
+                                              controller.placesList.value =
+                                              [];
                                             },
-                                            child: Icon(Icons.clear,color: Colors.redAccent,));
+                                            child: Icon(
+                                              Icons.clear,
+                                              size: 4.w,
+                                              color: Colors.redAccent,
+                                            ));
                                       }),
-                                      hintText: "venue Location",),
+                                      hintText: "venue Location",
+                                    ),
                                     onChanged: (location) {
-                                      controller.getGooglePlaces(value: location);
+                                      controller.getGooglePlaces(
+                                          value: location);
                                     },
                                   ),
                                   SizedBox(height: 10),
@@ -302,41 +317,41 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     shrinkWrap: true,
                                     itemCount: controller.placesList.length,
                                     itemBuilder: (context, index) {
-                                      final place = controller.placesList[index];
-                                      return 
-                                      GestureDetector(
+                                      final place =
+                                      controller.placesList[index];
+                                      return GestureDetector(
                                         onTap: () =>
                                             controller.onPlaceSelected(place),
                                         child: Container(
                                           margin: EdgeInsets.only(bottom: 1.h),
-                                                                          padding: EdgeInsets.all(10),
-                                                                          decoration: BoxDecoration(
-                                                                            color: AppColors.kTextfieldColor,
-                                                                            borderRadius: BorderRadius.circular(10),
-                                                                          ),
-                                                                          child: Row(
-                                                                            children: [
-                                        Icon(
-                                          Icons.location_on,
-                                          color: AppColors.kIconColor,
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.kTextfieldColor,
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                color: AppColors.kIconColor,
+                                              ),
+                                              SizedBox(
+                                                width: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Text(place.fullText,
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.black))),
+                                            ],
+                                          ),
                                         ),
-                                        SizedBox(
-                                          width: 7,
-                                        ),
-                                        Expanded(
-                                            child: Text(
-                                                place.fullText ,
-                                                style: TextStyle(
-                                                    color: Colors.black))),
-                                                                            ],
-                                                                          ),
-                                                                        ),
                                       );
-                                      
-                                      
+
                                       // ListTile(
                                       //   tileColor: AppColors.kTextfieldColor,
-                                      
+
                                       //   leading: Icon(Icons.location_on_outlined,color: AppColors.kIconColor,),
                                       //   title: Text(place.fullText ?? '',style: TextStyle(color: Colors.black),),
                                       //   onTap: () =>
@@ -346,74 +361,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                   ),
                                 ],
                               );
-                            }
-                            ),
-                            // GooglePlaceAutoCompleteTextField(
-                            //   textEditingController:
-                            //       controller.avenuePlaceController,
-                            //   focusNode: avenueFocusNode,
-                            //   googleAPIKey: ApiConstants.googleAPIKey,
-                            //   inputDecoration: InputDecoration(
-                            //       prefixIcon: Icon(Icons.location_on_outlined),
-                            //       hintText: "Venue Location",
-                            //       fillColor: Colors.transparent),
-                            //   boxDecoration: BoxDecoration(
-                            //     color: AppColors.kTextfieldColor,
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   debounceTime: 800,
-                            //   isLatLngRequired: true,
-                            //   getPlaceDetailWithLatLng:
-                            //       (Prediction prediction) {
-                            //     controller.avenueLat = prediction.lat;
-                            //     controller.avenueLng = prediction.lng;
-                            //   },
-                            //   itemClick: (Prediction prediction) {
-                            //     String description =
-                            //         prediction.description ?? "";
-
-                            //     controller.avenuePlaceController.text =
-                            //         description;
-
-                            //     int cursorPosition = description.length;
-
-                            //     controller.avenuePlaceController.selection =
-                            //         TextSelection.fromPosition(
-                            //       TextPosition(offset: cursorPosition),
-                            //     );
-                            //     avenueFocusNode.requestFocus();
-                            //   },
-                            //   itemBuilder:
-                            //       (context, index, Prediction prediction) {
-                            //     return Container(
-                            //       padding: EdgeInsets.all(10),
-                            //       decoration: BoxDecoration(
-                            //         color: AppColors.kTextfieldColor,
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       ),
-                            //       child: Row(
-                            //         children: [
-                            //           Icon(
-                            //             Icons.location_on,
-                            //             color: AppColors.kIconColor,
-                            //           ),
-                            //           SizedBox(
-                            //             width: 7,
-                            //           ),
-                            //           Expanded(
-                            //               child: Text(
-                            //                   prediction.description ?? "",
-                            //                   style: TextStyle(
-                            //                       color: Colors.black))),
-                            //         ],
-                            //       ),
-                            //     );
-                            //   },
-                            //   seperatedBuilder: Divider(),
-                            //   isCrossBtnShown: true,
-                            //   containerHorizontalPadding: 2,
-                            //   placeType: PlaceType.geocode,
-                            // ),
+                            }),
                             SizedBox(
                               height: 2.h,
                             ),
@@ -835,17 +783,29 @@ class AddEventsScreens extends GetView<AddEventController> {
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 1.h),
                                             child: Center(
-                                              child: Text(
-                                                choice.name?.en ?? "",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    choice.name?.en ?? "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(
                                                         color: AppColors
                                                             .kTextBlack),
+                                                  ),
+                                                  Text(
+                                                    choice.name?.ar ?? "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(
+                                                        color: AppColors
+                                                            .kTextBlack),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ),
+                                            ),                                          ),
                                           Divider(
                                             color: AppColors.kTextfieldColor,
                                           ),
