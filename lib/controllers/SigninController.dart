@@ -1,10 +1,10 @@
 import 'package:event_planner_light/controllers/Auth_services.dart';
-
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import '../view/screens/OtpScreen.dart';
 
 class SignInController extends GetxController {
   @override
@@ -22,16 +22,24 @@ class SignInController extends GetxController {
   Future<void> callLogin() async {
     isloading.value = true;
     try {
-      await authService.login(
+      final response = await authService.login(
         email: emailController.value.text,
         password: passwordController.value.text,
       );
-      isloading.value = false;
+      if (response["data"]["user"]["isVerified"] == true) {
+        authService.setAuthToken(response["data"]["token"]);
+      } else {
+        Get.toNamed(OtpScreen.routeName, arguments: {
+          'email': emailController.text,
+        });
+        throw Exception("Please verify your email to login");
+      }
       CustomSnackbar.showSuccess('Success', 'Login successful');
       Get.offAllNamed(NavBarScreen.routeName);
     } catch (e) {
-      isloading.value = false;
       CustomSnackbar.showError('Error', e.toString());
+    } finally {
+      isloading.value = false;
     }
   }
 

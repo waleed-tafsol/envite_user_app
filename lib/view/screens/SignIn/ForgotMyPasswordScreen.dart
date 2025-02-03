@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:event_planner_light/constants/StyleConstants.dart';
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:flutter/material.dart';
@@ -161,7 +163,7 @@ class _ForgotMyPasswordConfirmScreenState
             "email": email,
             "password": _passwordController.value.text,
             "confirmPassword": _confirmPasswordController.value.text,
-            "code": otp
+            // "code": otp
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -170,8 +172,8 @@ class _ForgotMyPasswordConfirmScreenState
         final jsonresponse = json.decode(response.body);
         if (response.statusCode == 201) {
           Get.back();
-          CustomSnackbar.showSuccess(
-              "Success", "Password Reset Successfull Login");
+          CustomSnackbar.showSuccess("Success", "Password Reset Successfull");
+          // authService.setAuthToken(jsonresponse["data"]["token"]);
           Get.offAllNamed(
             SigninScreen.routeName,
           );
@@ -288,10 +290,6 @@ class _ForgotMyPasswordConfirmScreenState
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            Get.dialog(
-                                const Center(
-                                    child: CircularProgressIndicator()),
-                                barrierDismissible: false);
                             await _submit(
                                 otp: args["otp"] ?? "",
                                 email: args["email"] ?? "");
