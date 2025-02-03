@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../utills/string_decoration.dart';
+
 class ChoosePlanContainer extends StatelessWidget {
   const ChoosePlanContainer({
     super.key,
@@ -36,12 +38,13 @@ class ChoosePlanContainer extends StatelessWidget {
               style: TextConstants.bodySmall_darkblue_bold(context),
             ),*/
             Text(
-              package?.name?.en ?? "",
+              '${capitalizeFirstLetter(package?.name?.en ?? "")} / ${capitalizeFirstLetter(package?.name?.ar ?? "")}',
               style: TextConstants.headlineLarge_darkBlue_Bold(context),
             ),
+            SizedBox(height: 1.h,),
             Text(
               "\$ ${package?.price.toString()} ",
-              style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 18.sp,fontWeight: FontWeight.w500),
+              style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 18.sp,fontWeight: FontWeight.w700),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -59,7 +62,7 @@ class ChoosePlanContainer extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    "${package?.duration.toString()} month",
+                    "${package?.duration.toString()} Month",
                     style: TextConstants.bodySmall_darkblue_bold(context),
                   ),
                 ],
@@ -80,7 +83,7 @@ class ChoosePlanContainer extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    package?.eventType ?? "",
+                    capitalizeFirstLetter(package?.eventType ?? "") ,
                     style: TextConstants.bodySmall_darkblue_bold(context),
                   ),
                 ],
