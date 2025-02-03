@@ -80,10 +80,10 @@ class ConfirmorAddMoreEvents extends StatelessWidget {
                 height: 6.h,
                 width: double.infinity,
                 child: CustomOutlinedButton(
-                    ontap: () {
+                    onTap: () {
                       Get.back();
                     },
-                    contant: [Text("Add more events")]),
+                    text: [Text("Add more events")]),
               ),
             ],
           ),

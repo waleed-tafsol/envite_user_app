@@ -29,7 +29,7 @@ class Buytopups extends GetView<TopupsController> {
                       width: 30.w,
                       // height: 6.h,
                       child: CustomOutlinedButton(
-                        contant: [
+                        text: [
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 4.w),
                             child: Row(
@@ -57,7 +57,7 @@ class Buytopups extends GetView<TopupsController> {
                             ),
                           ),
                         ],
-                        ontap: () {
+                        onTap: () {
                           // Get.toNamed(ChooseaplanScreen.routeName);
                         },
                       ),

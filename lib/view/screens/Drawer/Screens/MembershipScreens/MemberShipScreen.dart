@@ -26,14 +26,14 @@ class MembershipScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
             Text(
               "Basic Plan (Free)",
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge!
-                  .copyWith(color: AppColors.kBlueMediumShade),
+                  .copyWith(color: AppColors.kBluedarkShade),
             ),
             SizedBox(
               height: 2.h,
@@ -84,24 +84,24 @@ class MembershipScreen extends StatelessWidget {
             ),
             SizedBox(
               width: double.infinity,
-              height: 6.h,
+              height: 7.h,
               child: CustomOutlinedButton(
-                contant: [
+                text: [
                   Text(
                     "Change Plan to premium",
-                    style: TextConstants.bodyLargeMediumBlueBold(context),
+                    style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 15.sp,fontWeight: FontWeight.w700),
                   ),
                   Text(
                     "(12 kd per month) 120 Yearly",
-                    style: TextConstants.bodySmall_mediumBlue_normal(context),
+                    style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 13.sp),
                   ),
                 ],
-                ontap: () {
+                onTap: () {
                   Get.toNamed(BuyPackagesScreen.routeName);
                 },
               ),
             ),
-            k1hSizedBox,
+            SizedBox(height: 5.h),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -109,7 +109,7 @@ class MembershipScreen extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge!
-                    .copyWith(color: AppColors.kBlueMediumShade),
+                    .copyWith(color: AppColors.kBluedarkShade),
               ),
             ),
             k1hSizedBox,
@@ -140,32 +140,32 @@ class MembershipScreen extends StatelessWidget {
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
     super.key,
-    required this.contant,
-    required this.ontap,
+    required this.text,
+    required this.onTap,
   });
 
-  final List<Widget> contant;
-  final VoidCallback ontap;
+  final List<Widget> text;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () async {
-        ontap();
+        onTap();
       },
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
-        side: const BorderSide(width: 1, color: AppColors.kBlueMediumShade),
+        side: const BorderSide(width: 1, color: AppColors.kBluedarkShade),
         padding: EdgeInsets.symmetric(vertical: 1.h),
         textStyle: TextConstants.bodyLarge_White_Normal(context)
-            .copyWith(color: AppColors.kBlueLightShade),
+            .copyWith(color: AppColors.kBluedarkShade),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: contant,
+        children: text,
       ),
     );
   }

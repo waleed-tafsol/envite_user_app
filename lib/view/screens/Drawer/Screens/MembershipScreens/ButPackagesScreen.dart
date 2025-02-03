@@ -12,29 +12,27 @@ class BuyPackagesScreen extends GetView<PackagesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Buy Top Ups'),
+        title: const Text('Membership'),
       ),
       body: Obx(() {
         return controller.isloading.value
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    spacing: 8.w,
-                    runSpacing: 2.h,
-                    children: controller.topups.map((item) {
-                      return ChoosePlanContainer(
-                        package: item,
-                      );
-                    }).toList(),
-                  ),
-                ),
-              );
+            : Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
+                spacing: 8.w,
+                runSpacing: 2.h,
+                children: controller.topups.map((item) {
+                  return ChoosePlanContainer(
+                    package: item,
+                  );
+                }).toList(),
+              ),
+            );
       }),
     );
   }

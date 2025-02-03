@@ -27,21 +27,21 @@ class ChoosePlanContainer extends StatelessWidget {
             borderRadius: k5BorderRadius),
         child: Column(
           children: [
-            const Icon(
+          /*  const Icon(
               Icons.circle,
               color: AppColors.kBlueLightShade,
-            ),
-            Text(
+            ),*/
+           /* Text(
               "Change Plan to",
               style: TextConstants.bodySmall_darkblue_bold(context),
-            ),
+            ),*/
             Text(
               package?.name?.en ?? "",
               style: TextConstants.headlineLarge_darkBlue_Bold(context),
             ),
             Text(
               "\$ ${package?.price.toString()} ",
-              style: TextConstants.bodySmall_darkblue_bold(context),
+              style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 18.sp,fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
             SizedBox(

@@ -27,7 +27,7 @@ class PackagesController extends GetxController {
     try {
       final response = await http.post(Uri.parse(ApiConstants.getAllPackages),
           body: jsonEncode(
-              {type == null ? null : "eventType": type, "packageType": "all"}),
+              {/*type == null ? null : "eventType": type,*/ "packageType": "all"}),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authService.authToken}',
