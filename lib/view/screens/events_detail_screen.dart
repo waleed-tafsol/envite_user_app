@@ -12,6 +12,7 @@ import '../../constants/constants.dart';
 import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../utills/string_decoration.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/network_video_player_widget.dart';
 
@@ -109,7 +110,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       return controller.isLoading.value
                           ? sizedShimmer(width: 20.w)
                           : Text(
-                              controller.eventDetailResponse.value.data!.name!,
+                        capitalizeFirstLetter(controller.eventDetailResponse.value.data!.name!),
                               style: Theme.of(context).textTheme.headlineLarge,
                             );
                     }),
@@ -215,9 +216,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       return controller.isLoading.value
                           ? sizedShimmer(height: 10.h, width: double.infinity)
                           : Text(
-                              controller.eventDetailResponse.value.data
+                          capitalizeFirstLetter(controller.eventDetailResponse.value.data
                                       ?.description ??
-                                  "",
+                                  ""),
                               style: Theme.of(context).textTheme.bodySmall);
                     }),
                     SizedBox(

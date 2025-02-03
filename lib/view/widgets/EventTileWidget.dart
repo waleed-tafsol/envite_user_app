@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
+import '../../utills/string_decoration.dart';
 import '../screens/events_detail_screen.dart';
 import 'StatusTagWidget.dart';
 
@@ -83,7 +84,7 @@ class EventTileWidget extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 3.w),
                           child: Text(
-                            event?.name ?? "",
+                            capitalizeFirstLetter(event?.name ?? ""),
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
