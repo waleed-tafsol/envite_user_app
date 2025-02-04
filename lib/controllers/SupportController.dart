@@ -26,7 +26,7 @@ class SupportController extends GetxController {
   RxList<TicketModel> tickets = <TicketModel>[].obs;
   List allTypes = ["all", "pending", "resolved", "rejected"];
   RxString selectedType = "pending".obs;
-  Rx<File?> pickedImages = Rx<File?>(null);
+  Rx<File?> pickedImage = Rx<File?>(null);
   final ImagePicker _picker = ImagePicker();
 
   RxBool isloading = false.obs;
@@ -35,10 +35,14 @@ class SupportController extends GetxController {
     try {
       final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
 
-      pickedImages.value = File(file!.path);
+      pickedImage.value = File(file!.path);
     } catch (e) {
       Get.snackbar('Error', 'Failed to pick image or video: $e');
     }
+  }
+  Future<void> removeImage() async {
+
+      pickedImage.value = null;
   }
 
   // Create Ticket
@@ -50,37 +54,47 @@ class SupportController extends GetxController {
 
       request.fields['title'] = titleController.value.text;
       request.fields['description'] = descriptionController.value.text;
-      final mimeType = lookupMimeType(pickedImages
-          .value!.path); // Get MIME type based on the file extension
+
+      if (pickedImage.value!= null) {
+        
+      final mimeType = lookupMimeType(pickedImage
+          .value!.path);
       final mediaType = mimeType != null
           ? MediaType.parse(mimeType)
-          : MediaType('image', 'jpeg'); // Default to 'image/jpeg'
+          : MediaType('image', 'jpeg');
 
       var multipartFile = await http.MultipartFile.fromPath(
         'image',
-        pickedImages.value!.path,
+        pickedImage.value!.path,
         // filename: file.uri.pathSegments.last,
         contentType: mediaType,
       );
 
       request.files.add(multipartFile);
+      }
 
       request.headers.addAll({
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ${authService.authToken}',
       });
 
-      // Send the request
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
+         final jsonResponse = json.decode(response.body);
 
       if (response.statusCode == 201) {
-        CustomSnackbar.showSuccess('Success', "Ticket Created Successfully");
         isloading.value = false;
-        getAllTickets();
+        // Map<String, dynamic> jsonResponseData =
+          // Map<String, dynamic>.from(jsonResponse['data']);
+        tickets.insert(0,
+           TicketModel.fromJson(jsonResponse["data"]));
+        
+        clearValues();
+        Get.back();
+        CustomSnackbar.showSuccess('Success', "Ticket Created Successfully");
       } else {
         isloading.value = false;
-        throw Exception('Failed to load ticket');
+        throw Exception(jsonResponse["message"]["error"][0]);
       }
     } catch (e) {
       isloading.value = false;
@@ -121,8 +135,9 @@ class SupportController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void clearValues(){
+    removeImage();
+    titleController.text ="";
+    descriptionController.text ="";
   }
 }
