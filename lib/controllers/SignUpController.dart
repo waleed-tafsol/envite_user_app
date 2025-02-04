@@ -1,32 +1,20 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
-import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/Drawer/DrawerScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 
 class Signupcontroller extends GetxController {
   @override
   void onInit() async {
     super.onInit();
   }
-
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final bioController = TextEditingController();
-
   RxBool isEventPlanner = true.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
@@ -63,8 +51,6 @@ class Signupcontroller extends GetxController {
       CustomSnackbar.showError('Error', e.toString());
     }
   }
-
-
 
   @override
   void onClose() {

@@ -1,17 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:event_planner_light/services/LocationServices.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mime/mime.dart';
 import '../constants/ApiConstant.dart';
 import '../model/UserModel.dart';
+import '../services/LocationServices.dart';
 import '../utills/CustomSnackbar.dart';
 import '../view/screens/auth_screen.dart';
 import 'Auth_token_services.dart';
-import 'package:http_parser/http_parser.dart';
 
 class AuthService extends GetxService {
   @override
@@ -32,6 +29,13 @@ class AuthService extends GetxService {
   final TokenService _tokenStorage = TokenService();
   String? authToken;
   Rx<UserModel?> me = UserModel().obs;
+
+  setAuthToken(String token) {
+    authToken = token;
+    _tokenStorage.saveToken(authToken!);
+    getMe();
+    isAuthenticated.value = true;
+  }
 
   Future<void> getMe() async {
     try {
@@ -70,15 +74,7 @@ class AuthService extends GetxService {
 
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
-        if (responseData["data"]["user"]["isVerified"] == true) {
-          authToken = responseData["data"]["token"];
-          _tokenStorage.saveToken(authToken!);
-          isAuthenticated.value = true;
-          await getMe();
-          return responseData;
-        } else {
-          throw Exception("Please verify your email to login");
-        }
+        return responseData;
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
@@ -150,12 +146,6 @@ class AuthService extends GetxService {
 
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
-
-        authToken = responseData["data"]["token"];
-        _tokenStorage.saveToken(authToken!);
-        // isAuthenticated.value = true;
-        // await getMe();
-
         return responseData;
       } else {
         final errorData = jsonDecode(response.body);
@@ -190,6 +180,60 @@ class AuthService extends GetxService {
       Get.back();
 
       CustomSnackbar.showError("Error", e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>?> verifyOtp(
+      {String? email, required bool isForgotPassword, String? otp}) async {
+    try {
+      final response = await http.post(
+        Uri.parse(ApiConstants.verifyOtp),
+        body: jsonEncode({
+          "email": email ?? "",
+          "code": otp,
+          "fromForgotPassword": isForgotPassword
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+            errorData["message"]["error"][0] ?? "An error occurred");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>?> resendOtp(
+      {required bool isForgotPassword,
+      //  String? otp,
+      String? email}) async {
+    try {
+      final response = await http.post(
+        Uri.parse(ApiConstants.resendOtp),
+        body: jsonEncode({
+          // "otp": otp,
+          "fromForgotPassword": isForgotPassword,
+          "email": email
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+            errorData["message"]["error"][0] ?? "An error occurred");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 

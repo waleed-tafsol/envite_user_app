@@ -5,15 +5,16 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SupportContainer extends StatelessWidget {
   const SupportContainer(
-      {super.key, required this.title, required this.subTitle});
+      {super.key, required this.title, required this.subTitle, this.image});
 
   final String title;
+  final String? image;
   final String subTitle;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 12.h,
+      // height: 12.h,
       width: double.infinity,
       decoration: BoxDecoration(
           color: Color(0xffF1F5ED),
@@ -25,6 +26,31 @@ class SupportContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              height: 20.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  image: image == null
+                      ? null
+                      : DecorationImage(
+                          image: NetworkImage(image!), fit: BoxFit.contain),
+                  color: AppColors.kTextfieldColor,
+                  borderRadius: BorderRadius.circular(10)),
+              child: image != null
+                  ? null
+                  : Center(
+                      child: Text(
+                        "No Image",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
             Text(
               title,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -33,13 +59,11 @@ class SupportContainer extends StatelessWidget {
             SizedBox(
               height: 0.7.h,
             ),
-            Expanded(
-              child: Text(
-                subTitle,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: AppColors.kBerkeleyBlue,
-                    ),
-              ),
+            Text(
+              subTitle,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    color: AppColors.kBerkeleyBlue,
+                  ),
             ),
           ],
         ),

@@ -1,6 +1,5 @@
 import 'package:event_planner_light/controllers/ExploreController.dart';
 import 'package:event_planner_light/view/screens/filtered_list_view.dart';
-import 'package:event_planner_light/view/screens/view_all_my_events_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -57,7 +56,8 @@ class ExploreScreen extends GetView<ExploreController> {
                                         controller
                                                 .exploreEventsScreenType.value =
                                             Events.explorerPastEvent.text;
-                                        filtersController.clearFilterData(resetSelectScreenStatus: false);
+                                        filtersController.clearFilterData(
+                                            resetSelectScreenStatus: false);
                                         filtersController.setSelectedScreen(
                                             value:
                                                 Events.explorerPastEvent.text);
@@ -166,7 +166,8 @@ class ExploreScreen extends GetView<ExploreController> {
                                         controller
                                                 .exploreEventsScreenType.value =
                                             Events.explorerUpcomingEvent.text;
-                                        filtersController.clearFilterData(resetSelectScreenStatus: false);
+                                        filtersController.clearFilterData(
+                                            resetSelectScreenStatus: false);
                                         filtersController.setSelectedScreen(
                                             value: Events
                                                 .explorerUpcomingEvent.text);
