@@ -9,14 +9,12 @@ class Signupcontroller extends GetxController {
   void onInit() async {
     super.onInit();
   }
-
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final bioController = TextEditingController();
-
   RxBool isEventPlanner = true.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
