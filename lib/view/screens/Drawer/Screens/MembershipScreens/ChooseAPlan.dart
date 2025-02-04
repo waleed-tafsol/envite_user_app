@@ -1,6 +1,7 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
+import 'package:event_planner_light/controllers/payment_controller.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,9 @@ class ChoosePlanContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(MemberShipPaymentScreen.routeName,
-            arguments: package?.slug ?? "");
+        final PaymentController paymentController = Get.put(PaymentController());
+        paymentController.packagesModel.value = package!;
+        Get.toNamed(PaymentScreen.routeName);
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),

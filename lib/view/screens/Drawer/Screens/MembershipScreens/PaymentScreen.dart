@@ -1,38 +1,16 @@
-import 'dart:convert';
 
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../../constants/ApiConstant.dart';
 import '../../../../../constants/StyleConstants.dart';
-import '../../../../../controllers/Auth_services.dart';
-import '../../../../../utills/CustomSnackbar.dart';
 import '../../../cms/CmsScreen.dart';
-import 'Widget/PaymentMethodsWidget.dart';
-import 'package:http/http.dart' as http;
 
-class MemberShipPaymentScreen extends StatelessWidget {
-  MemberShipPaymentScreen({super.key});
+class PaymentScreen extends GetView<PaymentController> {
+  PaymentScreen({super.key});
+
   static const routeName = "MemberShipPaymentScreen";
-
-  Future<void> paynow(String? type) async {
-    try {
-      final response = await http
-          .patch(Uri.parse(ApiConstants.buyPackages + type!), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${authService.authToken}',
-      });
-      if (response.statusCode == 201) {
-        final jsonResponse = json.decode(response.body);
-        await authService.getMe();
-      } else {
-        throw Exception('Failed to buy subscription');
-      }
-    } catch (e) {
-      CustomSnackbar.showError('Error', e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +26,7 @@ class MemberShipPaymentScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 10.h,
+              height: 2.h,
             ),
             Text(
               "Pay now and get access in all features and offers",
@@ -57,9 +35,16 @@ class MemberShipPaymentScreen extends StatelessWidget {
             SizedBox(
               height: 2.h,
             ),
-            PaymentMethodWidget(),
-            SizedBox(
-              height: 1.h,
+            Expanded(
+              child: Obx(() {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: controller.paymentMethods.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return paymentMethodsItem(ctxt, index);
+                    });
+              }),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -80,7 +65,7 @@ class MemberShipPaymentScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 6.h,
+              height: 1.h,
             ),
             SizedBox(
               width: double.infinity,
@@ -94,21 +79,74 @@ class MemberShipPaymentScreen extends StatelessWidget {
                   ],
                 ),
                 onPressed: () async {
-                  final args = Get.arguments;
+                  controller.executePayment();
+                  /* final args = Get.arguments;
                   Get.dialog(Center(
                     child: CircularProgressIndicator(),
-                  ));
+                  ));*/
 
-                  await paynow(args);
-                  Get.back();
-
-                  Get.until((route) => route.isFirst);
+                  // Get.back();
+                  //  Get.until((route) => route.isFirst);
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget paymentMethodsItem(BuildContext ctxt, int index) {
+    return SizedBox(
+      width: double.infinity,
+      height: 6.h,
+      child: Obx(() {
+        return Container(
+          decoration: controller.isSelected[index]
+              ? BoxDecoration(
+                  border: Border.all(color: AppColors.kBluedarkShade, width: 2))
+              : const BoxDecoration(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2.w),
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  height: 24.0,
+                  width: 24.0,
+                  child: Checkbox(
+                      checkColor: Colors.blueAccent,
+                      activeColor: const Color(0xFFC9C5C5),
+                      value: controller.isSelected[index],
+                      onChanged: (bool? value) {
+                        controller.setPaymentMethodSelected(index, value!);
+                      }),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Image.network(
+                  controller.paymentMethods[index].imageUrl!,
+                  height: 35.0,
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  controller.paymentMethods[index].paymentMethodEn ?? "",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.kBluedarkShade,
+                    fontWeight: controller.isSelected[index]
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }

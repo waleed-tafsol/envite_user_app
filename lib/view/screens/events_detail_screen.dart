@@ -13,6 +13,7 @@ import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../utills/string_decoration.dart';
+import '../widgets/BottomModelSheet.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/network_video_player_widget.dart';
 
@@ -415,16 +416,28 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 1.h),
-                                            child: Text(
-                                                controller
-                                                        .eventDetailResponse
-                                                        .value
-                                                        .data
-                                                        ?.socialLinks?[index] ??
-                                                    "",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall),
+                                            child: Row(
+                                              children: [
+                                            const Icon(
+                                                  Icons.link,
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                ),
+                                                SizedBox(
+                                                  width: 2.w,
+                                                ),
+                                                Text(
+                                                    controller
+                                                            .eventDetailResponse
+                                                            .value
+                                                            .data
+                                                            ?.socialLinks?[index] ??
+                                                        "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }),
@@ -469,16 +482,28 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 1.h),
-                                            child: Text(
-                                                controller
-                                                        .eventDetailResponse
-                                                        .value
-                                                        .data
-                                                        ?.emails?[index] ??
-                                                    "",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall),
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.email_outlined,
+                                                  color:
+                                                  AppColors.kBluedarkShade,
+                                                ),
+                                                SizedBox(
+                                                  width: 2.w,
+                                                ),
+                                                Text(
+                                                    controller
+                                                            .eventDetailResponse
+                                                            .value
+                                                            .data
+                                                            ?.emails?[index] ??
+                                                        "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }),
@@ -500,46 +525,46 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                     //   ],
                     // ),
 
-                    // SizedBox(
-                    //   height: 1.h,
-                    // ),
-                    // Obx(() {
-                    //   return controller.isLoading.value
-                    //       ? sizedShimmer(height: 5.h, width: double.infinity)
-                    //       : Row(
-                    //           children: [
-                    //             Expanded(
-                    //               child: ElevatedButton(
-                    //                   style: ElevatedButton.styleFrom(
-                    //                       backgroundColor:
-                    //                           AppColors.kPrimaryColor),
-                    //                   onPressed: () {
-                    //                     BottomSheetManager.sendInvite(context);
-                    //                   },
-                    //                   child: Text(
-                    //                     'Send Invite',
-                    //                     style: TextStyle(color: Colors.white),
-                    //                   )),
-                    //             ),
-                    //             SizedBox(
-                    //               width: 2.w,
-                    //             ),
-                    //             Expanded(
-                    //               child: ElevatedButton(
-                    //                   style: ElevatedButton.styleFrom(
-                    //                       backgroundColor:
-                    //                           AppColors.kBerkeleyBlue),
-                    //                   onPressed: () {
-                    //                     // Get.toNamed(GenerateTicketScreen.routeName);
-                    //                   },
-                    //                   child: Text(
-                    //                     'Pin',
-                    //                     style: TextStyle(color: Colors.white),
-                    //                   )),
-                    //             ),
-                    //           ],
-                    //         );
-                    // }),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Obx(() {
+                      return controller.isLoading.value
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.kPrimaryColor),
+                                      onPressed: () {
+                                        BottomSheetManager.sendInvite(context);
+                                      },
+                                      child: Text(
+                                        'Send Invite',
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.kBerkeleyBlue),
+                                      onPressed: () {
+                                        // Get.toNamed(GenerateTicketScreen.routeName);
+                                      },
+                                      child: Text(
+                                        'Pin',
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
+                              ],
+                            );
+                    }),
                   ],
                 ),
               ),

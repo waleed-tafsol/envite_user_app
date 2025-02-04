@@ -6,6 +6,7 @@ import 'package:event_planner_light/bindings/EditProfileBindings.dart';
 import 'package:event_planner_light/bindings/PackagesControllerBindings.dart';
 import 'package:event_planner_light/bindings/SignInBindings.dart';
 import 'package:event_planner_light/bindings/SignUpBindings.dart';
+import 'package:event_planner_light/bindings/payment_controller_bindings.dart';
 import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/bindings/supportBindings.dart';
 import 'package:event_planner_light/services/customPrint.dart';
@@ -155,10 +156,11 @@ class Pages {
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
-      case MemberShipPaymentScreen.routeName:
+      case PaymentScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => MemberShipPaymentScreen(),
+          page: () => PaymentScreen(),
+          binding: PaymentControllerBindings(),
           // binding: AuthBinding(),
           transition: _routeTransition,
         );
@@ -266,7 +268,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => BuyPackagesScreen(),
-          binding: Packagescontrollerbindings(),
+          binding: PackagesControllerBindings(),
           transition: _routeTransition,
         );
       // case MembershipScreen.routeName:

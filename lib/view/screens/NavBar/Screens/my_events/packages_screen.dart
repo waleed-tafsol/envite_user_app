@@ -44,7 +44,7 @@ class PackagesScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 1.h),
                     child: InkWell(
                         onTap: () {
-                          Get.toNamed(MemberShipPaymentScreen.routeName);
+                          Get.toNamed(PaymentScreen.routeName);
                         },
                         child: MembershipContainer(
                           price: item.price ?? 0,
