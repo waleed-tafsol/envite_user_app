@@ -159,8 +159,7 @@ class ProfileScreen extends GetView<MyProfileController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: subscriptions.map((item) {
                       return MembershipContainer(
-                        price: item.price ?? 0,
-                        type: item.type ?? "",
+                        plan: item,
                       );
                     }).toList(),
                   );

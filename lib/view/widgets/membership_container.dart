@@ -3,11 +3,13 @@ import 'package:event_planner_light/view/widgets/bullet_points.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../model/SubscriptionModel.dart';
+import '../../utills/string_decoration.dart';
+
 class MembershipContainer extends StatelessWidget {
   const MembershipContainer(
-      {super.key, required this.price, required this.type});
-  final int price;
-  final String type;
+      {super.key, required this.plan});
+  final Subscriptions plan;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class MembershipContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Premimum',
+              capitalizeFirstLetter(plan.type!),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -34,14 +36,14 @@ class MembershipContainer extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                  text: '\$$price/',
+                  text: '\$${plan.price}/',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
                       .copyWith(color: AppColors.kBerkeleyBlue),
                   children: [
                     TextSpan(
-                      text: type,
+                      text: '${plan.duration} Months',
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!

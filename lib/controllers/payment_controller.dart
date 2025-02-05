@@ -91,6 +91,7 @@ class PaymentController extends GetxController {
 
     await MFSDK
         .executePayment(request, MFLanguage.ENGLISH, (invoiceId) {
+
       print(invoiceId);
     })
         .then((value) => print(value))

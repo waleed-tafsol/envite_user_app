@@ -46,9 +46,7 @@ class PackagesScreen extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(PaymentScreen.routeName);
                         },
-                        child: MembershipContainer(
-                          price: item.price ?? 0,
-                          type: item.type ?? "",
+                        child: MembershipContainer( plan: item,
                         )),
                   );
                 }).toList(),
