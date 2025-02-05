@@ -1,4 +1,4 @@
-import 'package:event_planner_light/view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/NotificationScreens/NotificationScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
