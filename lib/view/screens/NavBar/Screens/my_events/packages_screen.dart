@@ -47,8 +47,7 @@ class PackagesScreen extends StatelessWidget {
                           Get.toNamed(PaymentScreen.routeName);
                         },
                         child: MembershipContainer(
-                          price: item.price ?? 0,
-                          type: item.type ?? "",
+                          subscription: item,
                         )),
                   );
                 }).toList(),

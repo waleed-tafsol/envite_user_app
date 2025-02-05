@@ -20,22 +20,25 @@ class ChoosePlanContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final PaymentController paymentController = Get.put(PaymentController());
+        final PaymentController paymentController =
+            Get.put(PaymentController());
         paymentController.packagesModel.value = package!;
         Get.toNamed(PaymentScreen.routeName);
       },
       child: Container(
+        width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
         decoration: BoxDecoration(
             border: Border.all(color: AppColors.kBluedarkShade, width: 2),
             borderRadius: k5BorderRadius),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-          /*  const Icon(
+            /*  const Icon(
               Icons.circle,
               color: AppColors.kBlueLightShade,
             ),*/
-           /* Text(
+            /* Text(
               "Change Plan to",
               style: TextConstants.bodySmall_darkblue_bold(context),
             ),*/
@@ -43,74 +46,73 @@ class ChoosePlanContainer extends StatelessWidget {
               '${capitalizeFirstLetter(package?.name?.en ?? "")} / ${capitalizeFirstLetter(package?.name?.ar ?? "")}',
               style: TextConstants.headlineLarge_darkBlue_Bold(context),
             ),
-            SizedBox(height: 1.h,),
+            SizedBox(
+              height: 1.h,
+            ),
             Text(
               "\$ ${package?.price.toString()} ",
-              style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 18.sp,fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  color: AppColors.kBluedarkShade,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700),
               textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 1.h,
             ),
-            SizedBox(
-              width: 30.w,
-              child: Row(
-                children: [
-                  Text(
-                    'Duration: ',
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Text(
-                    "${package?.duration.toString()} Month",
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Duration: ',
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  "${package?.duration.toString()} Month",
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+              ],
             ),
             SizedBox(
               height: 0.5.h,
             ),
-            SizedBox(
-              width: 30.w,
-              child: Row(
-                children: [
-                  Text(
-                    'Event Type:',
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Text(
-                    capitalizeFirstLetter(package?.eventType ?? "") ,
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Event Type:',
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  capitalizeFirstLetter(package?.eventType ?? ""),
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+              ],
             ),
             SizedBox(
               height: 0.5.h,
             ),
-            SizedBox(
-              width: 30.w,
-              child: Row(
-                children: [
-                  Text(
-                    'Number of invites:',
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Text(
-                    package?.invites.toString() ?? "",
-                    style: TextConstants.bodySmall_darkblue_bold(context),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Number of invites:',
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  package?.invites.toString() ?? "",
+                  style: TextConstants.bodySmall_darkblue_bold(context),
+                ),
+              ],
             ),
           ],
         ),

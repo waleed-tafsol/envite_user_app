@@ -5,8 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../constants/colors_constants.dart';
 
-
-Widget categoriesTileShimmer(){
+Widget categoriesTileShimmer() {
   return Shimmer.fromColors(
     baseColor: AppColors.kBluedarkShade,
     highlightColor: AppColors.kLightBlueColor2,

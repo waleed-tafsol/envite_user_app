@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/assets.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
+import '../Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
 import '../Drawer/Screens/MembershipScreens/BuyTopUps.dart';
 import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../Drawer/Screens/couponScreen.dart';
@@ -215,7 +216,8 @@ class MyDrawer extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Buytopups.routeName);
+                      Get.toNamed(BuyPackagesScreen.routeName,
+                          arguments: {"type": "addon"});
                     },
                     child: Row(
                       children: [

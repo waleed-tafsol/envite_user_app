@@ -8,10 +8,13 @@ import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 class PaymentController extends GetxController {
   List<MFPaymentMethod> paymentMethods = <MFPaymentMethod>[].obs;
   Rx<PackagesModel> packagesModel = PackagesModel().obs;
- // RxDouble finalAmount = 0.0.obs;
-  RxList<bool> isSelected = <bool>[].obs;
+  // RxDouble finalAmount = 0.0.obs;
+  RxList<bool> isSelectedList = <bool>[].obs;
+  bool isPaymentMethodselected = false;
   int selectedPaymentMethodIndex = -1;
   bool visibilityObs = false;
+  RxBool isloading = false.obs;
+  RxBool termsAndConditionAccepted = false.obs;
   RxString responseMessage = ''.obs;
 
   @override
@@ -21,6 +24,7 @@ class PaymentController extends GetxController {
   }
 
   initiate() async {
+    isloading.value = true;
     // TODO, don't forget to init the MyFatoorah Plugin with the following line
     await MFSDK.init(
         'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL',
@@ -29,6 +33,7 @@ class PaymentController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await initiatePayment();
       // await initiateSession();
+      isloading.value = false;
     });
   }
 
@@ -43,15 +48,16 @@ class PaymentController extends GetxController {
               print(value),
               paymentMethods.addAll(value.paymentMethods!),
               for (int i = 0; i < paymentMethods.length; i++)
-                isSelected.add(false)
+                isSelectedList.add(false)
             })
         .catchError((error) => {print(error.message)});
   }
 
   setPaymentMethodSelected(int index, bool value) {
-    for (int i = 0; i < isSelected.length; i++) {
+    isPaymentMethodselected = value;
+    for (int i = 0; i < isSelectedList.length; i++) {
       if (i == index) {
-        isSelected[i] = value;
+        isSelectedList[i] = value;
         if (value) {
           selectedPaymentMethodIndex = index;
           visibilityObs = paymentMethods[index].isDirectPayment!;
@@ -60,7 +66,7 @@ class PaymentController extends GetxController {
           visibilityObs = false;
         }
       } else {
-        isSelected[i] = false;
+        isSelectedList[i] = false;
       }
     }
   }
@@ -80,7 +86,9 @@ class PaymentController extends GetxController {
 
   executeRegularPayment(int paymentMethodId) async {
     var request = MFExecutePaymentRequest(
-        paymentMethodId: paymentMethodId, invoiceValue: packagesModel.value.price);
+        userDefinedField: packagesModel.toString(),
+        paymentMethodId: paymentMethodId,
+        invoiceValue: packagesModel.value.price);
     request.displayCurrencyIso = MFCurrencyISO.KUWAIT_KWD;
 
     // var recurring = MFRecurringModel();
@@ -91,10 +99,9 @@ class PaymentController extends GetxController {
 
     await MFSDK
         .executePayment(request, MFLanguage.ENGLISH, (invoiceId) {
-      print(invoiceId);
-    })
+          print(invoiceId);
+        })
         .then((value) => print(value))
         .catchError((error) => {print(error.message)});
   }
-
 }

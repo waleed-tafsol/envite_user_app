@@ -1,6 +1,7 @@
-
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/payment_controller.dart';
+import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
+import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -37,19 +38,38 @@ class PaymentScreen extends GetView<PaymentController> {
             ),
             Expanded(
               child: Obx(() {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: controller.paymentMethods.length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return paymentMethodsItem(ctxt, index);
-                    });
+                return controller.isloading.value
+                    ? ListView(
+                        scrollDirection: Axis.vertical,
+                        children: List.generate(
+                            10,
+                            (index) => Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 1.h, horizontal: 4.w),
+                                  child: sizedShimmer(
+                                      height: 5.h, width: double.infinity),
+                                )),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: controller.paymentMethods.length,
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return paymentMethodsItem(ctxt, index);
+                        });
               }),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Checkbox(value: false, onChanged: (value) {}),
+                Obx(() {
+                  return Checkbox(
+                      value: controller.termsAndConditionAccepted.value,
+                      onChanged: (value) {
+                        controller.termsAndConditionAccepted.value =
+                            value ?? false;
+                      });
+                }),
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(CmsScreen.routeName, arguments: false);
@@ -79,7 +99,14 @@ class PaymentScreen extends GetView<PaymentController> {
                   ],
                 ),
                 onPressed: () async {
-                  controller.executePayment();
+                  controller.termsAndConditionAccepted.value
+                      ? controller.isPaymentMethodselected
+                          ? controller.executePayment()
+                          : CustomSnackbar.showError(
+                              "Error", "Please Select PaymentMethod")
+                      : CustomSnackbar.showError(
+                          "Error", "Please accept terms and conditions");
+
                   /* final args = Get.arguments;
                   Get.dialog(Center(
                     child: CircularProgressIndicator(),
@@ -102,7 +129,7 @@ class PaymentScreen extends GetView<PaymentController> {
       height: 6.h,
       child: Obx(() {
         return Container(
-          decoration: controller.isSelected[index]
+          decoration: controller.isSelectedList[index]
               ? BoxDecoration(
                   border: Border.all(color: AppColors.kBluedarkShade, width: 2))
               : const BoxDecoration(),
@@ -116,7 +143,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   child: Checkbox(
                       checkColor: Colors.blueAccent,
                       activeColor: const Color(0xFFC9C5C5),
-                      value: controller.isSelected[index],
+                      value: controller.isSelectedList[index],
                       onChanged: (bool? value) {
                         controller.setPaymentMethodSelected(index, value!);
                       }),
@@ -136,7 +163,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.kBluedarkShade,
-                    fontWeight: controller.isSelected[index]
+                    fontWeight: controller.isSelectedList[index]
                         ? FontWeight.bold
                         : FontWeight.normal,
                   ),

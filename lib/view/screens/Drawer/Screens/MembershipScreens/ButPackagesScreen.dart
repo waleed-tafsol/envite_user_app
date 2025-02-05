@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
+
 class BuyPackagesScreen extends GetView<PackagesController> {
   const BuyPackagesScreen({super.key});
   static const routeName = 'BuyPackagesScreen';
@@ -12,27 +14,32 @@ class BuyPackagesScreen extends GetView<PackagesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Membership'),
+        title: const Text('Choose a Plan'),
       ),
       body: Obx(() {
         return controller.isloading.value
-            ? Center(
-                child: CircularProgressIndicator(),
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: List.generate(
+                    3,
+                    (index) => Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 1.h, horizontal: 4.w),
+                          child: sizedShimmer(
+                              height: 20.h, width: double.infinity),
+                        )),
               )
             : Padding(
-              padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                runAlignment: WrapAlignment.center,
-                spacing: 8.w,
-                runSpacing: 2.h,
-                children: controller.topups.map((item) {
-                  return ChoosePlanContainer(
-                    package: item,
-                  );
-                }).toList(),
-              ),
-            );
+                padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+                child: Column(
+                  spacing: 2.h,
+                  children: controller.topups.map((item) {
+                    return ChoosePlanContainer(
+                      package: item,
+                    );
+                  }).toList(),
+                ),
+              );
       }),
     );
   }

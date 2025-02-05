@@ -4,17 +4,18 @@ import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../constants/ApiConstant.dart';
 
 class PackagesController extends GetxController {
+  Map<String, dynamic> args = Get.arguments;
   @override
   void onInit() async {
     super.onInit();
-    final args = Get.arguments;
 
-    await getAllPackages(args);
+    await getAllPackages(args["type"]);
   }
 
   RxList<PackagesModel> topups = <PackagesModel>[].obs;
@@ -26,8 +27,9 @@ class PackagesController extends GetxController {
     isloading.value = true;
     try {
       final response = await http.post(Uri.parse(ApiConstants.getAllPackages),
-          body: jsonEncode(
-              {/*type == null ? null : "eventType": type,*/ "packageType": "all"}),
+          body: jsonEncode({
+            /*type == null ? null : "eventType": type,*/ "packageType": type
+          }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authService.authToken}',
