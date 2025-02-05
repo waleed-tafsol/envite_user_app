@@ -1,16 +1,17 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/BuyTopUps.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../constants/constants.dart';
+import '../../../../../controllers/Auth_services.dart';
+import '../../../../../controllers/membership_controller.dart';
+import '../../../../widgets/membership_container.dart';
 
-class MembershipScreen extends StatelessWidget {
+class MembershipScreen extends GetView<MembershipController> {
   const MembershipScreen({super.key});
   static const routeName = "MemberShipScreen";
   @override
@@ -25,83 +26,68 @@ class MembershipScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 5.h,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'My Packages',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Color(0xff457B9D)),
+              ),
             ),
-            Text(
-              "Basic Plan (Free)",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: AppColors.kBluedarkShade),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Send Private invites",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(),
-                ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Text(
-                  "No",
+            Obx(() {
+              final subscriptions = authService.me.value?.subscriptions;
+              if (subscriptions == null || subscriptions.isEmpty) {
+                return Text(
+                  'You don\'t have any package right now',
                   style: Theme.of(context)
                       .textTheme
-                      .bodySmall!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "View exclusif events",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(),
-                ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Text(
-                  "No",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
+                      .bodyLarge!
+                      .copyWith(color: AppColors.kBerkeleyBlue),
+                );
+              }
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: subscriptions.map((item) {
+                  return MembershipContainer(
+                    subscription: item,
+                  );
+                }).toList(),
+              );
+            }),
+            k1hSizedBox,
+            // authService.me.value.
             SizedBox(
               width: double.infinity,
               height: 7.h,
               child: CustomOutlinedButton(
                 text: [
                   Text(
-                    "Change Plan to premium",
-                    style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 15.sp,fontWeight: FontWeight.w700),
+                    controller.membershipPlans.isEmpty
+                        ? "Buy Package"
+                        : "Upgrade package",
+                    style: TextStyle(
+                        color: AppColors.kBluedarkShade,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    "(12 kd per month) 120 Yearly",
-                    style: TextStyle(color: AppColors.kBluedarkShade,fontSize: 13.sp),
+                    controller.membershipPlans.isEmpty
+                        ? "Buy Package to get more Perks"
+                        : "Upgrade package to get more Perks",
+                    style: TextStyle(
+                        color: AppColors.kBluedarkShade, fontSize: 13.sp),
                   ),
                 ],
                 onTap: () {
-                  Get.toNamed(BuyPackagesScreen.routeName);
+                  Get.toNamed(BuyPackagesScreen.routeName,
+                      arguments: {"type": "all"});
                 },
               ),
             ),
-            SizedBox(height: 5.h),
+            k1hSizedBox,
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -114,7 +100,32 @@ class MembershipScreen extends StatelessWidget {
             ),
             k1hSizedBox,
             TopupContainer(),
-           /* k1hSizedBox,
+            k1hSizedBox,
+            SizedBox(
+              width: double.infinity,
+              height: 7.h,
+              child: CustomOutlinedButton(
+                text: [
+                  Text(
+                    "Buy TopUps",
+                    style: TextStyle(
+                        color: AppColors.kBluedarkShade,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    "Buy More Invites",
+                    style: TextStyle(
+                        color: AppColors.kBluedarkShade, fontSize: 13.sp),
+                  ),
+                ],
+                onTap: () {
+                  Get.toNamed(BuyPackagesScreen.routeName,
+                      arguments: {"type": "addon"});
+                },
+              ),
+            ),
+            /* k1hSizedBox,
             SizedBox(
               width: double.infinity,
               height: 6.h,
