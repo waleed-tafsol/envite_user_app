@@ -17,6 +17,7 @@ import '../../../../../controllers/edit_event_detail_controller.dart';
 import '../../../../../model/CatagoryModel.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/CustomSnackbar.dart';
+import '../../../../../utills/enums.dart';
 import '../../../../widgets/BottomModelSheet.dart';
 import '../../../../widgets/VideoWidget.dart';
 
@@ -31,9 +32,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.isAddPastEvents.value
-            ? 'Add Past Events'
-            : 'Add Your event'),
+        title:  Text( 'Edit Your event'),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -151,7 +150,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                   return "Please enter correct Email";
                                                 }
                                               },
-                                              keyboardType: TextInputType.name,
+                                              keyboardType: TextInputType.emailAddress,
                                               decoration: InputDecoration(
                                                 hintText: "Other Email",
                                                 prefixIcon: Icon(
@@ -210,7 +209,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                   return "Please enter correct Social Links";
                                                 }
                                               },
-                                              keyboardType: TextInputType.name,
+                                              // keyboardType: TextInputType.name,
                                               decoration: InputDecoration(
                                                 hintText: "Social Links",
                                                 prefixIcon: Icon(Icons.link),
@@ -283,72 +282,99 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                             SizedBox(
                               height: 2.h,
                             ),
-                            GooglePlaceAutoCompleteTextField(
-                              textEditingController:
-                                  controller.avenuePlaceController,
-                              focusNode: avenueFocusNode,
-                              googleAPIKey: ApiConstants.googleAPIKey,
-                              inputDecoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.location_on_outlined),
-                                  hintText: "Avenue Location",
-                                  fillColor: Colors.transparent),
-                              boxDecoration: BoxDecoration(
-                                color: AppColors.kTextfieldColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              debounceTime: 800,
-                              isLatLngRequired: true,
-                              getPlaceDetailWithLatLng:
-                                  (Prediction prediction) {
-                                controller.avenueLat = prediction.lat;
-                                controller.avenueLng = prediction.lng;
-                              },
-                              itemClick: (Prediction prediction) {
-                                String description =
-                                    prediction.description ?? "";
-
-                                controller.avenuePlaceController.text =
-                                    description;
-
-                                int cursorPosition = description.length;
-
-                                controller.avenuePlaceController.selection =
-                                    TextSelection.fromPosition(
-                                  TextPosition(offset: cursorPosition),
-                                );
-                                avenueFocusNode.requestFocus();
-                              },
-                              itemBuilder:
-                                  (context, index, Prediction prediction) {
-                                return Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.kTextfieldColor,
-                                    borderRadius: BorderRadius.circular(10),
+                             Obx(() {
+                              return Column(
+                                children: [
+                                  // TextField for typing the place name
+                                  TextFormField(
+                                    controller:
+                                    controller.avenuePlaceController,
+                                    decoration: InputDecoration(
+                                      prefixIcon:
+                                      Icon(Icons.location_on_outlined),
+                                      suffix: Obx(() {
+                                        return controller
+                                            .isPredictionsLoading.value
+                                            ? SizedBox(
+                                            height: 4.w,
+                                            width: 4.w,
+                                            child:
+                                            CircularProgressIndicator(
+                                              color:
+                                              AppColors.kBerkeleyBlue,
+                                              strokeWidth: 2,
+                                            ))
+                                            : InkWell(
+                                            onTap: () {
+                                              controller
+                                                  .avenuePlaceController
+                                                  .clear();
+                                              controller.placesList.value =
+                                              [];
+                                            },
+                                            child: Icon(
+                                              Icons.clear,
+                                              size: 4.w,
+                                              color: Colors.redAccent,
+                                            ));
+                                      }),
+                                      hintText: "venue Location",
+                                    ),
+                                    onChanged: (location) {
+                                      controller.getGooglePlaces(
+                                          value: location);
+                                    },
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.location_on,
-                                        color: AppColors.kIconColor,
-                                      ),
-                                      SizedBox(
-                                        width: 7,
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                              prediction.description ?? "",
-                                              style: TextStyle(
-                                                  color: Colors.black))),
-                                    ],
+                                  SizedBox(height: 10),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: controller.placesList.length,
+                                    itemBuilder: (context, index) {
+                                      final place =
+                                      controller.placesList[index];
+                                      return GestureDetector(
+                                        onTap: () =>
+                                            controller.onPlaceSelected(place),
+                                        child: Container(
+                                          margin: EdgeInsets.only(bottom: 1.h),
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.kTextfieldColor,
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                color: AppColors.kIconColor,
+                                              ),
+                                              SizedBox(
+                                                width: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Text(place.fullText,
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.black))),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+
+                                      // ListTile(
+                                      //   tileColor: AppColors.kTextfieldColor,
+
+                                      //   leading: Icon(Icons.location_on_outlined,color: AppColors.kIconColor,),
+                                      //   title: Text(place.fullText ?? '',style: TextStyle(color: Colors.black),),
+                                      //   onTap: () =>
+                                      //       controller.onPlaceSelected(place),
+                                      // );
+                                    },
                                   ),
-                                );
-                              },
-                              seperatedBuilder: Divider(),
-                              isCrossBtnShown: true,
-                              containerHorizontalPadding: 2,
-                              placeType: PlaceType.geocode,
-                            ),
+                                ],
+                              );
+                            }),
                             SizedBox(
                               height: 2.h,
                             ),
@@ -1123,6 +1149,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                         if (controller.selectedOption.value !=
                                             null) {
                                           await controller.addEvent();
+                                          myEventsController.myEventsScreenType.value = Events.myEvents.text;
                                           await myEventsController
                                               .getMyPaginatedEvents(
                                                   callFirstTime: true);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'colors_constants.dart';
@@ -38,6 +39,11 @@ class CustomTheme {
         //     fontWeight: FontWeight.w700),
         ),
     appBarTheme: AppBarTheme(
+     systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent, // Transparent status bar
+            statusBarIconBrightness: Brightness.dark, // Dark icons (black)
+            statusBarBrightness: Brightness.light,  // Light status bar for iOS (dark icons)
+          ),
       backgroundColor: Colors.transparent,
       scrolledUnderElevation: 0,
       centerTitle: false,
