@@ -3,6 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/controllers/AddEventController.dart';
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:event_planner_light/controllers/MyEventsController.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
@@ -820,22 +821,113 @@ class AddEventsScreens extends GetView<AddEventController> {
                             SizedBox(
                               height: 2.h,
                             ),
-                            ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              tileColor: AppColors.kTextfieldColor,
-                              leading: const Icon(
-                                Icons.group_work_outlined,
-                                color: AppColors.kPrimaryColor,
-                              ),
-                              title: Text(
-                                "Private",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: AppColors.kTextBlack),
-                              ),
-                            ),
+                            authService.me.value!.role?.first ==
+                                    UserRoles.user.text
+                                ? ListTile(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    tileColor: AppColors.kTextfieldColor,
+                                    leading: const Icon(
+                                      Icons.group_work_outlined,
+                                      color: AppColors.kPrimaryColor,
+                                    ),
+                                    title: Text(
+                                      "Private",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: AppColors.kTextBlack),
+                                    ),
+                                  )
+                                : ListTile(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    tileColor: AppColors.kTextfieldColor,
+                                    leading: const Icon(
+                                      Icons.group_work_outlined,
+                                      color: AppColors.kPrimaryColor,
+                                    ),
+                                    title: Obx(() {
+                                      return Text(
+                                        controller.selectedOption.value ??
+                                            "Type of events",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                color: AppColors.kTextBlack),
+                                      );
+                                    }),
+                                    trailing: PopupMenuButton<String>(
+                                      icon: const Icon(
+                                        Icons.arrow_downward_rounded,
+                                        color: AppColors.kPrimaryColor,
+                                      ),
+                                      onSelected: (String value) {
+                                        if (value == "public") {
+                                          final user = authService.me.value;
+                                          if (user!.role!
+                                              .contains("event-planner")) {
+                                            if (user.subscriptions!.isEmpty) {
+                                              // BottomSheetManager
+                                              //     .buySubscriptionForPublic(context);
+                                            } else if (user.subscriptions!.any(
+                                                (subscription) =>
+                                                    subscription.eventType !=
+                                                    "public")) {
+                                              // BottomSheetManager.upgradEvent(context);
+                                            } else {
+                                              controller
+                                                  .setSelectedOption(value);
+                                            }
+                                          }
+                                        } else {
+                                          controller.setSelectedOption(value);
+                                        }
+                                      },
+                                      itemBuilder: (BuildContext context) {
+                                        return controller.options
+                                            .map((String choice) {
+                                          return PopupMenuItem<String>(
+                                            value: choice,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .kTextfieldColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  width: double.infinity,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 1.h),
+                                                  child: Center(
+                                                    child: Text(
+                                                      choice,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium!
+                                                          .copyWith(
+                                                              color: AppColors
+                                                                  .kTextBlack),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  color:
+                                                      AppColors.kTextfieldColor,
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList();
+                                      },
+                                    ),
+                                  ),
                             SizedBox(
                               height: 2.h,
                             ),

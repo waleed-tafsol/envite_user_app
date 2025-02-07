@@ -9,11 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import '../constants/ApiConstant.dart';
+import '../utills/enums.dart';
 import 'Auth_services.dart';
 
 class EditProfileController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
-
+  TextEditingController bioController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
@@ -49,6 +50,9 @@ class EditProfileController extends GetxController {
 
         request.fields['fullName'] = fullNameController.value.text;
         request.fields['phoneNumber'] = phoneNumberController.value.text;
+        authService.me.value!.role?.first == UserRoles.user.text
+            ? null
+            : request.fields['description'] = bioController.value.text;
         if (pickedImage.value != null) {
           final mimeType = lookupMimeType(pickedImage
               .value!.path); // Get MIME type based on the file extension

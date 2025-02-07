@@ -14,7 +14,7 @@ class SignInController extends GetxController {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  RxBool isEventPlanner = true.obs;
+  RxBool isEvetPlanner = true.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isloading = false.obs;
 
@@ -25,6 +25,7 @@ class SignInController extends GetxController {
       final response = await authService.login(
         email: emailController.value.text,
         password: passwordController.value.text,
+        isEvetPlanner: isEvetPlanner.value,
       );
       if (response["data"]["user"]["isVerified"] == true) {
         authService.setAuthToken(response["data"]["token"]);

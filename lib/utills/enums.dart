@@ -1,4 +1,4 @@
-enum Events{
+enum Events {
   all("all"),
   exclusive("exclusive"),
   public("public"),
@@ -14,9 +14,17 @@ enum Events{
   myUpcomingEvents('My Upcoming Events'),
   myEvents("My Events");
 
-
-
   const Events(this.text);
+
+  final String text;
+}
+
+enum UserRoles {
+  user("user"),
+  eventPlanner("event-planner");
+  // guest("guest");
+
+  const UserRoles(this.text);
 
   final String text;
 }

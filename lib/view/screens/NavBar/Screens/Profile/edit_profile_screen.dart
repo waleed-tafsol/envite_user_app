@@ -1,5 +1,6 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
+import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../controllers/EditProfileController.dart';
+import '../../../../../utills/enums.dart';
 
 class EditProfileScreen extends GetView<EditProfileController> {
   static const routeName = 'EditProfileScreen';
@@ -77,9 +79,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     hintText: "Full Name",
                     prefixIcon: Icon(Icons.person_2_outlined),
                   )),
-              SizedBox(
-                height: 2.h,
-              ),
+              k2hSizedBox,
               TextFormField(
                   controller: controller.phoneNumberController,
                   validator: (value) {
@@ -93,9 +93,27 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     hintText: "Phone Number",
                     prefixIcon: Icon(Icons.person_2_outlined),
                   )),
-              SizedBox(
-                height: 2.h,
-              ),
+              k2hSizedBox,
+              authService.me.value!.role?.first == UserRoles.user.text
+                  ? k2hSizedBox
+                  : SizedBox(
+                      height: 20.h,
+                      child: TextFormField(
+                        controller: controller.bioController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty)
+                            return 'Bio cannot be empty';
+                          return null;
+                        },
+                        keyboardType: TextInputType.multiline,
+                        textAlignVertical: TextAlignVertical.top,
+
+                        maxLines: null,
+                        // Set this
+                        expands: true,
+                        decoration: InputDecoration(hintText: "Bio"),
+                      ),
+                    ),
               InkWell(
                 onTap: () {
                   if (controller.verifyfields()) {
@@ -124,9 +142,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 2.h,
-              ),
+              k2hSizedBox,
             ],
           ),
         ),

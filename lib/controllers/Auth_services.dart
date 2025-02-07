@@ -26,13 +26,14 @@ class AuthService extends GetxService {
   }
 
   var isAuthenticated = false.obs;
-  final TokenService _tokenStorage = TokenService();
+  final SessionStorageService _sessionStorage = SessionStorageService();
   String? authToken;
   Rx<UserModel?> me = UserModel().obs;
 
-  setAuthToken(String token) {
-    authToken = token;
-    _tokenStorage.saveToken(authToken!);
+  setSessionToken(Map<String, dynamic> user) {
+    final userobj = UserModel.fromJson(user);
+    me.value = userobj;
+    _sessionStorage.saveSession(userobj.toJson());
     getMe();
     isAuthenticated.value = true;
   }
@@ -58,10 +59,14 @@ class AuthService extends GetxService {
   }
 
   Future<Map<dynamic, dynamic>> login(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required bool isEvetPlanner}) async {
     try {
       final response = await http.post(
-        Uri.parse(ApiConstants.login),
+        Uri.parse(isEvetPlanner
+            ? ApiConstants.eventPlannerLogin
+            : ApiConstants.userLogin),
         body: jsonEncode({
           "email": email,
           "password": password,

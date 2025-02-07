@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_planner_light/utills/enums.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 
 import 'package:event_planner_light/services/customPrint.dart';
@@ -33,8 +34,6 @@ class AddEventController extends GetxController {
     //  isloading.value = false;
   }
 
-
-
   final googlePlaces = FlutterGooglePlacesSdk(ApiConstants.googleAPIKey);
 
   RxBool isPredictionsLoading = false.obs;
@@ -42,55 +41,54 @@ class AddEventController extends GetxController {
 
   getGooglePlaces({required String value}) async {
     isPredictionsLoading.value = true;
-    final FindAutocompletePredictionsResponse predictionsData = await googlePlaces.findAutocompletePredictions(value);
-    print (predictionsData.predictions[0].fullText);
+    final FindAutocompletePredictionsResponse predictionsData =
+        await googlePlaces.findAutocompletePredictions(value);
+    print(predictionsData.predictions[0].fullText);
     placesList.value = predictionsData.predictions;
     isPredictionsLoading.value = false;
   }
 
-void onPlaceSelected(AutocompletePrediction place) async {
-  print('Selected place: ${place.fullText}');
-  isPredictionsLoading.value = false;
+  void onPlaceSelected(AutocompletePrediction place) async {
+    print('Selected place: ${place.fullText}');
+    isPredictionsLoading.value = false;
 
-  try {
-    final selectedPlace = await googlePlaces.fetchPlace(
-      place.placeId,
-      fields: [
-       PlaceField.Location, // Use PlaceField.geometry
-        PlaceField.Address,
-       // "name",
-       // "place_id",
-        
-      ],
-    );
+    try {
+      final selectedPlace = await googlePlaces.fetchPlace(
+        place.placeId,
+        fields: [
+          PlaceField.Location, // Use PlaceField.geometry
+          PlaceField.Address,
+          // "name",
+          // "place_id",
+        ],
+      );
 
-    if (selectedPlace.place != null) {
-   
-      final lat = selectedPlace.place!.latLng!.lat;
-      final lng = selectedPlace.place!.latLng!.lng;
-   
-      avenueLat = lat.toString();
-      avenueLng = lng.toString();
+      if (selectedPlace.place != null) {
+        final lat = selectedPlace.place!.latLng!.lat;
+        final lng = selectedPlace.place!.latLng!.lng;
 
-      // Update the controller's text with the selected place's full name
-      avenuePlaceController.text = place.fullText ?? '';
+        avenueLat = lat.toString();
+        avenueLng = lng.toString();
 
-      // Optionally clear the list of suggestions after selection
-      placesList.value = [];
+        // Update the controller's text with the selected place's full name
+        avenuePlaceController.text = place.fullText ?? '';
 
-      // Print the lat and lng for debugging
-      print('Latitude: $avenueLat, Longitude: $avenueLng');
-    } else {
-      print('No details found for the selected place');
-      // Optional: Display an error message to the user
-    }
-  } catch (e) {
-     print("Error fetching place details: $e");
-    // Optional: Show a SnackBar or other error notification to the user
+        // Optionally clear the list of suggestions after selection
+        placesList.value = [];
+
+        // Print the lat and lng for debugging
+        print('Latitude: $avenueLat, Longitude: $avenueLng');
+      } else {
+        print('No details found for the selected place');
+        // Optional: Display an error message to the user
+      }
+    } catch (e) {
+      print("Error fetching place details: $e");
+      // Optional: Show a SnackBar or other error notification to the user
       // You will need the context here to show a snackbar
-    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to get place details.")));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to get place details.")));
+    }
   }
-}
 
   TextEditingController nameController = TextEditingController();
   TextEditingController avnueController = TextEditingController();
@@ -104,7 +102,8 @@ void onPlaceSelected(AutocompletePrediction place) async {
   final ImagePicker _picker = ImagePicker();
   RxBool isAddPastEvents = false.obs;
   RxBool isloading = false.obs;
-
+  List<String> options = ['public', 'private', 'exclusive'];
+  Rx<String?> selectedOption = Rx<String?>(null);
   RxList<File> pickedImages = <File>[].obs;
   RxList<File> pickedVideo = <File>[].obs;
   Rx<DateTime?> selectedStartDate = Rx<DateTime?>(null);
@@ -114,10 +113,8 @@ void onPlaceSelected(AutocompletePrediction place) async {
   String? avenueLat;
   String? avenueLng;
 
-  Rx<String?> selectedStartTime =
-      Rx<String?>(null);
-  Rx<String?> selectedEndTime =
-      Rx<String?>(null);
+  Rx<String?> selectedStartTime = Rx<String?>(null);
+  Rx<String?> selectedEndTime = Rx<String?>(null);
 
   void removeImage(File file) {
     pickedImages.remove(file);
@@ -203,6 +200,7 @@ void onPlaceSelected(AutocompletePrediction place) async {
       selectedEndDate.value = date;
     }
   }
+
   bool validateEventForm(GlobalKey<FormState> formKey) {
     if (!formKey.currentState!.validate()) {
       return false;
@@ -212,8 +210,6 @@ void onPlaceSelected(AutocompletePrediction place) async {
       CustomSnackbar.showError("Error", "Please select the category of event");
       return false;
     }
-
-    
 
     if (selectedStartDate.value == null || selectedEndDate.value == null) {
       CustomSnackbar.showError(
@@ -229,7 +225,6 @@ void onPlaceSelected(AutocompletePrediction place) async {
 
     return true; // All validations passed
   }
-
 
 /*
   Future<void> getcatagories() async {
@@ -290,6 +285,10 @@ void onPlaceSelected(AutocompletePrediction place) async {
     });
   }
 
+  void setSelectedOption(String option) {
+    selectedOption.value = option;
+  }
+
   Future<void> addEvent() async {
     final url = Uri.parse(ApiConstants.addEvent);
 
@@ -301,7 +300,10 @@ void onPlaceSelected(AutocompletePrediction place) async {
       // Add text fields
       request.fields['name'] = nameController.value.text;
       request.fields['isPastEvent'] = isAddPastEvents.value.toString();
-      request.fields['eventType'] = "private";
+      request.fields['eventType'] =
+          authService.me.value?.role?.first == UserRoles.user.text
+              ? "private"
+              : selectedOption.value ?? "";
       request.fields['address'] = avenuePlaceController.text;
       request.fields['latitude'] = avenueLat.toString();
       request.fields['longitude'] = avenueLng.toString();
@@ -347,7 +349,7 @@ void onPlaceSelected(AutocompletePrediction place) async {
       request.fields['endDate'] =
           formatToIso8601WithTimezone(selectedEndDate.value!);
       request.fields['startTime'] = selectedStartTime.value ?? "";
-      request.fields['endTime'] = selectedEndTime.value ??"";
+      request.fields['endTime'] = selectedEndTime.value ?? "";
       // request.fields['endTime'] = selectedEndTime.value;
 
       // Add headers

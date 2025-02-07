@@ -4,6 +4,7 @@ import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/MyProfileController.dart';
+import 'package:event_planner_light/utills/enums.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/widgets/membership_container.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
@@ -98,7 +99,32 @@ class ProfileScreen extends GetView<MyProfileController> {
                 //         .copyWith(color: AppColors.kBerkeleyBlue),
                 //   );
                 // }),
-                k3hSizedBox,
+
+                authService.me.value?.role?.first == UserRoles.user.text
+                    ? k3hSizedBox
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'About Me',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: Color(0xff457B9D)),
+                          ),
+                          k1hSizedBox,
+                          Obx(() {
+                            return Text(
+                              authService.me.value?.description ?? "About Me",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: AppColors.kBerkeleyBlue),
+                            );
+                          }),
+                          k3hSizedBox,
+                        ],
+                      ),
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(

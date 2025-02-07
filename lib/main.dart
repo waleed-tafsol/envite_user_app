@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +10,14 @@ import 'controllers/Auth_services.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
     overlays: [SystemUiOverlay.bottom],
   );
-    
-SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
 //     Platform.isAndroid ?
 //   SystemChrome.setSystemUIOverlayStyle(
@@ -48,8 +45,6 @@ SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 //   ),
 // );
 
-
-
   // Create and initialize AuthService
   Get.put(AuthService(), permanent: true);
   // await authService.initialize();
@@ -57,12 +52,11 @@ SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Optionally delay for other setups
   await Future.delayed(Durations.medium1);
 
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-   MyApp({
+  MyApp({
     super.key,
   });
 

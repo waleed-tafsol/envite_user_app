@@ -8,7 +8,8 @@ class ApiConstants {
       "https://envite-bucket.s3.me-central-1.amazonaws.com/";
 
   // Auth
-  static const login = "${baseUrl}auth/login";
+  static const userLogin = "${baseUrl}auth/login";
+  static const eventPlannerLogin = "${baseUrl}auth/event-planner/login";
   static const logout = "${baseUrl}auth/logout";
   static const verifyOtp = "${baseUrl}auth/verify/otp";
   static const forgotPassword = "${baseUrl}auth/forgot/password";

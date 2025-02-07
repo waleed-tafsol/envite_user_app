@@ -1,3 +1,4 @@
+import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -88,9 +89,26 @@ class SigninScreen extends GetView<SignInController> {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined))));
                   }),
-                  SizedBox(
-                    height: 2.h,
+                  k2hSizedBox,
+                  Row(
+                    children: [
+                      Obx(() {
+                        return Switch(
+                            activeColor: Colors.green,
+                            value: controller.isEvetPlanner.value,
+                            onChanged: (value) {
+                              controller.isEvetPlanner.value = value;
+                            });
+                      }),
+                      Text(
+                        "I am an Event Planner",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
+                  k2hSizedBox,
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
@@ -178,8 +196,7 @@ class SigninScreen extends GetView<SignInController> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Get.toNamed(CmsScreen.routeName,
-                                  arguments: true);
+                              Get.toNamed(CmsScreen.routeName, arguments: true);
                             },
                         ),
                         TextSpan(
