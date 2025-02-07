@@ -1,3 +1,4 @@
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -86,6 +87,7 @@ class PaymentController extends GetxController {
 
   executeRegularPayment(int paymentMethodId) async {
     var request = MFExecutePaymentRequest(
+      customerEmail: authService.me.value?.email,
         userDefinedField: packagesModel.toString(),
         paymentMethodId: paymentMethodId,
         invoiceValue: packagesModel.value.price);
@@ -104,4 +106,5 @@ class PaymentController extends GetxController {
         .then((value) => print(value))
         .catchError((error) => {print(error.message)});
   }
+
 }

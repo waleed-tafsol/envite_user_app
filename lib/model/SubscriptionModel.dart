@@ -5,6 +5,7 @@ class Subscriptions {
   String? startDate;
   String? endDate;
   int? price;
+  int? duration;
   int? totalInvites;
   bool? isSubscriptionExpired;
   String? sId;
@@ -18,6 +19,7 @@ class Subscriptions {
       this.startDate,
       this.endDate,
       this.price,
+        this.duration,
       this.totalInvites,
       this.isSubscriptionExpired,
       this.sId,
@@ -31,6 +33,7 @@ class Subscriptions {
     startDate = json['startDate'];
     endDate = json['endDate'];
     price = json['price'];
+    duration = json['duration'];
     totalInvites = json['totalInvites'];
     isSubscriptionExpired = json['isSubscriptionExpired'];
     sId = json['_id'];
@@ -46,6 +49,7 @@ class Subscriptions {
     data['startDate'] = this.startDate;
     data['endDate'] = this.endDate;
     data['price'] = this.price;
+    data['duration'] = this.duration;
     data['totalInvites'] = this.totalInvites;
     data['isSubscriptionExpired'] = this.isSubscriptionExpired;
     data['_id'] = this.sId;

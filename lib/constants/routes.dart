@@ -47,7 +47,7 @@ import '../view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart'
 import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import '../view/screens/NavBar/Screens/Home/HomeScreen.dart';
-import '../view/screens/Drawer/Screens/NotiFicationScreens/NotificationScreen.dart';
+import '../view/screens/Drawer/Screens/NotificationScreens/NotificationScreen.dart';
 import '../view/screens/SignIn/SignInScreen.dart';
 import '../view/screens/SignUp/SignUpScreen.dart';
 import '../view/screens/auth_screen.dart';

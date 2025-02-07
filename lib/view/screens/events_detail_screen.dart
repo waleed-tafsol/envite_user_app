@@ -528,43 +528,43 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    Obx(() {
-                      return controller.isLoading.value
-                          ? sizedShimmer(height: 5.h, width: double.infinity)
-                          : Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppColors.kPrimaryColor),
-                                      onPressed: () {
-                                        BottomSheetManager.sendInvite(context);
-                                      },
-                                      child: Text(
-                                        'Send Invite',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ),
-                                SizedBox(
-                                  width: 2.w,
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppColors.kBerkeleyBlue),
-                                      onPressed: () {
-                                        // Get.toNamed(GenerateTicketScreen.routeName);
-                                      },
-                                      child: Text(
-                                        'Pin',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ),
-                              ],
-                            );
-                    }),
+                    // Obx(() {
+                    //   return controller.isLoading.value
+                    //       ? sizedShimmer(height: 5.h, width: double.infinity)
+                    //       : Row(
+                    //           children: [
+                    //             Expanded(
+                    //               child: ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor:
+                    //                           AppColors.kPrimaryColor),
+                    //                   onPressed: () {
+                    //                     BottomSheetManager.sendInvite(context);
+                    //                   },
+                    //                   child: Text(
+                    //                     'Send Invite',
+                    //                     style: TextStyle(color: Colors.white),
+                    //                   )),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 2.w,
+                    //             ),
+                    //             Expanded(
+                    //               child: ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor:
+                    //                           AppColors.kBerkeleyBlue),
+                    //                   onPressed: () {
+                    //                     // Get.toNamed(GenerateTicketScreen.routeName);
+                    //                   },
+                    //                   child: Text(
+                    //                     'Pin',
+                    //                     style: TextStyle(color: Colors.white),
+                    //                   )),
+                    //             ),
+                    //           ],
+                    //         );
+                    // }),
                   ],
                 ),
               ),

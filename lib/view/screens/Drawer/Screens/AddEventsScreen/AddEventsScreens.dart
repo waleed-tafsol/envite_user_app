@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
+import '../../../../../utills/enums.dart';
 import '../../../../widgets/VideoWidget.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
@@ -137,7 +138,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   return "Please enter correct Email";
                                                 }
                                               },
-                                              keyboardType: TextInputType.name,
+                                              keyboardType: TextInputType.emailAddress,
                                               decoration: InputDecoration(
                                                 hintText: "Other Email",
                                                 prefixIcon: Icon(
@@ -196,7 +197,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   return "Please enter correct Social Links";
                                                 }
                                               },
-                                              keyboardType: TextInputType.name,
+                                              // keyboardType: TextInputType.name,
                                               decoration: InputDecoration(
                                                 hintText: "Social Links",
                                                 prefixIcon: Icon(Icons.link),
@@ -1170,6 +1171,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                    onPressed: () async {
                                     if (controller.validateEventForm(formKey)) {
                                       await controller.addEvent();
+                                      myEventsController.myEventsScreenType.value = Events.myEvents.text;
                                       await myEventsController
                                           .getMyPaginatedEvents(
                                               callFirstTime: true);
