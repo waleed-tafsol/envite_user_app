@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/controllers/AddEventController.dart';
@@ -51,11 +50,11 @@ class AddEventsScreens extends GetView<AddEventController> {
                           children: [
                             Obx(() {
                               return controller.pickedImages.isEmpty
-                                  ?  InkWell(
-                                onTap: () {
-                                  controller.pickImage();
-                                },
-                                child: DottedBorder(
+                                  ? InkWell(
+                                      onTap: () {
+                                        controller.pickImage();
+                                      },
+                                      child: DottedBorder(
                                         color: AppColors.kBluedarkShade,
                                         dashPattern: [5],
                                         borderType: BorderType.RRect,
@@ -86,7 +85,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           ),
                                         ),
                                       ),
-                                  )
+                                    )
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
                                       child: Image.file(
@@ -138,7 +137,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   return "Please enter correct Email";
                                                 }
                                               },
-                                              keyboardType: TextInputType.emailAddress,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
                                               decoration: InputDecoration(
                                                 hintText: "Other Email",
                                                 prefixIcon: Icon(
@@ -276,35 +276,35 @@ class AddEventsScreens extends GetView<AddEventController> {
                                   // TextField for typing the place name
                                   TextFormField(
                                     controller:
-                                    controller.avenuePlaceController,
+                                        controller.avenuePlaceController,
                                     decoration: InputDecoration(
                                       prefixIcon:
-                                      Icon(Icons.location_on_outlined),
+                                          Icon(Icons.location_on_outlined),
                                       suffix: Obx(() {
                                         return controller
-                                            .isPredictionsLoading.value
+                                                .isPredictionsLoading.value
                                             ? SizedBox(
-                                            height: 4.w,
-                                            width: 4.w,
-                                            child:
-                                            CircularProgressIndicator(
-                                              color:
-                                              AppColors.kBerkeleyBlue,
-                                              strokeWidth: 2,
-                                            ))
+                                                height: 4.w,
+                                                width: 4.w,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color:
+                                                      AppColors.kBerkeleyBlue,
+                                                  strokeWidth: 2,
+                                                ))
                                             : InkWell(
-                                            onTap: () {
-                                              controller
-                                                  .avenuePlaceController
-                                                  .clear();
-                                              controller.placesList.value =
-                                              [];
-                                            },
-                                            child: Icon(
-                                              Icons.clear,
-                                              size: 4.w,
-                                              color: Colors.redAccent,
-                                            ));
+                                                onTap: () {
+                                                  controller
+                                                      .avenuePlaceController
+                                                      .clear();
+                                                  controller.placesList.value =
+                                                      [];
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  size: 4.w,
+                                                  color: Colors.redAccent,
+                                                ));
                                       }),
                                       hintText: "venue Location",
                                     ),
@@ -319,7 +319,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                     itemCount: controller.placesList.length,
                                     itemBuilder: (context, index) {
                                       final place =
-                                      controller.placesList[index];
+                                          controller.placesList[index];
                                       return GestureDetector(
                                         onTap: () =>
                                             controller.onPlaceSelected(place),
@@ -329,7 +329,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                           decoration: BoxDecoration(
                                             color: AppColors.kTextfieldColor,
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                           ),
                                           child: Row(
                                             children: [
@@ -344,7 +344,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   child: Text(place.fullText,
                                                       style: TextStyle(
                                                           color:
-                                                          Colors.black))),
+                                                              Colors.black))),
                                             ],
                                           ),
                                         ),
@@ -634,9 +634,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                           FontWeight.normal),
                                                 ),
                                                 Text(
-                                                  
                                                   controller.selectedStartTime
-                                                      .value  ?? "Select Time",
+                                                          .value ??
+                                                      "Select Time",
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: Colors.black,
@@ -708,10 +708,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                           FontWeight.normal),
                                                 ),
                                                 Text(
-                                                  controller
-                                                      .selectedEndTime.value
-                                                  ?? "Select Time"
-                                                  ,
+                                                  controller.selectedEndTime
+                                                          .value ??
+                                                      "Select Time",
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: Colors.black,
@@ -792,8 +791,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                         .textTheme
                                                         .bodyMedium!
                                                         .copyWith(
-                                                        color: AppColors
-                                                            .kTextBlack),
+                                                            color: AppColors
+                                                                .kTextBlack),
                                                   ),
                                                   Text(
                                                     choice.name?.ar ?? "",
@@ -801,12 +800,13 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                         .textTheme
                                                         .bodyMedium!
                                                         .copyWith(
-                                                        color: AppColors
-                                                            .kTextBlack),
+                                                            color: AppColors
+                                                                .kTextBlack),
                                                   ),
                                                 ],
                                               ),
-                                            ),                                          ),
+                                            ),
+                                          ),
                                           Divider(
                                             color: AppColors.kTextfieldColor,
                                           ),
@@ -1168,10 +1168,11 @@ class AddEventsScreens extends GetView<AddEventController> {
                               child: ElevatedButton(
                                   style: StylesConstants
                                       .elevated_b_redBack_whiteFore,
-                                   onPressed: () async {
+                                  onPressed: () async {
                                     if (controller.validateEventForm(formKey)) {
                                       await controller.addEvent();
-                                      myEventsController.myEventsScreenType.value = Events.myEvents.text;
+                                      myEventsController.myEventsScreenType
+                                          .value = Events.myEvents.text;
                                       await myEventsController
                                           .getMyPaginatedEvents(
                                               callFirstTime: true);

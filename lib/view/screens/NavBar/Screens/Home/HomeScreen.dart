@@ -1,3 +1,4 @@
+import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
@@ -7,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../shimmer_loaders/categories_tile_shimmer.dart';
 import '../../../../widgets/EventTileWidget.dart';
+import '../../../../widgets/home_carousel_widget.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -24,50 +26,8 @@ class HomeScreen extends GetView<HomeScreenController> {
             child: Column(
               children: [
                 //const SearchEventWidget(),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
-                  child: InkWell(
-                    onTap: () {
-                      BottomSheetManager.addPastEvents(context);
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-                      height: 20.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: AppColors.kBerkeleyBlue,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Best Event In kuwait",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(color: Colors.white)),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            children: [
-                              Text("4.2",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(color: Colors.white)),
-                              Icon(
-                                Icons.star,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                HomeCarouselWidget(),
+                k1hSizedBox,
                 SizedBox(
                   height: 12.h,
                   child: Obx(() {
@@ -143,7 +103,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                           ),
                                           child: Text(
                                             controller.categories[index].name
-                                                ?.ar ??
+                                                    ?.ar ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,

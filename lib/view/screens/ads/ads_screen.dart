@@ -56,7 +56,7 @@ class AdsScreen extends GetView<AdsController> {
                             if (selected) {
                               controller.selectedChip.value =
                                   controller.chipLabels[index];
-                              controller.getAllAds();
+                              // controller.getAllAds();
                             }
                           },
                         ),

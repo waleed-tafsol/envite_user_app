@@ -1,7 +1,6 @@
 class ApiConstants {
   // dev tunnel url
-  /* static const baseUrl =
-      "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/";*/
+  // static const baseUrl = "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/";
   static const googleAPIKey = "AIzaSyAsZkmP4p9OGxlhCsKKUAIW7C6VZpRiYwg";
   static const baseUrl =
       "https://envite-backend-dd2-669ae826cbe7.herokuapp.com/api/v1/";
@@ -38,7 +37,6 @@ class ApiConstants {
   // Coupons
   static const getCoupons = "${baseUrl}coupon/all";
   // adds
-  static const getMyAds = "${baseUrl}ads/my/all";
   static const getAlldds = "${baseUrl}ads/all";
   // cms
   static const getallCms = "${baseUrl}cms?cmsType=all";

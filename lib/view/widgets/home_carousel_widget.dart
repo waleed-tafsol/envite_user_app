@@ -1,9 +1,16 @@
+import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
+import 'package:event_planner_light/model/AdsModel.dart';
+import 'package:event_planner_light/utills/string_decoration.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:http/http.dart' as http;
+import '../../constants/ApiConstant.dart';
+import '../../controllers/Auth_services.dart';
+import '../../utills/CustomSnackbar.dart';
+import 'TagContainer.dart';
 
 /*final List<Widget> slidersList = [
   Image.asset(slider1),
@@ -21,51 +28,130 @@ class HomeCarouselWidget extends StatefulWidget {
 class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
   int _current = 0;
   final CarouselSliderController _controller = CarouselSliderController();
+  bool _isLoading = false;
+  List<AdsModel> ads = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    getAllTickets();
+
+    super.initState();
+  }
+
+  Future<void> getAllTickets() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      final response =
+          await http.get(Uri.parse(ApiConstants.getAlldds), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${authService.authToken}',
+      });
+
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+
+        // Ensure jsonResponse['data'] is a List of Maps
+        List<Map<String, dynamic>> jsonResponseData =
+            List<Map<String, dynamic>>.from(jsonResponse['data']);
+
+        ads.clear();
+        ads.addAll(jsonResponseData.map((e) => AdsModel.fromJson(e)).toList());
+      } else {
+        throw Exception('Failed to load Tickets');
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', e.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Expanded(
-        child: CarouselSlider(
-          items: [
-            // for (var banner in context.read<AuthViewModel>().getBannerList)
-            //   CachedNetworkImage(imageUrl: banner.media![0],)
-          ],
-          carouselController: _controller,
-          options: CarouselOptions(
-              // height: 200,
-              autoPlay: true,
-              viewportFraction: 0.85.w,
-              enlargeCenterPage: true,
-              aspectRatio: 2.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }),
-        ),
-      ),
-      SizedBox(
-        height: 5.h,
-      ),
-      // Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: context.read<AuthViewModel>().getBannerList.asMap().entries.map((entry) {
-      //     return GestureDetector(
-      //       onTap: () => _controller.animateToPage(entry.key),
-      //       child: Container(
-      //         width: 7.0,
-      //         height: 7.0,
-      //         margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 4.0),
-      //         decoration: BoxDecoration(
-      //             shape: BoxShape.circle,
-      //             color: (Theme.of(context).brightness == Brightness.dark
-      //                 ? Colors.white
-      //                 : AppColors.kPrimaryColor)
-      //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-      //       ),
-      //     );
-      //   }).toList(),
-      // ),
-    ]);
+    return CarouselSlider(
+      items: [
+        for (var ad in ads)
+          Container(
+              decoration: BoxDecoration(
+                  color: AppColors.kBerkeleyBlue,
+                  borderRadius: BorderRadius.circular(20)),
+              width: double.infinity,
+              // height: 20.h,
+              child: Center(
+                child: _isLoading
+                    ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          ad.image == null
+                              ? SizedBox()
+                              : CachedNetworkImage(
+                                  imageUrl: ad.image ?? "",
+                                  fit: BoxFit.contain,
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  cacheKey: ad.image,
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.error,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                          Positioned(
+                            left: 2.w,
+                            bottom: 2.h,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  capitalizeFirstLetter(ad.name ?? ""),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                ad.tags == null
+                                    ? SizedBox()
+                                    : Wrap(
+                                        spacing: 1.w,
+                                        runSpacing: 1.h,
+                                        children: ad.tags!.map((element) {
+                                          return TagsContainer(
+                                            tag: element,
+                                          );
+                                        }).toList(),
+                                      ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+              ))
+      ],
+      carouselController: _controller,
+      options: CarouselOptions(
+          autoPlayInterval: Duration(seconds: 10),
+          // height: 200,
+          autoPlay: true,
+          viewportFraction: 1,
+          enlargeCenterPage: true,
+          // aspectRatio: 2.0,
+          onPageChanged: (index, reason) {
+            setState(() {
+              _current = index;
+            });
+          }),
+    );
   }
 }
