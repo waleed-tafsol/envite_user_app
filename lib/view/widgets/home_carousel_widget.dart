@@ -117,8 +117,7 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
                                   capitalizeFirstLetter(ad.name ?? ""),
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.sp,
                                   ),
                                 ),
                                 ad.tags == null

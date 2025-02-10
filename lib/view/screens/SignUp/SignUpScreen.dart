@@ -1,9 +1,12 @@
+import 'package:dotted_border/dotted_border.dart';
+import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/SignUpController.dart';
 import 'package:event_planner_light/view/screens/cms/CmsScreen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../../constants/TextConstant.dart';
 import '../../../constants/colors_constants.dart';
 
 class SignUpScreen extends GetView<Signupcontroller> {
@@ -14,7 +17,6 @@ class SignUpScreen extends GetView<Signupcontroller> {
 
   @override
   Widget build(BuildContext context) {
-    controller.phoneNumberController.text = '+965';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.kScaffoldBackgroundColor,
@@ -163,248 +165,181 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                               .isConfirmPasswordVisible.value;
                                     },
                                   ))),
-                          // SizedBox(
-                          //   height: 2.h,
-                          // ),
-                          // Row(
-                          //   children: [
-                          //     Switch(
-                          //         value: controller.isEventPlanner.value,
-                          //         onChanged: (_) {
-                          //           // controller.isEventPlanner.value =
-                          //           //     !controller.isEventPlanner.value;
-                          //         }),
-                          //     SizedBox(
-                          //       width: 4.w,
-                          //     ),
-                          //     Text(
-                          //       "I’m an event Planner!",
-                          //       style: Theme.of(context)
-                          //           .textTheme
-                          //           .headlineMedium!
-                          //           .copyWith(
-                          //             decoration: TextDecoration.underline,
-                          //           ),
-                          //     ),
-                          //   ],
-                          // ),
-                          SizedBox(
-                            height: 2.h,
+                          k1hSizedBox,
+                          Row(
+                            children: [
+                              Obx(() {
+                                return Switch(
+                                    activeColor: Colors.green,
+                                    value: controller.isEvetPlanner.value,
+                                    onChanged: (value) {
+                                      controller.isEvetPlanner.value = value;
+                                    });
+                              }),
+                              Text(
+                                "Register as Event Planner",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          /*  ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            tileColor: AppColors.kTextfieldColor,
-                            leading: const Icon(
-                              Icons.group_work_outlined,
-                              color: AppColors.kPrimaryColor,
-                            ),
-                            trailing: const Icon(Icons.arrow_downward_rounded,
-                                color: AppColors.kPrimaryColor),
-                            title: DropdownButton<CatagoryModel?>(
-                              // value: controller.selectedCategory.value,
-                              hint: Text("Select Category",
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall!),
-                              items: controller.categories.map((category) {
-                                return DropdownMenuItem<CatagoryModel>(
-                                  value: category,
-                                  onTap: () {
-                                    controller.selectedCategory.add(category);
-                                  },
-                                  child: Text(
-                                    category.name?.en ?? 'Unknown',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall!,
-                                  ),
-                                );
-                              }).toList(),
+                          Obx(() {
+                            return controller.isEvetPlanner.value
+                                ? Column(
+                                    children: [
+                                      k1hSizedBox,
+                                      SizedBox(
+                                        height: 20.h,
+                                        child: TextFormField(
+                                          controller: controller.bioController,
+                                          validator: (value) {
+                                            if (value == null || value.isEmpty)
+                                              return 'Bio cannot be empty';
+                                            return null;
+                                          },
+                                          keyboardType: TextInputType.multiline,
+                                          textAlignVertical:
+                                              TextAlignVertical.top,
 
-                              onChanged: (CatagoryModel? newValue) {
-                                // controller.selectedCategory.value = newValue;
-                              },
-                            ),
-                          ),
-                          Obx(
-                            () => Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: controller.selectedCategory
-                                  .map(
-                                    (category) => Chip(
-                                      label: Text(category.name?.en ?? ""),
-                                      // deleteIcon: const Icon(Icons.close),
-                                      onDeleted: () {
-                                        // Remove the category from the selected list
-                                        controller.selectedCategory
-                                            .remove(category);
-                                      },
-                                    ),
+                                          maxLines: null,
+                                          // Set this
+                                          expands: true,
+                                          decoration:
+                                              InputDecoration(hintText: "Bio"),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Verification Document",
+                                            style: TextConstants
+                                                .bodyLargeBlackBold(context),
+                                          ),
+                                          controller.pickedFiles.length < 4
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    controller.pickADocument();
+                                                  },
+                                                  icon: Icon(Icons.add))
+                                              : SizedBox()
+                                        ],
+                                      ),
+                                      controller.pickedFiles.isEmpty
+                                          ? Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  controller.pickADocument();
+                                                },
+                                                child: DottedBorder(
+                                                  dashPattern: [5],
+                                                  color:
+                                                      AppColors.kBluedarkShade,
+                                                  borderType: BorderType.RRect,
+                                                  radius: Radius.circular(5),
+                                                  child: SizedBox(
+                                                    height: 10.h,
+                                                    width: double.infinity,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          size: 5.h,
+                                                          Icons.image_outlined,
+                                                          color: AppColors
+                                                              .kBluedarkShade,
+                                                        ),
+                                                        Text(
+                                                          "Upload Document",
+                                                          style: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            color: AppColors
+                                                                .kBluedarkShade,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  controller.pickedFiles.length,
+                                              itemBuilder: (context, index) {
+                                                final file = controller
+                                                    .pickedFiles[index];
+                                                return Stack(
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 1.h),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            k5BorderRadius,
+                                                        color: AppColors
+                                                            .kBluedarkShade,
+                                                      ),
+                                                      width: double.infinity,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 2.h,
+                                                              horizontal: 4.w),
+                                                      child: ClipRRect(
+                                                          borderRadius:
+                                                              k5BorderRadius,
+                                                          child: Text(controller
+                                                              .pickedFiles[
+                                                                  index]
+                                                              .path
+                                                              .split('/')
+                                                              .last)),
+                                                    ),
+                                                    Positioned(
+                                                        right: 0,
+                                                        top: 0,
+                                                        bottom: 0,
+                                                        child: IconButton(
+                                                            icon: const Icon(
+                                                              Icons.cancel,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            onPressed: () {
+                                                              controller
+                                                                  .removeFile(
+                                                                      file);
+                                                            }))
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                    ],
                                   )
-                                  .toList(),
-                            ),
-                          ),
+                                : SizedBox();
+                          }),
 
-                          SizedBox(
-                            height: 2.h,
-                          ),*/
-                          // SizedBox(
-                          //   height: 20.h,
-                          //   child: TextFormField(
-                          //     controller: controller.bioController,
-                          //     validator: (value) {
-                          //       if (value == null || value.isEmpty)
-                          //         return 'Bio cannot be empty';
-                          //       return null;
-                          //     },
-                          //     keyboardType: TextInputType.multiline,
-                          //     textAlignVertical: TextAlignVertical.top,
-
-                          //     maxLines: null,
-                          //     // Set this
-                          //     expands: true,
-                          //     decoration: InputDecoration(hintText: "Bio"),
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Text(
-                          //       "Verification Document",
-                          //       style:
-                          //           TextConstants.bodyLargeBlackBold(context),
-                          //     ),
-                          //     IconButton(
-                          //         onPressed: () {
-                          //           controller.pickADocument();
-                          //         },
-                          //         icon: Icon(Icons.add))
-                          //   ],
-                          // ),
-
-                          // Obx(() {
-                          //   if (controller.pickedFiles.isEmpty) {
-                          //     return const SizedBox();
-                          //   }
-                          //   return ListView.builder(
-                          //     shrinkWrap: true,
-                          //     physics: const NeverScrollableScrollPhysics(),
-                          //     itemCount: controller.pickedFiles.length,
-                          //     itemBuilder: (context, index) {
-                          //       final file = controller.pickedFiles[index];
-                          //       return Stack(
-                          //         children: [
-                          //           Container(
-                          //             margin:
-                          //                 EdgeInsets.symmetric(vertical: 1.h),
-                          //             decoration: BoxDecoration(
-                          //               borderRadius: k5BorderRadius,
-                          //               color: AppColors.kBluedarkShade,
-                          //             ),
-                          //             width: double.infinity,
-                          //             padding: EdgeInsets.symmetric(
-                          //                 vertical: 2.h, horizontal: 4.w),
-                          //             child: ClipRRect(
-                          //                 borderRadius: k5BorderRadius,
-                          //                 child: Text(controller
-                          //                     .pickedFiles[index].path
-                          //                     .split('/')
-                          //                     .last)),
-                          //           ),
-                          //           Positioned(
-                          //               right: 0,
-                          //               top: 0,
-                          //               bottom: 0,
-                          //               child: IconButton(
-                          //                   icon: const Icon(
-                          //                     Icons.cancel,
-                          //                     color: Colors.white,
-                          //                   ),
-                          //                   onPressed: () {
-                          //                     controller.removeFile(file);
-                          //                   }))
-                          //         ],
-                          //       );
-                          //     },
-                          //   );
-                          // }),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Obx(() {
-                          //   return controller.pickedFiles.isNotEmpty
-                          //       ? SizedBox()
-                          //       : Align(
-                          //           alignment: Alignment.centerLeft,
-                          //           child: InkWell(
-                          //             onTap: () {
-                          //               controller.pickADocument();
-                          //             },
-                          //             child: DottedBorder(
-                          //               dashPattern: [5],
-                          //               color: AppColors.kBluedarkShade,
-                          //               borderType: BorderType.RRect,
-                          //               radius: Radius.circular(5),
-                          //               child: SizedBox(
-                          //                 height: 10.h,
-                          //                 width: double.infinity,
-                          //                 child: Column(
-                          //                   mainAxisAlignment:
-                          //                       MainAxisAlignment.center,
-                          //                   children: [
-                          //                     Icon(
-                          //                       size: 5.h,
-                          //                       Icons.image_outlined,
-                          //                       color: AppColors.kBluedarkShade,
-                          //                     ),
-                          //                     Text(
-                          //                       "Upload Document",
-                          //                       style: TextStyle(
-                          //                         fontSize: 14.sp,
-                          //                         color:
-                          //                             AppColors.kBluedarkShade,
-                          //                         decoration:
-                          //                             TextDecoration.underline,
-                          //                       ),
-                          //                     )
-                          //                   ],
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         );
-                          // }),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Obx(() {
-                          //   return controller.pickedFiles.isEmpty
-                          //       ? SizedBox()
-                          //       : SizedBox(
-                          //           height: 15.h,
-                          //           width: 50.w,
-                          //           child: ListView.builder(
-                          //               shrinkWrap: true,
-                          //               itemCount:
-                          //                   controller.pickedFiles.length,
-                          //               itemBuilder: (context, index) {
-                          //                 return Container(
-                          //                   height: 20,
-                          //                   color: Colors.amber,
-                          //                   width: 30,
-                          //                 );
-                          //               }),
-                          //         );
-                          // }),
                           SizedBox(
                             height: 3.h,
                           ),
                           InkWell(
                             onTap: () {
+                              FocusScope.of(context).unfocus();
                               if (formKey.currentState!.validate()) {
                                 controller.signup();
                               }

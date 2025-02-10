@@ -9,11 +9,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/colors_constants.dart';
 import '../../controllers/HomeScreenController.dart';
 
-Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
+Future filterBottomSheet({required BuildContext screenContext, showMyEvents}) {
   HomeScreenController homeScreenController = Get.find();
   FiltersController filtersController = Get.find();
   final List<String> eventType = ['Public', 'Exclusive'];
-  
+
   return showModalBottomSheet(
     isScrollControlled: true,
     context: screenContext,
@@ -52,7 +52,8 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                             ),
                             TextButton(
                               onPressed: () {
-                                filtersController.clearFilterData(resetSelectScreenStatus: false);
+                                filtersController.clearFilterData(
+                                    resetSelectScreenStatus: false);
                               },
                               child: Text(
                                 'Reset all',
@@ -82,7 +83,8 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                       ),
                       SizedBox(height: 1.h),
                       SizedBox(
-                       height: filtersController.showMyEvents.value?  30.h:20.h,
+                        height:
+                            filtersController.showMyEvents.value ? 30.h : 20.h,
                         //  width: 200,
                         child: Scrollbar(
                           thumbVisibility: true,
@@ -114,7 +116,8 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                                             filtersController
                                                 .addAndRemoveCategories(
                                                     homeScreenController
-                                                        .categories[index].slug!);
+                                                        .categories[index]
+                                                        .slug!);
                                           },
                                         ),
                                       );
@@ -125,61 +128,68 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                         ),
                       ),
                       SizedBox(height: 2.h),
-                    filtersController.showMyEvents.value? Container(): Column(
-                       children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Event type',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(height: 1.h),
-                             Align(
-                              alignment: Alignment.centerLeft,
-                              child: Row(
-                                  spacing: 3.0.w, // Space between the chips
-                                  children: [
-                                    ChoiceChip(
-                                      label: Text(
-                                        'All',
-                                      ),
-                                      selected: filtersController.eventType.value ==
-                                          Events.all.text,
-                                      onSelected: (bool selected) {
-                                        filtersController.eventType.value =
-                                            Events.all.text;
-                                      },
-                                    ),
-                                    ChoiceChip(
-                                      label: Text(
-                                        'Public',
-                                      ),
-                                      selected: filtersController.eventType.value ==
-                                          Events.public.text,
-                                      onSelected: (bool selected) {
-                                        filtersController.eventType.value =
-                                            Events.public.text;
-                                      },
-                                    ),
-                                    ChoiceChip(
-                                      label: Text(
-                                        'Exclusive',
-                                      ),
-                                      selected: filtersController.eventType.value ==
-                                          Events.exclusive.text,
-                                      onSelected: (bool selected) {
-                                        filtersController.eventType.value =
-                                            Events.exclusive.text;
-                                      },
-                                    )
-                                  ])),
-                       ],
-                     )
+                      filtersController.showMyEvents.value
+                          ? Container()
+                          : Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Event type',
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(height: 1.h),
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                        spacing:
+                                            3.0.w, // Space between the chips
+                                        children: [
+                                          ChoiceChip(
+                                            label: Text(
+                                              'All',
+                                            ),
+                                            selected: filtersController
+                                                    .eventType.value ==
+                                                Events.all.text,
+                                            onSelected: (bool selected) {
+                                              filtersController.eventType
+                                                  .value = Events.all.text;
+                                            },
+                                          ),
+                                          ChoiceChip(
+                                            label: Text(
+                                              'Public',
+                                            ),
+                                            selected: filtersController
+                                                    .eventType.value ==
+                                                Events.public.text,
+                                            onSelected: (bool selected) {
+                                              filtersController.eventType
+                                                  .value = Events.public.text;
+                                            },
+                                          ),
+                                          ChoiceChip(
+                                            label: Text(
+                                              'Exclusive',
+                                            ),
+                                            selected: filtersController
+                                                    .eventType.value ==
+                                                Events.exclusive.text,
+                                            onSelected: (bool selected) {
+                                              filtersController
+                                                      .eventType.value =
+                                                  Events.exclusive.text;
+                                            },
+                                          )
+                                        ])),
+                              ],
+                            )
                       /*   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -233,7 +243,8 @@ Future filterBottomSheet({required BuildContext screenContext,showMyEvents}) {
                         ),
                       ),
                     ),*/
-                      ,SizedBox(height: 3.h),
+                      ,
+                      SizedBox(height: 3.h),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);

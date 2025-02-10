@@ -31,7 +31,7 @@ class OtpController extends GetxController {
           isForgotPassword: false, email: email, otp: otpCode.value);
       CustomSnackbar.showSuccess('Success', 'OTP Verified');
       final responseData = response!["data"];
-      authService.setAuthToken(responseData["token"]);
+      authService.setToken(responseData["token"]);
       Get.offAllNamed(NavBarScreen.routeName);
     } catch (e) {
       CustomSnackbar.showError(e.toString(), 'Failed to verify OTP: $e');
@@ -47,10 +47,8 @@ class OtpController extends GetxController {
           isForgotPassword: true, email: email, otp: otpCode.value);
       CustomSnackbar.showSuccess(
           'Success', 'OTP Verified Please reset password');
-      Get.offAllNamed(ForgotMyPasswordConfirmScreen.routeName, arguments: {
-        // "otp": otpCode.value,
-        "email": email
-      });
+      Get.toNamed(ForgotMyPasswordConfirmScreen.routeName,
+          arguments: {"otp": otpCode.value, "email": email});
     } catch (e) {
       CustomSnackbar.showError(e.toString(), 'Failed to verify OTP: $e');
     } finally {

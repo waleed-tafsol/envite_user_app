@@ -34,133 +34,142 @@ class SigninScreen extends GetView<SignInController> {
             child: Form(
               key: formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Login to your account and get access to events in Kuwait",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  TextFormField(
-                      controller: controller.emailController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your email";
-                        } else if (!GetUtils.isEmail(value)) {
-                          return "Please enter a valid email";
-                        } else {
-                          return null;
-                        }
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
-                        prefixIcon: Icon(Icons.email_outlined),
-                      )),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Obx(() {
-                    return TextFormField(
-                        controller: controller.passwordController,
-                        obscureText: !controller.isPasswordVisible.value,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter a Password";
-                          } else if (value.length < 6) {
-                            return "Password must be at least 6 characters long";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                            hintText: "password",
-                            prefixIcon: Icon(
-                              Icons.lock_outline,
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  controller.isPasswordVisible.value =
-                                      !controller.isPasswordVisible.value;
-                                },
-                                icon: Icon(controller.isPasswordVisible.value
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined))));
-                  }),
-                  k2hSizedBox,
-                  Row(
-                    children: [
-                      Obx(() {
-                        return Switch(
-                            activeColor: Colors.green,
-                            value: controller.isEvetPlanner.value,
-                            onChanged: (value) {
-                              controller.isEvetPlanner.value = value;
-                            });
-                      }),
-                      Text(
-                        "I am an Event Planner",
-                        style: TextStyle(
-                          color: Colors.black,
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Login to your account and get access to events in Kuwait",
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
-                      ),
-                    ],
-                  ),
-                  k2hSizedBox,
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(ForgotMyPasswordEmailScreen.routeName);
-                      },
-                      child: Text(
-                        "Forgot your password?",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              color: AppColors.kBluedarkShade,
-                              decoration: TextDecoration.underline,
-                            ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        controller.callLogin();
-                        // Get.toNamed(DrawerScreen.routeName);
-                      }
-                    },
-                    child: Container(
-                      height: 7.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.kPrimaryColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Obx(() {
-                          return controller.isloading.value
-                              ? CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
-                              : Text(
-                                  "Sign In",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                );
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        TextFormField(
+                            controller: controller.emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your email";
+                              } else if (!GetUtils.isEmail(value)) {
+                                return "Please enter a valid email";
+                              } else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              hintText: "Email",
+                              prefixIcon: Icon(Icons.email_outlined),
+                            )),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Obx(() {
+                          return TextFormField(
+                              controller: controller.passwordController,
+                              obscureText: !controller.isPasswordVisible.value,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter a Password";
+                                } else if (value.length < 6) {
+                                  return "Password must be at least 6 characters long";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                  hintText: "password",
+                                  prefixIcon: Icon(
+                                    Icons.lock_outline,
+                                  ),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        controller.isPasswordVisible.value =
+                                            !controller.isPasswordVisible.value;
+                                      },
+                                      icon: Icon(controller
+                                              .isPasswordVisible.value
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined))));
                         }),
-                      ),
+                        k2hSizedBox,
+                        Row(
+                          children: [
+                            Obx(() {
+                              return Switch(
+                                  activeColor: Colors.green,
+                                  value: controller.isEvetPlanner.value,
+                                  onChanged: (value) {
+                                    controller.isEvetPlanner.value = value;
+                                  });
+                            }),
+                            Text(
+                              "I am an Event Planner",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        k2hSizedBox,
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(
+                                  ForgotMyPasswordEmailScreen.routeName);
+                            },
+                            child: Text(
+                              "Forgot your password?",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: AppColors.kBluedarkShade,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            if (formKey.currentState!.validate()) {
+                              controller.callLogin();
+                              // Get.toNamed(DrawerScreen.routeName);
+                            }
+                          },
+                          child: Container(
+                            height: 7.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppColors.kPrimaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Obx(() {
+                                return controller.isloading.value
+                                    ? CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : Text(
+                                        "Sign In",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      );
+                              }),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Spacer(),
+                  // Spacer(),
                   RichText(
                     text: TextSpan(
                       text: 'By Sign In, I accept the ',
@@ -205,9 +214,6 @@ class SigninScreen extends GetView<SignInController> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
                   ),
                 ],
               ),

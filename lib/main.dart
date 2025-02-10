@@ -47,10 +47,8 @@ void main() async {
 
   // Create and initialize AuthService
   Get.put(AuthService(), permanent: true);
-  // await authService.initialize();
 
-  // Optionally delay for other setups
-  await Future.delayed(Durations.medium1);
+  // await authService.initialize();
 
   runApp(MyApp());
 }
@@ -68,9 +66,7 @@ class MyApp extends StatelessWidget {
         title: 'Event Planner',
         debugShowCheckedModeBanner: false,
         theme: CustomTheme().lightTheme,
-        initialRoute: authService.isAuthenticated.value
-            ? NavBarScreen.routeName
-            : SplashScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         onGenerateRoute: Pages.onGenerateRoute,
         defaultTransition: Transition.rightToLeft,
         smartManagement: SmartManagement.full,

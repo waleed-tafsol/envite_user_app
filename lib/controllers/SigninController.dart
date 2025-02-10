@@ -28,7 +28,7 @@ class SignInController extends GetxController {
         isEvetPlanner: isEvetPlanner.value,
       );
       if (response["data"]["user"]["isVerified"] == true) {
-        authService.setAuthToken(response["data"]["token"]);
+        await authService.setToken(response["data"]["token"]);
       } else {
         Get.toNamed(OtpScreen.routeName, arguments: {
           'email': emailController.text,

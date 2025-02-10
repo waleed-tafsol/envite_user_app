@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:event_planner_light/constants/StyleConstants.dart';
-import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:flutter/material.dart';
@@ -163,7 +161,7 @@ class _ForgotMyPasswordConfirmScreenState
             "email": email,
             "password": _passwordController.value.text,
             "confirmPassword": _confirmPasswordController.value.text,
-            // "code": otp
+            "code": otp,
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -174,9 +172,7 @@ class _ForgotMyPasswordConfirmScreenState
           Get.back();
           CustomSnackbar.showSuccess("Success", "Password Reset Successfull");
           // authService.setAuthToken(jsonresponse["data"]["token"]);
-          Get.offAllNamed(
-            SigninScreen.routeName,
-          );
+          Get.until((route) => route.settings.name == SigninScreen.routeName);
         } else {
           throw Exception(
               jsonresponse["message"]["error"][0] ?? "An error occurred");
@@ -193,7 +189,7 @@ class _ForgotMyPasswordConfirmScreenState
   @override
   void initState() {
     super.initState();
-    args = Get.arguments ?? {}; // Safely assign arguments or an empty map.
+    Get.arguments != null ? args = Get.arguments : null;
   }
 
   @override
@@ -291,8 +287,9 @@ class _ForgotMyPasswordConfirmScreenState
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             await _submit(
-                                otp: args["otp"] ?? "",
-                                email: args["email"] ?? "");
+                              email: args["email"] ?? "",
+                              otp: args["otp"],
+                            );
                           }
                         },
                         style: StylesConstants.elevated_b_redBack_whiteFore,
