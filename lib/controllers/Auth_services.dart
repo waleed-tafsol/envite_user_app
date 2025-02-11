@@ -16,7 +16,7 @@ import 'package:http_parser/http_parser.dart';
 class AuthService extends GetxService {
   @override
   void onInit() {
-    initialize();
+    // initialize();
     super.onInit();
   }
 
@@ -24,7 +24,7 @@ class AuthService extends GetxService {
     if (await _tokenStorage.hasToken()) {
       isAuthenticated.value = true;
       authToken = await _tokenStorage.getToken();
-      getMe();
+      await getMe();
     }
   }
 

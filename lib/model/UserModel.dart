@@ -92,8 +92,8 @@ class UserModel {
         fcmTokens!.add(v);
       });
     }
-    totalInvites = json['totalInvites'];
-    remainingInvites = json['remainingInvites'];
+    totalInvites = json['totalInvites'] + json['totalAddonInvites'];
+    remainingInvites = json['remainingInvites'] + json['remainingAddonInvites'];
     totalAddonInvites = json['totalAddonInvites'];
     remainingAddonInvites = json['remainingAddonInvites'];
     if (json['socketIds'] != null) {

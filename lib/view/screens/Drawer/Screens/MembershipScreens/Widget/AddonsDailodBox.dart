@@ -5,7 +5,6 @@ import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:event_planner_light/controllers/payment_controller.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -31,75 +30,88 @@ void addOnsDailogBox(BuildContext ctx) {
                 Text("Buy More Invites",
                     style: TextStyle(fontSize: 20, color: Colors.black)),
                 k3hSizedBox,
-                Obx(
-                  () {
-                    return controller.isloading.value ? sizedShimmer(height: 3.h) : Text("1 Invite cost \$${controller.topups?.value?.price ?? 0}",
-                        style: TextStyle(fontSize: 14.sp, color: Colors.black));
-                  }
-                ),
-
+                Obx(() {
+                  return controller.isloading.value
+                      ? sizedShimmer(height: 3.h)
+                      : Text(
+                          "1 Invite cost \$${controller.topups?.value?.price ?? 0}",
+                          style:
+                              TextStyle(fontSize: 14.sp, color: Colors.black));
+                }),
                 k3hSizedBox,
-                    Obx(() {
-                return  controller.isloading.value  ? sizedShimmer(height: 3.h) : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () => controller.decrementInvites(),
-                    ),
-                     Text("${controller.invites.value} Invites",
-                          style: TextStyle(fontSize: 17, color: Colors.black)),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () => controller.incrementInvites(),
-                    ),
-                  ],
-                );
-                    }),
+                Obx(() {
+                  return controller.isloading.value
+                      ? sizedShimmer(height: 3.h)
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () => controller.decrementInvites(),
+                            ),
+                            Text("${controller.invites.value} Invites",
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.black)),
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () => controller.incrementInvites(),
+                            ),
+                          ],
+                        );
+                }),
                 k1hSizedBox,
                 Obx(() {
-                  return controller.isloading.value ? sizedShimmer(height: 4.h) : RichText(
-                    text: TextSpan(
-                      text: "${controller.topups?.value?.price ?? 0 * controller.invites.value} ",
-                      style: TextStyle(
-                          color: AppColors.kPrimaryColor,
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '/\$',
-                          style: TextStyle(
-                            color: AppColors.kPrimaryColor,
-                            fontSize: 14.sp,
+                  return controller.isloading.value
+                      ? sizedShimmer(height: 4.h)
+                      : RichText(
+                          text: TextSpan(
+                            text:
+                                "${(controller.topups?.value?.price ?? 0) * controller.invites.value}",
+                            style: TextStyle(
+                                color: AppColors.kPrimaryColor,
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.bold),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '/\$',
+                                style: TextStyle(
+                                  color: AppColors.kPrimaryColor,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
+                        );
                 }),
                 k1hSizedBox,
                 SizedBox(
                   width: double.infinity,
-                  child: Obx(
-                    () {
-                      return controller.isloading.value ? sizedShimmer(height: 5.h) : ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all(AppColors.kPrimaryColor),
-                          foregroundColor: WidgetStateProperty.all(Colors.white),
-                        ),
-                        onPressed: () {
-                          controller.invites.value != 0
-                              ? Get.toNamed(
-                                  PaymentScreen.routeName,arguments: {"istopupPayment": true,"packagesModel": controller.topups?.value}
-                                )
-                              : CustomSnackbar.showError(
-                                  "Error", "Please add invites");
-                        },
-                        child: Text("Buy"),
-                      );
-                    }
-                  ),
+                  child: Obx(() {
+                    return controller.isloading.value
+                        ? sizedShimmer(height: 5.h)
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(
+                                  AppColors.kPrimaryColor),
+                              foregroundColor:
+                                  WidgetStateProperty.all(Colors.white),
+                            ),
+                            onPressed: () {
+                              controller.invites.value != 0
+                                  ? Get.toNamed(PaymentScreen.routeName,
+                                      arguments: {
+                                          "istopupPayment": true,
+                                          "packagesModel":
+                                              controller.topups?.value,
+                                          "noOfInvites":
+                                              controller.invites.value
+                                        })
+                                  : CustomSnackbar.showError(
+                                      "Error", "Please add invites");
+                            },
+                            child: Text("Buy"),
+                          );
+                  }),
                 ),
               ],
             ),
@@ -163,6 +175,7 @@ class AddonsdailodboxController extends GetxController {
       }
     } catch (e) {
       isloading.value = false;
+      Get.back();
       CustomSnackbar.showError('Error', e.toString());
     }
   }

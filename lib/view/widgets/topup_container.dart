@@ -1,5 +1,6 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../controllers/Auth_services.dart';
@@ -28,13 +29,15 @@ class TopupContainer extends StatelessWidget {
             SizedBox(
               height: 1.h,
             ),
-            Text(
-              '${authService.me.value?.totalInvites ?? 0} Invites',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: AppColors.kBerkeleyBlue),
-            ),
+            Obx(() {
+              return Text(
+                '${authService.me.value?.totalInvites ?? 0} Invites',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.kBerkeleyBlue),
+              );
+            }),
             SizedBox(
               height: 1.h,
             ),
@@ -48,13 +51,15 @@ class TopupContainer extends StatelessWidget {
             SizedBox(
               height: 1.h,
             ),
-            Text(
-              '${authService.me.value?.remainingInvites ?? 0} Invites',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: AppColors.kBerkeleyBlue),
-            ),
+            Obx(() {
+              return Text(
+                '${authService.me.value?.remainingInvites ?? 0} Invites',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.kBerkeleyBlue),
+              );
+            }),
             Text(
               'Total Addon Invites:',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -63,13 +68,15 @@ class TopupContainer extends StatelessWidget {
             SizedBox(
               height: 1.h,
             ),
-            Text(
-              '${authService.me.value?.totalAddonInvites ?? 0} Invites',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: AppColors.kBerkeleyBlue),
-            ),
+            Obx(() {
+              return Text(
+                '${authService.me.value?.totalAddonInvites ?? 0} Invites',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.kBerkeleyBlue),
+              );
+            }),
             SizedBox(
               height: 1.h,
             ),
@@ -83,13 +90,15 @@ class TopupContainer extends StatelessWidget {
             SizedBox(
               height: 1.h,
             ),
-            Text(
-              '${authService.me.value?.remainingAddonInvites} Invites',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: AppColors.kBerkeleyBlue),
-            ),
+            Obx(() {
+              return Text(
+                '${authService.me.value?.remainingAddonInvites ?? 0} Invites',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.kBerkeleyBlue),
+              );
+            }),
           ],
         ),
       ),

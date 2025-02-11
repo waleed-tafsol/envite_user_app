@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/auth_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';
@@ -25,13 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 2), () {
-      _checkAuthTokenAndNavigate();
-    });
+    // Future.delayed(Duration(seconds: 2), () {
+    _checkAuthTokenAndNavigate();
+    // });
   }
 
   Future<void> _checkAuthTokenAndNavigate() async {
-    if (await authService.isAuthenticated.value) {
+    await authService.initialize();
+    if (authService.isAuthenticated.value) {
       Get.offNamed(NavBarScreen.routeName);
     } else {
       Get.offNamed(AuthScreen.routeName);

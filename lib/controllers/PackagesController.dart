@@ -15,7 +15,7 @@ class PackagesController extends GetxController {
     await getAllPackages(args["type"]);
   }
 
-  RxList<PackagesModel> topups = <PackagesModel>[].obs;
+  RxList<PackagesModel> packages = <PackagesModel>[].obs;
 
   RxBool isloading = false.obs;
 
@@ -34,7 +34,7 @@ class PackagesController extends GetxController {
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
         final List<dynamic> data = jsonResponse['data'];
-        topups.value = data.map((e) => PackagesModel.fromJson(e)).toList();
+        packages.value = data.map((e) => PackagesModel.fromJson(e)).toList();
         isloading.value = false;
       } else {
         isloading.value = false;

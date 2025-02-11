@@ -33,7 +33,7 @@ class BuyPackagesScreen extends GetView<PackagesController> {
                 padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
                 child: Column(
                   spacing: 2.h,
-                  children: controller.topups.map((item) {
+                  children: controller.packages.map((item) {
                     return ChoosePlanContainer(
                       package: item,
                     );

@@ -1,6 +1,7 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/model/SubscriptionModel.dart';
 import 'package:event_planner_light/utills/ConvertDateTime.dart';
+import 'package:event_planner_light/utills/string_decoration.dart';
 import 'package:event_planner_light/view/widgets/bullet_points.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -26,7 +27,7 @@ class MembershipContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  subscription?.type ?? "",
+                  capitalizeFirstLetter(subscription?.eventType ?? ""),
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -44,7 +45,7 @@ class MembershipContainer extends StatelessWidget {
                           .copyWith(color: AppColors.kBerkeleyBlue),
                       children: [
                         TextSpan(
-                          text: subscription?.type ?? "",
+                          text: capitalizeFirstLetter(subscription?.type ?? ""),
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!

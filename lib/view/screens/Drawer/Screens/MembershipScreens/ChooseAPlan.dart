@@ -20,10 +20,14 @@ class ChoosePlanContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final PaymentController paymentController =
-            Get.put(PaymentController());
-        paymentController.packagesModel.value = package!;
-        Get.toNamed(PaymentScreen.routeName);
+        // final PaymentController paymentController =
+        //     Get.put(PaymentController());
+        // paymentController.packagesModel.value = package!;
+        Get.toNamed(PaymentScreen.routeName, arguments: {
+          "istopupPayment": false,
+          "packagesModel": package,
+          "noOfInvites": package?.invites ?? 0
+        });
       },
       child: Container(
         width: double.infinity,

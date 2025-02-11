@@ -92,21 +92,17 @@ class PaymentScreen extends GetView<PaymentController> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: StylesConstants.elevated_b_redBack_whiteFore,
-                  child: const Column(
-                    children: [
-                      Text(
-                        "Confirm Payment",
-                      ),
-                    ],
-                  ),
+                  child: Obx(() {
+                    return controller.isPaymentLoading.value
+                        ? CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(
+                            "Confirm Payment",
+                          );
+                  }),
                   onPressed: () async {
-                    controller.termsAndConditionAccepted.value
-                        ? controller.isPaymentMethodselected
-                            ? controller.executePayment()
-                            : CustomSnackbar.showError(
-                                "Error", "Please Select PaymentMethod")
-                        : CustomSnackbar.showError(
-                            "Error", "Please accept terms and conditions");
+                    controller.executePayment();
                   },
                 ),
               ),
@@ -119,10 +115,9 @@ class PaymentScreen extends GetView<PaymentController> {
 
   Widget paymentMethodsItem(BuildContext ctxt, int index) {
     return SizedBox(
-      width: double.infinity,
-      height: 6.h,
-      child: Obx(() {
-        return Container(
+        width: double.infinity,
+        height: 6.h,
+        child: Container(
           decoration: controller.isSelectedList[index]
               ? BoxDecoration(
                   border: Border.all(color: AppColors.kBluedarkShade, width: 2))
@@ -134,13 +129,15 @@ class PaymentScreen extends GetView<PaymentController> {
                 SizedBox(
                   height: 24.0,
                   width: 24.0,
-                  child: Checkbox(
-                      checkColor: Colors.blueAccent,
-                      activeColor: const Color(0xFFC9C5C5),
-                      value: controller.isSelectedList[index],
-                      onChanged: (bool? value) {
-                        controller.setPaymentMethodSelected(index, value!);
-                      }),
+                  child: Obx(() {
+                    return Checkbox(
+                        checkColor: Colors.blueAccent,
+                        activeColor: const Color(0xFFC9C5C5),
+                        value: controller.isSelectedList[index],
+                        onChanged: (bool? value) {
+                          controller.setPaymentMethodSelected(index, value!);
+                        });
+                  }),
                 ),
                 SizedBox(
                   width: 2.w,
@@ -166,8 +163,6 @@ class PaymentScreen extends GetView<PaymentController> {
               ],
             ),
           ),
-        );
-      }),
-    );
+        ));
   }
 }

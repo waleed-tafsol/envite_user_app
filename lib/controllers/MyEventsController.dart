@@ -63,9 +63,10 @@ class MyEventsController extends GetxController {
                 })
               : jsonEncode({
                   "screen": 'my-events-view-all',
-            "latestAndPast": myEventsScreenType.value == Events.myPastEvents.text
-                      ? 'past-events'
-                      : 'upcoming-events'
+                  "latestAndPast":
+                      myEventsScreenType.value == Events.myPastEvents.text
+                          ? 'past-events'
+                          : 'upcoming-events'
                 }),
           headers: {
             'Content-Type': 'application/json',

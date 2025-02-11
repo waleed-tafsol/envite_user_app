@@ -5,6 +5,7 @@ import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ import '../utills/CustomSnackbar.dart';
 
 class PaymentController extends GetxController {
   List<MFPaymentMethod> paymentMethods = <MFPaymentMethod>[].obs;
-  Rx<PackagesModel> packagesModel = PackagesModel().obs;
+  PackagesModel? packagesModel = null;
   // RxDouble finalAmount = 0.0.obs;
   RxList<bool> isSelectedList = <bool>[].obs;
   bool isPaymentMethodselected = false;
@@ -22,9 +23,9 @@ class PaymentController extends GetxController {
   RxBool isloading = false.obs;
   RxBool termsAndConditionAccepted = false.obs;
   bool isTopUpPayment = false;
+  RxBool isPaymentLoading = false.obs;
   RxString responseMessage = ''.obs;
-
-
+  int noOfInvites = 0;
 
   @override
   void onInit() async {
@@ -32,11 +33,11 @@ class PaymentController extends GetxController {
     if (Get.arguments != null) {
       isTopUpPayment = Get.arguments["istopupPayment"];
       packagesModel = Get.arguments["packagesModel"];
+      noOfInvites = Get.arguments["noOfInvites"];
     }
+    initiate();
     super.onInit();
   }
-
-
 
   initiate() async {
     isloading.value = true;
@@ -53,7 +54,7 @@ class PaymentController extends GetxController {
 
   initiatePayment() async {
     var request = MFInitiatePaymentRequest(
-        invoiceAmount: packagesModel.value.price,
+        invoiceAmount: packagesModel?.price,
         currencyIso: MFCurrencyISO.KUWAIT_KWD);
 
     await MFSDK
@@ -85,34 +86,56 @@ class PaymentController extends GetxController {
     }
   }
 
+  executePayment() async {
+    // Start the payment loading process
+    if (!isPaymentLoading.value) {
+      isPaymentLoading.value = true;
 
+      // Check if the terms and conditions are accepted
+      if (!termsAndConditionAccepted.value) {
+        CustomSnackbar.showError("Error", "Please accept terms and conditions");
+        isPaymentLoading.value = false;
+        return;
+      }
 
+      // Check if a payment method is selected
+      if (!isPaymentMethodselected) {
+        CustomSnackbar.showError("Error", "Please Select Payment Method");
+        isPaymentLoading.value = false;
+        return;
+      }
 
+      // If payment method is selected and loading is not in progress, proceed with payment
 
-  executePayment() {
-    if (isTopUpPayment) {
-      executeRegularPayment(
-          paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
-    } else {
+      // Check if a valid payment method is selected
       if (selectedPaymentMethodIndex == -1) {
         responseMessage.value = "Please select payment method first";
-      } else {
-        if (packagesModel.value.price == 0) {
-          responseMessage.value = "Set the amount";
-        } else {
-          executeRegularPayment(
-              paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
-        }
+        isPaymentLoading.value = false;
+        return;
       }
+
+      // Check if price is set
+      if (packagesModel?.price == 0) {
+        responseMessage.value = "Set the amount";
+        isPaymentLoading.value = false;
+        return;
+      }
+
+      // Proceed with the regular payment
+      await executeRegularPayment(
+          paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
+
+      // Reset loading state after the payment process
+      isPaymentLoading.value = false;
     }
   }
 
-  executeRegularPayment(int paymentMethodId) async {
+  Future<void> executeRegularPayment(int paymentMethodId) async {
     var request = MFExecutePaymentRequest(
         customerEmail: authService.me.value?.email,
         userDefinedField: packagesModel.toString(),
         paymentMethodId: paymentMethodId,
-        invoiceValue: packagesModel.value.price);
+        invoiceValue: packagesModel?.price);
     request.displayCurrencyIso = MFCurrencyISO.KUWAIT_KWD;
 
     // var recurring = MFRecurringModel();
@@ -123,24 +146,38 @@ class PaymentController extends GetxController {
 
     await MFSDK
         .executePayment(request, MFLanguage.ENGLISH, (invoiceId) {
-          print(invoiceId);
+          // print(invoiceId);
         })
-        .then((value) => print(value))
-        .catchError((error) => {print(error.message)});
+        .then((value) => paymentConfirmed(
+            numOfInvites: noOfInvites,
+            invoiceId: value.invoiceId.toString(),
+            pmId: paymentMethodId))
+        .catchError((error) {});
   }
 
-  paymentConfirmed(String) async {
+  paymentConfirmed(
+      {required String invoiceId,
+      required int numOfInvites,
+      required int pmId}) async {
     try {
-      final response = await http.patch(Uri.parse(ApiConstants.buyPackages),
-          body:
-              jsonEncode({"noOfInvites": 3, "pmId": 2, "invoiceId": "4882574"}),
+      Get.dialog(Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+      final response = await http.patch(
+          Uri.parse(ApiConstants.buyPackages + packagesModel!.slug!),
+          body: jsonEncode({
+            "noOfInvites": numOfInvites,
+            "pmId": pmId,
+            "invoiceId": invoiceId
+          }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authService.authToken}',
           });
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         isloading.value = false;
         await authService.getMe();
+
+        CustomSnackbar.showSuccess("Successful", "payment was successful");
         Get.until((route) => route.settings.name == NavBarScreen.routeName);
       } else {
         isloading.value = false;
@@ -149,6 +186,7 @@ class PaymentController extends GetxController {
             "SomeThing Went Wrong Payment was not successful");
       }
     } catch (e) {
+      Get.back();
       isloading.value = false;
       CustomSnackbar.showError('Error', e.toString());
     }

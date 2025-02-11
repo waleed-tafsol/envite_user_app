@@ -1,10 +1,10 @@
-import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/MyProfileController.dart';
 import 'package:event_planner_light/utills/enums.dart';
+import 'package:event_planner_light/utills/string_decoration.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/widgets/membership_container.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/StyleConstants.dart';
-import '../../../../../controllers/AddEventController.dart';
 import '../../../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 
 class ProfileScreen extends GetView<MyProfileController> {
@@ -68,7 +67,8 @@ class ProfileScreen extends GetView<MyProfileController> {
                 Center(
                   child: Obx(() {
                     return Text(
-                      authService.me.value?.fullName ?? "User Name",
+                      capitalizeFirstLetter(
+                          authService.me.value?.fullName ?? "User Name"),
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!

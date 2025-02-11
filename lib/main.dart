@@ -1,4 +1,3 @@
-import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +46,6 @@ void main() async {
 
   // Create and initialize AuthService
   Get.put(AuthService(), permanent: true);
-
   // await authService.initialize();
 
   runApp(MyApp());
