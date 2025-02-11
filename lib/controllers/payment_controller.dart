@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
+import 'package:http/http.dart' as http;
+import '../constants/ApiConstant.dart';
+import '../utills/CustomSnackbar.dart';
 
 class PaymentController extends GetxController {
   List<MFPaymentMethod> paymentMethods = <MFPaymentMethod>[].obs;
@@ -16,21 +21,22 @@ class PaymentController extends GetxController {
   bool visibilityObs = false;
   RxBool isloading = false.obs;
   RxBool termsAndConditionAccepted = false.obs;
+  bool isTopUpPayment = false;
   RxString responseMessage = ''.obs;
 
-  RxInt invites = 0.obs;
+
 
   @override
   void onInit() async {
-    super.onInit();
     initiate();
+    if (Get.arguments != null) {
+      isTopUpPayment = Get.arguments["istopupPayment"];
+      packagesModel = Get.arguments["packagesModel"];
+    }
+    super.onInit();
   }
-  void incrementInvites(){
-    invites++;
-  }
-  void decrementInvites(){
-    invites--;
-  } 
+
+
 
   initiate() async {
     isloading.value = true;
@@ -79,22 +85,31 @@ class PaymentController extends GetxController {
     }
   }
 
+
+
+
+
   executePayment() {
-    if (selectedPaymentMethodIndex == -1) {
-      responseMessage.value = "Please select payment method first";
+    if (isTopUpPayment) {
+      executeRegularPayment(
+          paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
     } else {
-      if (packagesModel.value.price == 0) {
-        responseMessage.value = "Set the amount";
+      if (selectedPaymentMethodIndex == -1) {
+        responseMessage.value = "Please select payment method first";
       } else {
-        executeRegularPayment(
-            paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
+        if (packagesModel.value.price == 0) {
+          responseMessage.value = "Set the amount";
+        } else {
+          executeRegularPayment(
+              paymentMethods[selectedPaymentMethodIndex].paymentMethodId!);
+        }
       }
     }
   }
 
   executeRegularPayment(int paymentMethodId) async {
     var request = MFExecutePaymentRequest(
-      customerEmail: authService.me.value?.email,
+        customerEmail: authService.me.value?.email,
         userDefinedField: packagesModel.toString(),
         paymentMethodId: paymentMethodId,
         invoiceValue: packagesModel.value.price);
@@ -114,4 +129,28 @@ class PaymentController extends GetxController {
         .catchError((error) => {print(error.message)});
   }
 
+  paymentConfirmed(String) async {
+    try {
+      final response = await http.patch(Uri.parse(ApiConstants.buyPackages),
+          body:
+              jsonEncode({"noOfInvites": 3, "pmId": 2, "invoiceId": "4882574"}),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      if (response.statusCode == 201) {
+        isloading.value = false;
+        await authService.getMe();
+        Get.until((route) => route.settings.name == NavBarScreen.routeName);
+      } else {
+        isloading.value = false;
+        final jsonResponse = jsonDecode(response.body);
+        throw Exception(jsonResponse["message"]["error"][0] ??
+            "SomeThing Went Wrong Payment was not successful");
+      }
+    } catch (e) {
+      isloading.value = false;
+      CustomSnackbar.showError('Error', e.toString());
+    }
+  }
 }

@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
-
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../constants/ApiConstant.dart';

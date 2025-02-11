@@ -107,14 +107,6 @@ class PaymentScreen extends GetView<PaymentController> {
                                 "Error", "Please Select PaymentMethod")
                         : CustomSnackbar.showError(
                             "Error", "Please accept terms and conditions");
-
-                    /* final args = Get.arguments;
-                    Get.dialog(Center(
-                      child: CircularProgressIndicator(),
-                    ));*/
-
-                    // Get.back();
-                    //  Get.until((route) => route.isFirst);
                   },
                 ),
               ),
