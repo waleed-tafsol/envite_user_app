@@ -11,6 +11,7 @@ class CustomTheme {
     primaryIconTheme: const IconThemeData(color: AppColors.kPrimaryColor),
     iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(AppColors.kWhite),
       iconColor: WidgetStateProperty.all(AppColors.kPrimaryColor),
     )),
 

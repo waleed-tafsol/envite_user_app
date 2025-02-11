@@ -8,6 +8,7 @@ import '../../../controllers/Auth_services.dart';
 import '../Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
 import '../Drawer/Screens/MembershipScreens/BuyTopUps.dart';
 import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
+import '../Drawer/Screens/MembershipScreens/Widget/AddonsDailodBox.dart';
 import '../Drawer/Screens/couponScreen.dart';
 import '../Drawer/Screens/supportScreen/supportScreen.dart';
 import '../ads/ads_screen.dart';
@@ -216,8 +217,10 @@ class MyDrawer extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(BuyPackagesScreen.routeName,
-                          arguments: {"type": "addon"});
+                      // Get.toNamed(BuyPackagesScreen.routeName,
+                      //     arguments: {"type": "addon"});
+                      // TopupsDailogBox();
+                      addOnsDailogBox(context);
                     },
                     child: Row(
                       children: [

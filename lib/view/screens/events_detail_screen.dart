@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constants/constants.dart';
 import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
@@ -24,8 +25,28 @@ class EventsDetailScreen extends GetView<EventDetailController> {
 
   FiltersController filtersController = Get.find();
 
+  Future<void> _launchWhatsAppWithMessage(String phoneNumber, String message) async {
+    final String url = 'https://wa.me/$phoneNumber?text=Hello'; // Pre-filled message
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+     // showSnackBar(message: "Can't share link", title: "Error");
+    }
+    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
+  }
+
+  // Function to send message to multiple users
+  Future<void> _sendMessageToMultipleUsers(List<String> phoneNumbers, String message) async {
+    for (var phoneNumber in phoneNumbers) {
+      await _launchWhatsAppWithMessage(phoneNumber, message); // Launch WhatsApp for each user
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -528,43 +549,52 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    // Obx(() {
-                    //   return controller.isLoading.value
-                    //       ? sizedShimmer(height: 5.h, width: double.infinity)
-                    //       : Row(
-                    //           children: [
-                    //             Expanded(
-                    //               child: ElevatedButton(
-                    //                   style: ElevatedButton.styleFrom(
-                    //                       backgroundColor:
-                    //                           AppColors.kPrimaryColor),
-                    //                   onPressed: () {
-                    //                     BottomSheetManager.sendInvite(context);
-                    //                   },
-                    //                   child: Text(
-                    //                     'Send Invite',
-                    //                     style: TextStyle(color: Colors.white),
-                    //                   )),
-                    //             ),
-                    //             SizedBox(
-                    //               width: 2.w,
-                    //             ),
-                    //             Expanded(
-                    //               child: ElevatedButton(
-                    //                   style: ElevatedButton.styleFrom(
-                    //                       backgroundColor:
-                    //                           AppColors.kBerkeleyBlue),
-                    //                   onPressed: () {
-                    //                     // Get.toNamed(GenerateTicketScreen.routeName);
-                    //                   },
-                    //                   child: Text(
-                    //                     'Pin',
-                    //                     style: TextStyle(color: Colors.white),
-                    //                   )),
-                    //             ),
-                    //           ],
-                    //         );
-                    // }),
+                    Obx(() {
+                      return controller.isLoading.value
+                          ? sizedShimmer(height: 5.h, width: double.infinity)
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.kPrimaryColor),
+                                      onPressed: () {
+                                        // List of phone numbers (in international format without spaces or plus sign)
+                                        List<String> phoneNumbers = [
+                                          '+1234567890', // Example number 1
+                                          '+1987654321', // Example number 2
+                                          '+1123456789', // Example number 3
+                                        ];
+                                        String message = 'Hello! How are you?';
+
+                                        _sendMessageToMultipleUsers(phoneNumbers, message);
+                                       // BottomSheetManager.sendInvite(context);
+                                      },
+                                      child: Text(
+                                        'Send Invite',
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.kBerkeleyBlue),
+                                      onPressed: () {
+                                        // Get.toNamed(GenerateTicketScreen.routeName);
+                                      },
+                                      child: Text(
+                                        'Pin',
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
+                              ],
+                            );
+                    }),
                   ],
                 ),
               ),
@@ -638,6 +668,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             ],
                           );
               }),
+              SizedBox(
+                height: 2.h,
+              ),
             ],
           ),
         ),

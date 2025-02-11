@@ -10,6 +10,7 @@ import '../../../../../constants/constants.dart';
 import '../../../../../controllers/Auth_services.dart';
 import '../../../../../controllers/membership_controller.dart';
 import '../../../../widgets/membership_container.dart';
+import 'Widget/AddonsDailodBox.dart';
 
 class MembershipScreen extends GetView<MembershipController> {
   const MembershipScreen({super.key});
@@ -120,8 +121,9 @@ class MembershipScreen extends GetView<MembershipController> {
                   ),
                 ],
                 onTap: () {
-                  Get.toNamed(BuyPackagesScreen.routeName,
-                      arguments: {"type": "addon"});
+                  // Get.toNamed(BuyPackagesScreen.routeName,
+                  //     arguments: {"type": "addon"});
+                  addOnsDailogBox(context);
                 },
               ),
             ),
