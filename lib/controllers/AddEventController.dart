@@ -24,6 +24,8 @@ import '../model/CatagoryModel.dart';
 import '../utills/ConvertDateTime.dart';
 import 'package:http_parser/http_parser.dart';
 
+import '../view/widgets/BottomModelSheet.dart';
+
 class AddEventController extends GetxController {
   @override
   void onInit() async {
@@ -198,6 +200,26 @@ class AddEventController extends GetxController {
       );
     } else {
       selectedEndDate.value = date;
+    }
+  }
+
+  verifyUserPackageAndSetEventType(String eventType, BuildContext context) {
+    final int publicIndex = authService.me.value!.subscriptions!
+        .where((element) => element.eventType == "public")
+        .length;
+    if (eventType == "public") {
+      final user = authService.me.value;
+      if (user!.role!.contains(UserRoles.eventPlanner.text)) {
+        if (user.subscriptions!.isEmpty) {
+          BottomSheetManager.buySubscriptionForPublic(context);
+        } else if (publicIndex == -1) {
+          BottomSheetManager.upgradEvent(context);
+        } else {
+          setSelectedOption(eventType);
+        }
+      }
+    } else {
+      setSelectedOption(eventType);
     }
   }
 

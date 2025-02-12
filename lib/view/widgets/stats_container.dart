@@ -19,9 +19,7 @@ class StatsContainer extends StatelessWidget {
     return Container(
       height: 7.h,
       width: 42.w,
-      decoration: BoxDecoration(
-          // border: Border.all(color: Color(0xff457B9D)),
-          borderRadius: k5BorderRadius),
+      decoration: BoxDecoration(borderRadius: k5BorderRadius),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
         child: Row(

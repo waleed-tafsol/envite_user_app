@@ -14,6 +14,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/enums.dart';
+import '../../../../widgets/BottomModelSheet.dart';
 import '../../../../widgets/VideoWidget.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
@@ -867,26 +868,9 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         color: AppColors.kPrimaryColor,
                                       ),
                                       onSelected: (String value) {
-                                        if (value == "public") {
-                                          final user = authService.me.value;
-                                          if (user!.role!
-                                              .contains("event-planner")) {
-                                            if (user.subscriptions!.isEmpty) {
-                                              // BottomSheetManager
-                                              //     .buySubscriptionForPublic(context);
-                                            } else if (user.subscriptions!.any(
-                                                (subscription) =>
-                                                    subscription.eventType !=
-                                                    "public")) {
-                                              // BottomSheetManager.upgradEvent(context);
-                                            } else {
-                                              controller
-                                                  .setSelectedOption(value);
-                                            }
-                                          }
-                                        } else {
-                                          controller.setSelectedOption(value);
-                                        }
+                                        controller
+                                            .verifyUserPackageAndSetEventType(
+                                                value, context);
                                       },
                                       itemBuilder: (BuildContext context) {
                                         return controller.options

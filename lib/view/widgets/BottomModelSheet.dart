@@ -101,7 +101,6 @@ class BottomSheetManager {
     ]);
   }
 
-
   static void youAreAlmostThere(BuildContext context) {
     _customBottomSheet(context, [
       Text(
@@ -212,7 +211,8 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-Get.back();        },
+          Get.back();
+        },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           minimumSize: Size(double.infinity, 6.h),
@@ -226,7 +226,6 @@ Get.back();        },
       ),
     ]);
   }
-
 
   static void sendInvite(
     BuildContext context,
@@ -393,7 +392,7 @@ Get.back();        },
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(PackagesScreen.routeName);
+          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -435,7 +434,7 @@ Get.back();        },
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(BuyPackagesScreen.routeName, arguments: 'public');
+          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
