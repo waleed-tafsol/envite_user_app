@@ -177,10 +177,8 @@ class PaymentController extends GetxController {
         isloading.value = false;
 
         CustomSnackbar.showSuccess("Successful", "payment was successful");
-        Get.back();
-        Get.back();
-        Get.back();
-        // Get.until((route) => route.settings.name == NavBarScreen.routeName);
+
+        Get.until((route) => Get.previousRoute == NavBarScreen.routeName);
       } else {
         isloading.value = false;
         final jsonResponse = jsonDecode(response.body);

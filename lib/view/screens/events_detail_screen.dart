@@ -84,10 +84,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                 : controller.isLoading.value
                     ? sizedShimmer(height: 5.h, width: 5.h)
                     : controller.isFavouritLoading.value
-                        ? SizedBox(
-                            height: 5.h,
-                            width: 5.h,
-                            child: CircularProgressIndicator())
+                        ? sizedShimmer(height: 5.h, width: 5.h)
                         : InkWell(
                             onTap: () {
                               // final editcontroller =

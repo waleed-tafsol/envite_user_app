@@ -13,7 +13,7 @@ import 'MyInvitesController.dart';
 
 class EventDetailController extends GetxController {
   RxBool isLoading = true.obs;
-  RxBool isFavouritLoading = true.obs;
+  RxBool isFavouritLoading = false.obs;
   RxString selectedEventId = ''.obs;
   Rx<EventDetailResponse> eventDetailResponse = EventDetailResponse().obs;
   RxBool isFavourit = false.obs;
@@ -53,7 +53,7 @@ class EventDetailController extends GetxController {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
-        isFavourit.value = eventDetailResponse.value.data!.isFavorite!;
+        isFavourit.value = eventDetailResponse.value.data!.isFavorite ?? false;
         isLoading.value = false;
       } else {
         isLoading.value = false;

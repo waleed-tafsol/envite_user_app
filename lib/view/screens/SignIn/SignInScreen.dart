@@ -98,7 +98,7 @@ class SigninScreen extends GetView<SignInController> {
                           children: [
                             Obx(() {
                               return Transform.scale(
-                                scale: 0.8,
+                                scale: 0.7,
                                 child: Switch(
                                     activeColor: Colors.green,
                                     value: controller.isEvetPlanner.value,
