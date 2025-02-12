@@ -185,3 +185,33 @@ class AddonsdailodboxController extends GetxController {
     super.onClose();
   }
 }
+
+void demoDailogBoxWithText(BuildContext ctx, String text) {
+  showDialog(
+    context: ctx,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("$text Under Development",
+                style: TextStyle(fontSize: 17.sp, color: Colors.black)),
+            k1hSizedBox,
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    WidgetStateProperty.all(AppColors.kPrimaryColor),
+                foregroundColor: WidgetStateProperty.all(Colors.white),
+              ),
+              onPressed: () {
+                Get.back();
+              },
+              child: Text("Got It"),
+            )
+          ],
+        ),
+      );
+    },
+  );
+}

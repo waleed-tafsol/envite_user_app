@@ -42,4 +42,7 @@ class ApiConstants {
   static const getAlldds = "${baseUrl}ads/all";
   // cms
   static const getallCms = "${baseUrl}cms?cmsType=all";
+  // Favourits
+  static const addTofavourite = "${baseUrl}favorite/create/";
+  static const getAllfavourite = "${baseUrl}favorite/my/all";
 }

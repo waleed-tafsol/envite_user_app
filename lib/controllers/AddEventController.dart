@@ -205,7 +205,7 @@ class AddEventController extends GetxController {
 
   verifyUserPackageAndSetEventType(String eventType, BuildContext context) {
     final int publicIndex = authService.me.value!.subscriptions!
-        .where((element) => element.eventType == "public")
+        .where((element) => element.eventType == Events.public.text)
         .length;
     if (eventType == "public") {
       final user = authService.me.value;

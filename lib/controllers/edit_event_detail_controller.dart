@@ -6,7 +6,6 @@ import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -47,7 +46,7 @@ class EditEventDetailController extends GetxController {
   getGooglePlaces({required String value}) async {
     isPredictionsLoading.value = true;
     final FindAutocompletePredictionsResponse predictionsData =
-    await googlePlaces.findAutocompletePredictions(value);
+        await googlePlaces.findAutocompletePredictions(value);
     print(predictionsData.predictions[0].fullText);
     placesList.value = predictionsData.predictions;
     isPredictionsLoading.value = false;
@@ -288,7 +287,7 @@ class EditEventDetailController extends GetxController {
       if (existingImages.isNotEmpty) {
         for (var i = 0; i < existingImages.length; i++) {
           String imagePath =
-          existingImages[i].replaceFirst(ApiConstants.s3bucket, "");
+              existingImages[i].replaceFirst(ApiConstants.s3bucket, "");
           request.fields['keepImages[$i]'] = imagePath;
         }
       }
@@ -352,7 +351,7 @@ class EditEventDetailController extends GetxController {
 
         if (pickedVideo.isNotEmpty) {
           List<String> videoUrls =
-          List<String>.from(responseData["data"]["videoUrls"]);
+              List<String>.from(responseData["data"]["videoUrls"]);
 
           await uploadFilesToS3(
               presignedUrls: videoUrls,

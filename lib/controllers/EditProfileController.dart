@@ -24,6 +24,7 @@ class EditProfileController extends GetxController {
   void onInit() async {
     fullNameController.text = authService.me.value?.fullName ?? "";
     phoneNumberController.text = authService.me.value?.phoneNumber ?? "";
+    bioController.text = authService.me.value?.description ?? "";
 
     super.onInit();
   }

@@ -1,8 +1,10 @@
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
 import 'package:event_planner_light/model/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
 import '../../utills/string_decoration.dart';
@@ -22,7 +24,7 @@ class EventTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventDetailController eventDetailController =
-    Get.put(EventDetailController());
+        Get.put(EventDetailController());
     return InkWell(
       onTap: () {
         eventDetailController.selectedEventId.value = event!.slug!;
@@ -52,12 +54,12 @@ class EventTileWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             child: event!.images!.isEmpty
                                 ? Container(
-                              width: double.infinity,
-                              color: Colors.grey,
-                              child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text("No image")),
-                            )
+                                    width: double.infinity,
+                                    color: Colors.grey,
+                                    child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Text("No image")),
+                                  )
                                 : Image.network(event!.images![0])),
                       ),
                       Positioned(
@@ -81,8 +83,7 @@ class EventTileWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.w),
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
                           child: Text(
                             capitalizeFirstLetter(event?.name ?? ""),
                             overflow: TextOverflow.ellipsis,
@@ -93,13 +94,11 @@ class EventTileWidget extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.w),
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
                           child: StatusWidget(status: event?.status),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.w),
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -142,6 +141,8 @@ class EventTileWidget extends StatelessWidget {
                   )
                 ],
               ),
+              // event?. == true
+              //     ?
               // Positioned(
               //     top: 0.5.h,
               //     right: 1.w,

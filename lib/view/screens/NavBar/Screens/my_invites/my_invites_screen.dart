@@ -1,11 +1,11 @@
 import 'package:event_planner_light/controllers/MyInvitesController.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../widgets/EventTileWidget.dart';
-import '../../../../widgets/CustomChipWidgets.dart';
 import '../../../../widgets/SearchEventWidget.dart';
 
 class MyInvitesScreen extends GetView<MyInvitesController> {
@@ -16,9 +16,10 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          await Future.delayed(Durations.long3);
+          await controller.getFavouritPaginatedEvents(callFirstTime: true);
         },
         child: SingleChildScrollView(
+          controller: controller.scrollController,
           physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
@@ -35,40 +36,103 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
                         .copyWith(color: AppColors.kTextBlack),
                   ),
                 ),
-                const InviteChips(),
-                SizedBox(
-                  height: 2.h,
+                Center(
+                  child: Wrap(
+                    spacing: 2.w,
+                    children: List<Widget>.generate(
+                      controller.chipLabels.length,
+                      (int index) {
+                        return ChoiceChip(
+                          backgroundColor: AppColors.kBlueMediumShade,
+                          selectedColor: AppColors.kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: k5BorderRadius,
+                              side: BorderSide(
+                                color: AppColors.kBlueMediumShade,
+                              )),
+                          label: Text(
+                            controller.chipLabels[index],
+                            style: TextStyle(
+                                color: controller.selectedChipIndex == index
+                                    ? Colors.white
+                                    : AppColors.kBluedarkShade),
+                          ),
+                          selected: controller.selectedChipIndex == index,
+                          onSelected: (bool selected) {
+                            controller.selectedChipIndex.value = selected
+                                ? index
+                                : controller.selectedChipIndex.value;
+                          },
+                        );
+                      },
+                    ).toList(),
+                  ),
                 ),
-                ListView.builder(
-                    itemCount: 0,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return const EventTileWidget();
-                    }),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => BottomSheetManager.eventAdded(context),
-                      child: Text(
-                        "Ended events",
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ),
-                    Text(
-                      "See all",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-                ListView.builder(
-                    itemCount: 0,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return const EventTileWidget();
-                    }),
+                // SizedBox(
+                //   height: 2.h,
+                // ),
+                // ListView.builder(
+                //     itemCount: 0,
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     shrinkWrap: true,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return const EventTileWidget();
+                //     }),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     InkWell(
+                //       onTap: () => BottomSheetManager.eventAdded(context),
+                //       child: Text(
+                //         "Ended events",
+                //         style: Theme.of(context).textTheme.headlineMedium,
+                //       ),
+                //     ),
+                //     Text(
+                //       "See all",
+                //       style: Theme.of(context).textTheme.bodySmall,
+                //     )
+                //   ],
+                // ),
+                Obx(() {
+                  return controller.isEventLoading.value
+                      ? ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          children:
+                              List.generate(5, (index) => eventTileShimmer()),
+                        )
+                      : controller.eventList.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: controller.eventList.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return EventTileWidget(
+                                  event: controller.eventList[index],
+                                );
+                              })
+                          : SizedBox(
+                              height: 40.h,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.event_busy_outlined,
+                                      color: AppColors.kBluedarkShade,
+                                    ),
+                                    Text(
+                                      "No Upcoming Events are available",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: AppColors.kBluedarkShade),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                }),
                 // SizedBox(
                 //   height: 6.h,
                 //   width: double.infinity,

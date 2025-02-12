@@ -14,6 +14,7 @@ import '../../constants/constants.dart';
 import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../utills/enums.dart';
 import '../../utills/string_decoration.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/network_video_player_widget.dart';
@@ -37,12 +38,10 @@ class EventsDetailScreen extends GetView<EventDetailController> {
     if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
   }
 
-  // Function to send message to multiple users
   Future<void> _sendMessageToMultipleUsers(
       List<String> phoneNumbers, String message) async {
     for (var phoneNumber in phoneNumbers) {
-      await _launchWhatsAppWithMessage(
-          phoneNumber, message); // Launch WhatsApp for each user
+      await _launchWhatsAppWithMessage(phoneNumber, message);
     }
   }
 
@@ -75,6 +74,37 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         },
                         child: SvgPicture.asset(SvgAssets.image_pen))
                 : SizedBox();
+          }),
+          SizedBox(
+            width: 2.w,
+          ),
+          Obx(() {
+            return filtersController.showMyEvents.value
+                ? SizedBox()
+                : controller.isLoading.value
+                    ? sizedShimmer(height: 5.h, width: 5.h)
+                    : controller.isFavouritLoading.value
+                        ? SizedBox(
+                            height: 5.h,
+                            width: 5.h,
+                            child: CircularProgressIndicator())
+                        : InkWell(
+                            onTap: () {
+                              // final editcontroller =
+                              //     Get.put(EditEventDetailController());
+                              // editcontroller.setEditValues(
+                              //     controller.eventDetailResponse.value.data!);
+                              // Get.toNamed(
+                              //   EditEventsDetailScreen.routeName,
+                              // );
+                              controller.addToFavourits();
+                            },
+                            child: SvgPicture.asset(
+                              SvgAssets.pin,
+                              color: controller.isFavourit.value
+                                  ? AppColors.kPrimaryColor
+                                  : Colors.grey,
+                            ));
           }),
           SizedBox(
             width: 2.w,
@@ -587,17 +617,18 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                     AppColors.kPrimaryColor),
                                             onPressed: () {
                                               // List of phone numbers (in international format without spaces or plus sign)
-                                              List<String> phoneNumbers = [
-                                                '+1234567890', // Example number 1
-                                                '+1987654321', // Example number 2
-                                                '+1123456789', // Example number 3
-                                              ];
-                                              String message =
-                                                  'Hello! How are you?';
+                                              // List<String> phoneNumbers = [
+                                              //   '+1234567890', // Example number 1
+                                              //   '+1987654321', // Example number 2
+                                              //   '+1123456789', // Example number 3
+                                              // ];
+                                              // String message =
+                                              //     'Hello! How are you?';
 
-                                              _sendMessageToMultipleUsers(
-                                                  phoneNumbers, message);
+                                              // _sendMessageToMultipleUsers(
+                                              //     phoneNumbers, message);
                                               // BottomSheetManager.sendInvite(context);
+                                              controller.sendInvites(context);
                                             },
                                             child: Text(
                                               'Send Invite',
@@ -605,24 +636,49 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                   color: Colors.white),
                                             )),
                                       ),
-                                      SizedBox(
-                                        width: 2.w,
-                                      ),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    AppColors.kBerkeleyBlue),
-                                            onPressed: () {
-                                              // Get.toNamed(GenerateTicketScreen.routeName);
-                                            },
-                                            child: Text(
-                                              'Pin',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                                      ),
+                                      // SizedBox(
+                                      //   width: 2.w,
+                                      // ),
+                                      // Expanded(
+                                      //   child: ElevatedButton(
+                                      //       style: ElevatedButton.styleFrom(
+                                      //           backgroundColor:
+                                      //               AppColors.kBerkeleyBlue),
+                                      //       onPressed: () {
+                                      //         // Get.toNamed(GenerateTicketScreen.routeName);
+                                      //       },
+                                      //       child: Text(
+                                      //         'Pin',
+                                      //         style: TextStyle(
+                                      //             color: Colors.white),
+                                      //       )),
+                                      // ),
                                     ],
+                                  )
+                                : SizedBox();
+                      }),
+                      Obx(() {
+                        return controller.isLoading.value
+                            ? SizedBox()
+                            : controller.eventDetailResponse.value.data
+                                            ?.createdBy?.sId !=
+                                        authService.me.value?.sId &&
+                                    controller.eventDetailResponse.value.data
+                                            ?.status !=
+                                        Events.completed.text
+                                ? SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                AppColors.kBerkeleyBlue),
+                                        onPressed: () {
+                                          controller.attendEvent(context);
+                                        },
+                                        child: Text(
+                                          'Attend',
+                                          style: TextStyle(color: Colors.white),
+                                        )),
                                   )
                                 : SizedBox();
                       }),

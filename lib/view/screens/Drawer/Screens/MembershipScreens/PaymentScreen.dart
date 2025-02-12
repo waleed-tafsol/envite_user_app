@@ -1,7 +1,6 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/payment_controller.dart';
 import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
-import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -122,46 +121,39 @@ class PaymentScreen extends GetView<PaymentController> {
               ? BoxDecoration(
                   border: Border.all(color: AppColors.kBluedarkShade, width: 2))
               : const BoxDecoration(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2.w),
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  height: 24.0,
-                  width: 24.0,
-                  child: Obx(() {
-                    return Checkbox(
-                        checkColor: Colors.blueAccent,
-                        activeColor: const Color(0xFFC9C5C5),
-                        value: controller.isSelectedList[index],
-                        onChanged: (bool? value) {
-                          controller.setPaymentMethodSelected(index, value!);
-                        });
-                  }),
+          child: Row(
+            children: <Widget>[
+              Obx(() {
+                return Checkbox(
+                    checkColor: Colors.blueAccent,
+                    activeColor: const Color(0xFFC9C5C5),
+                    value: controller.isSelectedList[index],
+                    onChanged: (bool? value) {
+                      controller.setPaymentMethodSelected(index, value!);
+                    });
+              }),
+              SizedBox(
+                width: 2.w,
+              ),
+              Image.network(
+                controller.paymentMethods[index].imageUrl!,
+                height: 35.0,
+              ),
+              SizedBox(
+                width: 2.w,
+              ),
+              Text(
+                controller.paymentMethods[index].paymentMethodEn ?? "",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColors.kBluedarkShade,
+                  fontWeight: controller.isSelectedList[index]
+                      ? FontWeight.bold
+                      : FontWeight.normal,
                 ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Image.network(
-                  controller.paymentMethods[index].imageUrl!,
-                  height: 35.0,
-                ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Text(
-                  controller.paymentMethods[index].paymentMethodEn ?? "",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.kBluedarkShade,
-                    fontWeight: controller.isSelectedList[index]
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ));
   }

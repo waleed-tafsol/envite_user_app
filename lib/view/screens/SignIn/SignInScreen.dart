@@ -97,12 +97,15 @@ class SigninScreen extends GetView<SignInController> {
                         Row(
                           children: [
                             Obx(() {
-                              return Switch(
-                                  activeColor: Colors.green,
-                                  value: controller.isEvetPlanner.value,
-                                  onChanged: (value) {
-                                    controller.isEvetPlanner.value = value;
-                                  });
+                              return Transform.scale(
+                                scale: 0.8,
+                                child: Switch(
+                                    activeColor: Colors.green,
+                                    value: controller.isEvetPlanner.value,
+                                    onChanged: (value) {
+                                      controller.isEvetPlanner.value = value;
+                                    }),
+                              );
                             }),
                             Text(
                               "I am an Event Planner",

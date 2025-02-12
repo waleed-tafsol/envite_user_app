@@ -60,6 +60,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
         case 4:
           filtersController.showMyEvents.value = false;
           break;
+        default:
+          filtersController.showMyEvents.value = false;
       }
     });
   }

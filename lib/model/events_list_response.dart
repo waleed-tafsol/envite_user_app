@@ -2,27 +2,26 @@ import 'package:event_planner_light/model/event_model.dart';
 
 class EventsListResponse {
   String? status;
-  List<EventModel>? pastEvents ;
+  List<EventModel>? pastEvents;
   List<EventModel>? upcomingEvents;
-  EventsListResponse({this.status,this.pastEvents,  this.upcomingEvents});
+  EventsListResponse({this.status, this.pastEvents, this.upcomingEvents});
 
   EventsListResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['pastEvents'] != null) {
       pastEvents = <EventModel>[];
       json['pastEvents'].forEach((v) {
-        pastEvents!.add( EventModel.fromJson(v));
+        pastEvents!.add(EventModel.fromJson(v));
       });
     }
-
 
     if (json['upcomingEvents'] != null) {
       upcomingEvents = <EventModel>[];
       json['upcomingEvents'].forEach((v) {
-        upcomingEvents!.add( EventModel.fromJson(v));
+        upcomingEvents!.add(EventModel.fromJson(v));
       });
     }
-   /* else{
+    /* else{
       upcomingEvents = [];
     }*/
   }
@@ -40,4 +39,3 @@ class EventsListResponse {
     return data;
   }*/
 }
-

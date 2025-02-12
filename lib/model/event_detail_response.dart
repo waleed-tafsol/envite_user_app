@@ -40,6 +40,7 @@ class EventDetailData {
   List<String>? emails;
   List<String>? socialLinks;
   List<EventModel>? similarEvents;
+  bool? isFavorite;
   int? ratingsAverage;
   int? ratingQuantity;
   String? status;
@@ -73,6 +74,7 @@ class EventDetailData {
       this.ratingsAverage,
       this.ratingQuantity,
       this.status,
+      this.isFavorite,
       this.similarEvents,
       this.createdAt,
       this.updatedAt,
@@ -118,6 +120,7 @@ class EventDetailData {
         attendees!.add(new Attendees.fromJson(v));
       });
     }
+    isFavorite = json['isFavorite'];
     if (json['similarEvents'] != null) {
       similarEvents = <EventModel>[];
       json['similarEvents'].forEach((v) {
@@ -125,9 +128,27 @@ class EventDetailData {
       });
     }
     noOfInvites = json['noOfInvites'];
-    tags = json['tags'].cast<String>();
-    emails = json['emails'].cast<String>();
-    socialLinks = json['socialLinks'].cast<String>();
+
+    if (json['tags'] != null) {
+      tags = <String>[];
+      json['tags'].forEach((v) {
+        tags!.add(v);
+      });
+    }
+
+    if (json['emails'] != null) {
+      emails = <String>[];
+      json['emails'].forEach((v) {
+        emails!.add(v);
+      });
+    }
+    if (json['socialLinks'] != null) {
+      socialLinks = <String>[];
+      json['socialLinks'].forEach((v) {
+        socialLinks!.add(v);
+      });
+    }
+    // socialLinks = json['socialLinks'].cast<String>();
     ratingsAverage = json['ratingsAverage'];
     ratingQuantity = json['ratingQuantity'];
     status = json['status'];

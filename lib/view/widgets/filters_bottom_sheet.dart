@@ -113,63 +113,75 @@ Future filterBottomSheet({required BuildContext screenContext}) {
                       ),
                     ),
                     SizedBox(height: 2.h),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Event type',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height: 1.h),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                            spacing: 3.0.w, // Space between the chips
+                    !filtersController.showMyEvents.value ||
+                            authService.me.value!.role!.first !=
+                                UserRoles.user.text
+                        ? Column(
                             children: [
-                              ChoiceChip(
-                                label: Text('All'),
-                                selected: filtersController.eventType.value ==
-                                    Events.all.text,
-                                onSelected: (bool selected) {
-                                  filtersController.eventType.value =
-                                      Events.all.text;
-                                },
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Event type',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .copyWith(color: Colors.white),
+                                ),
                               ),
-                              ChoiceChip(
-                                label: Text('Public'),
-                                selected: filtersController.eventType.value ==
-                                    Events.public.text,
-                                onSelected: (bool selected) {
-                                  filtersController.eventType.value =
-                                      Events.public.text;
-                                },
-                              ),
-                              ChoiceChip(
-                                label: Text('Exclusive'),
-                                selected: filtersController.eventType.value ==
-                                    Events.exclusive.text,
-                                onSelected: (bool selected) {
-                                  filtersController.eventType.value =
-                                      Events.exclusive.text;
-                                },
-                              ),
-                              filtersController.showMyEvents.value
-                                  ? ChoiceChip(
-                                      label: Text('Private'),
-                                      selected:
-                                          filtersController.eventType.value ==
-                                              Events.private.text,
-                                      onSelected: (bool selected) {
-                                        filtersController.eventType.value =
-                                            Events.private.text;
-                                      },
-                                    )
-                                  : SizedBox(),
-                            ])),
+                              SizedBox(height: 1.h),
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                      spacing: 3.0.w, // Space between the chips
+                                      children: [
+                                        ChoiceChip(
+                                          label: Text('All'),
+                                          selected: filtersController
+                                                  .eventType.value ==
+                                              Events.all.text,
+                                          onSelected: (bool selected) {
+                                            filtersController.eventType.value =
+                                                Events.all.text;
+                                          },
+                                        ),
+                                        ChoiceChip(
+                                          label: Text('Public'),
+                                          selected: filtersController
+                                                  .eventType.value ==
+                                              Events.public.text,
+                                          onSelected: (bool selected) {
+                                            filtersController.eventType.value =
+                                                Events.public.text;
+                                          },
+                                        ),
+                                        ChoiceChip(
+                                          label: Text('Exclusive'),
+                                          selected: filtersController
+                                                  .eventType.value ==
+                                              Events.exclusive.text,
+                                          onSelected: (bool selected) {
+                                            filtersController.eventType.value =
+                                                Events.exclusive.text;
+                                          },
+                                        ),
+                                        filtersController.showMyEvents.value
+                                            ? ChoiceChip(
+                                                label: Text('Private'),
+                                                selected: filtersController
+                                                        .eventType.value ==
+                                                    Events.private.text,
+                                                onSelected: (bool selected) {
+                                                  filtersController
+                                                          .eventType.value =
+                                                      Events.private.text;
+                                                },
+                                              )
+                                            : SizedBox(),
+                                      ])),
+                            ],
+                          )
+                        : SizedBox(),
                     filtersController.showMyEvents.value &&
                             authService.me.value!.role!.first ==
                                 UserRoles.eventPlanner.text

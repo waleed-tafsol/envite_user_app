@@ -426,11 +426,53 @@ class BottomSheetManager {
       ),
       SizedBox(height: 2.h),
       Text(
-        'You Need to But A plan For Public Events',
+        'You Need to Buy A plan For Public Events',
         textAlign: TextAlign.center,
         style: TextConstants.bodysmall_white_normal(context),
       ),
       // SizedBox(height: 2.h),
+      Spacer(),
+      ElevatedButton(
+        onPressed: () {
+          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          minimumSize: Size(double.infinity, 6.h),
+          // primary: Colors.blueAccent, // Background color
+        ),
+        child: const Text('Buy Now'),
+      ),
+    ]);
+  }
+
+  static void buySubscriptionForExclusive(
+    BuildContext context,
+  ) {
+    _customBottomSheet(context, [
+      // const Spacer(),
+      SizedBox(
+        height: 5.h,
+      ),
+      Text(
+        'You do not Have the Subscription to Attend Exclusive Events',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodyMedium_white_bold(context),
+      ),
+      SizedBox(height: 2.h),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(SvgAssets.up),
+        ],
+      ),
+      SizedBox(height: 2.h),
+      Text(
+        'You Need to Buy A plan For Exclusive Events',
+        textAlign: TextAlign.center,
+        style: TextConstants.bodysmall_white_normal(context),
+      ),
+
       Spacer(),
       ElevatedButton(
         onPressed: () {
