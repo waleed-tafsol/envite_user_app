@@ -16,7 +16,7 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          await controller.getFavouritPaginatedEvents(callFirstTime: true);
+          await controller.getPaginatedEvents(callFirstTime: true);
         },
         child: SingleChildScrollView(
           controller: controller.scrollController,
@@ -42,33 +42,28 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
                     children: List<Widget>.generate(
                       controller.chipLabels.length,
                       (int index) {
-                        return Obx(
-                          () {
-                            return ChoiceChip(
-                              backgroundColor: AppColors.kBlueMediumShade,
-                              selectedColor: AppColors.kPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: k5BorderRadius,
-                                  side: BorderSide(
-                                    color: AppColors.kBlueMediumShade,
-                                  )),
-                              label: 
-                                  
-                                 Text(
-                                    controller.chipLabels[index],
-                                    style: TextStyle(
-                                        color: controller.selectedChipIndex == index
-                                            ? Colors.white
-                                            : AppColors.kBluedarkShade),
-                                  ),
-                                
-                              selected: controller.selectedChipIndex == index,
-                              onSelected: (bool selected) {
-                                controller.changeMyInvitesTabs(selected, index);
-                              },
-                            );
-                          }
-                        );
+                        return Obx(() {
+                          return ChoiceChip(
+                            backgroundColor: AppColors.kBlueMediumShade,
+                            selectedColor: AppColors.kPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: k5BorderRadius,
+                                side: BorderSide(
+                                  color: AppColors.kBlueMediumShade,
+                                )),
+                            label: Text(
+                              controller.chipLabels[index],
+                              style: TextStyle(
+                                  color: controller.selectedChipIndex == index
+                                      ? Colors.white
+                                      : AppColors.kBluedarkShade),
+                            ),
+                            selected: controller.selectedChipIndex == index,
+                            onSelected: (bool selected) {
+                              controller.changeMyInvitesTabs(selected, index);
+                            },
+                          );
+                        });
                       },
                     ).toList(),
                   ),

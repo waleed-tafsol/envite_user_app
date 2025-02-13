@@ -9,14 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../constants/constants.dart';
 import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../utills/enums.dart';
 import '../../utills/string_decoration.dart';
-import '../widgets/BottomModelSheet.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/network_video_player_widget.dart';
 
@@ -38,18 +36,17 @@ class EventsDetailScreen extends GetView<EventDetailController> {
         centerTitle: true,
         actions: [
           Obx(() {
+            final event = controller.eventDetailResponse.value.data;
             return filtersController.showMyEvents.value &&
-                    controller.eventDetailResponse.value.data != null &&
-                    controller.eventDetailResponse.value.data!.status ==
-                        'pending'
+                    event != null &&
+                    event.status == 'pending'
                 ? controller.isLoading.value
                     ? sizedShimmer(height: 5.h, width: 5.h)
                     : InkWell(
                         onTap: () {
                           final editcontroller =
                               Get.put(EditEventDetailController());
-                          editcontroller.setEditValues(
-                              controller.eventDetailResponse.value.data!);
+                          editcontroller.setEditValues(event);
                           Get.toNamed(
                             EditEventsDetailScreen.routeName,
                           );
@@ -61,6 +58,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
             width: 2.w,
           ),
           Obx(() {
+            final event = controller.eventDetailResponse.value.data;
             return filtersController.showMyEvents.value
                 ? SizedBox()
                 : controller.isLoading.value
@@ -80,7 +78,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             },
                             child: SvgPicture.asset(
                               SvgAssets.pin,
-                              color: controller.isFavourit.value
+                              color: event?.isFavorite ?? false
                                   ? AppColors.kPrimaryColor
                                   : Colors.grey,
                             ));
@@ -107,6 +105,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 20.h, width: double.infinity)
                             : SizedBox(
@@ -114,8 +113,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                 width: double.infinity,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: controller.eventDetailResponse.value
-                                          .data!.images!.isEmpty
+                                  child: event?.images?.isEmpty ?? true
                                       ? Container(
                                           width: double.infinity,
                                           color: Colors.grey,
@@ -132,8 +130,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           ),
                                         )
                                       : Image.network(
-                                          controller.eventDetailResponse.value
-                                              .data!.images!.first,
+                                          event?.images?.first ?? "defalt.png",
                                           fit: BoxFit.contain,
                                         ),
                                 ),
@@ -141,11 +138,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       }),
                       SizedBox(height: 1.h),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(width: 20.w)
                             : Text(
-                                capitalizeFirstLetter(controller
-                                    .eventDetailResponse.value.data!.name!),
+                                capitalizeFirstLetter(event?.name ?? ""),
                                 style:
                                     Theme.of(context).textTheme.headlineLarge,
                               );
@@ -165,14 +162,12 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                           ),
                           Expanded(
                             child: Obx(() {
+                              final event =
+                                  controller.eventDetailResponse.value.data;
                               return controller.isLoading.value
                                   ? sizedShimmer()
                                   : Text(
-                                      controller.eventDetailResponse.value.data!
-                                              .address
-                                              ?.split(",")
-                                              .first ??
-                                          "",
+                                      event!.address?.split(",").first ?? "",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -216,10 +211,12 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             width: 1.w,
                           ),
                           Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
                             return controller.isLoading.value
                                 ? sizedShimmer(width: 4.w)
                                 : Text(
-                                    "+${controller.eventDetailResponse.value.data?.attendees?.length ?? 0}",
+                                    "+${event?.attendees?.length ?? 0}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -230,13 +227,13 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             width: 2.w,
                           ),
                           Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
                             return controller.isLoading.value
                                 ? sizedShimmer(
                                     width: 20.w,
                                   )
-                                : PublicBadgeWidget(
-                                    text: controller.eventDetailResponse.value
-                                        .data!.eventType);
+                                : PublicBadgeWidget(text: event!.eventType);
                           }),
                         ],
                       ),
@@ -249,15 +246,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                               .headlineSmall!
                               .copyWith(color: AppColors.kBluedarkShade)),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 10.h, width: double.infinity)
                             : Text(
-                                capitalizeFirstLetter(controller
-                                        .eventDetailResponse
-                                        .value
-                                        .data
-                                        ?.description ??
-                                    ""),
+                                capitalizeFirstLetter(event?.description ?? ""),
                                 style: Theme.of(context).textTheme.bodySmall);
                       }),
                       SizedBox(
@@ -268,32 +261,31 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
                             return controller.isLoading.value
                                 ? sizedShimmer(height: 5.h, width: 40.w)
                                 : StatsContainer(
                                     image: Image.asset(Assets.m1),
                                     title: 'Total Attendees',
-                                    value: controller.eventDetailResponse.value
-                                            .data?.attendees?.length
-                                            .toString() ??
-                                        "");
+                                    value:
+                                        event?.attendees?.length.toString() ??
+                                            "");
                           }),
                           // SizedBox(
                           //   width: 2.w,
                           // ),
                           Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
                             return controller.isLoading.value
                                 ? sizedShimmer(height: 5.h, width: 40.w)
-                                : controller.eventDetailResponse.value.data
-                                            ?.eventType ==
-                                        Events.private.text
+                                : event?.eventType == Events.private.text
                                     ? StatsContainer(
                                         image: Image.asset(Assets.m2),
                                         title: 'Total Invite Send',
-                                        value: controller.eventDetailResponse
-                                                .value.data?.noOfInvites
-                                                .toString() ??
-                                            "")
+                                        value:
+                                            event?.noOfInvites.toString() ?? "")
                                     : SizedBox.shrink();
                           })
                         ],
@@ -302,11 +294,10 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         height: 2.h,
                       ),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : controller.eventDetailResponse.value.data?.images
-                                        ?.isEmpty ??
-                                    true
+                            : event?.images?.isEmpty ?? true
                                 ? SizedBox()
                                 : Column(
                                     crossAxisAlignment:
@@ -331,13 +322,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: List.generate(
-                                              controller
-                                                      .eventDetailResponse
-                                                      .value
-                                                      .data
-                                                      ?.images
-                                                      ?.length ??
-                                                  0, (index) {
+                                              event?.images?.length ?? 0,
+                                              (index) {
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 1.h),
@@ -368,11 +354,10 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         height: 1.h,
                       ),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : controller.eventDetailResponse.value.data?.videos
-                                        ?.isEmpty ??
-                                    true
+                            : event?.videos?.isEmpty ?? true
                                 ? SizedBox()
                                 : Column(
                                     crossAxisAlignment:
@@ -393,9 +378,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                       ),
                                       Column(
                                         children: List.generate(
-                                            controller.eventDetailResponse.value
-                                                    .data?.videos?.length ??
-                                                0, (index) {
+                                            event?.videos?.length ?? 0,
+                                            (index) {
                                           return ClipRRect(
                                             borderRadius: k5BorderRadius,
                                             child: Padding(
@@ -409,12 +393,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                       BorderRadius.circular(2),
                                                   child:
                                                       NetworkVideoPlayerWidget(
-                                                    videoUrl: controller
-                                                            .eventDetailResponse
-                                                            .value
-                                                            .data
-                                                            ?.videos?[index] ??
-                                                        "",
+                                                    videoUrl:
+                                                        event?.videos?[index] ??
+                                                            "",
                                                   ),
                                                 ),
                                               ),
@@ -429,6 +410,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         height: 1.h,
                       ),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
                             : controller.eventDetailResponse.value.data
@@ -454,13 +436,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                       ),
                                       Column(
                                         children: List.generate(
-                                            controller
-                                                    .eventDetailResponse
-                                                    .value
-                                                    .data
-                                                    ?.socialLinks
-                                                    ?.length ??
-                                                0, (index) {
+                                            event?.socialLinks?.length ?? 0,
+                                            (index) {
                                           return ClipRRect(
                                             borderRadius: k5BorderRadius,
                                             child: Padding(
@@ -477,11 +454,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                     width: 2.w,
                                                   ),
                                                   Text(
-                                                      controller
-                                                                  .eventDetailResponse
-                                                                  .value
-                                                                  .data
-                                                                  ?.socialLinks?[
+                                                      event?.socialLinks?[
                                                               index] ??
                                                           "",
                                                       style: Theme.of(context)
@@ -496,16 +469,14 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                     ],
                                   );
                       }),
-
                       SizedBox(
                         height: 1.h,
                       ),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : controller.eventDetailResponse.value.data
-                                        ?.socialLinks?.isEmpty ??
-                                    true
+                            : event?.socialLinks?.isEmpty ?? true
                                 ? SizedBox.shrink()
                                 : Column(
                                     crossAxisAlignment:
@@ -526,9 +497,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                       ),
                                       Column(
                                         children: List.generate(
-                                            controller.eventDetailResponse.value
-                                                    .data?.emails?.length ??
-                                                0, (index) {
+                                            event?.emails?.length ?? 0,
+                                            (index) {
                                           return ClipRRect(
                                             borderRadius: k5BorderRadius,
                                             child: Padding(
@@ -545,12 +515,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                     width: 2.w,
                                                   ),
                                                   Text(
-                                                      controller
-                                                                  .eventDetailResponse
-                                                                  .value
-                                                                  .data
-                                                                  ?.emails?[
-                                                              index] ??
+                                                      event?.emails?[index] ??
                                                           "",
                                                       style: Theme.of(context)
                                                           .textTheme
@@ -564,29 +529,14 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                     ],
                                   );
                       }),
-                      // Row(
-                      //   children: [
-                      //     const Icon(
-                      //       Icons.link,
-                      //       color: AppColors.kBluedarkShade,
-                      //     ),
-                      //     SizedBox(
-                      //       width: 2.w,
-                      //     ),
-                      //     Text("@autismkuwait",
-                      //         style: Theme.of(context).textTheme.bodySmall)
-                      //   ],
-                      // ),
-
                       SizedBox(
                         height: 1.h,
                       ),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : controller.eventDetailResponse.value.data
-                                        ?.createdBy?.sId ==
-                                    authService.me.value?.sId
+                            : event?.createdBy?.sId == authService.me.value?.sId
                                 ? Row(
                                     children: [
                                       Expanded(
@@ -603,50 +553,38 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                   color: Colors.white),
                                             )),
                                       ),
-                                      // SizedBox(
-                                      //   width: 2.w,
-                                      // ),
-                                      // Expanded(
-                                      //   child: ElevatedButton(
-                                      //       style: ElevatedButton.styleFrom(
-                                      //           backgroundColor:
-                                      //               AppColors.kBerkeleyBlue),
-                                      //       onPressed: () {
-                                      //         // Get.toNamed(GenerateTicketScreen.routeName);
-                                      //       },
-                                      //       child: Text(
-                                      //         'Pin',
-                                      //         style: TextStyle(
-                                      //             color: Colors.white),
-                                      //       )),
-                                      // ),
                                     ],
                                   )
                                 : SizedBox();
                       }),
                       Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
+                        final isAttending = event?.isAttending ?? false;
+                        final isMyEvent =
+                            event?.createdBy?.sId != authService.me.value?.sId;
+                        final isEventCompleted =
+                            event?.status != Events.completed.text;
                         return controller.isLoading.value
                             ? SizedBox()
-                            : controller.eventDetailResponse.value.data
-                                            ?.createdBy?.sId !=
-                                        authService.me.value?.sId &&
-                                    controller.eventDetailResponse.value.data
-                                            ?.status !=
-                                        Events.completed.text && !controller.isAttending.value
-                                ? controller.isAttendEventLoading.value ? sizedShimmer(height: 5.h,width: double.infinity) : SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                AppColors.kBerkeleyBlue),
-                                        onPressed: () {
-                                          controller.attendEvent(context);
-                                        },
-                                        child: Text(
-                                           'Attend',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                  )
+                            : isMyEvent && isEventCompleted && !isAttending
+                                ? controller.isAttendEventLoading.value
+                                    ? sizedShimmer(
+                                        height: 5.h, width: double.infinity)
+                                    : SizedBox(
+                                        width: double.infinity,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.kBerkeleyBlue),
+                                            onPressed: () {
+                                              controller.attendEvent(context);
+                                            },
+                                            child: Text(
+                                              'Attend',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                      )
                                 : SizedBox();
                       }),
                     ],
@@ -656,11 +594,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                   height: 1.h,
                 ),
                 Obx(() {
+                  final event = controller.eventDetailResponse.value.data;
                   return controller.isLoading.value
                       ? sizedShimmer(width: double.infinity, height: 20.h)
                       : filtersController.showMyEvents.value ||
-                              controller.eventDetailResponse.value.data!
-                                  .similarEvents!.isEmpty
+                              event!.similarEvents!.isEmpty
                           ? SizedBox()
                           : Column(
                               children: [
@@ -699,12 +637,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                               5, (index) => eventTileShimmer()),
                                         )
                                       : ListView.builder(
-                                          itemCount: controller
-                                              .eventDetailResponse
-                                              .value
-                                              .data
-                                              ?.similarEvents
-                                              ?.length,
+                                          itemCount:
+                                              event.similarEvents?.length,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,

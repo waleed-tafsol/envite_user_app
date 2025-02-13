@@ -227,36 +227,36 @@ class BottomSheetManager {
     ]);
   }
 
-  static void sendInvite(
-    BuildContext context,
-  ) {
-    _customBottomSheet(context, [
-      k3hSizedBox,
-      Center(
-        child: Text('Send Invite!',
-            textAlign: TextAlign.center,
-            style: TextConstants.bodyMedium_white_bold(context)
-                .copyWith(fontSize: 17.sp)),
-      ),
-      k4hSizedBox,
-      Center(child: SvgPicture.asset(SvgAssets.sendArrow)),
-      Text('Send it to a private list of contacts',
-          textAlign: TextAlign.center,
-          style: TextConstants.bodyMedium_white_normal(context)),
-      // SizedBox(height: 2.h),
-      Spacer(),
-      SizedBox(
-        width: double.infinity,
-        height: 6.h,
-        child: ElevatedButton(
-          onPressed: () {
-            Get.toNamed(SendInviteScreen.routeName);
-          },
-          child: const Text('Send now'),
-        ),
-      ),
-    ]);
-  }
+  // static void sendInvite(
+  //   BuildContext context,
+  // ) {
+  //   _customBottomSheet(context, [
+  //     k3hSizedBox,
+  //     Center(
+  //       child: Text('Send Invite!',
+  //           textAlign: TextAlign.center,
+  //           style: TextConstants.bodyMedium_white_bold(context)
+  //               .copyWith(fontSize: 17.sp)),
+  //     ),
+  //     k4hSizedBox,
+  //     Center(child: SvgPicture.asset(SvgAssets.sendArrow)),
+  //     Text('Send it to a private list of contacts',
+  //         textAlign: TextAlign.center,
+  //         style: TextConstants.bodyMedium_white_normal(context)),
+  //     // SizedBox(height: 2.h),
+  //     Spacer(),
+  //     SizedBox(
+  //       width: double.infinity,
+  //       height: 6.h,
+  //       child: ElevatedButton(
+  //         onPressed: () {
+  //           Get.toNamed(SendInviteScreen.routeName);
+  //         },
+  //         child: const Text('Send now'),
+  //       ),
+  //     ),
+  //   ]);
+  // }
 
   static void adminWillConfirmAndSendYouTeQrCode(
     BuildContext context,

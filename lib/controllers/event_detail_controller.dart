@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:event_planner_light/model/event_detail_response.dart';
-import 'package:event_planner_light/services/Contact_picker_services.dart';
+import 'package:event_planner_light/services/ShareServices.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/utills/enums.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/Widget/AddonsDailodBox.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,14 +15,20 @@ import 'MyInvitesController.dart';
 class EventDetailController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool isFavouritLoading = false.obs;
-  RxBool isAttending = false.obs;
   RxBool isAttendEventLoading = false.obs;
   RxString selectedEventId = ''.obs;
   Rx<EventDetailResponse> eventDetailResponse = EventDetailResponse().obs;
-  RxBool isFavourit = false.obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    if (Get.arguments != null) {
+      selectedEventId.value = Get.arguments["slug"];
+      await getEventsDetail();
+    }
+  }
 
   void attendEvent(BuildContext context) {
-    //  final isexclusive = eventDetailResponse.value.data?.eventType == Events.exclusive.text;
     final hasExclusivePackage = authService.me.value!.subscriptions!
             .where((element) => element.eventType == Events.exclusive.text)
             .length >
@@ -31,80 +36,16 @@ class EventDetailController extends GetxController {
     final isPublicEvent =
         eventDetailResponse.value.data!.eventType == Events.public.text;
     if (hasExclusivePackage || isPublicEvent) {
-      // demoDailogBoxWithText(context, "Attending Event Flow");
       callAttendEventApi();
     } else {
       BottomSheetManager.buySubscriptionForExclusive(context);
     }
   }
 
-
-
-
-  void callAttendEventApi() async {
-    isAttendEventLoading.value = true;
-    try {
-      final response = await http.post(
-          Uri.parse(ApiConstants.attendEvent + selectedEventId.value),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${authService.authToken}',
-          });
-      final jsonResponse = json.decode(response.body);
-      if (response.statusCode == 201) {
-        // eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
-        // isAttending.value = jsonResponse["data"]['event']["isAttending"];
-        isAttending.value = true;
-        // MyInvitesController myInvitesController = Get.find();
-        // await myInvitesController.getFavouritPaginatedEvents(
-        //     callFirstTime: true);
-        // isLoading.value = false;
-      } else {
-        throw Exception(jsonResponse["message"]?["error"]?[0] ??
-            'Could Not Add To Favourits');
-      }
-    } catch (e) {
-      CustomSnackbar.showError('Error', e.toString());
-    } finally {
-      isAttendEventLoading.value = false;
-    }
-  }
-
-  Future<void> _launchWhatsAppWithMessage(
-      String phoneNumber, String message) async {
-    final String url =
-        'https://wa.me/$phoneNumber?text=Hello'; // Pre-filled message
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      // showSnackBar(message: "Can't share link", title: "Error");
-    }
-    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
-  }
-
-  Future<void> _sendMessageToMultipleUsers(
-      List<String> phoneNumbers, String message) async {
-    for (var phoneNumber in phoneNumbers) {
-      await _launchWhatsAppWithMessage(phoneNumber, message);
-    }
-  }
-
   void sendInvites(BuildContext context) {
-    List<String> phoneNumbers = [
-      '+1234567890',
-      '+1987654321',
-      '+1123456789',
-    ];
-    String message = 'Hello! How are you?';
-
     final hasInvites = authService.me.value!.totalAddonInvites! > 0;
     if (hasInvites) {
-      // demoDailogBoxWithText(context, "Invitition of Event Flow");
-      // _sendMessageToMultipleUsers(phoneNumbers, message);
-
-      ContactPickerService().showContactBottomSheet(context, (contact) {
-        print('Selected contact: $contact');
-      });
+      ShareService.shareMessage("I am inviting you to this event");
     } else {
       BottomSheetManager.upgradEvent(context);
     }
@@ -122,18 +63,13 @@ class EventDetailController extends GetxController {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
-        isAttending.value = eventDetailResponse.value.data!.isAttending ?? false;
-        // isLoading.value = false;
       } else {
-        // isLoading.value = false;
         throw Exception('Failed to load events Details');
       }
     } catch (e) {
-      // isLoading.value = false;
       Get.snackbar('Error', e.toString());
-    } finally{
+    } finally {
       isLoading.value = false;
-
     }
   }
 
@@ -148,11 +84,12 @@ class EventDetailController extends GetxController {
           });
       final jsonResponse = json.decode(response.body);
       if (response.statusCode == 201) {
-        // eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
-        isFavourit.value = jsonResponse["data"]['event']["isFavorite"];
+        final oldResponse = eventDetailResponse.value;
+        oldResponse.data?.isFavorite =
+            jsonResponse["data"]['event']["isFavorite"];
+        eventDetailResponse.value = oldResponse;
         MyInvitesController myInvitesController = Get.find();
-        await myInvitesController.getFavouritPaginatedEvents(
-            callFirstTime: true);
+        await myInvitesController.getPaginatedEvents(callFirstTime: true);
         isLoading.value = false;
       } else {
         throw Exception(jsonResponse["message"]?["error"]?[0] ??
@@ -162,6 +99,34 @@ class EventDetailController extends GetxController {
       CustomSnackbar.showError('Error', e.toString());
     } finally {
       isFavouritLoading.value = false;
+    }
+  }
+
+  void callAttendEventApi() async {
+    isAttendEventLoading.value = true;
+    try {
+      final response = await http.post(
+          Uri.parse(ApiConstants.attendEvent + selectedEventId.value),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      final jsonResponse = json.decode(response.body);
+      if (response.statusCode == 201) {
+        final oldResponse = eventDetailResponse.value;
+        oldResponse.data?.isAttending = true;
+        oldResponse.data?.attendees?.add(Attendees());
+        eventDetailResponse.value = oldResponse;
+        MyInvitesController myInvitesController = Get.find();
+        await myInvitesController.getPaginatedEvents(callFirstTime: true);
+      } else {
+        throw Exception(jsonResponse["message"]?["error"]?[0] ??
+            'Could Not Add To Favourits');
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', e.toString());
+    } finally {
+      isAttendEventLoading.value = false;
     }
   }
 }

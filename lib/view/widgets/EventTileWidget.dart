@@ -23,13 +23,14 @@ class EventTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EventDetailController eventDetailController =
-        Get.put(EventDetailController());
+    // EventDetailController eventDetailController =
+    //     Get.put(EventDetailController());
     return InkWell(
       onTap: () {
-        eventDetailController.selectedEventId.value = event!.slug!;
-        Get.toNamed(EventsDetailScreen.routeName);
-        eventDetailController.getEventsDetail();
+        // eventDetailController.selectedEventId.value = event!.slug!;
+        Get.toNamed(EventsDetailScreen.routeName,
+            arguments: {"slug": event!.slug ?? ""});
+        // eventDetailController.getEventsDetail();
       },
       child: Container(
         height: 13.h,
