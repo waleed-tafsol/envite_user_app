@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../constants/ApiConstant.dart';
 import '../model/event_model.dart';
 import '../model/events_list_response.dart';
+import '../utills/enums.dart';
 import 'Auth_services.dart';
 
 class MyInvitesController extends GetxController {
@@ -17,8 +18,8 @@ class MyInvitesController extends GetxController {
 
   // Rx<String> exploreEventsScreenType = Events.explorerEvents.text.obs;
   final List<String> chipLabels = [
-    'Pinned',
-    'Planned events',
+    MyInvitesTabs.pinned.text,
+    MyInvitesTabs.plannedEvents.text,
   ];
   final RxInt selectedChipIndex = 0.obs;
   List<EventModel> eventList = <EventModel>[].obs;
@@ -43,6 +44,15 @@ class MyInvitesController extends GetxController {
     }
   }
 
+  void changeMyInvitesTabs(bool selected, int index) {
+    if (selected) {
+      selectedChipIndex.value = index;
+      chipLabels[index] == MyInvitesTabs.pinned.text
+          ? getFavouritPaginatedEvents(callFirstTime: true)
+          : getPlannedPaginatedEvents(callFirstTime: true);
+    }
+  }
+
   Future<void> getFavouritPaginatedEvents({required bool callFirstTime}) async {
     if (callFirstTime) {
       hasMore.value = true;
@@ -54,30 +64,52 @@ class MyInvitesController extends GetxController {
       final response = await http.get(
           Uri.parse(
               '${ApiConstants.getAllfavourite}?page=$currentPage&limit=$limit'),
-          // body: exploreEventsScreenType.value == Events.explorerEvents.text
-          //     ? jsonEncode({
-          //         "screen": 'explore-events',
-          //       })
-          //     : jsonEncode({
-          //         "screen": 'explore-events-view-all',
-          //   "latestAndPast": exploreEventsScreenType.value ==
-          //                 Events.explorerPastEvent.text
-          //             ? 'past-events'
-          //             : 'upcoming-events'
-          //       }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authService.authToken}',
           });
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        // if (exploreEventsScreenType.value == Events.explorerEvents.text) {
-        //   exploreEventModel(EventsListResponse.fromJson(jsonResponse));
-        // } else {
+
         final List<dynamic> data = jsonResponse['data'];
         eventList = data.map((e) => EventModel.fromJson(e["event"])).toList();
-        // exploreEventsViewAllList.addAll(listResponse);
-        // }
+        if (callFirstTime) {
+          if (eventList.length < 10) {
+            hasMore.value = false;
+          }
+          isEventLoading.value = false;
+        }
+      } else {
+        isEventLoading.value = false;
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+            errorData["message"]["error"][0] ?? "An error occurred");
+      }
+    } catch (e) {
+      isEventLoading.value = false;
+      Get.snackbar('Error', e.toString());
+    }
+  }
+
+  Future<void> getPlannedPaginatedEvents({required bool callFirstTime}) async {
+    if (callFirstTime) {
+      hasMore.value = true;
+      isEventLoading.value = true;
+      currentPage = 1;
+      eventList.clear();
+    }
+    try {
+      final response = await http.get(
+          Uri.parse(
+              '${ApiConstants.getPlannedEvent}?page=$currentPage&limit=$limit'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        final List<dynamic> data = jsonResponse['data'];
+        eventList = data.map((e) => EventModel.fromJson(e)).toList();
         if (callFirstTime) {
           if (eventList.length < 10) {
             hasMore.value = false;

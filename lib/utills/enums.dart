@@ -28,3 +28,12 @@ enum UserRoles {
 
   final String text;
 }
+enum MyInvitesTabs {
+  pinned("pinned"),
+  plannedEvents("planned events");
+  // guest("guest");
+
+  const MyInvitesTabs(this.text);
+
+  final String text;
+}

@@ -42,27 +42,32 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
                     children: List<Widget>.generate(
                       controller.chipLabels.length,
                       (int index) {
-                        return ChoiceChip(
-                          backgroundColor: AppColors.kBlueMediumShade,
-                          selectedColor: AppColors.kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: k5BorderRadius,
-                              side: BorderSide(
-                                color: AppColors.kBlueMediumShade,
-                              )),
-                          label: Text(
-                            controller.chipLabels[index],
-                            style: TextStyle(
-                                color: controller.selectedChipIndex == index
-                                    ? Colors.white
-                                    : AppColors.kBluedarkShade),
-                          ),
-                          selected: controller.selectedChipIndex == index,
-                          onSelected: (bool selected) {
-                            controller.selectedChipIndex.value = selected
-                                ? index
-                                : controller.selectedChipIndex.value;
-                          },
+                        return Obx(
+                          () {
+                            return ChoiceChip(
+                              backgroundColor: AppColors.kBlueMediumShade,
+                              selectedColor: AppColors.kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: k5BorderRadius,
+                                  side: BorderSide(
+                                    color: AppColors.kBlueMediumShade,
+                                  )),
+                              label: 
+                                  
+                                 Text(
+                                    controller.chipLabels[index],
+                                    style: TextStyle(
+                                        color: controller.selectedChipIndex == index
+                                            ? Colors.white
+                                            : AppColors.kBluedarkShade),
+                                  ),
+                                
+                              selected: controller.selectedChipIndex == index,
+                              onSelected: (bool selected) {
+                                controller.changeMyInvitesTabs(selected, index);
+                              },
+                            );
+                          }
                         );
                       },
                     ).toList(),

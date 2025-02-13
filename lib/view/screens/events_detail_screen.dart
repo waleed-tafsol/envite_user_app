@@ -286,7 +286,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                 ? sizedShimmer(height: 5.h, width: 40.w)
                                 : controller.eventDetailResponse.value.data
                                             ?.eventType ==
-                                        "private"
+                                        Events.private.text
                                     ? StatsContainer(
                                         image: Image.asset(Assets.m2),
                                         title: 'Total Invite Send',
@@ -632,8 +632,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                         authService.me.value?.sId &&
                                     controller.eventDetailResponse.value.data
                                             ?.status !=
-                                        Events.completed.text
-                                ? SizedBox(
+                                        Events.completed.text && !controller.isAttending.value
+                                ? controller.isAttendEventLoading.value ? sizedShimmer(height: 5.h,width: double.infinity) : SizedBox(
                                     width: double.infinity,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -643,7 +643,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           controller.attendEvent(context);
                                         },
                                         child: Text(
-                                          'Attend',
+                                           'Attend',
                                           style: TextStyle(color: Colors.white),
                                         )),
                                   )

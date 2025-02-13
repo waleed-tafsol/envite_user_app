@@ -41,6 +41,7 @@ class EventDetailData {
   List<String>? socialLinks;
   List<EventModel>? similarEvents;
   bool? isFavorite;
+  bool? isAttending;
   int? ratingsAverage;
   int? ratingQuantity;
   String? status;
@@ -75,6 +76,7 @@ class EventDetailData {
       this.ratingQuantity,
       this.status,
       this.isFavorite,
+      this.isAttending,
       this.similarEvents,
       this.createdAt,
       this.updatedAt,
@@ -121,6 +123,7 @@ class EventDetailData {
       });
     }
     isFavorite = json['isFavorite'];
+    isAttending = json['isAttending'];
     if (json['similarEvents'] != null) {
       similarEvents = <EventModel>[];
       json['similarEvents'].forEach((v) {

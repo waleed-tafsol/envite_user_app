@@ -16,6 +16,8 @@ import 'MyInvitesController.dart';
 class EventDetailController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool isFavouritLoading = false.obs;
+  RxBool isAttending = false.obs;
+  RxBool isAttendEventLoading = false.obs;
   RxString selectedEventId = ''.obs;
   Rx<EventDetailResponse> eventDetailResponse = EventDetailResponse().obs;
   RxBool isFavourit = false.obs;
@@ -29,9 +31,42 @@ class EventDetailController extends GetxController {
     final isPublicEvent =
         eventDetailResponse.value.data!.eventType == Events.public.text;
     if (hasExclusivePackage || isPublicEvent) {
-      demoDailogBoxWithText(context, "Attending Event Flow");
+      // demoDailogBoxWithText(context, "Attending Event Flow");
+      callAttendEventApi();
     } else {
       BottomSheetManager.buySubscriptionForExclusive(context);
+    }
+  }
+
+
+
+
+  void callAttendEventApi() async {
+    isAttendEventLoading.value = true;
+    try {
+      final response = await http.post(
+          Uri.parse(ApiConstants.attendEvent + selectedEventId.value),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      final jsonResponse = json.decode(response.body);
+      if (response.statusCode == 201) {
+        // eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
+        // isAttending.value = jsonResponse["data"]['event']["isAttending"];
+        isAttending.value = true;
+        // MyInvitesController myInvitesController = Get.find();
+        // await myInvitesController.getFavouritPaginatedEvents(
+        //     callFirstTime: true);
+        // isLoading.value = false;
+      } else {
+        throw Exception(jsonResponse["message"]?["error"]?[0] ??
+            'Could Not Add To Favourits');
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', e.toString());
+    } finally {
+      isAttendEventLoading.value = false;
     }
   }
 
@@ -64,12 +99,12 @@ class EventDetailController extends GetxController {
 
     final hasInvites = authService.me.value!.totalAddonInvites! > 0;
     if (hasInvites) {
-      demoDailogBoxWithText(context, "Invitition of Event Flow");
+      // demoDailogBoxWithText(context, "Invitition of Event Flow");
       // _sendMessageToMultipleUsers(phoneNumbers, message);
 
-      // ContactPickerService().showContactBottomSheet(context, (contact) {
-      //   print('Selected contact: $contact');
-      // });
+      ContactPickerService().showContactBottomSheet(context, (contact) {
+        print('Selected contact: $contact');
+      });
     } else {
       BottomSheetManager.upgradEvent(context);
     }
@@ -87,15 +122,18 @@ class EventDetailController extends GetxController {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
-        isFavourit.value = eventDetailResponse.value.data!.isFavorite ?? false;
-        isLoading.value = false;
+        isAttending.value = eventDetailResponse.value.data!.isAttending ?? false;
+        // isLoading.value = false;
       } else {
-        isLoading.value = false;
+        // isLoading.value = false;
         throw Exception('Failed to load events Details');
       }
     } catch (e) {
-      isLoading.value = false;
+      // isLoading.value = false;
       Get.snackbar('Error', e.toString());
+    } finally{
+      isLoading.value = false;
+
     }
   }
 
