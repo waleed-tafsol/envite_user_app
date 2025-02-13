@@ -16,6 +16,7 @@ import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../utills/enums.dart';
 import '../../utills/string_decoration.dart';
+import '../widgets/BottomModelSheet.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/network_video_player_widget.dart';
 
@@ -25,25 +26,6 @@ class EventsDetailScreen extends GetView<EventDetailController> {
   EventsDetailScreen({super.key});
 
   final FiltersController filtersController = Get.find();
-
-  Future<void> _launchWhatsAppWithMessage(
-      String phoneNumber, String message) async {
-    final String url =
-        'https://wa.me/$phoneNumber?text=Hello'; // Pre-filled message
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      // showSnackBar(message: "Can't share link", title: "Error");
-    }
-    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
-  }
-
-  Future<void> _sendMessageToMultipleUsers(
-      List<String> phoneNumbers, String message) async {
-    for (var phoneNumber in phoneNumbers) {
-      await _launchWhatsAppWithMessage(phoneNumber, message);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -613,18 +595,6 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                 backgroundColor:
                                                     AppColors.kPrimaryColor),
                                             onPressed: () {
-                                              // List of phone numbers (in international format without spaces or plus sign)
-                                              // List<String> phoneNumbers = [
-                                              //   '+1234567890', // Example number 1
-                                              //   '+1987654321', // Example number 2
-                                              //   '+1123456789', // Example number 3
-                                              // ];
-                                              // String message =
-                                              //     'Hello! How are you?';
-
-                                              // _sendMessageToMultipleUsers(
-                                              //     phoneNumbers, message);
-                                              // BottomSheetManager.sendInvite(context);
                                               controller.sendInvites(context);
                                             },
                                             child: Text(

@@ -104,7 +104,8 @@ void addOnsDailogBox(BuildContext ctx) {
                                           "packagesModel":
                                               controller.topups?.value,
                                           "noOfInvites":
-                                              controller.invites.value
+                                              controller.invites.value,
+                                          "routeToPopTill": Get.currentRoute
                                         })
                                   : CustomSnackbar.showError(
                                       "Error", "Please add invites");
@@ -118,12 +119,20 @@ void addOnsDailogBox(BuildContext ctx) {
             Positioned(
               top: -5.h,
               right: -4.w,
-              child: IconButton.filled(
-                color: Colors.white,
-                icon: Icon(Icons.cancel_outlined, color: Colors.red),
-                onPressed: () {
-                  Get.back();
-                },
+              child: Theme(
+                data: ThemeData(
+                  iconButtonTheme: IconButtonThemeData(
+                      style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(AppColors.kWhite),
+                  )),
+                ),
+                child: IconButton.filled(
+                  // color: Colors.white,
+                  icon: Icon(Icons.cancel_outlined, color: Colors.red),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
               ),
             ),
           ],

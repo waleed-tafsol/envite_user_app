@@ -26,7 +26,8 @@ class ChoosePlanContainer extends StatelessWidget {
         Get.toNamed(PaymentScreen.routeName, arguments: {
           "istopupPayment": false,
           "packagesModel": package,
-          "noOfInvites": package?.invites ?? 0
+          "noOfInvites": package?.invites ?? 0,
+          "routeToPopTill": Get.currentRoute
         });
       },
       child: Container(

@@ -26,6 +26,7 @@ class PaymentController extends GetxController {
   RxBool isPaymentLoading = false.obs;
   RxString responseMessage = ''.obs;
   int noOfInvites = 0;
+  late String routeToPopTill;
 
   @override
   void onInit() async {
@@ -34,6 +35,7 @@ class PaymentController extends GetxController {
       isTopUpPayment = Get.arguments["istopupPayment"];
       packagesModel = Get.arguments["packagesModel"];
       noOfInvites = Get.arguments["noOfInvites"];
+      routeToPopTill = Get.arguments["routeToPopTill"];
     }
     initiate();
     super.onInit();
@@ -178,7 +180,7 @@ class PaymentController extends GetxController {
 
         CustomSnackbar.showSuccess("Successful", "payment was successful");
 
-        Get.until((route) => Get.previousRoute == NavBarScreen.routeName);
+        Get.until((route) => route.settings.name == routeToPopTill);
       } else {
         isloading.value = false;
         final jsonResponse = jsonDecode(response.body);

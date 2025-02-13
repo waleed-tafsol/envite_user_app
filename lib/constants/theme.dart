@@ -11,7 +11,7 @@ class CustomTheme {
     primaryIconTheme: const IconThemeData(color: AppColors.kPrimaryColor),
     iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(AppColors.kWhite),
+      // backgroundColor: WidgetStateProperty.all(AppColors.kWhite),
       iconColor: WidgetStateProperty.all(AppColors.kPrimaryColor),
     )),
 
@@ -40,11 +40,12 @@ class CustomTheme {
         //     fontWeight: FontWeight.w700),
         ),
     appBarTheme: AppBarTheme(
-     systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent, // Transparent status bar
-            statusBarIconBrightness: Brightness.dark, // Dark icons (black)
-            statusBarBrightness: Brightness.light,  // Light status bar for iOS (dark icons)
-          ),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Transparent status bar
+        statusBarIconBrightness: Brightness.dark, // Dark icons (black)
+        statusBarBrightness:
+            Brightness.light, // Light status bar for iOS (dark icons)
+      ),
       backgroundColor: Colors.transparent,
       scrolledUnderElevation: 0,
       centerTitle: false,
