@@ -536,11 +536,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         final event = controller.eventDetailResponse.value.data;
                         final isMyEvent =
                             event?.createdBy?.sId == authService.me.value?.sId;
-                        final iscompleted =
-                            event?.status == Events.completed.text;
+                        final isPast =
+                            event?.status == Events.completed.text ||event?.status == Events.rejected.text ;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : isMyEvent && !iscompleted
+                            : isMyEvent && !isPast
                                 ? Row(
                                     children: [
                                       Expanded(
