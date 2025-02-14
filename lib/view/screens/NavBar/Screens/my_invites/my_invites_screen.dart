@@ -25,7 +25,7 @@ class MyInvitesScreen extends GetView<MyInvitesController> {
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
             child: Column(
               children: [
-                SearchEventWidget(),
+                // SearchEventWidget(),
                 Padding(
                   padding: EdgeInsets.only(top: 2.h, bottom: 1.h),
                   child: Text(

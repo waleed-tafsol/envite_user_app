@@ -534,9 +534,13 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       ),
                       Obx(() {
                         final event = controller.eventDetailResponse.value.data;
+                        final isMyEvent =
+                            event?.createdBy?.sId == authService.me.value?.sId;
+                        final iscompleted =
+                            event?.status == Events.completed.text;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : event?.createdBy?.sId == authService.me.value?.sId
+                            : isMyEvent && !iscompleted
                                 ? Row(
                                     children: [
                                       Expanded(
