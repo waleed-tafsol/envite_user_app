@@ -31,6 +31,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location. to disply nearby events</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location. to disply nearby events</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We Need to access contacts.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera</string>
 	<key>NSMicrophoneUsageDescription</key>

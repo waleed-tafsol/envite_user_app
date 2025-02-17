@@ -12,12 +12,6 @@
 @import file_picker;
 #endif
 
-#if __has_include(<flutter_contacts/FlutterContactsPlugin.h>)
-#import <flutter_contacts/FlutterContactsPlugin.h>
-#else
-@import flutter_contacts;
-#endif
-
 #if __has_include(<flutter_google_places_sdk_ios/SwiftFlutterGooglePlacesSdkIosPlugin.h>)
 #import <flutter_google_places_sdk_ios/SwiftFlutterGooglePlacesSdkIosPlugin.h>
 #else
@@ -106,7 +100,6 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
-  [FlutterContactsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterContactsPlugin"]];
   [SwiftFlutterGooglePlacesSdkIosPlugin registerWithRegistrar:[registry registrarForPlugin:@"SwiftFlutterGooglePlacesSdkIosPlugin"]];
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
   [VideoThumbnailPlugin registerWithRegistrar:[registry registrarForPlugin:@"VideoThumbnailPlugin"]];
