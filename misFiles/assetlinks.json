@@ -1,0 +1,13 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.envite.user",
+        "sha256_cert_fingerprints": [
+          "46:7D:22:CA:C1:02:42:83:3B:CF:58:B9:E4:F5:EA:D3:B5:7D:D3:58:43:B6:86:AC:C3:4A:7D:2C:DD:CA:E5:EE"
+        ]
+      }
+    }
+  ]
+  

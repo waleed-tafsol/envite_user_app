@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:event_planner_light/view/screens/auth_screen.dart';
+import 'package:event_planner_light/view/screens/events_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -30,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkAuthTokenAndNavigate() async {
     await authService.initialize();
+
     if (authService.isAuthenticated.value) {
       Get.offNamed(NavBarScreen.routeName);
     } else {

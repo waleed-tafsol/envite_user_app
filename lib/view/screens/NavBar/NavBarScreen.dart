@@ -1,4 +1,5 @@
 import 'package:event_planner_light/controllers/filters_controller.dart';
+import 'package:event_planner_light/services/DeepLinkServices.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
@@ -37,6 +38,11 @@ class _NavBarScreenState extends State<NavBarScreen> {
     MyEventsScreen(),
     const ProfileScreen(),
   ];
+
+  initState() {
+    super.initState();
+    DeepLinkService().init();
+  }
 
   void _onTap(int index) {
     FiltersController filtersController = Get.find();
