@@ -14,11 +14,13 @@ import 'StatusTagWidget.dart';
 class EventTileWidget extends StatelessWidget {
   final EventModel? event;
   final double? width;
+  final bool? getOff;
 
   const EventTileWidget({
     super.key,
     this.event,
     this.width,
+    this.getOff,
   });
 
   @override
@@ -28,8 +30,11 @@ class EventTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         // eventDetailController.selectedEventId.value = event!.slug!;
-        Get.toNamed(EventsDetailScreen.routeName,
-            arguments: {"slug": event!.slug ?? ""});
+        getOff ?? false
+            ? Get.offNamed(EventsDetailScreen.routeName,
+                arguments: {"slug": event!.slug ?? ""})
+            : Get.toNamed(EventsDetailScreen.routeName,
+                arguments: {"slug": event!.slug ?? ""});
         // eventDetailController.getEventsDetail();
       },
       child: Container(

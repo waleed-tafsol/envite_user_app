@@ -11,6 +11,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/constants.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../utills/CopyText.dart';
 import '../../utills/UrlLauncherUtills.dart';
 import '../../utills/enums.dart';
 import '../../utills/string_decoration.dart';
@@ -291,8 +292,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                     ? StatsContainer(
                                         image: Image.asset(Assets.m2),
                                         title: 'Total Invite Send',
-                                        value:
-                                            event?.noOfInvites.toString() ?? "")
+                                        value: event?.noOfInvites?.toString() ??
+                                            "0")
                                     : SizedBox.shrink();
                           })
                         ],
@@ -459,13 +460,35 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                   SizedBox(
                                                     width: 2.w,
                                                   ),
-                                                  Text(
-                                                      event?.socialLinks?[
-                                                              index] ??
-                                                          "",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodySmall),
+                                                  InkWell(
+                                                    onTap: () => launchUrlUtill(
+                                                        event?.socialLinks![
+                                                                index] ??
+                                                            ""),
+                                                    child: Text(
+                                                        event?.socialLinks?[
+                                                                index] ??
+                                                            "",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodySmall),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 2.w,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () =>
+                                                        copyToClipboard(
+                                                            event?.socialLinks?[
+                                                                    index] ??
+                                                                ""),
+                                                    child: Icon(
+                                                      Icons.copy,
+                                                      size: 2.h,
+                                                      color: AppColors
+                                                          .kBluedarkShade,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),

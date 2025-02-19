@@ -132,12 +132,30 @@ class AddEventsScreens extends GetView<AddEventController> {
                                               controller: controller
                                                   .emailController[index],
                                               validator: (value) {
-                                                if (value!.isNotEmpty) {
-                                                  if (value.isEmail) {
-                                                    return null;
-                                                  }
-                                                  return "Please enter correct Email";
+                                                if (value!.isEmpty) {
+                                                  return "Please enter an email";
+                                                } else if (!value.isEmail) {
+                                                  return "Please enter a valid email";
                                                 }
+
+                                                // Check for duplicates in the list of emails
+                                                for (int i = 0;
+                                                    i <
+                                                        controller
+                                                            .emailController
+                                                            .length;
+                                                    i++) {
+                                                  if (i != index &&
+                                                      controller
+                                                              .emailController[
+                                                                  i]
+                                                              .text ==
+                                                          value) {
+                                                    return "This email is already added";
+                                                  }
+                                                }
+
+                                                return null; // No errors
                                               },
                                               keyboardType:
                                                   TextInputType.emailAddress,
@@ -192,12 +210,28 @@ class AddEventsScreens extends GetView<AddEventController> {
                                               controller: controller
                                                   .socialLinkController[index],
                                               validator: (value) {
-                                                if (value!.isNotEmpty) {
-                                                  if (value.isURL) {
-                                                    return null;
-                                                  }
-                                                  return "Please enter correct Social Links";
+                                                if (value!.isEmpty) {
+                                                  return "Please enter a valid Link";
+                                                } else if (!value.isURL) {
+                                                  return "Please enter a valid Link";
                                                 }
+                                                for (int i = 0;
+                                                    i <
+                                                        controller
+                                                            .socialLinkController
+                                                            .length;
+                                                    i++) {
+                                                  if (i != index &&
+                                                      controller
+                                                              .socialLinkController[
+                                                                  i]
+                                                              .text ==
+                                                          value) {
+                                                    return "This Link already added";
+                                                  }
+                                                }
+
+                                                return null; // No errors
                                               },
                                               // keyboardType: TextInputType.name,
                                               decoration: InputDecoration(

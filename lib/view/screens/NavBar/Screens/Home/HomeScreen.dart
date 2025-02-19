@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
+import '../../../../../controllers/ExploreController.dart';
+import '../../../../../controllers/filters_controller.dart';
 import '../../../../../shimmer_loaders/categories_tile_shimmer.dart';
+import '../../../../../utills/enums.dart';
+import '../../../../../view_all_explorer_event_screen.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/home_carousel_widget.dart';
 
@@ -131,9 +135,29 @@ class HomeScreen extends GetView<HomeScreenController> {
                       style: TextStyle(
                           fontSize: 18.sp, color: AppColors.kTextBlack),
                     ),
-                    Text(
-                      "All events",
-                      style: Theme.of(context).textTheme.bodySmall,
+                    GestureDetector(
+                      onTap: () {
+                        FiltersController filtersController = Get.find();
+                        filtersController.clearFilterData(
+                            resetSelectScreenStatus: true);
+                        filtersController.setSelectedScreen(
+                            value: Events.explorerEvents.text);
+                        filtersController.showMyEvents.value = false;
+                        ExploreController exploreController = Get.find();
+                        exploreController.exploreEventsScreenType.value =
+                            Events.explorerUpcomingEvent.text;
+                        filtersController.clearFilterData(
+                            resetSelectScreenStatus: false);
+                        filtersController.setSelectedScreen(
+                            value: Events.explorerUpcomingEvent.text);
+                        exploreController.getExplorerPaginatedEvents(
+                            callFirstTime: true);
+                        Get.toNamed(ViewAllExplorerEventScreen.routeName);
+                      },
+                      child: Text(
+                        "All events",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     )
                   ],
                 ),

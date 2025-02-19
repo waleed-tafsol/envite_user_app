@@ -1,3 +1,4 @@
+import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> launchGoogleMaps(double latitude, double longitude) async {
@@ -12,5 +13,13 @@ Future<void> launchGoogleMaps(double latitude, double longitude) async {
         Uri.parse(appleMapsUrl)); // Fallback to Apple Maps if on iOS
   } else {
     throw 'Could not launch Google Maps or Apple Maps';
+  }
+}
+
+Future<void> launchUrlUtill(String url) async {
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    CustomSnackbar.showError("Error", 'incorrect link');
   }
 }

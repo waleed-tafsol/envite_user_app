@@ -20,6 +20,15 @@ class ExploreScreen extends GetView<ExploreController> {
   Widget build(BuildContext context) {
     FiltersController filtersController = Get.find();
     // filtersController.showMyEvents.value = true;
+    // controller.exploreEventsScreenType.value =
+    //     Events.explorerUpcomingEvent.text;
+    // filtersController.clearFilterData(resetSelectScreenStatus: false);
+    // filtersController.setSelectedScreen(
+    //     value: Events.explorerUpcomingEvent.text);
+    // controller.getExplorerPaginatedEvents(callFirstTime: true);
+    // Get.toNamed(ViewAllExplorerEventScreen.routeName);
+    // ExploreController exploreEventsController = Get.find();
+    // FiltersController filtersController = Get.find();
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () =>
@@ -37,116 +46,116 @@ class ExploreScreen extends GetView<ExploreController> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 1.h, top: 2.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text("Past Events",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                              color: AppColors.kTextBlack)),
-                                  Obx(() {
-                                    return InkWell(
-                                      onTap: () {
-                                        controller
-                                                .exploreEventsScreenType.value =
-                                            Events.explorerPastEvent.text;
-                                        filtersController.clearFilterData(
-                                            resetSelectScreenStatus: false);
-                                        filtersController.setSelectedScreen(
-                                            value:
-                                                Events.explorerPastEvent.text);
-                                        controller.getExplorerPaginatedEvents(
-                                            callFirstTime: true);
-                                        Get.toNamed(ViewAllExplorerEventScreen
-                                            .routeName);
-                                      },
-                                      child: Visibility(
-                                        visible: controller.exploreEventModel
-                                                    .value.pastEvents !=
-                                                null &&
-                                            controller.exploreEventModel.value
-                                                .pastEvents!.isNotEmpty,
-                                        child: Text(
-                                          "View All",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15.h,
-                              child: Obx(() {
-                                return controller.isEventLoading.value
-                                    ? ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: List.generate(
-                                            5,
-                                            (index) => eventTileShimmer(
-                                                  tileWidth: 80.w,
-                                                )),
-                                      )
-                                    : controller.exploreEventModel.value
-                                            .pastEvents!.isNotEmpty
-                                        ? ListView.builder(
-                                            itemCount: controller
-                                                .exploreEventModel
-                                                .value
-                                                .pastEvents!
-                                                .length,
-                                            scrollDirection: Axis.horizontal,
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            // shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 4.0),
-                                                  child: EventTileWidget(
-                                                    width: 80.w,
-                                                    event: controller
-                                                        .exploreEventModel
-                                                        .value
-                                                        .pastEvents![index],
-                                                  ));
-                                            })
-                                        : SizedBox(
-                                            height: 40.h,
-                                            child: Center(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.event_busy_outlined,
-                                                    color: AppColors
-                                                        .kBluedarkShade,
-                                                  ),
-                                                  Text(
-                                                    "No Past are available",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        color: AppColors
-                                                            .kBluedarkShade),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                              }),
-                            ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(bottom: 1.h, top: 2.h),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     crossAxisAlignment: CrossAxisAlignment.end,
+                            //     children: [
+                            //       Text("Past Events",
+                            //           style: Theme.of(context)
+                            //               .textTheme
+                            //               .headlineSmall!
+                            //               .copyWith(
+                            //                   color: AppColors.kTextBlack)),
+                            //       Obx(() {
+                            //         return InkWell(
+                            //           onTap: () {
+                            //             controller
+                            //                     .exploreEventsScreenType.value =
+                            //                 Events.explorerPastEvent.text;
+                            //             filtersController.clearFilterData(
+                            //                 resetSelectScreenStatus: false);
+                            //             filtersController.setSelectedScreen(
+                            //                 value:
+                            //                     Events.explorerPastEvent.text);
+                            //             controller.getExplorerPaginatedEvents(
+                            //                 callFirstTime: true);
+                            //             Get.toNamed(ViewAllExplorerEventScreen
+                            //                 .routeName);
+                            //           },
+                            //           child: Visibility(
+                            //             visible: controller.exploreEventModel
+                            //                         .value.pastEvents !=
+                            //                     null &&
+                            //                 controller.exploreEventModel.value
+                            //                     .pastEvents!.isNotEmpty,
+                            //             child: Text(
+                            //               "View All",
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .bodySmall,
+                            //             ),
+                            //           ),
+                            //         );
+                            //       }),
+                            //     ],
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: 15.h,
+                            //   child: Obx(() {
+                            //     return controller.isEventLoading.value
+                            //         ? ListView(
+                            //             scrollDirection: Axis.horizontal,
+                            //             children: List.generate(
+                            //                 5,
+                            //                 (index) => eventTileShimmer(
+                            //                       tileWidth: 80.w,
+                            //                     )),
+                            //           )
+                            //         : controller.exploreEventModel.value
+                            //                 .pastEvents!.isNotEmpty
+                            //             ? ListView.builder(
+                            //                 itemCount: controller
+                            //                     .exploreEventModel
+                            //                     .value
+                            //                     .pastEvents!
+                            //                     .length,
+                            //                 scrollDirection: Axis.horizontal,
+                            //                 physics:
+                            //                     const BouncingScrollPhysics(),
+                            //                 // shrinkWrap: true,
+                            //                 itemBuilder: (BuildContext context,
+                            //                     int index) {
+                            //                   return Padding(
+                            //                       padding: const EdgeInsets
+                            //                           .symmetric(
+                            //                           horizontal: 4.0),
+                            //                       child: EventTileWidget(
+                            //                         width: 80.w,
+                            //                         event: controller
+                            //                             .exploreEventModel
+                            //                             .value
+                            //                             .pastEvents![index],
+                            //                       ));
+                            //                 })
+                            //             : SizedBox(
+                            //                 height: 40.h,
+                            //                 child: Center(
+                            //                   child: Column(
+                            //                     mainAxisAlignment:
+                            //                         MainAxisAlignment.center,
+                            //                     children: [
+                            //                       Icon(
+                            //                         Icons.event_busy_outlined,
+                            //                         color: AppColors
+                            //                             .kBluedarkShade,
+                            //                       ),
+                            //                       Text(
+                            //                         "No Past are available",
+                            //                         style: TextStyle(
+                            //                             fontSize: 14.sp,
+                            //                             color: AppColors
+                            //                                 .kBluedarkShade),
+                            //                       ),
+                            //                     ],
+                            //                   ),
+                            //                 ),
+                            //               );
+                            //   }),
+                            // ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 1.h),
                               child: Row(
