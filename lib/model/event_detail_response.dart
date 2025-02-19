@@ -199,14 +199,14 @@ class CreatedBy {
 
 class Location {
   String? type;
-  List<num>? coordinates;
+  List<double>? coordinates;
 // demo
   Location({this.type, this.coordinates});
 
   Location.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     if (json['coordinates'] != null) {
-      coordinates = <num>[];
+      coordinates = <double>[];
       json['coordinates'].forEach((v) {
         coordinates!.add(v);
       });

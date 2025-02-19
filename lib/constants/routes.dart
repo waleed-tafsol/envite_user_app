@@ -315,13 +315,13 @@ class Pages {
           // binding: MembershipBindings(),
           transition: _routeTransition,
         );
-      case EditEventsDetailScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => EditEventsDetailScreen(),
-          // binding: AddeventBindings(),
-          transition: _routeTransition,
-        );
+      // case EditEventsDetailScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => EditEventsDetailScreen(),
+      //     // binding: AddeventBindings(),
+      //     transition: _routeTransition,
+      //   );
       case CmsScreen.routeName:
         return GetPageRoute(
           settings: settings,

@@ -13,9 +13,11 @@ import '../../constants/constants.dart';
 import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../utills/UrlLauncherUtills.dart';
 import '../../utills/enums.dart';
 import '../../utills/string_decoration.dart';
 import '../widgets/EventTileWidget.dart';
+import '../widgets/PhotoViewerWidget.dart';
 import '../widgets/network_video_player_widget.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
@@ -35,28 +37,28 @@ class EventsDetailScreen extends GetView<EventDetailController> {
         ),
         centerTitle: true,
         actions: [
-          Obx(() {
-            final event = controller.eventDetailResponse.value.data;
-            return filtersController.showMyEvents.value &&
-                    event != null &&
-                    event.status == 'pending'
-                ? controller.isLoading.value
-                    ? sizedShimmer(height: 5.h, width: 5.h)
-                    : InkWell(
-                        onTap: () {
-                          final editcontroller =
-                              Get.put(EditEventDetailController());
-                          editcontroller.setEditValues(event);
-                          Get.toNamed(
-                            EditEventsDetailScreen.routeName,
-                          );
-                        },
-                        child: SvgPicture.asset(SvgAssets.image_pen))
-                : SizedBox();
-          }),
-          SizedBox(
-            width: 2.w,
-          ),
+          // Obx(() {
+          //   final event = controller.eventDetailResponse.value.data;
+          //   return filtersController.showMyEvents.value &&
+          //           event != null &&
+          //           event.status == 'pending'
+          //       ? controller.isLoading.value
+          //           ? sizedShimmer(height: 5.h, width: 5.h)
+          //           : InkWell(
+          //               onTap: () {
+          //                 final editcontroller =
+          //                     Get.put(EditEventDetailController());
+          //                 editcontroller.setEditValues(event);
+          //                 Get.toNamed(
+          //                   EditEventsDetailScreen.routeName,
+          //                 );
+          //               },
+          //               child: SvgPicture.asset(SvgAssets.image_pen))
+          //       : SizedBox();
+          // }),
+          // SizedBox(
+          //   width: 2.w,
+          // ),
           Obx(() {
             final event = controller.eventDetailResponse.value.data;
             return filtersController.showMyEvents.value
@@ -129,9 +131,10 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                             ),
                                           ),
                                         )
-                                      : Image.network(
-                                          event?.images?.first ?? "defalt.png",
-                                          fit: BoxFit.contain,
+                                      : PhotoViewerWidget(
+
+                                        imageProvider: NetworkImage( event?.images?.first ?? "defalt.png",
+                                         )
                                         ),
                                 ),
                               );
@@ -179,26 +182,33 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                           SizedBox(
                             width: 1.w,
                           ),
-                          SizedBox(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Show map",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: AppColors.kTextBlack,
-                                          fontSize: 12.sp),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 15,
-                                  color: Colors.black,
-                                ),
-                              ],
+                          GestureDetector(
+                            onTap: () async{
+                              final event =
+                                controller.eventDetailResponse.value.data;
+ await launchGoogleMaps(event?.location?.coordinates?[0] ?? 0.0,event?.location?.coordinates?[1] ?? 0.0);
+                            } ,
+                            child: SizedBox(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Show map",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: AppColors.kTextBlack,
+                                            fontSize: 12.sp),
+                                  ),
+                                  const Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 15,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const Spacer(),
@@ -324,24 +334,22 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           children: List.generate(
                                               event?.images?.length ?? 0,
                                               (index) {
-                                            return Padding(
+                                            return Container(
+                                              height: 20.h,
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 1.h),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(2),
-                                                child: Image.network(
-                                                  controller
+                                                child: PhotoViewerWidget(
+                                               imageProvider: NetworkImage(   controller
                                                           .eventDetailResponse
                                                           .value
                                                           .data
                                                           ?.images?[index] ??
                                                       "",
-                                                  height: 20.h,
-                                                  errorBuilder: (context, error,
-                                                          stackTrace) =>
-                                                      Icon(Icons.error),
-                                                ),
+                                                  
+                                                ),),
                                               ),
                                             );
                                           }),
