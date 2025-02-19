@@ -168,14 +168,17 @@ class SignUpScreen extends GetView<Signupcontroller> {
                           k1hSizedBox,
                           Row(
                             children: [
-                              Obx(() {
-                                return Switch(
-                                    activeColor: Colors.green,
-                                    value: controller.isEvetPlanner.value,
-                                    onChanged: (value) {
-                                      controller.isEvetPlanner.value = value;
-                                    });
-                              }),
+                              Transform.scale(
+                                scale: 0.7,
+                                child: Obx(() {
+                                  return Switch(
+                                      activeColor: Colors.green,
+                                      value: controller.isEvetPlanner.value,
+                                      onChanged: (value) {
+                                        controller.isEvetPlanner.value = value;
+                                      });
+                                }),
+                              ),
                               Text(
                                 "Register as Event Planner",
                                 style: TextStyle(

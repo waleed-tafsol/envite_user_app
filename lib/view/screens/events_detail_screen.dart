@@ -2,7 +2,6 @@ import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/edit_event_details.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/constants.dart';
-import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../utills/UrlLauncherUtills.dart';
@@ -132,10 +130,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           ),
                                         )
                                       : PhotoViewerWidget(
-
-                                        imageProvider: NetworkImage( event?.images?.first ?? "defalt.png",
-                                         )
-                                        ),
+                                          imageProvider: NetworkImage(
+                                          event?.images?.first ?? "defalt.png",
+                                        )),
                                 ),
                               );
                       }),
@@ -183,32 +180,32 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             width: 1.w,
                           ),
                           GestureDetector(
-                            onTap: () async{
+                            onTap: () async {
                               final event =
-                                controller.eventDetailResponse.value.data;
- await launchGoogleMaps(event?.location?.coordinates?[0] ?? 0.0,event?.location?.coordinates?[1] ?? 0.0);
-                            } ,
-                            child: SizedBox(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "Show map",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                            color: AppColors.kTextBlack,
-                                            fontSize: 12.sp),
-                                  ),
-                                  const Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    size: 15,
-                                    color: Colors.black,
-                                  ),
-                                ],
-                              ),
+                                  controller.eventDetailResponse.value.data;
+                              await launchGoogleMaps(
+                                  event?.location?.coordinates?[0] ?? 0.0,
+                                  event?.location?.coordinates?[1] ?? 0.0);
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Show map",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: AppColors.kTextBlack,
+                                          fontSize: 12.sp),
+                                ),
+                                const Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  size: 15,
+                                  color: Colors.black,
+                                ),
+                              ],
                             ),
                           ),
                           const Spacer(),
@@ -342,14 +339,15 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                 borderRadius:
                                                     BorderRadius.circular(2),
                                                 child: PhotoViewerWidget(
-                                               imageProvider: NetworkImage(   controller
-                                                          .eventDetailResponse
-                                                          .value
-                                                          .data
-                                                          ?.images?[index] ??
-                                                      "",
-                                                  
-                                                ),),
+                                                  imageProvider: NetworkImage(
+                                                    controller
+                                                            .eventDetailResponse
+                                                            .value
+                                                            .data
+                                                            ?.images?[index] ??
+                                                        "",
+                                                  ),
+                                                ),
                                               ),
                                             );
                                           }),
@@ -544,8 +542,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         final event = controller.eventDetailResponse.value.data;
                         final isMyEvent =
                             event?.createdBy?.sId == authService.me.value?.sId;
-                        final isPast =
-                            event?.status == Events.completed.text ||event?.status == Events.rejected.text ;
+                        final isPast = event?.status == Events.completed.text ||
+                            event?.status == Events.rejected.text;
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
                             : isMyEvent && !isPast

@@ -6,7 +6,6 @@ import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Signupcontroller extends GetxController {
   @override
@@ -21,7 +20,7 @@ class Signupcontroller extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final bioController = TextEditingController();
-  RxBool isEvetPlanner = true.obs;
+  RxBool isEvetPlanner = false.obs;
 
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
