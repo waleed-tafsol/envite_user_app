@@ -1,13 +1,11 @@
 [
-    {
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.envite.user",
-        "sha256_cert_fingerprints": [
-          "46:7D:22:CA:C1:02:42:83:3B:CF:58:B9:E4:F5:EA:D3:B5:7D:D3:58:43:B6:86:AC:C3:4A:7D:2C:DD:CA:E5:EE"
-        ]
-      }
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.envite.user",
+      "sha256_cert_fingerprints":
+        ["B1:7F:16:32:45:11:42:61:D4:FB:A7:ED:EE:76:87:64:6F:3F:F7:37:DB:87:24:FE:D3:C4:22:C0:BB:F8:92:5D"]
     }
-  ]
-  
+  }
+]

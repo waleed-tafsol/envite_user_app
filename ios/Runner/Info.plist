@@ -24,25 +24,32 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<!-- universal linking setup -->
+	<!-- for thirdparty -->
+	<key>FlutterDeepLinkingEnabled</key>
+	<string>NO</string>
+
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location. to disply nearby events</string>
+	<string>This app needs access to location. to disply or create events</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs access to location. to disply or create events</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location. to disply nearby events</string>
+    <string>This app needs access to location. to disply or create events</string>
 	<key>NSContactsUsageDescription</key>
-	<string>We Need to access contacts.</string>
+	<string>We Need to access contacts.To send invitation</string>
 	<key>NSCameraUsageDescription</key>
-	<string>We need access to your camera</string>
+	<string>We need access to your camera to capture images of venue</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to your microphone for audio recording in videos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to select a video</string>
+	<string>We need access to your photo library to select a video and photos of event </string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

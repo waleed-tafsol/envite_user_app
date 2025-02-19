@@ -1,10 +1,23 @@
 {
   "applinks": {
+    "apps": [],
     "details": [
       {
-        "appID": "TEAM_ID.com.envite.user",
-        "paths": ["/event/*"]
+        "appID": ["7J7KM8SJJH.com.vga.Envite"],
+        "paths": [
+          "*"
+        ],
+        "components": [
+          {
+            "/": "/*"
+          }
+        ]
       }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "S8QB4VV633.com.example.deeplinkCookbook"
     ]
   }
 }

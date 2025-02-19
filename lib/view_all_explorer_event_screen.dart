@@ -1,5 +1,4 @@
 import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
-import 'package:event_planner_light/utills/enums.dart';
 import 'package:event_planner_light/view/screens/filtered_list_view.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/SearchEventWidget.dart';
