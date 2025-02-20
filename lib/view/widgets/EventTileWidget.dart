@@ -1,5 +1,6 @@
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
 import 'package:event_planner_light/model/event_model.dart';
+import 'package:event_planner_light/view/screens/NavBar/SuggestedEventDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -30,11 +31,16 @@ class EventTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         // eventDetailController.selectedEventId.value = event!.slug!;
-        getOff ?? false
-            ? Get.offNamed(EventsDetailScreen.routeName,
-                arguments: {"slug": event!.slug ?? ""})
-            : Get.toNamed(EventsDetailScreen.routeName,
+        if(getOff ?? false){
+
+            // Get.reset();
+            Get.toNamed(SuggestedEventsDetailScreen.routeName, preventDuplicates: false,
                 arguments: {"slug": event!.slug ?? ""});
+
+        }else{
+
+            Get.toNamed(EventsDetailScreen.routeName,
+                arguments: {"slug": event!.slug ?? ""});}
         // eventDetailController.getEventsDetail();
       },
       child: Container(

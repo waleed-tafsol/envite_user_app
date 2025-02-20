@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/constants.dart';
+import '../../controllers/edit_event_detail_controller.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../utills/CopyText.dart';
@@ -18,6 +19,7 @@ import '../../utills/string_decoration.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/PhotoViewerWidget.dart';
 import '../widgets/network_video_player_widget.dart';
+import 'NavBar/Screens/my_events/edit_event_details.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
   static const routeName = 'EventsDetailScreen';
@@ -36,28 +38,28 @@ class EventsDetailScreen extends GetView<EventDetailController> {
         ),
         centerTitle: true,
         actions: [
-          // Obx(() {
-          //   final event = controller.eventDetailResponse.value.data;
-          //   return filtersController.showMyEvents.value &&
-          //           event != null &&
-          //           event.status == 'pending'
-          //       ? controller.isLoading.value
-          //           ? sizedShimmer(height: 5.h, width: 5.h)
-          //           : InkWell(
-          //               onTap: () {
-          //                 final editcontroller =
-          //                     Get.put(EditEventDetailController());
-          //                 editcontroller.setEditValues(event);
-          //                 Get.toNamed(
-          //                   EditEventsDetailScreen.routeName,
-          //                 );
-          //               },
-          //               child: SvgPicture.asset(SvgAssets.image_pen))
-          //       : SizedBox();
-          // }),
-          // SizedBox(
-          //   width: 2.w,
-          // ),
+          Obx(() {
+            final event = controller.eventDetailResponse.value.data;
+            return filtersController.showMyEvents.value &&
+                    event != null &&
+                    event.status == 'pending'
+                ? controller.isLoading.value
+                    ? sizedShimmer(height: 5.h, width: 5.h)
+                    : GestureDetector(
+                        onTap: () {
+                          final editcontroller =
+                              Get.put(EditEventDetailController());
+                          editcontroller.setEditValues(event);
+                          Get.toNamed(
+                            EditEventsDetailScreen.routeName,
+                          );
+                        },
+                        child: SvgPicture.asset(SvgAssets.image_pen))
+                : SizedBox();
+          }),
+          SizedBox(
+            width: 2.w,
+          ),
           Obx(() {
             final event = controller.eventDetailResponse.value.data;
             return filtersController.showMyEvents.value
@@ -184,9 +186,9 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             onTap: () async {
                               final event =
                                   controller.eventDetailResponse.value.data;
-                              await launchGoogleMaps(
-                                  event?.location?.coordinates?[0] ?? 0.0,
-                                  event?.location?.coordinates?[1] ?? 0.0);
+                              await launchMaps(
+                                  event?.location?.coordinates?[1] ?? 0.0,
+                                  event?.location?.coordinates?[0] ?? 0.0);
                             },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -677,12 +679,22 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           shrinkWrap: true,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return EventTileWidget(
-                                              event: controller
-                                                  .eventDetailResponse
-                                                  .value
-                                                  .data
-                                                  ?.similarEvents?[index],
+                                            return GestureDetector(
+                                              onTap: () => Get.offNamed(EventsDetailScreen.routeName, preventDuplicates: false,
+                arguments: {"slug":  controller
+                                                      .eventDetailResponse
+                                                      .value
+                                                      .data
+                                                      ?.similarEvents?[index].slug ?? ""}),
+                                              child: AbsorbPointer(
+                                                child: EventTileWidget(
+                                                  event: controller
+                                                      .eventDetailResponse
+                                                      .value
+                                                      .data
+                                                      ?.similarEvents?[index],
+                                                ),
+                                              ),
                                             );
                                           });
                                 })
