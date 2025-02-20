@@ -14,7 +14,7 @@ class SignInController extends GetxController {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  RxBool isEvetPlanner = true.obs;
+  RxBool isEvetPlanner = false.obs;
   RxBool isPasswordVisible = false.obs;
   RxBool isloading = false.obs;
 

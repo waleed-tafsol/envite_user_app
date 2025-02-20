@@ -5,7 +5,9 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileS
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants/colors_constants.dart';
+import '../../../controllers/ExploreController.dart';
 import '../../../utills/enums.dart';
+import '../../../view_all_explorer_event_screen.dart';
 import '../../widgets/CustomAppBar.dart';
 import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'DrawerWidget.dart';
@@ -32,7 +34,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   // List of Screens
   final List<Widget> _screens = [
     const HomeScreen(),
-    ExploreScreen(),
+    ViewAllExplorerEventScreen(),
     const MyInvitesScreen(),
     MyEventsScreen(),
     const ProfileScreen(),
@@ -48,6 +50,13 @@ class _NavBarScreenState extends State<NavBarScreen> {
           filtersController.setSelectedScreen(
               value: Events.explorerEvents.text);
           filtersController.showMyEvents.value = false;
+          ExploreController exploreController = Get.find();
+          exploreController.exploreEventsScreenType.value =
+              Events.explorerUpcomingEvent.text;
+          filtersController.clearFilterData(resetSelectScreenStatus: false);
+          filtersController.setSelectedScreen(
+              value: Events.explorerUpcomingEvent.text);
+          exploreController.getExplorerPaginatedEvents(callFirstTime: true);
           break;
         case 2:
           filtersController.showMyEvents.value = false;
