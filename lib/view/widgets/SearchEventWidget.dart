@@ -1,6 +1,5 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -25,8 +24,8 @@ class SearchEventWidget extends StatelessWidget {
           width: 10.w,
           child: InkWell(
               onTap: () => filterBottomSheet(
-                screenContext: context,
-              ),
+                    screenContext: context,
+                  ),
               child: Obx(() {
                 return Stack(
                   children: [
@@ -49,15 +48,16 @@ class SearchEventWidget extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: filtersController.searchController,
-            onSubmitted: (value){
+            onSubmitted: (value) {
               filtersController.checkFiltersActive();
             },
             decoration: InputDecoration(
                 suffixIcon: InkWell(
-                    onTap: ()  {
+                    onTap: () {
                       filtersController.checkFiltersActive();
                     },
-                    child: Icon(Icons.search)), hintText: "Search an event"),
+                    child: Icon(Icons.search)),
+                hintText: "Search an event"),
           ),
         )
       ],

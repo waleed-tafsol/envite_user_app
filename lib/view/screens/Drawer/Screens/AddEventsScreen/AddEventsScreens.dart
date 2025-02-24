@@ -133,7 +133,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   .emailController[index],
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return "Please enter an email";
+                                                  return null;
                                                 } else if (!value.isEmail) {
                                                   return "Please enter a valid email";
                                                 }
@@ -211,7 +211,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                   .socialLinkController[index],
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return "Please enter a valid Link";
+                                                  return null;
                                                 } else if (!value.isURL) {
                                                   return "Please enter a valid Link";
                                                 }
