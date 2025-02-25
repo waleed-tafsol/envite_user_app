@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_planner_light/services/FirebaseServices.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ import '../utills/CustomSnackbar.dart';
 import '../view/screens/auth_screen.dart';
 import 'Auth_token_services.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:android_id/android_id.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class AuthService extends GetxService {
   @override
@@ -60,17 +63,33 @@ class AuthService extends GetxService {
     }
   }
 
+  Future<String?> _getUniqueId() async {
+    var deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor;
+    } else if (Platform.isAndroid) {
+      return await AndroidId().getId();
+    }
+    return null;
+  }
+
   Future<Map<dynamic, dynamic>> login(
       {required String email,
       required String password,
       required bool isEvetPlanner}) async {
     try {
+      final fcmToken = FirebaseService.fcmToken;
+      final deviceId = await _getUniqueId();
       final response = await http.post(
         Uri.parse(isEvetPlanner
             ? ApiConstants.eventPlannerLogin
             : ApiConstants.userLogin),
         body: jsonEncode({
           "email": email,
+          "fcmToken": fcmToken,
+          "deviceId": deviceId,
           "password": password,
         }),
         headers: {
