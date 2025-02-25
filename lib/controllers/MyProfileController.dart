@@ -2,9 +2,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../constants/ApiConstant.dart';
-import '../model/CatagoryModel.dart';
-
 class MyProfileController extends GetxController {
   @override
   void onInit() async {

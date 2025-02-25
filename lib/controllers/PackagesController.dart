@@ -46,6 +46,32 @@ class PackagesController extends GetxController {
     }
   }
 
+  Future<void> canclePackages(String? id) async {
+    isloading.value = true;
+    try {
+      final response = await http.patch(Uri.parse(ApiConstants.getAllPackages),
+          body: jsonEncode({
+            /*type == null ? null : "eventType": type,*/ "subscriptionId": id
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      if (response.statusCode == 201) {
+        final jsonResponse = json.decode(response.body);
+        final List<dynamic> data = jsonResponse['data'];
+        packages.value = data.map((e) => PackagesModel.fromJson(e)).toList();
+        isloading.value = false;
+      } else {
+        isloading.value = false;
+        throw Exception('Failed to load topups');
+      }
+    } catch (e) {
+      isloading.value = false;
+      CustomSnackbar.showError('Error', e.toString());
+    }
+  }
+
   @override
   void onClose() {
     super.onClose();

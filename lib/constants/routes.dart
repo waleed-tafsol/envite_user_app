@@ -48,7 +48,7 @@ import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import '../view/screens/NavBar/Screens/Home/HomeScreen.dart';
 import '../view/screens/Drawer/Screens/NotificationScreens/NotificationScreen.dart';
-import '../view/screens/NavBar/SuggestedEventDetailScreen.dart';
+// import '../view/screens/NavBar/SuggestedEventDetailScreen.dart';
 import '../view/screens/SignIn/SignInScreen.dart';
 import '../view/screens/SignUp/SignUpScreen.dart';
 import '../view/screens/auth_screen.dart';
@@ -295,13 +295,13 @@ class Pages {
           binding: EventDetailBindings(),
           transition: _routeTransition,
         );
-      case SuggestedEventsDetailScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => SuggestedEventsDetailScreen(),
-          // binding: EventDetailBindings(),
-          transition: _routeTransition,
-        );
+      // case SuggestedEventsDetailScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => SuggestedEventsDetailScreen(),
+      //     // binding: EventDetailBindings(),
+      //     transition: _routeTransition,
+      //   );
       case SendInviteScreen.routeName:
         return GetPageRoute(
           settings: settings,

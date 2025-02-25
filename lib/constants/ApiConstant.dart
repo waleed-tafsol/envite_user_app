@@ -33,6 +33,8 @@ class ApiConstants {
   // Packages
   static const getAllPackages = "${baseUrl}packages/all";
   static const buyPackages = "${baseUrl}users/purchase/subscription/";
+  static const cancleSubscription = "${baseUrl}users/cancel/subscription";
+
   // support
   static const generateTicket = "${baseUrl}support-ticket/create";
   static const getTickets = "${baseUrl}support-ticket/my/all?status=";

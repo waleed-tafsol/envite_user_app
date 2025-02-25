@@ -1,11 +1,11 @@
-import 'package:event_planner_light/controllers/event_detail_controller.dart';
+// import 'package:event_planner_light/controllers/event_detail_controller.dart';
 import 'package:event_planner_light/model/event_model.dart';
-import 'package:event_planner_light/view/screens/NavBar/SuggestedEventDetailScreen.dart';
+// import 'package:event_planner_light/view/screens/NavBar/SuggestedEventDetailScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../constants/assets.dart';
+// import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
 import '../../utills/string_decoration.dart';
@@ -31,16 +31,17 @@ class EventTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         // eventDetailController.selectedEventId.value = event!.slug!;
-        if(getOff ?? false){
+        // if(getOff ?? false){
 
-            // Get.reset();
-            Get.toNamed(SuggestedEventsDetailScreen.routeName, preventDuplicates: false,
-                arguments: {"slug": event!.slug ?? ""});
+        //     // Get.reset();
+        //     Get.toNamed(SuggestedEventsDetailScreen.routeName, preventDuplicates: false,
+        //         arguments: {"slug": event!.slug ?? ""});
 
-        }else{
+        // }else{
 
-            Get.toNamed(EventsDetailScreen.routeName,
-                arguments: {"slug": event!.slug ?? ""});}
+        Get.toNamed(EventsDetailScreen.routeName,
+            arguments: {"slug": event!.slug ?? ""});
+        // }
         // eventDetailController.getEventsDetail();
       },
       child: Container(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "71406549321",
+    "project_id": "einvite-1857d",
+    "storage_bucket": "einvite-1857d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71406549321:android:c97997834550b5365dc298",
+        "android_client_info": {
+          "package_name": "com.envite.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbW04sG_WF1WklMZHd0FI0DxiYYuMGxdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

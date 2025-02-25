@@ -22,10 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    // Future.delayed(Duration(seconds: 2), () {
     _checkAuthTokenAndNavigate();
-    // });
   }
 
   Future<void> _checkAuthTokenAndNavigate() async {

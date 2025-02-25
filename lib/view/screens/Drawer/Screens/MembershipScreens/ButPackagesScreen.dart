@@ -3,7 +3,6 @@ import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreen
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 
 class BuyPackagesScreen extends GetView<PackagesController> {
