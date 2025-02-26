@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../firebase_options.dart';
+import 'LocalNotificationServices.dart';
 import 'customPrint.dart';
 
 class FirebaseService {
@@ -25,6 +26,8 @@ class FirebaseService {
 
       await requestNotificationPermission();
 
+      _setupPushNotifications();
+
       String? token = await _firebaseMessaging.getToken();
       if (token != null) {
         fcmToken = token;
@@ -41,9 +44,19 @@ class FirebaseService {
 
   // Push Notification Setup
   static void _setupPushNotifications() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       ColoredPrint.green("message recived");
-      if (message.data.isNotEmpty) {}
+      if (message.data.isNotEmpty) {
+        final LocalNotificationService notificationService =
+            LocalNotificationService();
+        await notificationService
+            .initialize(); // Initialize local notifications
+        notificationService.showNotification(
+          id: 0,
+          title: message.notification!.title ?? 'New Notification',
+          body: message.notification!.body ?? 'You have a new message.',
+        );
+      }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
@@ -51,21 +64,23 @@ class FirebaseService {
 
       // final receivedNotification = NotificationModel.fromJson(jsondata);
       ColoredPrint.green("onMessageOpenedApp: $jsondata");
-      if (jsondata['flag'] == 'memory') {
-        try {
-          // Response? response = await ApiService.getRequest(
-          //     ApiConstants.findMemories + jsondata['payload'][0]['id']);
-          // final memory = MemoryModel.fromJson(response?.data);
-          // Get.toNamed(
-          //   MemoryDetailScreen.routeName,
-          //   arguments: memory,
-          // );
-        } catch (e) {}
-      } else if (jsondata['payload']['flag'] == 'subscription') {
-        // Get.toNamed(ChooseYourPlanScreen.routeName);
-      } else {
-        null;
-      }
+
+      if (message.notification != null) {}
+      // if (jsondata['flag'] == 'memory') {
+      //   try {
+      //     // Response? response = await ApiService.getRequest(
+      //     //     ApiConstants.findMemories + jsondata['payload'][0]['id']);
+      //     // final memory = MemoryModel.fromJson(response?.data);
+      //     // Get.toNamed(
+      //     //   MemoryDetailScreen.routeName,
+      //     //   arguments: memory,
+      //     // );
+      //   } catch (e) {}
+      // } else if (jsondata['payload']['flag'] == 'subscription') {
+      //   // Get.toNamed(ChooseYourPlanScreen.routeName);
+      // } else {
+      //   null;
+      // }
     });
   }
 

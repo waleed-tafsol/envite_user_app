@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../../constants/assets.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
-import '../Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
-import '../Drawer/Screens/MembershipScreens/BuyTopUps.dart';
 import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../Drawer/Screens/MembershipScreens/Widget/AddonsDailodBox.dart';
 import '../Drawer/Screens/couponScreen.dart';
@@ -297,7 +293,7 @@ class MyDrawer extends StatelessWidget {
                       child: OutlinedButton(
                         onPressed: () async {
                           // authService.logout();
-                          authService.deleteAuthTokenAndNavigate();
+                          authService.logout();
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.transparent,

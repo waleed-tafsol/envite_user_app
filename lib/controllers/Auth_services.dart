@@ -180,17 +180,16 @@ class AuthService extends GetxService {
     try {
       final response = await http.post(
         Uri.parse(ApiConstants.logout),
+        body: jsonEncode({"fcmToken": FirebaseService.fcmToken}),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $authToken',
         },
       );
-
       if (response.statusCode == 200) {
         await deleteAuthTokenAndNavigate(message: "Logged out successfully");
       } else {
         final errorData = jsonDecode(response.body);
-
         throw Exception(
             errorData["message"]["error"][0] ?? "An error occurred");
       }

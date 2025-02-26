@@ -30,7 +30,7 @@ class UserModel {
   UserModel? createdBy;
   String? description;
   List<Subscriptions>? subscriptions;
-  List<String>? uniqueDeviceIds;
+  // List<String>? uniqueDeviceIds;
   String? lastLogin;
   String? createdAt;
   String? updatedAt;
@@ -64,7 +64,7 @@ class UserModel {
       this.createdBy,
       this.description,
       this.subscriptions,
-      this.uniqueDeviceIds,
+      // this.uniqueDeviceIds,
       this.lastLogin,
       this.createdAt,
       this.updatedAt,
@@ -126,12 +126,12 @@ class UserModel {
         subscriptions!.add(new Subscriptions.fromJson(v));
       });
     }
-    if (json['uniqueDeviceIds'] != null) {
-      uniqueDeviceIds = <String>[];
-      json['uniqueDeviceIds'].forEach((v) {
-        uniqueDeviceIds!.add(v);
-      });
-    }
+    // if (json['uniqueDeviceIds'] != null) {
+    //   uniqueDeviceIds = <String>[];
+    //   json['uniqueDeviceIds'].forEach((v) {
+    //     uniqueDeviceIds!.add(v);
+    //   });
+    // }
     lastLogin = json['lastLogin'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -182,9 +182,9 @@ class UserModel {
       data['subscriptions'] =
           this.subscriptions!.map((v) => v.toJson()).toList();
     }
-    if (this.uniqueDeviceIds != null) {
-      data['uniqueDeviceIds'] = this.uniqueDeviceIds!.map((v) => v).toList();
-    }
+    // if (this.uniqueDeviceIds != null) {
+    //   data['uniqueDeviceIds'] = this.uniqueDeviceIds!.map((v) => v).toList();
+    // }
     data['lastLogin'] = this.lastLogin;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
