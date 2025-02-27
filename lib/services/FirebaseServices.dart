@@ -50,7 +50,7 @@ class FirebaseService {
         final LocalNotificationService notificationService =
             LocalNotificationService();
         await notificationService
-            .initialize(); // Initialize local notifications
+            .initialize();
         notificationService.showNotification(
           id: 0,
           title: message.notification!.title ?? 'New Notification',
