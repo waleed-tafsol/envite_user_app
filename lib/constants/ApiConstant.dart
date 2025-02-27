@@ -49,4 +49,6 @@ class ApiConstants {
   static const getAllfavourite = "${baseUrl}favorite/my/all";
   static const getPlannedEvent = "${baseUrl}event/attending/all";
   static const attendEvent = "${baseUrl}event/attend/";
+  // Notifications
+  static const getNotifications = "${baseUrl}notifications";
 }
