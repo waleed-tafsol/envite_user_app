@@ -331,6 +331,13 @@ class Pages {
           binding: Cmsbindings(),
           transition: _routeTransition,
         );
+
+      case EditEventsDetailScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => EditEventsDetailScreen(),
+          transition: _routeTransition,
+        );
       // case BuyTopUpsScreen.routeName:
       //   return GetPageRoute(
       //     settings: settings,

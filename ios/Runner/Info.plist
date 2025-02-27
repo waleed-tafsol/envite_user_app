@@ -6,11 +6,6 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	 <key>NSAppTransportSecurity</key>
-     <dict>
-          <key>NSAllowsArbitraryLoads</key>
-         <true/>
-     </dict>
 	<key>CFBundleDisplayName</key>
 	<string>Event Planner Light</string>
 	<key>CFBundleExecutable</key>
@@ -31,20 +26,30 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We Need to access contacts.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs access to location. to disply nearby events</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location. to disply nearby events</string>
-	<key>NSContactsUsageDescription</key>
-	<string>We Need to access contacts.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>We need access to your camera</string>
+	<string>This app needs access to location. to disply nearby events</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to your microphone for audio recording in videos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to select a video</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
