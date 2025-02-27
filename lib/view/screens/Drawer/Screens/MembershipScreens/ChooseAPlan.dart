@@ -1,7 +1,6 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/controllers/payment_controller.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import 'package:flutter/material.dart';

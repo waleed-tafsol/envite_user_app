@@ -4,11 +4,7 @@ import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/view/widgets/network_video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:google_places_flutter/model/place_type.dart';
-import 'package:google_places_flutter/model/prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../../constants/ApiConstant.dart';
 import '../../../../../constants/TextConstant.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../controllers/Auth_services.dart';
@@ -149,6 +145,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                   }
                                                   return "Please enter correct Email";
                                                 }
+                                                return null;
                                               },
                                               keyboardType: TextInputType.emailAddress,
                                               decoration: InputDecoration(
@@ -208,6 +205,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                   }
                                                   return "Please enter correct Social Links";
                                                 }
+                                                return null;
                                               },
                                               // keyboardType: TextInputType.name,
                                               decoration: InputDecoration(

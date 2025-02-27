@@ -26,7 +26,7 @@ class CategoryModel {
     sId = json['_id'];
     slug = json['slug'];
     slugId = json['slugId'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    name = json['name'] != null ? Name.fromJson(json['name']) : null;
     isActive = json['isActive'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

@@ -1,16 +1,7 @@
-import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import '../constants/ApiConstant.dart';
-import '../utills/CustomSnackbar.dart';
-import 'Auth_services.dart';
 
 class MembershipController extends GetxController {
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   RxBool isloading = true.obs;
   final List<String> chipLabels = ['approved', 'pending', 'all', 'rejected'];

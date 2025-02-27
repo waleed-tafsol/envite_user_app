@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:event_planner_light/utills/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/ApiConstant.dart';
@@ -29,10 +28,6 @@ class FiltersController extends GetxController {
   RxInt currentPage = 1.obs;
   final int limit = 10;
 
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
 
   void checkFiltersActive() {

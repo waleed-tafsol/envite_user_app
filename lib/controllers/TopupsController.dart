@@ -46,8 +46,4 @@ class TopupsController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

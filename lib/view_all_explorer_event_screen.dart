@@ -1,12 +1,9 @@
 import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
-import 'package:event_planner_light/utills/enums.dart';
 import 'package:event_planner_light/view/screens/filtered_list_view.dart';
 import 'package:event_planner_light/view/widgets/EventTileWidget.dart';
 import 'package:event_planner_light/view/widgets/SearchEventWidget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'controllers/ExploreController.dart';

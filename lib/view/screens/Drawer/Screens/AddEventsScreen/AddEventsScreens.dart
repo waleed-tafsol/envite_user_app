@@ -14,7 +14,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/enums.dart';
-import '../../../../widgets/BottomModelSheet.dart';
 import '../../../../widgets/VideoWidget.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
@@ -1257,11 +1256,11 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                 controller.pickedVideo.clear();
                                               },
                                               child: CircleAvatar(
+                                                backgroundColor: Colors.red,
                                                 child: Icon(
                                                   Icons.delete,
                                                   color: Colors.white,
                                                 ),
-                                                backgroundColor: Colors.red,
                                               ),
                                             ),
                                           ),

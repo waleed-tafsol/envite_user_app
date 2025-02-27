@@ -1,12 +1,6 @@
-import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class MyProfileController extends GetxController {
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   //RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
 
@@ -32,8 +26,4 @@ class MyProfileController extends GetxController {
   //   }
   // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 class VideoThumbnailWidget extends StatelessWidget {
   final String videoPath;
 
-  VideoThumbnailWidget({required this.videoPath});
+  const VideoThumbnailWidget({super.key, required this.videoPath});
 
   Future<String> getThumbnail(String videoPath) async {
     // Generate thumbnail logic here
@@ -22,7 +22,7 @@ class VideoThumbnailWidget extends StatelessWidget {
     final tempDir = await getTemporaryDirectory();
     final filePath = '${tempDir.path}/thumbnail.jpg';
     final file = File(filePath);
-    await file.writeAsBytes(uint8List!);
+    await file.writeAsBytes(uint8List);
     return filePath;
   }
 
@@ -87,7 +87,7 @@ class VideoThumbnailWidget extends StatelessWidget {
 class VideoPlayerScreen extends StatefulWidget {
   final String videoPath;
 
-  VideoPlayerScreen({required this.videoPath});
+  const VideoPlayerScreen({super.key, required this.videoPath});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();

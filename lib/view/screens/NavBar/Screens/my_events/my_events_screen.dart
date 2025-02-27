@@ -12,7 +12,7 @@ import '../../../view_all_my_events_screen.dart';
 class MyEventsScreen extends GetView<MyEventsController> {
   static const routeName = 'MyEventsScreen';
 
-  MyEventsScreen({super.key});
+  const MyEventsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

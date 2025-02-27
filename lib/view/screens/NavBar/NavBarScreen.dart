@@ -11,7 +11,6 @@ import '../../../view_all_explorer_event_screen.dart';
 import '../../widgets/CustomAppBar.dart';
 import '../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'DrawerWidget.dart';
-import 'Screens/Explore/ExploreScreen.dart';
 import 'Screens/Home/HomeScreen.dart';
 
 class NavBarScreen extends StatefulWidget {

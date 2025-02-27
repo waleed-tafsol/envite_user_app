@@ -1,5 +1,4 @@
 import 'package:chewie/chewie.dart';
-import 'package:event_planner_light/services/customPrint.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:video_player/video_player.dart';
@@ -8,8 +7,7 @@ import '../../constants/colors_constants.dart';
 class NetworkVideoPlayerWidget extends StatefulWidget {
   final String videoUrl;
 
-  NetworkVideoPlayerWidget({Key? key, required this.videoUrl})
-      : super(key: key);
+  const NetworkVideoPlayerWidget({super.key, required this.videoUrl});
 
   @override
   _NetworkVideoPlayerWidgetState createState() =>

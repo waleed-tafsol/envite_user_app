@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:myfatoorah_flutter/MFUtils.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -270,7 +269,7 @@ class _MyAppState extends State<MyFatoorahScreen> {
           child: Flex(
             direction: Axis.vertical,
             children: [
-              Text("Payment Amount : ${amount}", style: textStyle()),
+              Text("Payment Amount : $amount", style: textStyle()),
               if (Platform.isIOS) applePayView(),
               if (Platform.isAndroid) googlePayButton(),
               embeddedCardView(),

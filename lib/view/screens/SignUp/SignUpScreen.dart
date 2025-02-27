@@ -62,8 +62,9 @@ class SignUpScreen extends GetView<Signupcontroller> {
                           TextFormField(
                               controller: controller.fullNameController,
                               validator: (value) {
-                                if (value == null || value.isEmpty)
+                                if (value == null || value.isEmpty) {
                                   return 'Full Name cannot be empty';
+                                }
                                 return null;
                               },
                               decoration: const InputDecoration(
@@ -77,10 +78,12 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               controller: controller.phoneNumberController,
                               keyboardType: TextInputType.phone,
                               validator: (value) {
-                                if (value == null || value.isEmpty)
+                                if (value == null || value.isEmpty) {
                                   return 'Phone Number cannot be empty';
-                                if (!GetUtils.isPhoneNumber(value))
+                                }
+                                if (!GetUtils.isPhoneNumber(value)) {
                                   return 'Enter a valid phone number';
+                                }
                                 return null;
                               },
                               decoration: const InputDecoration(
@@ -94,10 +97,12 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               controller: controller.emailController,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                if (value == null || value.isEmpty)
+                                if (value == null || value.isEmpty) {
                                   return 'Email cannot be empty';
-                                if (!GetUtils.isEmail(value))
+                                }
+                                if (!GetUtils.isEmail(value)) {
                                   return 'Enter a valid Email';
+                                }
                                 return null;
                               },
                               decoration: const InputDecoration(
@@ -110,8 +115,9 @@ class SignUpScreen extends GetView<Signupcontroller> {
                           TextFormField(
                               controller: controller.passwordController,
                               validator: (value) {
-                                if (value == null || value.isEmpty)
+                                if (value == null || value.isEmpty) {
                                   return 'Password cannot be empty';
+                                }
 
                                 return null;
                               },
@@ -197,8 +203,9 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                         child: TextFormField(
                                           controller: controller.bioController,
                                           validator: (value) {
-                                            if (value == null || value.isEmpty)
+                                            if (value == null || value.isEmpty) {
                                               return 'Bio cannot be empty';
+                                            }
                                             return null;
                                           },
                                           keyboardType: TextInputType.multiline,

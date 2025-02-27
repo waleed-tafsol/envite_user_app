@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 /*
@@ -13,7 +12,7 @@ String dateFormater(DateTime date){
   //Duration timezoneOffset = date.timeZoneOffset;
   //String formattedOffset = _formatTimezoneOffset(timezoneOffset);
   String formattedDate = DateFormat('dd/MMM/yyyy').format(date);
-  return '$formattedDate';
+  return formattedDate;
 }
 
 String formatToIso8601WithTimezone(DateTime date) {

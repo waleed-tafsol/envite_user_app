@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/ApiConstant.dart';
-import '../model/CatagoryModel.dart';
 import '../model/event_model.dart';
 import '../utills/enums.dart';
 import 'Auth_services.dart';
-import 'filters_controller.dart';
 
 class ExploreController extends GetxController {
   @override
@@ -97,8 +95,4 @@ class ExploreController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

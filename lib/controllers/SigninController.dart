@@ -7,10 +7,6 @@ import 'package:get/get.dart';
 import '../view/screens/OtpScreen.dart';
 
 class SignInController extends GetxController {
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();

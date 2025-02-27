@@ -1,12 +1,7 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
-import 'package:event_planner_light/constants/constants.dart';
-import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
-import 'package:event_planner_light/view/widgets/CustomChipWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -16,7 +11,6 @@ import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../controllers/AddEventController.dart';
 import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
-import '../screens/Drawer/Screens/MembershipScreens/ChooseAPlan.dart';
 
 class BottomSheetManager {
   static void _customBottomSheet(BuildContext context, List<Widget> children) {

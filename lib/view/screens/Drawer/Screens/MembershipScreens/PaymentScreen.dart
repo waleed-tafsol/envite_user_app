@@ -8,7 +8,7 @@ import '../../../../../constants/StyleConstants.dart';
 import '../../../cms/CmsScreen.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
-  PaymentScreen({super.key});
+  const PaymentScreen({super.key});
 
   static const routeName = "MemberShipPaymentScreen";
 

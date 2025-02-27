@@ -11,6 +11,8 @@ class OtpScreen extends GetView<OtpController> {
   static const routeName = "OtpScreen";
   final _formKey = GlobalKey<FormState>();
 
+  OtpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +97,6 @@ class OtpScreen extends GetView<OtpController> {
                                           email: Get.arguments['email'],
                                         );
                                       }
-                                      ;
                                     },
                                     child: Text(controller.isResendEnabled.value
                                         ? 'Resend OTP'

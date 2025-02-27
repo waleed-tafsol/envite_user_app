@@ -32,7 +32,7 @@ class TopupsModel {
     sId = json['_id'];
     slug = json['slug'];
     slugId = json['slugId'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    name = json['name'] != null ? Name.fromJson(json['name']) : null;
     price = json['price'];
     packageType = json['packageType'];
     eventType = json['eventType'];

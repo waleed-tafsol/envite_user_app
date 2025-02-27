@@ -6,7 +6,6 @@ import '../../../../../constants/colors_constants.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../widgets/EventTileWidget.dart';
-import '../../../../widgets/SearchEventWidget.dart';
 
 class MyInvitesScreen extends GetView<MyInvitesController> {
   const MyInvitesScreen({super.key});

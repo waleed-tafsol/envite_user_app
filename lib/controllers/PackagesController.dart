@@ -38,7 +38,7 @@ class PackagesController extends GetxController {
         isloading.value = false;
       } else {
         isloading.value = false;
-        throw Exception('Failed to load topups');
+        throw Exception('Failed to load packages');
       }
     } catch (e) {
       isloading.value = false;
@@ -64,7 +64,7 @@ class PackagesController extends GetxController {
         isloading.value = false;
       } else {
         isloading.value = false;
-        throw Exception('Failed to load topups');
+        throw Exception('Failed to load package');
       }
     } catch (e) {
       isloading.value = false;
@@ -72,8 +72,4 @@ class PackagesController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

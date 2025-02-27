@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CreateAnInvitationScreen extends StatelessWidget {
-  CreateAnInvitationScreen({super.key});
+  const CreateAnInvitationScreen({super.key});
   static const routeName = "CreateAnInvitationScreen";
 
   // final QuillController _controller = QuillController.basic();

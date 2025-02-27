@@ -9,14 +9,14 @@ class CmsModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -43,7 +43,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     content =
-        json['content'] != null ? new Content.fromJson(json['content']) : null;
+        json['content'] != null ? Content.fromJson(json['content']) : null;
     cmsType = json['cmsType'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -51,15 +51,15 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    if (this.content != null) {
-      data['content'] = this.content!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    if (content != null) {
+      data['content'] = content!.toJson();
     }
-    data['cmsType'] = this.cmsType;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['cmsType'] = cmsType;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }
@@ -78,10 +78,10 @@ class Content {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['en'] = this.en;
-    data['ar'] = this.ar;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['en'] = en;
+    data['ar'] = ar;
+    data['_id'] = sId;
     return data;
   }
 }
