@@ -96,7 +96,7 @@ class AddEventController extends GetxController {
   List<TextEditingController> emailController =
       <TextEditingController>[TextEditingController()].obs;
   List<TextEditingController> socialLinkController =
-      <TextEditingController>[TextEditingController(text: "http://")].obs;
+      <TextEditingController>[TextEditingController()].obs;
   TextEditingController descriptionController = TextEditingController();
 //  RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
   Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
@@ -398,8 +398,8 @@ class AddEventController extends GetxController {
 
         isloading.value = false;
         isAddPastEvents.value
-            ? Get.offAndToNamed(ConfirmorAddMoreEvents.routeName)
-            : Get.back();
+            ? Get.until((route) => route.isFirst)
+            : Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
         // Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
       } else {
         final errorData = jsonDecode(response.body);

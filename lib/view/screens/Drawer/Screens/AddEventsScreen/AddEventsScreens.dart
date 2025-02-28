@@ -233,7 +233,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                               },
                                               // keyboardType: TextInputType.name,
                                               decoration: InputDecoration(
-                                                hintText: "Social Links",
+                                                hintText:
+                                                    "https://www.sociallink.com",
                                                 prefixIcon: Icon(Icons.link),
                                               ),
                                             ),
