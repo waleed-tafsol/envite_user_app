@@ -91,7 +91,6 @@ class _FilteredListViewState extends State<FilteredListView> {
                   ),
                 );
     });
-    ;
   }
 }
 

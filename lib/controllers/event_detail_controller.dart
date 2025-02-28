@@ -29,9 +29,7 @@ class EventDetailController extends GetxController {
 
   void attendEvent(BuildContext context) {
     final hasExclusivePackage = authService.me.value!.subscriptions!
-            .where((element) => element.eventType == Events.exclusive.text)
-            .length >
-        0;
+            .where((element) => element.eventType == Events.exclusive.text).isNotEmpty;
     final isPublicEvent =
         eventDetailResponse.value.data!.eventType == Events.public.text;
     if (hasExclusivePackage || isPublicEvent) {
@@ -147,9 +145,7 @@ class SuggestedEventDetailController extends GetxController {
 
   void attendEvent(BuildContext context) {
     final hasExclusivePackage = authService.me.value!.subscriptions!
-            .where((element) => element.eventType == Events.exclusive.text)
-            .length >
-        0;
+            .where((element) => element.eventType == Events.exclusive.text).isNotEmpty;
     final isPublicEvent =
         eventDetailResponse.value.data!.eventType == Events.public.text;
     if (hasExclusivePackage || isPublicEvent) {

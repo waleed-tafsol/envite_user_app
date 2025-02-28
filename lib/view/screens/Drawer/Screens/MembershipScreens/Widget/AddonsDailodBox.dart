@@ -189,10 +189,6 @@ class AddonsdailodboxController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }
 
 void demoDailogBoxWithText(BuildContext ctx, String text) {

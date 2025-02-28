@@ -4,8 +4,6 @@ import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:event_planner_light/view/widgets/custom_checkbox.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SendInviteScreen extends StatelessWidget {

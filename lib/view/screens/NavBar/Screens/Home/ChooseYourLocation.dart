@@ -84,7 +84,7 @@ class ChooseyourlocationScreen extends GetView<Chooseyourlocationcontroller> {
                         width: 7,
                       ),
                       Expanded(
-                          child: Text("${prediction.description ?? ""}",
+                          child: Text(prediction.description ?? "",
                               style: TextStyle(color: Colors.black))),
                     ],
                   ),

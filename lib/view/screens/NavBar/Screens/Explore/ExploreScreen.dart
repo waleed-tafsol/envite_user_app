@@ -14,7 +14,7 @@ import '../../../../widgets/SearchEventWidget.dart';
 class ExploreScreen extends GetView<ExploreController> {
   static const routeName = 'explorerScreen';
 
-  ExploreScreen({super.key});
+  const ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

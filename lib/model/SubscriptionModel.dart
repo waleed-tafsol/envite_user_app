@@ -42,19 +42,19 @@ class Subscriptions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['subscription'] = this.subscription;
-    data['type'] = this.type;
-    data['eventType'] = this.eventType;
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
-    data['price'] = this.price;
-    data['duration'] = this.duration;
-    data['totalInvites'] = this.totalInvites;
-    data['isSubscriptionExpired'] = this.isSubscriptionExpired;
-    data['_id'] = this.sId;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['subscription'] = subscription;
+    data['type'] = type;
+    data['eventType'] = eventType;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
+    data['price'] = price;
+    data['duration'] = duration;
+    data['totalInvites'] = totalInvites;
+    data['isSubscriptionExpired'] = isSubscriptionExpired;
+    data['_id'] = sId;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

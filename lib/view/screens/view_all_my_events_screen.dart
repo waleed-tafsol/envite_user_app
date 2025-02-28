@@ -1,12 +1,11 @@
 import 'package:event_planner_light/controllers/MyEventsController.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/colors_constants.dart';
 import '../../controllers/filters_controller.dart';
 import '../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../utills/enums.dart';
 import '../widgets/EventTileWidget.dart';
 import '../widgets/SearchEventWidget.dart';
 import 'Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
@@ -96,9 +95,16 @@ class ViewAllMyEventsScreen extends StatelessWidget {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: Colors.white,
         onPressed: () {
-          Get.toNamed(AddEventsScreens.routeName, arguments: {
-            "isAddPastEvents": true,
-          });
+          if(myEventsController.myEventsScreenType.value == Events.myPastEvents.text){
+            Get.toNamed(AddEventsScreens.routeName, arguments: {
+              "isAddPastEvents": true,
+            });
+          }
+          else{
+            Get.toNamed(AddEventsScreens.routeName, arguments: {
+              "isAddPastEvents": false,
+            });
+          }
         },
         child: Icon(
           Icons.add,

@@ -1,7 +1,6 @@
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:event_planner_light/shimmer_loaders/event_tile_shimmer.dart';
-import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

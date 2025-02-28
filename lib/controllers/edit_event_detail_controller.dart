@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
@@ -246,7 +245,7 @@ class EditEventDetailController extends GetxController {
     final tempDir = await getTemporaryDirectory();
     final filePath = '${tempDir.path}/thumbnail.jpg';
     final file = File(filePath);
-    await file.writeAsBytes(uint8List!);
+    await file.writeAsBytes(uint8List);
     return filePath;
   }
 

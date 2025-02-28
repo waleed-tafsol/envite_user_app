@@ -101,8 +101,9 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       child: TextFormField(
                         controller: controller.bioController,
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return 'Bio cannot be empty';
+                          }
                           return null;
                         },
                         keyboardType: TextInputType.multiline,

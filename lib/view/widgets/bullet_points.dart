@@ -1,6 +1,5 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BulletPoints extends StatelessWidget {
   final List<String> items;

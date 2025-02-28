@@ -1255,11 +1255,11 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                 controller.pickedVideo.clear();
                                               },
                                               child: CircleAvatar(
+                                                backgroundColor: Colors.red,
                                                 child: Icon(
                                                   Icons.delete,
                                                   color: Colors.white,
                                                 ),
-                                                backgroundColor: Colors.red,
                                               ),
                                             ),
                                           ),

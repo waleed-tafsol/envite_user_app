@@ -128,7 +128,7 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
 }
 
 class ForgotMyPasswordConfirmScreen extends StatefulWidget {
-  ForgotMyPasswordConfirmScreen({super.key});
+  const ForgotMyPasswordConfirmScreen({super.key});
   static const routeName = "ForgotMyPasswordConfirmScreen";
 
   @override

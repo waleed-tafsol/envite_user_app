@@ -11,7 +11,7 @@ class EventDetailResponse {
   EventDetailResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = json['data'] != null
-        ? new EventDetailData.fromJson(json['data'])
+        ? EventDetailData.fromJson(json['data'])
         : null;
   }
 }
@@ -105,7 +105,7 @@ class EventDetailData {
       }
     }
     location = json['location'] != null
-        ? new Location.fromJson(json['location'])
+        ? Location.fromJson(json['location'])
         : null;
     address = json['address'];
     startDate = json['startDate'];
@@ -114,12 +114,12 @@ class EventDetailData {
     endTime = json['endTime'];
     category = json['category'];
     createdBy = json['createdBy'] != null
-        ? new CreatedBy.fromJson(json['createdBy'])
+        ? CreatedBy.fromJson(json['createdBy'])
         : null;
     if (json['attendees'] != null) {
       attendees = <Attendees>[];
       json['attendees'].forEach((v) {
-        attendees!.add(new Attendees.fromJson(v));
+        attendees!.add(Attendees.fromJson(v));
       });
     }
     isFavorite = json['isFavorite'];

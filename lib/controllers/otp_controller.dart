@@ -1,7 +1,6 @@
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../utills/CustomSnackbar.dart';
 import '../view/screens/NavBar/NavBarScreen.dart';
 

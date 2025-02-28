@@ -74,7 +74,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     location = json['location'] != null
-        ? new Location.fromJson(json['location'])
+        ? Location.fromJson(json['location'])
         : null;
     sId = json['_id'];
     slug = json['slug'];
@@ -84,7 +84,7 @@ class UserModel {
     email = json['email'];
     phoneNumber = json['phoneNumber'];
     wallet =
-        json['wallet'] != null ? new Wallet.fromJson(json['wallet']) : null;
+        json['wallet'] != null ? Wallet.fromJson(json['wallet']) : null;
     role = json['role'].cast<String>();
     if (json['fcmTokens'] != null) {
       fcmTokens = <String>[];
@@ -123,7 +123,7 @@ class UserModel {
     if (json['subscriptions'] != null) {
       subscriptions = <Subscriptions>[];
       json['subscriptions'].forEach((v) {
-        subscriptions!.add(new Subscriptions.fromJson(v));
+        subscriptions!.add(Subscriptions.fromJson(v));
       });
     }
     // if (json['uniqueDeviceIds'] != null) {
@@ -141,56 +141,56 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.location != null) {
-      data['location'] = this.location!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (location != null) {
+      data['location'] = location!.toJson();
     }
-    data['_id'] = this.sId;
-    data['slug'] = this.slug;
-    data['slugId'] = this.slugId;
-    data['fullName'] = this.fullName;
-    data['photo'] = this.photo;
-    data['email'] = this.email;
-    data['phoneNumber'] = this.phoneNumber;
-    if (this.wallet != null) {
-      data['wallet'] = this.wallet!.toJson();
+    data['_id'] = sId;
+    data['slug'] = slug;
+    data['slugId'] = slugId;
+    data['fullName'] = fullName;
+    data['photo'] = photo;
+    data['email'] = email;
+    data['phoneNumber'] = phoneNumber;
+    if (wallet != null) {
+      data['wallet'] = wallet!.toJson();
     }
-    data['role'] = this.role;
-    if (this.fcmTokens != null) {
-      data['fcmTokens'] = this.fcmTokens!.map((v) => v).toList();
+    data['role'] = role;
+    if (fcmTokens != null) {
+      data['fcmTokens'] = fcmTokens!.map((v) => v).toList();
     }
-    data['totalInvites'] = this.totalInvites;
-    data['remainingInvites'] = this.remainingInvites;
-    data['totalAddonInvites'] = this.totalAddonInvites;
-    data['remainingAddonInvites'] = this.remainingAddonInvites;
-    if (this.socketIds != null) {
-      data['socketIds'] = this.socketIds!.map((v) => v).toList();
+    data['totalInvites'] = totalInvites;
+    data['remainingInvites'] = remainingInvites;
+    data['totalAddonInvites'] = totalAddonInvites;
+    data['remainingAddonInvites'] = remainingAddonInvites;
+    if (socketIds != null) {
+      data['socketIds'] = socketIds!.map((v) => v).toList();
     }
-    data['isOnline'] = this.isOnline;
-    data['isVerified'] = this.isVerified;
-    data['isBlockedByAdmin'] = this.isBlockedByAdmin;
-    data['categories'] = this.categories;
-    if (this.myEvents != null) {
-      data['myEvents'] = this.myEvents!.map((v) => v).toList();
+    data['isOnline'] = isOnline;
+    data['isVerified'] = isVerified;
+    data['isBlockedByAdmin'] = isBlockedByAdmin;
+    data['categories'] = categories;
+    if (myEvents != null) {
+      data['myEvents'] = myEvents!.map((v) => v).toList();
     }
-    if (this.myStaff != null) {
-      data['myStaff'] = this.myStaff!.map((v) => v.toJson()).toList();
+    if (myStaff != null) {
+      data['myStaff'] = myStaff!.map((v) => v.toJson()).toList();
     }
-    data['createdBy'] = this.createdBy;
-    data['description'] = this.description;
-    if (this.subscriptions != null) {
+    data['createdBy'] = createdBy;
+    data['description'] = description;
+    if (subscriptions != null) {
       data['subscriptions'] =
-          this.subscriptions!.map((v) => v.toJson()).toList();
+          subscriptions!.map((v) => v.toJson()).toList();
     }
     // if (this.uniqueDeviceIds != null) {
     //   data['uniqueDeviceIds'] = this.uniqueDeviceIds!.map((v) => v).toList();
     // }
-    data['lastLogin'] = this.lastLogin;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['loginAt'] = this.loginAt;
-    data['password'] = this.password;
+    data['lastLogin'] = lastLogin;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['loginAt'] = loginAt;
+    data['password'] = password;
     return data;
   }
 }

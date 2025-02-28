@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
-import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
@@ -14,7 +11,7 @@ import '../utills/CustomSnackbar.dart';
 
 class PaymentController extends GetxController {
   List<MFPaymentMethod> paymentMethods = <MFPaymentMethod>[].obs;
-  PackagesModel? packagesModel = null;
+  PackagesModel? packagesModel;
   // RxDouble finalAmount = 0.0.obs;
   RxList<bool> isSelectedList = <bool>[].obs;
   bool isPaymentMethodselected = false;
@@ -139,7 +136,7 @@ class PaymentController extends GetxController {
         userDefinedField: packagesModel.toString(),
         paymentMethodId: paymentMethodId,
         invoiceValue: packagesModel?.price);
-    request.displayCurrencyIso = MFCurrencyISO.KUWAIT_KWD;
+    request.displayCurrencyIso = MFCurrencyISO.UNITEDSTATES_USD;
 
     // var recurring = MFRecurringModel();
     // recurring.intervalDays = 10;
@@ -153,7 +150,9 @@ class PaymentController extends GetxController {
             numOfInvites: noOfInvites,
             invoiceId: value.invoiceId.toString(),
             pmId: paymentMethodId))
-        .catchError((error) {});
+        .catchError((error) {
+          print(error);
+    });
   }
 
   paymentConfirmed(
@@ -177,9 +176,7 @@ class PaymentController extends GetxController {
       if (response.statusCode == 200) {
         await authService.getMe();
         isloading.value = false;
-
         CustomSnackbar.showSuccess("Successful", "payment was successful");
-
         Get.until((route) => route.settings.name == routeToPopTill);
       } else {
         isloading.value = false;

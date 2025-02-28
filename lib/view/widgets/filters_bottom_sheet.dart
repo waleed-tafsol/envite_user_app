@@ -1,10 +1,8 @@
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/filters_controller.dart';
 import 'package:event_planner_light/utills/enums.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/colors_constants.dart';
