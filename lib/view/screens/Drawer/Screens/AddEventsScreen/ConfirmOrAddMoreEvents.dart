@@ -2,6 +2,7 @@ import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -81,7 +82,7 @@ class ConfirmorAddMoreEvents extends StatelessWidget {
                 width: double.infinity,
                 child: CustomOutlinedButton(
                     onTap: () {
-                      Get.back();
+                      Get.offNamed(AddEventsScreens.routeName);
                     },
                     text: [Text("Add more events")]),
               ),

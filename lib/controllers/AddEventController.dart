@@ -19,7 +19,6 @@ import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import '../constants/ApiConstant.dart';
-import '../main.dart';
 import '../model/CatagoryModel.dart';
 import '../utills/ConvertDateTime.dart';
 import 'package:http_parser/http_parser.dart';
@@ -97,7 +96,7 @@ class AddEventController extends GetxController {
   List<TextEditingController> emailController =
       <TextEditingController>[TextEditingController()].obs;
   List<TextEditingController> socialLinkController =
-      <TextEditingController>[TextEditingController()].obs;
+      <TextEditingController>[TextEditingController(text: "http://")].obs;
   TextEditingController descriptionController = TextEditingController();
 //  RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
   Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
@@ -295,7 +294,7 @@ class AddEventController extends GetxController {
     final tempDir = await getTemporaryDirectory();
     final filePath = '${tempDir.path}/thumbnail.jpg';
     final file = File(filePath);
-    await file.writeAsBytes(uint8List!);
+    await file.writeAsBytes(uint8List);
     return filePath;
   }
 
@@ -398,7 +397,10 @@ class AddEventController extends GetxController {
         //     'Success', responseData["message"] ?? "Event created successfully");
 
         isloading.value = false;
-        Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
+        isAddPastEvents.value
+            ? Get.offAndToNamed(ConfirmorAddMoreEvents.routeName)
+            : Get.back();
+        // Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(

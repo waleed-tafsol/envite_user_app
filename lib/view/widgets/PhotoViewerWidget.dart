@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 
 class PhotoViewerWidget extends StatelessWidget {
@@ -14,10 +15,25 @@ class PhotoViewerWidget extends StatelessWidget {
       context: context,
       builder: (context) {
         return Dialog(
-          backgroundColor: backgroundColor ?? Colors.transparent,
-          child: PhotoView(
-            backgroundDecoration: BoxDecoration(color: Colors.transparent),
-            imageProvider: imageProvider,
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            // fit: StackFit.passthrough,
+            alignment: Alignment.topRight,
+            children: [
+              PhotoView(
+                backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                imageProvider: imageProvider,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    size: 40,
+                    Icons.close,
+                    color: Colors.white,
+                  )),
+            ],
           ),
         );
       },

@@ -9,12 +9,10 @@ import 'package:event_planner_light/controllers/MyEventsController.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/enums.dart';
-import '../../../../widgets/BottomModelSheet.dart';
 import '../../../../widgets/VideoWidget.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
