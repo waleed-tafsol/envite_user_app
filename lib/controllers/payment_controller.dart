@@ -151,7 +151,7 @@ class PaymentController extends GetxController {
             invoiceId: value.invoiceId.toString(),
             pmId: paymentMethodId))
         .catchError((error) {
-          print(error);
+      CustomSnackbar.showError("Error", error.message);
     });
   }
 

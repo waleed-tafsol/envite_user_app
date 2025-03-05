@@ -463,10 +463,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                     width: 2.w,
                                                   ),
                                                   InkWell(
-                                                    onTap: () => launchUrlUtill(
-                                                        event?.socialLinks![
-                                                                index] ??
-                                                            ""),
+                                                    onTap: () => controller
+                                                        .launchSocialLink(
+                                                            event?.socialLinks![
+                                                                    index] ??
+                                                                ""),
                                                     child: Text(
                                                         event?.socialLinks?[
                                                                 index] ??
@@ -680,12 +681,19 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return GestureDetector(
-                                              onTap: () => Get.offNamed(EventsDetailScreen.routeName, preventDuplicates: false,
-                arguments: {"slug":  controller
-                                                      .eventDetailResponse
-                                                      .value
-                                                      .data
-                                                      ?.similarEvents?[index].slug ?? ""}),
+                                              onTap: () => Get.offNamed(
+                                                  EventsDetailScreen.routeName,
+                                                  preventDuplicates: false,
+                                                  arguments: {
+                                                    "slug": controller
+                                                            .eventDetailResponse
+                                                            .value
+                                                            .data
+                                                            ?.similarEvents?[
+                                                                index]
+                                                            .slug ??
+                                                        ""
+                                                  }),
                                               child: AbsorbPointer(
                                                 child: EventTileWidget(
                                                   event: controller
