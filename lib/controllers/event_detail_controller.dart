@@ -130,6 +130,6 @@ class EventDetailController extends GetxController {
   }
 
   void launchSocialLink(String url) async {
-    launchUrlUtill(validateAndCorrectUrl(url));
+    launchUrlWeb(validateAndCorrectUrl(url));
   }
 }

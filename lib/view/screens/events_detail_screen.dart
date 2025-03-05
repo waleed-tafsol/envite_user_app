@@ -464,10 +464,11 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
-                                                      onTap: () => launchUrlWeb(
-                                                          event?.socialLinks![
-                                                                  index] ??
-                                                              ""),
+                                                      onTap: () => controller
+                                                          .launchSocialLink(
+                                                              event?.socialLinks![
+                                                                      index] ??
+                                                                  ""),
                                                       child: Text(
                                                           maxLines: 4,
                                                           event?.socialLinks?[
