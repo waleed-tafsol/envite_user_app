@@ -25,9 +25,10 @@ if (await canLaunchUrl(Uri.parse(appleMapsUrl))) {
   
 }
 
-Future<void> launchUrlUtill(String url) async {
-  if (await canLaunchUrl(Uri.parse(url))) {
-    await launchUrl(Uri.parse(url));
+Future<void> launchUrlWeb(String urlData) async {
+  final Uri url = Uri.parse(urlData);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
   } else {
     CustomSnackbar.showError("Error", 'incorrect link');
   }
