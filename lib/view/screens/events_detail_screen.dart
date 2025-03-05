@@ -462,19 +462,22 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                   SizedBox(
                                                     width: 2.w,
                                                   ),
-                                                  InkWell(
-                                                    onTap: () => controller
-                                                        .launchSocialLink(
-                                                            event?.socialLinks![
-                                                                    index] ??
-                                                                ""),
-                                                    child: Text(
-                                                        event?.socialLinks?[
-                                                                index] ??
-                                                            "",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall),
+                                                  Expanded(
+                                                    child: InkWell(
+                                                      onTap: () => launchUrlWeb(
+                                                          event?.socialLinks![
+                                                                  index] ??
+                                                              ""),
+                                                      child: Text(
+                                                          maxLines: 4,
+                                                          event?.socialLinks?[
+                                                                  index] ??
+                                                              "",
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodySmall),
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     width: 2.w,
