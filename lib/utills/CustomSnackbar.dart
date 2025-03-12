@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as get_package;
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomSnackbar {
   // Success Snackbar
   static void showSuccess(String title, String message) {
-    Get.snackbar(
+    get_package.Get.snackbar(
       title,
       message,
+      maxWidth: Device.screenType == ScreenType.tablet ? 50.w : 70.w,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.green,
       colorText: Colors.white,
@@ -19,10 +22,10 @@ class CustomSnackbar {
 
   // Error Snackbar
   static void showError(String title, String message) {
-    Get.snackbar(
+    get_package.Get.snackbar(
       title,
       message,
-      maxWidth: 300,
+      maxWidth: Device.screenType == ScreenType.tablet ? 50.w : 70.w,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.red,
       colorText: Colors.white,
@@ -35,9 +38,10 @@ class CustomSnackbar {
 
   // Info Snackbar
   static void showInfo(String title, String message) {
-    Get.snackbar(
+    get_package.Get.snackbar(
       title,
       message,
+      maxWidth: Device.screenType == ScreenType.tablet ? 50.w : 70.w,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.blue,
       colorText: Colors.white,
@@ -50,9 +54,10 @@ class CustomSnackbar {
 
   // Warning Snackbar
   static void showWarning(String title, String message) {
-    Get.snackbar(
+    get_package.Get.snackbar(
       title,
       message,
+      maxWidth: Device.screenType == ScreenType.tablet ? 50.w : 70.w,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.orange,
       colorText: Colors.white,

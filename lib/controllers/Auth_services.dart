@@ -56,11 +56,10 @@ class AuthService extends GetxService {
         me.value = responseData;
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -104,11 +103,10 @@ class AuthService extends GetxService {
         return responseData;
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -168,11 +166,10 @@ class AuthService extends GetxService {
         return responseData;
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -191,8 +188,7 @@ class AuthService extends GetxService {
         await deleteAuthTokenAndNavigate(message: "Logged out successfully");
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       Get.back();
@@ -219,11 +215,10 @@ class AuthService extends GetxService {
         return jsonDecode(response.body);
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -247,11 +242,10 @@ class AuthService extends GetxService {
         return jsonDecode(response.body);
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -275,10 +269,10 @@ class AuthService extends GetxService {
   //     if (response.statusCode == 200) {
   //       return jsonDecode(response.body);
   //     } else {
-  //       throw Exception("An error occurred: ${response.body}");
+  //       throw "An error occurred: ${response.body}");
   //     }
   //   } catch (e) {
-  //     throw Exception(e.toString());
+  //     throw e.toString());
   //   }
   // }
 
@@ -299,13 +293,12 @@ class AuthService extends GetxService {
   //     if (response.statusCode == 200) {
   //       return jsonDecode(response.body);
   //     } else {
-  //       throw Exception("An error occurred: ${response.body}");
+  //       throw "An error occurred: ${response.body}");
   //     }
   //   } catch (e) {
-  //     throw Exception(e.toString());
+  //     throw e.toString());
   //   }
   // }
 }
 
 final AuthService authService = Get.find();
-

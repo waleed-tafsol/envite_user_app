@@ -75,15 +75,21 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         controller
                                                 .categories[index].icon!.isEmpty
                                             ? SizedBox(
-                                                width: 14.w,
-                                                height: 14.w,
+                                                // width: 14.w,
+                                                height: 5.h,
                                               )
                                             : Image.network(
                                                 controller.categories[index]
                                                         .icon ??
                                                     '',
-                                                width: 14.w,
-                                                height: 14.w,
+                                                // width: 14.w,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Icon(
+                                                  Icons.error,
+                                                  color: Colors.white,
+                                                ),
+                                                height: 5.h,
                                               ),
                                         Padding(
                                           padding: EdgeInsets.symmetric(

@@ -27,6 +27,7 @@ class ProfileScreen extends GetView<MyProfileController> {
               child: Image.asset(
                 Assets.ellips,
                 width: 100.w,
+                fit: BoxFit.fitWidth,
               )),
           Padding(
             padding: EdgeInsets.only(right: 4.w, left: 4.w, top: 7.h),

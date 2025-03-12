@@ -23,134 +23,114 @@ class AuthScreen extends StatelessWidget {
               bottom: 0,
               child: Image.asset(
                 Assets.splash_vector,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
               ),
             ),
-            Positioned(
-              top: 20.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: Image.asset(
-                  Assets.app_Logo,
-                  width: 60.w,
-                  fit: BoxFit.fitWidth,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  height: 10.h,
                 ),
-              ),
-            ),
-            Positioned(
-              top: 30.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: RichText(
-                  text: TextSpan(
-                    text: '',
-                    style: TextStyle(
-                        color: Colors.black, height: 1.7, fontSize: 28.sp),
-                    children: const <TextSpan>[
-                      TextSpan(
-                        text: 'Create Event \n',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: Image.asset(
+                    Assets.app_Logo,
+                    width: 60.w,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: RichText(
+                    text: TextSpan(
+                      text: '',
+                      style: TextStyle(
+                          color: Colors.black, height: 1.7, fontSize: 28.sp),
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text: 'Create Event \n',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: 'and ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            // fontSize: 10.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'invite\n',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: 'people ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            // fontSize: 10.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'faster!',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: '.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: InkWell(
+                    onTap: () => Get.toNamed(SigninScreen.routeName),
+                    child: Container(
+                      height: 7.h,
+                      // width: 95.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.kPrimaryColor,
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      TextSpan(
-                        text: 'and ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          // fontSize: 10.sp,
+                      child: const Center(
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      TextSpan(
-                        text: 'invite\n',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: InkWell(
+                    onTap: () => Get.toNamed(SignUpScreen.routeName),
+                    child: Container(
+                      height: 7.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      TextSpan(
-                        text: 'people ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          // fontSize: 10.sp,
+                      child: Center(
+                        child: Text(
+                          "Create an account",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.blue[300],
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      TextSpan(
-                        text: 'faster!',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '.',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 25.h,
-              right: 0,
-              left: 0,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: InkWell(
-                  onTap: () => Get.toNamed(SigninScreen.routeName),
-                  child: Container(
-                    height: 7.h,
-                    // width: 95.w,
-                    decoration: BoxDecoration(
-                      color: AppColors.kPrimaryColor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 15.h,
-              right: 0,
-              left: 0,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: InkWell(
-                  onTap: () => Get.toNamed(SignUpScreen.routeName),
-                  child: Container(
-                    height: 7.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Create an account",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.blue[300],
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
+                SizedBox(
+                  height: 10.h,
                 ),
-              ),
+              ],
             ),
-            // Positioned(
-            //   bottom: 10.h,
-            //   right: 0,
-            //   left: 0,
-            //   child: Center(
-            //     child: Padding(
-            //       padding: EdgeInsets.symmetric(horizontal: 4.w),
-            //       child: GestureDetector(
-            //           onTap: () => Get.offAndToNamed(NavBarScreen.routeName),
-            //           child: Text(
-            //             "Start As A Guest",
-            //             style: TextConstants.bodyMedium_black_normal(context),
-            //           )),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
