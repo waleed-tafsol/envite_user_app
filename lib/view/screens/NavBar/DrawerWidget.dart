@@ -70,40 +70,40 @@ class MyDrawer extends StatelessWidget {
                   SizedBox(
                     height: 4.h,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(AdsScreen.routeName);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          size: 2.h,
-                          Icons.volume_up_outlined,
-                          color: AppColors.kBlueMediumShade,
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text("Ads",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    color: AppColors.kBlueMediumShade,
-                                    fontSize: 16.sp)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Divider(
-                      thickness: 0.1,
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Get.toNamed(AdsScreen.routeName);
+                  //   },
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         size: 2.h,
+                  //         Icons.volume_up_outlined,
+                  //         color: AppColors.kBlueMediumShade,
+                  //       ),
+                  //       SizedBox(
+                  //         width: 4.w,
+                  //       ),
+                  //       Text("Ads",
+                  //           style: Theme.of(context)
+                  //               .textTheme
+                  //               .bodyLarge!
+                  //               .copyWith(
+                  //                   color: AppColors.kBlueMediumShade,
+                  //                   fontSize: 16.sp)),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 1.h,
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: const Divider(
+                  //     thickness: 0.1,
+                  //     color: AppColors.kBlueMediumShade,
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 1.h,
                   ),
@@ -141,78 +141,78 @@ class MyDrawer extends StatelessWidget {
                       color: AppColors.kBlueMediumShade,
                     ),
                   ),
+                  // SizedBox(
+                  //   height: 1.h,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Icon(
+                  //       size: 2.h,
+                  //       Icons.settings_outlined,
+                  //       color: AppColors.kBlueMediumShade,
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4.w,
+                  //     ),
+                  //     Text("Settings",
+                  //         style: Theme.of(context)
+                  //             .textTheme
+                  //             .bodyMedium!
+                  //             .copyWith(
+                  //                 color: AppColors.kBlueMediumShade,
+                  //                 fontSize: 16.sp)),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 1.h,
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: const Divider(
+                  //     thickness: 0.1,
+                  //     color: AppColors.kBlueMediumShade,
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 1.h,
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        size: 2.h,
-                        Icons.settings_outlined,
-                        color: AppColors.kBlueMediumShade,
-                      ),
-                      SizedBox(
-                        width: 4.w,
-                      ),
-                      Text("Settings",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  color: AppColors.kBlueMediumShade,
-                                  fontSize: 16.sp)),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Divider(
-                      thickness: 0.1,
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(CouponScreen.routeName);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          size: 2.h,
-                          Icons.discount_outlined,
-                          color: AppColors.kBlueMediumShade,
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text("Coupon",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color: AppColors.kBlueMediumShade,
-                                    fontSize: 16.sp)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Divider(
-                      thickness: 0.1,
-                      color: AppColors.kBlueMediumShade,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Get.toNamed(CouponScreen.routeName);
+                  //   },
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         size: 2.h,
+                  //         Icons.discount_outlined,
+                  //         color: AppColors.kBlueMediumShade,
+                  //       ),
+                  //       SizedBox(
+                  //         width: 4.w,
+                  //       ),
+                  //       Text("Coupon",
+                  //           style: Theme.of(context)
+                  //               .textTheme
+                  //               .bodyMedium!
+                  //               .copyWith(
+                  //                   color: AppColors.kBlueMediumShade,
+                  //                   fontSize: 16.sp)),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 1.h,
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: const Divider(
+                  //     thickness: 0.1,
+                  //     color: AppColors.kBlueMediumShade,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 1.h,
+                  // ),
                   InkWell(
                     onTap: () {
                       // Get.toNamed(BuyPackagesScreen.routeName,

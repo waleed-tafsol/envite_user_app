@@ -39,7 +39,8 @@ class _MembershipContainerState extends State<MembershipContainer> {
       final jsonResponse = json.decode(response.body);
       if (response.statusCode == 200) {
         // final List<dynamic> data = jsonResponse['data'];
-        CustomSnackbar.showSuccess('Success', 'Subscription canceled successfully');
+        CustomSnackbar.showSuccess(
+            'Success', 'Subscription canceled successfully');
         authService.getMe();
         // packages.value = data.map((e) => PackagesModel.fromJson(e)).toList();
       } else {
@@ -92,8 +93,10 @@ class _MembershipContainerState extends State<MembershipContainer> {
                               .copyWith(color: AppColors.kBerkeleyBlue),
                           children: [
                             TextSpan(
-                              text: capitalizeFirstLetter(
-                                  widget.subscription?.type ?? ""),
+                              text: widget.subscription?.price == 0
+                                  ? "Free"
+                                  : capitalizeFirstLetter(
+                                      widget.subscription?.type ?? ""),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!

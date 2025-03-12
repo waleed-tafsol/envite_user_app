@@ -50,5 +50,5 @@ class ApiConstants {
   static const getPlannedEvent = "${baseUrl}event/attending/all";
   static const attendEvent = "${baseUrl}event/attend/";
   // Notifications
-  static const getNotifications = "${baseUrl}notifications";
+  static const getNotifications = "${baseUrl}notifications/all";
 }

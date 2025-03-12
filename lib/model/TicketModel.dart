@@ -29,7 +29,8 @@ class TicketModel {
     description = json['description'];
     ticketNumber = json['ticketNumber'];
     // createdBy = json['createdBy'];
-    image = ApiConstants.s3bucket + json['image'];
+    image =
+        json['image'] != null ? ApiConstants.s3bucket + json['image'] : null;
     status = json['status'];
     sId = json['_id'];
     createdAt = json['createdAt'];

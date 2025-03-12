@@ -25,7 +25,8 @@ class SupportScreen extends GetView<SupportController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,7 +34,8 @@ class SupportScreen extends GetView<SupportController> {
                     children: List<Widget>.generate(
                       controller.allTypes.length,
                       (int index) {
-                        return Expanded(
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 1.w),
                           child: ChoiceChip(
                             backgroundColor: AppColors.kBlueMediumShade,
                             selectedColor: AppColors.kPrimaryColor,

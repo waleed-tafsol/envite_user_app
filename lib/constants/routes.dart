@@ -1,5 +1,6 @@
 import 'package:event_planner_light/bindings/AdsBindings.dart';
 import 'package:event_planner_light/bindings/CuponsBindings.dart';
+import 'package:event_planner_light/bindings/NotificationScreen.dart';
 import 'package:event_planner_light/bindings/event_detail_bindings.dart';
 import 'package:event_planner_light/bindings/membership_binding.dart';
 import 'package:event_planner_light/bindings/navBarBinding.dart';
@@ -148,7 +149,7 @@ class Pages {
         return GetPageRoute(
           settings: settings,
           page: () => const NotificationScreen(),
-          // binding: AuthBinding(),
+          binding: NotificationBindings(),
           transition: _routeTransition,
         );
       case MembershipScreen.routeName:

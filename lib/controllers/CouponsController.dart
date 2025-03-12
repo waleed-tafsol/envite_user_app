@@ -49,5 +49,4 @@ class CouponsController extends GetxController {
       CustomSnackbar.showError('Error', e.toString());
     }
   }
-
 }

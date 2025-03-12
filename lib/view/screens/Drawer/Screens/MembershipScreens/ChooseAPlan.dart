@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/model/PackagesModel.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../constants/ApiConstant.dart';
+import '../../../../../controllers/Auth_services.dart';
+import '../../../../../utills/CustomSnackbar.dart';
 import '../../../../../utills/string_decoration.dart';
 
 class ChoosePlanContainer extends StatelessWidget {
@@ -15,19 +22,50 @@ class ChoosePlanContainer extends StatelessWidget {
     required this.package,
   });
   final PackagesModel? package;
+
+  paymentConfirmed() async {
+    try {
+      Get.dialog(Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+      final response =
+          await http.patch(Uri.parse(ApiConstants.buyPackages + package!.slug!),
+              body: jsonEncode({
+                "noOfInvites": package?.invites,
+              }),
+              headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      if (response.statusCode == 200) {
+        await authService.getMe();
+        // isloading.value = false;
+        CustomSnackbar.showSuccess("Successful", "payment was successful");
+        Get.until((route) => route.settings.name == NavBarScreen.routeName);
+      } else {
+        // isloading.value = false;
+        final jsonResponse = jsonDecode(response.body);
+        throw Exception(jsonResponse["message"]["error"][0] ??
+            "SomeThing Went Wrong Payment was not successful");
+      }
+    } catch (e) {
+      Get.back();
+      // isloading.value = false;
+      CustomSnackbar.showError('Error', e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // final PaymentController paymentController =
-        //     Get.put(PaymentController());
-        // paymentController.packagesModel.value = package!;
-        Get.toNamed(PaymentScreen.routeName, arguments: {
-          "istopupPayment": false,
-          "packagesModel": package,
-          "noOfInvites": package?.invites ?? 0,
-          "routeToPopTill": Get.currentRoute
-        });
+        package?.price == 0
+            ? paymentConfirmed()
+            : Get.toNamed(PaymentScreen.routeName, arguments: {
+                "istopupPayment": false,
+                "packagesModel": package,
+                "noOfInvites": package?.invites ?? 0,
+                "routeToPopTill": Get.currentRoute
+              });
       },
       child: Container(
         width: double.infinity,
@@ -54,7 +92,7 @@ class ChoosePlanContainer extends StatelessWidget {
               height: 1.h,
             ),
             Text(
-              "\$ ${package?.price.toString()} ",
+              "\$ ${package?.price == 0 ? " 0 / Free" : package?.price} ",
               style: TextStyle(
                   color: AppColors.kBluedarkShade,
                   fontSize: 18.sp,

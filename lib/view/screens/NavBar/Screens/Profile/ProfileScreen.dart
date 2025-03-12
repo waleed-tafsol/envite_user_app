@@ -188,7 +188,6 @@ class ProfileScreen extends GetView<MyProfileController> {
                     }).toList(),
                   );
                 }),
-
                 k3hSizedBox,
                 Align(
                   alignment: Alignment.centerLeft,
@@ -201,7 +200,6 @@ class ProfileScreen extends GetView<MyProfileController> {
                   ),
                 ),
                 k1hSizedBox,
-
                 TopupContainer(),
                 // CustomOutlinedButton(
                 //   contant: [
