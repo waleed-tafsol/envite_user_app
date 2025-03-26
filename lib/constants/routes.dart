@@ -44,7 +44,7 @@ import '../bindings/OtpBindings.dart';
 import '../bindings/TopUpsControllerBindings.dart';
 import '../bindings/auth_binding.dart';
 import '../view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
-import '../view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
+import '../view/screens/Drawer/Screens/MembershipScreens/BuyPackagesScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
 import '../view/screens/NavBar/Screens/Home/HomeScreen.dart';
