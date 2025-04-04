@@ -42,7 +42,7 @@ class EventDetailController extends GetxController {
   }
 
   void sendInvites(BuildContext context) {
-    final hasInvites = authService.me.value!.totalAddonInvites! > 0;
+    final hasInvites = authService.me.value!.remainingInvites! > 0;
     if (hasInvites) {
       ShareService.shareMessage("I am inviting you to this event");
     } else {
