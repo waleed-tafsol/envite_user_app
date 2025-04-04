@@ -11,6 +11,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../constants/ApiConstant.dart';
 import '../../../../../../constants/colors_constants.dart';
 import '../../../../../../constants/constants.dart';
+import '../../../../NavBar/NavBarScreen.dart';
 
 void addOnsDailogBox(BuildContext ctx) {
   showDialog(
@@ -98,15 +99,17 @@ void addOnsDailogBox(BuildContext ctx) {
                             ),
                             onPressed: () {
                               controller.invites.value != 0
-                                  ? Get.toNamed(PaymentScreen.routeName,
-                                      arguments: {
-                                          "istopupPayment": true,
-                                          "packagesModel":
-                                              controller.topups?.value,
-                                          "noOfInvites":
-                                              controller.invites.value,
-                                          "routeToPopTill": Get.currentRoute
-                                        })
+                                  ? controller.topups?.value?.price == 0
+                                      ? controller.topUpPaymentConfirmed()
+                                      : Get.toNamed(PaymentScreen.routeName,
+                                          arguments: {
+                                              "istopupPayment": true,
+                                              "packagesModel":
+                                                  controller.topups?.value,
+                                              "noOfInvites":
+                                                  controller.invites.value,
+                                              "routeToPopTill": Get.currentRoute
+                                            })
                                   : CustomSnackbar.showError(
                                       "Error", "Please add invites");
                             },
@@ -164,6 +167,37 @@ class AddonsdailodboxController extends GetxController {
     invites.value != 0 ? invites-- : null;
   }
 
+  topUpPaymentConfirmed() async {
+    try {
+      Get.dialog(Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+      final response = await http
+          .patch(Uri.parse(ApiConstants.buyPackages + topups!.value!.slug!),
+              body: jsonEncode({
+                "noOfInvites": invites.value,
+              }),
+              headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authService.authToken}',
+          });
+      if (response.statusCode == 200) {
+        await authService.getMe();
+        // isloading.value = false;
+        CustomSnackbar.showSuccess("Successful", "payment was successful");
+        Get.until((route) => route.settings.name == NavBarScreen.routeName);
+      } else {
+        // isloading.value = false;
+        final jsonResponse = jsonDecode(response.body);
+        throw Exception(jsonResponse["message"]["error"][0] ??
+            "SomeThing Went Wrong Payment was not successful");
+      }
+    } catch (e) {
+      Get.back();
+      // isloading.value = false;
+      CustomSnackbar.showError('Error', e.toString());
+    }
+  }
+
   Future<void> getAllPackages() async {
     isloading.value = true;
     try {
@@ -188,7 +222,6 @@ class AddonsdailodboxController extends GetxController {
       CustomSnackbar.showError('Error', e.toString());
     }
   }
-
 }
 
 void demoDailogBoxWithText(BuildContext ctx, String text) {

@@ -71,7 +71,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                                 hintText: "Full Name",
                                 prefixIcon: Icon(Icons.person_2_outlined),
                               )),
-                          SizedBox(
+                       /*   SizedBox(
                             height: 2.h,
                           ),
                           TextFormField(
@@ -89,7 +89,7 @@ class SignUpScreen extends GetView<Signupcontroller> {
                               decoration: const InputDecoration(
                                 hintText: "Phone Number",
                                 prefixIcon: Icon(Icons.phone_android_sharp),
-                              )),
+                              )),*/
                           SizedBox(
                             height: 2.h,
                           ),

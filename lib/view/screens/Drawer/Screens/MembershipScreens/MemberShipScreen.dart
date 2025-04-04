@@ -1,6 +1,6 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/ButPackagesScreen.dart';
+import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/BuyPackagesScreen.dart';
 import 'package:event_planner_light/view/widgets/topup_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,7 +3,7 @@ class ApiConstants {
   // static const baseUrl = "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/";
   static const googleAPIKey = "AIzaSyAsZkmP4p9OGxlhCsKKUAIW7C6VZpRiYwg";
   static const baseUrl =
-      "https://envite-backend-dd-b4186efeeb1d.herokuapp.com/api/v1/";
+      "https://envite-backend-dg-8d3abe083eef.herokuapp.com/api/v1/";
   static const s3bucket =
       "https://envite-bucket.s3.me-central-1.amazonaws.com/";
 
