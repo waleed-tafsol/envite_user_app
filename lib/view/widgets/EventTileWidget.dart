@@ -9,7 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constants/colors_constants.dart';
 import '../../utills/ConvertDateTime.dart';
 import '../../utills/string_decoration.dart';
-import '../screens/events_detail_screen.dart';
+import '../screens/NavBar/Screens/EventDetailScreen/events_detail_screen.dart';
 import 'StatusTagWidget.dart';
 
 class EventTileWidget extends StatelessWidget {

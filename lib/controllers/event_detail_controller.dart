@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:event_planner_light/model/event_detail_response.dart';
-import 'package:event_planner_light/services/ShareServices.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/utills/enums.dart';
 import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
@@ -44,7 +43,6 @@ class EventDetailController extends GetxController {
   void sendInvites(BuildContext context) {
     final hasInvites = authService.me.value!.remainingInvites! > 0;
     if (hasInvites) {
-      ShareService.shareMessage("I am inviting you to this event");
     } else {
       BottomSheetManager.upgradEvent(context);
     }

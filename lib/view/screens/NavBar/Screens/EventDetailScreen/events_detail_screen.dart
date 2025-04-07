@@ -2,24 +2,25 @@ import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScreen/ContactsScreen.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../constants/constants.dart';
-import '../../controllers/edit_event_detail_controller.dart';
-import '../../controllers/filters_controller.dart';
-import '../../shimmer_loaders/event_tile_shimmer.dart';
-import '../../utills/CopyText.dart';
-import '../../utills/UrlLauncherUtills.dart';
-import '../../utills/enums.dart';
-import '../../utills/string_decoration.dart';
-import '../widgets/EventTileWidget.dart';
-import '../widgets/PhotoViewerWidget.dart';
-import '../widgets/network_video_player_widget.dart';
-import 'NavBar/Screens/my_events/edit_event_details.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../controllers/edit_event_detail_controller.dart';
+import '../../../../../controllers/filters_controller.dart';
+import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
+import '../../../../../utills/CopyText.dart';
+import '../../../../../utills/UrlLauncherUtills.dart';
+import '../../../../../utills/enums.dart';
+import '../../../../../utills/string_decoration.dart';
+import '../../../../widgets/EventTileWidget.dart';
+import '../../../../widgets/PhotoViewerWidget.dart';
+import '../../../../widgets/network_video_player_widget.dart';
+import '../my_events/edit_event_details.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
   static const routeName = 'EventsDetailScreen';
@@ -585,7 +586,16 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                 backgroundColor:
                                                     AppColors.kPrimaryColor),
                                             onPressed: () {
-                                              controller.sendInvites(context);
+                                              // controller.sendInvites(context);
+                                              // controller
+                                              //     .showContactSelectionBottomSheet(
+                                              //         context);
+                                              Get.toNamed(
+                                                  ContactsSelectionScreen
+                                                      .routeName,
+                                                  arguments: {
+                                                    "eventslug": event?.slug
+                                                  });
                                             },
                                             child: Text(
                                               'Send Invite',

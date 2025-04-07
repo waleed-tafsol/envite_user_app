@@ -23,7 +23,7 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/Home/ChooseYourL
 import 'package:event_planner_light/view/screens/NavBar/Screens/Home/nearby_events.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/edit_profile_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/edit_event_details.dart';
-import 'package:event_planner_light/view/screens/events_detail_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScreen/events_detail_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
@@ -40,6 +40,7 @@ import 'package:get/get.dart';
 import '../bindings/AddEAnventsBindings.dart';
 import '../bindings/ChooseYourLocationBindings.dart';
 import '../bindings/CmsBindings.dart';
+import '../bindings/ContactsSelectionBindings.dart';
 import '../bindings/OtpBindings.dart';
 import '../bindings/TopUpsControllerBindings.dart';
 import '../bindings/auth_binding.dart';
@@ -47,6 +48,7 @@ import '../view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.da
 import '../view/screens/Drawer/Screens/MembershipScreens/BuyPackagesScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import '../view/screens/Drawer/Screens/MembershipScreens/PaymentScreen.dart';
+import '../view/screens/NavBar/Screens/EventDetailScreen/ContactsScreen.dart';
 import '../view/screens/NavBar/Screens/Home/HomeScreen.dart';
 import '../view/screens/Drawer/Screens/NotificationScreens/NotificationScreen.dart';
 // import '../view/screens/NavBar/SuggestedEventDetailScreen.dart';
@@ -339,13 +341,13 @@ class Pages {
           page: () => EditEventsDetailScreen(),
           transition: _routeTransition,
         );
-      // case BuyTopUpsScreen.routeName:
-      //   return GetPageRoute(
-      //     settings: settings,
-      //     page: () => BuyTopUpsScreen(),
-      //     // binding: Createportfoliobindings(),
-      //     transition: _routeTransition,
-      //   );
+      case ContactsSelectionScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => ContactsSelectionScreen(),
+          binding: ContactSelectionBindings(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

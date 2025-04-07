@@ -1,7 +1,7 @@
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/model/event_model.dart';
-import 'package:event_planner_light/view/screens/events_detail_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScreen/events_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
