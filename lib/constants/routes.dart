@@ -27,6 +27,7 @@ import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScree
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/packages_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/send_invite_screen.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/PaymentWebView.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_event_detail_screen.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/ForgotMyPasswordScreen.dart';
@@ -346,6 +347,12 @@ class Pages {
           settings: settings,
           page: () => ContactsSelectionScreen(),
           binding: ContactSelectionBindings(),
+          transition: _routeTransition,
+        );
+      case PaymentWebviewScreen.routeName:
+        return GetPageRoute(
+          settings: settings,
+          page: () => PaymentWebviewScreen(),
           transition: _routeTransition,
         );
 

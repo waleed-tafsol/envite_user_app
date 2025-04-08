@@ -1,13 +1,10 @@
+import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/PaymentWebView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
-import '../Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
-import '../Drawer/Screens/MembershipScreens/Widget/AddonsDailodBox.dart';
-import '../Drawer/Screens/couponScreen.dart';
 import '../Drawer/Screens/supportScreen/supportScreen.dart';
-import '../ads/ads_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -215,10 +212,11 @@ class MyDrawer extends StatelessWidget {
                   // ),
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(BuyPackagesScreen.routeName,
-                      //     arguments: {"type": "addon"});
+                      Get.toNamed(
+                        PaymentWebviewScreen.routeName,
+                      );
                       // TopupsDailogBox();
-                      addOnsDailogBox(context);
+                      // addOnsDailogBox(context);
                     },
                     child: Row(
                       children: [
@@ -250,7 +248,10 @@ class MyDrawer extends StatelessWidget {
                       height: 6.h,
                       child: OutlinedButton(
                         onPressed: () async {
-                          Get.toNamed(MembershipScreen.routeName);
+                          // Get.toNamed(MembershipScreen.routeName);
+                          Get.toNamed(
+                            PaymentWebviewScreen.routeName,
+                          );
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor: AppColors.kBlueMediumShade,
