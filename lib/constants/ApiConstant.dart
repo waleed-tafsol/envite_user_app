@@ -29,8 +29,8 @@ class ApiConstants {
   static const eventDetail = "${baseUrl}event/detail/";
   static const addEvent = "${baseUrl}event";
   static const updateEvent = "${baseUrl}event/update/";
-  static const sendContacts =
-      "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/event/invitation/send/";
+  static const sendContacts = "${baseUrl}event/invitation/send/";
+  static const invitationUrl = "${baseUrl}event/invitation/";
   // static const getMyCatagories = "${baseUrl}category/my/all";
   // Packages
   static const getAllPackages = "${baseUrl}packages/all";

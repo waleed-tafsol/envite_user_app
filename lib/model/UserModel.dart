@@ -73,9 +73,8 @@ class UserModel {
       this.password});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    location = json['location'] != null
-        ? Location.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
     sId = json['_id'];
     slug = json['slug'];
     slugId = json['slugId'];
@@ -83,8 +82,7 @@ class UserModel {
     photo = ApiConstants.s3bucket + json['photo'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];
-    wallet =
-        json['wallet'] != null ? Wallet.fromJson(json['wallet']) : null;
+    wallet = json['wallet'] != null ? Wallet.fromJson(json['wallet']) : null;
     role = json['role'].cast<String>();
     if (json['fcmTokens'] != null) {
       fcmTokens = <String>[];
@@ -179,8 +177,7 @@ class UserModel {
     data['createdBy'] = createdBy;
     data['description'] = description;
     if (subscriptions != null) {
-      data['subscriptions'] =
-          subscriptions!.map((v) => v.toJson()).toList();
+      data['subscriptions'] = subscriptions!.map((v) => v.toJson()).toList();
     }
     // if (this.uniqueDeviceIds != null) {
     //   data['uniqueDeviceIds'] = this.uniqueDeviceIds!.map((v) => v).toList();

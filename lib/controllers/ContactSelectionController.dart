@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../constants/colors_constants.dart';
+import '../utills/UrlLauncherUtills.dart';
 
 class ContactSelectionController extends GetxController {
   final TextEditingController searchController = TextEditingController();
@@ -98,12 +99,20 @@ class ContactSelectionController extends GetxController {
       );
       final jsonResponse = json.decode(response.body);
       if (response.statusCode == 201) {
-        CustomSnackbar.showSuccess(
-          'Success',
-          'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/event/invitation/$selectedEventId/${selectedContacts[0].phones.first.number}',
-        );
-        print(
-            'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/event/invitation/$selectedEventId/${selectedContacts[0].phones.first.number}');
+        authService.me.value?.remainingInvites =
+            authService.me.value!.remainingInvites! - 1;
+        authService.me.refresh();
+        final url = Uri.parse(
+            '${ApiConstants.invitationUrl}$selectedEventId/${selectedContacts[0].phones.first.number}');
+
+        Get.dialog(AlertDialog(
+            content: GestureDetector(
+                onTap: () => launchUrlWeb(url.toString()),
+                child: Text(
+                  url.toString(),
+                  style: TextStyle(color: Colors.black),
+                ))));
+
         selectedContacts.clear();
         searchedContacts.value = List.from(allContacts); // Reset the list
       } else if (response.statusCode == 400) {
@@ -132,25 +141,43 @@ class ContactSelectionController extends GetxController {
   void showAddContactDialog() {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController phoneController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
 
     // Show the dialog using Get.dialog
     Get.dialog(
       AlertDialog(
         title: Text('Add Contact'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Name'),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: phoneController,
-              decoration: InputDecoration(labelText: 'Phone'),
-              keyboardType: TextInputType.phone,
-            ),
-          ],
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a name';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: 'Name'),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: phoneController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a phone number';
+                  } else if (!value.isPhoneNumber) {
+                    return 'Please enter a valid phone number';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: 'Phone'),
+                keyboardType: TextInputType.phone,
+              ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -163,44 +190,46 @@ class ContactSelectionController extends GetxController {
           ),
           TextButton(
             onPressed: () {
-              if ((authService.me.value?.remainingInvites ?? 0) -
-                      selectedContacts.length !=
-                  0) {
-                String name = nameController.text.trim();
-                String phone = phoneController.text.trim();
+              if (formKey.currentState!.validate()) {
+                if ((authService.me.value?.remainingInvites ?? 0) -
+                        selectedContacts.length !=
+                    0) {
+                  String name = nameController.text.trim();
+                  String phone = phoneController.text.trim();
 
-                if (name.isNotEmpty && phone.isNotEmpty) {
-                  // Add the contact logic here (e.g., add to a list or database)
-                  final newContact = Contact(
-                      id: DateTime.now()
-                          .millisecondsSinceEpoch
-                          .toString(), // Generate a unique ID
-                      structuredName: StructuredName(
-                        displayName: name,
-                        namePrefix: "",
-                        givenName: name,
-                        middleName: "",
-                        familyName: "",
-                        nameSuffix: "",
-                      ),
-                      phones: [Phone(number: phone, label: 'mobile')],
-                      emails: [],
-                      organization: Organization(
-                          company: "", department: "", jobDescription: ""));
-                  selectedContacts.add(newContact);
-                  Get.back();
+                  if (name.isNotEmpty && phone.isNotEmpty) {
+                    // Add the contact logic here (e.g., add to a list or database)
+                    final newContact = Contact(
+                        id: DateTime.now()
+                            .millisecondsSinceEpoch
+                            .toString(), // Generate a unique ID
+                        structuredName: StructuredName(
+                          displayName: name,
+                          namePrefix: "",
+                          givenName: name,
+                          middleName: "",
+                          familyName: "",
+                          nameSuffix: "",
+                        ),
+                        phones: [Phone(number: phone, label: 'mobile')],
+                        emails: [],
+                        organization: Organization(
+                            company: "", department: "", jobDescription: ""));
+                    selectedContacts.add(newContact);
+                    Get.back();
+                  } else {
+                    // Show error message if any field is empty
+                    CustomSnackbar.showError(
+                      'Error',
+                      'Please fill out both fields',
+                    );
+                  }
                 } else {
-                  // Show error message if any field is empty
                   CustomSnackbar.showError(
-                    'Error',
-                    'Please fill out both fields',
+                    "No Invites Left",
+                    "Please upgrade your plan to send invites",
                   );
                 }
-              } else {
-                CustomSnackbar.showError(
-                  "No Invites Left",
-                  "Please upgrade your plan to send invites",
-                );
               }
             },
             child: Text('Add',
