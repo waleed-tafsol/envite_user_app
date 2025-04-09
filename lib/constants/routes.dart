@@ -155,21 +155,21 @@ class Pages {
           binding: NotificationBindings(),
           transition: _routeTransition,
         );
-      case MembershipScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => const MembershipScreen(),
-          binding: MembershipBindings(),
-          transition: _routeTransition,
-        );
-      case PaymentScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => PaymentScreen(),
-          binding: PaymentControllerBindings(),
-          // binding: AuthBinding(),
-          transition: _routeTransition,
-        );
+      // case MembershipScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => const MembershipScreen(),
+      //     binding: MembershipBindings(),
+      //     transition: _routeTransition,
+      //   );
+      // case PaymentScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => PaymentScreen(),
+      //     binding: PaymentControllerBindings(),
+      //     // binding: AuthBinding(),
+      //     transition: _routeTransition,
+      //   );
 
       case ForgotMyPasswordEmailScreen.routeName:
         return GetPageRoute(
@@ -263,20 +263,20 @@ class Pages {
           binding: EditProfileBindings(),
           transition: _routeTransition,
         );
-      case Buytopups.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => Buytopups(),
-          binding: AddTopupsBindings(),
-          transition: _routeTransition,
-        );
-      case BuyPackagesScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => BuyPackagesScreen(),
-          binding: PackagesControllerBindings(),
-          transition: _routeTransition,
-        );
+      // case Buytopups.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => Buytopups(),
+      //     binding: AddTopupsBindings(),
+      //     transition: _routeTransition,
+      //   );
+      // case BuyPackagesScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => BuyPackagesScreen(),
+      //     binding: PackagesControllerBindings(),
+      //     transition: _routeTransition,
+      //   );
       // case MembershipScreen.routeName:
       //   return GetPageRoute(
       //     settings: settings,
@@ -313,13 +313,13 @@ class Pages {
           // binding: MembershipBindings(),
           transition: _routeTransition,
         );
-      case PackagesScreen.routeName:
-        return GetPageRoute(
-          settings: settings,
-          page: () => PackagesScreen(),
-          // binding: MembershipBindings(),
-          transition: _routeTransition,
-        );
+      // case PackagesScreen.routeName:
+      //   return GetPageRoute(
+      //     settings: settings,
+      //     page: () => PackagesScreen(),
+      //     // binding: MembershipBindings(),
+      //     transition: _routeTransition,
+      //   );
       case NearbyEvents.routeName:
         return GetPageRoute(
           settings: settings,

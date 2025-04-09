@@ -3,11 +3,11 @@ import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/constants/constants.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/MemberShipScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/assets.dart';
+import '../../../../widgets/CustomOutlinedButtonWidget.dart';
 
 class ConfirmorAddMoreEvents extends StatelessWidget {
   const ConfirmorAddMoreEvents({super.key});

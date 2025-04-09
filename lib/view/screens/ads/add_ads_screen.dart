@@ -93,7 +93,7 @@ class AddAdsScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.kPrimaryColor),
                         onPressed: () {
-                          Get.toNamed(MembershipScreen.routeName);
+                          // Get.toNamed(MembershipScreen.routeName);
                         },
                         child: Text(
                           'Send Request',

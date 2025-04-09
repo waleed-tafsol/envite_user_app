@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:event_planner_light/controllers/PackagesController.dart';
 import 'package:event_planner_light/services/FirebaseServices.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';

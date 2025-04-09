@@ -342,9 +342,9 @@ class BottomSheetManager {
       SizedBox(height: 2.h),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(
-            BuyPackagesScreen.routeName,
-          );
+          // Get.toNamed(
+          //   BuyPackagesScreen.routeName,
+          // );
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -386,7 +386,7 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
+          // Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -428,7 +428,7 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
+          // Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -470,7 +470,7 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
+          // Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

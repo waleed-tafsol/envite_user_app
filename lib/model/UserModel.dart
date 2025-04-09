@@ -1,4 +1,5 @@
 import 'package:event_planner_light/constants/ApiConstant.dart';
+import 'package:event_planner_light/model/AddonModel.dart';
 
 import 'LocationModel.dart';
 import 'SubscriptionModel.dart';
@@ -37,6 +38,7 @@ class UserModel {
   int? iV;
   String? loginAt;
   String? password;
+  AddonsModel? addon;
 
   UserModel(
       {this.location,
@@ -70,7 +72,8 @@ class UserModel {
       this.updatedAt,
       this.iV,
       this.loginAt,
-      this.password});
+      this.password,
+      this.addon});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     location =
@@ -130,6 +133,7 @@ class UserModel {
     //     uniqueDeviceIds!.add(v);
     //   });
     // }
+    addon = json['addon'] != null ? AddonsModel.fromJson(json['addon']) : null;
     lastLogin = json['lastLogin'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

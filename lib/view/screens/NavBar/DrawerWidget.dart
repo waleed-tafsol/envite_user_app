@@ -214,6 +214,10 @@ class MyDrawer extends StatelessWidget {
                     onTap: () {
                       Get.toNamed(
                         PaymentWebviewScreen.routeName,
+                        arguments: {
+                          'url':
+                              'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/users/render/topup/${authService.me.value?.slug}/${authService.me.value?.addon!.slug}',
+                        },
                       );
                       // TopupsDailogBox();
                       // addOnsDailogBox(context);
@@ -251,6 +255,10 @@ class MyDrawer extends StatelessWidget {
                           // Get.toNamed(MembershipScreen.routeName);
                           Get.toNamed(
                             PaymentWebviewScreen.routeName,
+                            arguments: {
+                              'url':
+                                  'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/users/packages/${authService.me.value!.slug}',
+                            },
                           );
                         },
                         style: OutlinedButton.styleFrom(

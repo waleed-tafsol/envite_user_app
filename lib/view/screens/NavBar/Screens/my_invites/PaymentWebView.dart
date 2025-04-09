@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/Colored_print.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentWebviewScreen extends StatefulWidget {
@@ -18,10 +17,14 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
   WebViewController controller = WebViewController();
   bool _isLoading = true;
   bool _hasError = false;
+  late String url;
 
   @override
   void initState() {
     super.initState();
+    if (Get.arguments != null) {
+      url = Get.arguments['url'];
+    }
 
     // Platform-specific initialization for iOS
     if (Platform.isIOS) {
@@ -81,8 +84,7 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(
-          'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/users/packages/${authService.me.value!.slug}'));
+      ..loadRequest(Uri.parse(url));
   }
 
   @override
