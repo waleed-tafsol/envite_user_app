@@ -1,3 +1,4 @@
+import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/PaymentWebView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -216,7 +217,7 @@ class MyDrawer extends StatelessWidget {
                         PaymentWebviewScreen.routeName,
                         arguments: {
                           'url':
-                              'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/users/render/topup/${authService.me.value?.slug}/${authService.me.value?.addon!.slug}',
+                              '${ApiConstants.topUps}${authService.me.value?.slug}/${authService.me.value?.addon!.slug}',
                         },
                       );
                       // TopupsDailogBox();
@@ -257,7 +258,7 @@ class MyDrawer extends StatelessWidget {
                             PaymentWebviewScreen.routeName,
                             arguments: {
                               'url':
-                                  'https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/users/packages/${authService.me.value!.slug}',
+                                  '${ApiConstants.upgradePlan}${authService.me.value!.slug}',
                             },
                           );
                         },

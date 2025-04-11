@@ -245,6 +245,95 @@ class ProfileScreen extends GetView<MyProfileController> {
                 SizedBox(
                   height: 10.h,
                 ),
+                InkWell(
+                  onTap: () {
+                    // _showDeleteConfirmationDialog() {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.h),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text(
+                                  'Delete Account',
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                k2hSizedBox,
+                                Text(
+                                  'Are you sure you want to delete your account? This action is irreversible.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                k1hSizedBox,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        authService.deleteAccount();
+                                      },
+                                      child: Text(
+                                        'Delete',
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                    // }
+                  },
+                  child: Container(
+                    height: 7.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColors.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Obx(() {
+                        return controller.isloading.value
+                            ? CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : Text(
+                                "Delete my account",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              );
+                      }),
+                    ),
+                  ),
+                ),
               ],
             ),
           )

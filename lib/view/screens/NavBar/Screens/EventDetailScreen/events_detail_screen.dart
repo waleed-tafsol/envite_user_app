@@ -569,44 +569,44 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       SizedBox(
                         height: 1.h,
                       ),
-                      Obx(() {
-                        final event = controller.eventDetailResponse.value.data;
-                        final isMyEvent =
-                            event?.createdBy?.sId == authService.me.value?.sId;
-                        final isPast = event?.status == Events.completed.text ||
-                            event?.status == Events.rejected.text;
-                        return controller.isLoading.value
-                            ? sizedShimmer(height: 5.h, width: double.infinity)
-                            : isMyEvent && !isPast
-                                ? Row(
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    AppColors.kPrimaryColor),
-                                            onPressed: () {
-                                              // controller.sendInvites(context);
-                                              // controller
-                                              //     .showContactSelectionBottomSheet(
-                                              //         context);
-                                              Get.toNamed(
-                                                  ContactsSelectionScreen
-                                                      .routeName,
-                                                  arguments: {
-                                                    "eventslug": event?.slug
-                                                  });
-                                            },
-                                            child: Text(
-                                              'Send Invite',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox();
-                      }),
+                      // Obx(() {
+                      //   final event = controller.eventDetailResponse.value.data;
+                      //   final isMyEvent =
+                      //       event?.createdBy?.sId == authService.me.value?.sId;
+                      //   final isPast = event?.status == Events.completed.text ||
+                      //       event?.status == Events.rejected.text;
+                      //   return controller.isLoading.value
+                      //       ? sizedShimmer(height: 5.h, width: double.infinity)
+                      //       : isMyEvent && !isPast
+                      //           ? Row(
+                      //               children: [
+                      //                 Expanded(
+                      //                   child: ElevatedButton(
+                      //                       style: ElevatedButton.styleFrom(
+                      //                           backgroundColor:
+                      //                               AppColors.kPrimaryColor),
+                      //                       onPressed: () {
+                      //                         // controller.sendInvites(context);
+                      //                         // controller
+                      //                         //     .showContactSelectionBottomSheet(
+                      //                         //         context);
+                      //                         Get.toNamed(
+                      //                             ContactsSelectionScreen
+                      //                                 .routeName,
+                      //                             arguments: {
+                      //                               "eventslug": event?.slug
+                      //                             });
+                      //                       },
+                      //                       child: Text(
+                      //                         'Send Invite',
+                      //                         style: TextStyle(
+                      //                             color: Colors.white),
+                      //                       )),
+                      //                 ),
+                      //               ],
+                      //             )
+                      //           : SizedBox();
+                      // }),
                       Obx(() {
                         final event = controller.eventDetailResponse.value.data;
                         final isAttending = event?.isAttending ?? false;

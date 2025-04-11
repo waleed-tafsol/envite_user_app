@@ -164,8 +164,12 @@ class AuthService extends GetxService {
         final responseData = jsonDecode(response.body);
         return responseData;
       } else {
-        final errorData = jsonDecode(response.body);
-        throw errorData["message"]["error"][0] ?? "An error occurred";
+        if (response.body.isNotEmpty) {
+          final errorData = jsonDecode(response.body);
+          throw errorData["message"]["error"][0] ?? "An error occurred";
+        } else {
+          throw "An error occurred";
+        }
       }
     } catch (e) {
       throw e.toString();
@@ -185,6 +189,31 @@ class AuthService extends GetxService {
       );
       if (response.statusCode == 200) {
         await deleteAuthTokenAndNavigate(message: "Logged out successfully");
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw errorData["message"]["error"][0] ?? "An error occurred";
+      }
+    } catch (e) {
+      Get.back();
+
+      CustomSnackbar.showError("Error", e.toString());
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    Get.dialog(const Center(child: CircularProgressIndicator()));
+    try {
+      final response = await http.post(
+        Uri.parse(ApiConstants.deleteAccount),
+        // body: jsonEncode({"fcmToken": FirebaseService.fcmToken}),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
+      );
+      if (response.statusCode == 201) {
+        await deleteAuthTokenAndNavigate(
+            message: "Account Deleted successfully");
       } else {
         final errorData = jsonDecode(response.body);
         throw errorData["message"]["error"][0] ?? "An error occurred";

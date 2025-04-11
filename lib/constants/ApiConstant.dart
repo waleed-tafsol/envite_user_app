@@ -1,9 +1,9 @@
 class ApiConstants {
   // dev tunnel url
-  static const baseUrl = "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/";
+  // static const baseUrl = "https://3pmq3hk5-3022.inc1.devtunnels.ms/api/v1/";
   static const googleAPIKey = "AIzaSyAsZkmP4p9OGxlhCsKKUAIW7C6VZpRiYwg";
-  // static const baseUrl =
-  //     "https://envite-backend-dg-8d3abe083eef.herokuapp.com/api/v1/";
+  static const baseUrl =
+      "https://envite-backend-dg-8d3abe083eef.herokuapp.com/api/v1/";
   static const s3bucket =
       "https://envite-bucket.s3.me-central-1.amazonaws.com/";
 
@@ -17,6 +17,7 @@ class ApiConstants {
   static const resendOtp = "${baseUrl}auth/resend/otp";
   static const register = "${baseUrl}auth/user/signup";
   static const eventPlannerRegister = "${baseUrl}auth/event/planner/signup";
+  static const deleteAccount = "${baseUrl}users/delete/me";
   // user
   static const getme = "${baseUrl}users/me";
   static const updateMe = "${baseUrl}users/update/me";
@@ -34,7 +35,8 @@ class ApiConstants {
   // static const getMyCatagories = "${baseUrl}category/my/all";
   // Packages
   static const getAllPackages = "${baseUrl}packages/all";
-  static const buyPackages = "${baseUrl}users/purchase/subscription/";
+  static const topUps = "${baseUrl}users/render/topup/";
+  static const upgradePlan = "${baseUrl}users/packages/";
   static const cancleSubscription = "${baseUrl}users/cancel/subscription";
 
   // support
