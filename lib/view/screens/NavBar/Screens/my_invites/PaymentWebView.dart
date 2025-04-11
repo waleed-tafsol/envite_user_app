@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/utills/Colored_print.dart';
+import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/view/screens/NavBar/NavBarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -65,17 +68,29 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
           onWebResourceError: (WebResourceError error) {
             ColoredPrint.red(error.errorCode.toString());
             // if (error.errorCode == -10) {
-            //   setState(() {
-            //     _isLoading = false;
-            //     _hasError = true;
-            //     ColoredPrint.green("in setstate");
-            //     controller.goBack();
-            //   });
+            // setState(() {
+            //   _isLoading = false;
+            //   _hasError = true;
+            //   ColoredPrint.green("in setstate");
+            //   controller.goBack();
+            // });
             // }
           },
           onNavigationRequest: (NavigationRequest request) async {
             if (request.url.startsWith('http') ||
                 request.url.startsWith('https')) {
+              ColoredPrint.yellow('url: ${request.url}');
+              if (request.url.contains('success')) {
+                // ColoredPrint.green('Payment Success: ${request.url}');
+                CustomSnackbar.showSuccess("Success", "Payment Success");
+                // Assuming you have a method to handle the success response
+                authService.getMe();
+                Get.offAllNamed(NavBarScreen.routeName);
+              } else if (request.url.contains('cancel')) {
+                // ColoredPrint.red('Payment Cancelled: ${request.url}');
+                CustomSnackbar.showError("Error", "Payment Cancelled");
+                Get.offAllNamed(NavBarScreen.routeName);
+              } else {}
               return NavigationDecision.navigate;
             } else {
               ColoredPrint.red('Blocked unknown URL scheme: ${request.url}');

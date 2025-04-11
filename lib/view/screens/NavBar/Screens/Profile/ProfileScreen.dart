@@ -148,13 +148,15 @@ class ProfileScreen extends GetView<MyProfileController> {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Obx(() {
-                      return Text(
-                        'Contact: ${authService.me.value?.phoneNumber ?? "About Me"}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(color: AppColors.kBerkeleyBlue),
-                      );
+                      return authService.me.value?.phoneNumber == null
+                          ? SizedBox()
+                          : Text(
+                              'Contact: ${authService.me.value?.phoneNumber ?? ""}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: AppColors.kBerkeleyBlue),
+                            );
                     })),
                 k3hSizedBox,
                 Align(

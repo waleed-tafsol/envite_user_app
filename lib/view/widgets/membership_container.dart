@@ -220,23 +220,23 @@ class _MembershipContainerState extends State<MembershipContainer> {
                 // Spacer(),
               ],
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: AppColors.kPrimaryColor,
-                    foregroundColor: Colors.white),
-                child: _isLoading
-                    ? CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : Text('Cancel'),
-                onPressed: () {
-                  canclePackages(widget.subscription?.subscription);
-                },
-              ),
-            ),
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: ElevatedButton(
+            //     style: ElevatedButton.styleFrom(
+            //         elevation: 0,
+            //         backgroundColor: AppColors.kPrimaryColor,
+            //         foregroundColor: Colors.white),
+            //     child: _isLoading
+            //         ? CircularProgressIndicator(
+            //             color: Colors.white,
+            //           )
+            //         : Text('Cancel'),
+            //     onPressed: () {
+            //       canclePackages(widget.subscription?.subscription);
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScreen/ContactsScreen.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
