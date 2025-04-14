@@ -21,6 +21,7 @@ class Assets {
   static const String m1 = '${_assets}m1.png';
   static const String m2 = '${_assets}m2.png';
   static const String saad = '${_assets}saad.png';
+  static const String mapPin = '${_assets}map_pin.png';
 }
 
 class SvgAssets {

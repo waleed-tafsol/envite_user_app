@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ChooseYourLocationController extends GetxController {
   final Rxn<GoogleMapController> mapController = Rxn<GoogleMapController>();
@@ -65,7 +66,7 @@ class ChooseYourLocationController extends GetxController {
 
     final Set<Marker> newMarkers = {};
 
-    final Uint8List markerIcon = await getBytesFromAsset(Assets.logo, 50);
+    final Uint8List markerIcon = await getBytesFromAsset(Assets.mapPin, 30);
     for (int i = 0; i < nearbyPoints.length; i++) {
       newMarkers.add(
         Marker(
