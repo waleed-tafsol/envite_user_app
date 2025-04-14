@@ -4,6 +4,7 @@ class Assets {
   static const String _assets = 'assets/png/';
 
   static const String splash_vector = '${_assets}Splash_vector.png';
+  static const String logo = '${_assets}logo.png';
   static const String app_Logo = '${_assets}App_Logo.png';
   static const String google = '${_assets}google.png';
   static const String apple = '${_assets}apple.png';
@@ -26,6 +27,7 @@ class SvgAssets {
   static const String _assets = 'assets/svg/';
 
   static const String filter = '${_assets}filter.svg';
+  static const String logo = '${_assets}app-icon.svg';
   static const String clapping = '${_assets}clapping.svg';
   static const String group = '${_assets}Group.svg';
   static const String pin = '${_assets}pin.svg';

@@ -18,29 +18,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: true,
       title: SafeArea(
         child: InkWell(
-          onTap: () => Get.toNamed(ChooseyourlocationScreen.routeName),
+          onTap: () => Get.toNamed(ChooseYourLocationScreen.routeName),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.location_on_outlined,),
+                  Icon(
+                    Icons.location_on_outlined,
+                  ),
                   Text(
                     "Events near to you",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
               Text(
                 "Salmiya, Kuwait",
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ],
           ),

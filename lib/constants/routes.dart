@@ -11,6 +11,7 @@ import 'package:event_planner_light/bindings/SignUpBindings.dart';
 import 'package:event_planner_light/bindings/payment_controller_bindings.dart';
 import 'package:event_planner_light/bindings/splash_binding.dart';
 import 'package:event_planner_light/bindings/supportBindings.dart';
+import 'package:event_planner_light/controllers/GoogleMapController.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/CreateAnInvitation.dart';
@@ -99,10 +100,10 @@ class Pages {
           binding: SignUpBindings(),
           transition: _routeTransition,
         );
-      case ChooseyourlocationScreen.routeName:
+      case ChooseYourLocationScreen.routeName:
         return GetPageRoute(
           settings: settings,
-          page: () => ChooseyourlocationScreen(),
+          page: () => ChooseYourLocationScreen(),
           binding: ChooseyourLocationBindings(),
           transition: _routeTransition,
         );
