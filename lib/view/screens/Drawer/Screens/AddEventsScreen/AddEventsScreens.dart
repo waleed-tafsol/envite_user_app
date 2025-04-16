@@ -8,12 +8,14 @@ import 'package:event_planner_light/controllers/HomeScreenController.dart';
 import 'package:event_planner_light/controllers/MyEventsController.dart';
 import 'package:event_planner_light/model/CatagoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../utills/ConvertDateTime.dart';
 import '../../../../../utills/enums.dart';
 import '../../../../widgets/VideoWidget.dart';
+import '../../../../widgets/custom_place_search_field.dart';
 
 class AddEventsScreens extends GetView<AddEventController> {
   AddEventsScreens({super.key});
@@ -305,99 +307,16 @@ class AddEventsScreens extends GetView<AddEventController> {
                             SizedBox(
                               height: 2.h,
                             ),
-                            Obx(() {
-                              return Column(
-                                children: [
-                                  // TextField for typing the place name
-                                  TextFormField(
-                                    controller:
-                                        controller.avenuePlaceController,
-                                    decoration: InputDecoration(
-                                      prefixIcon:
-                                          Icon(Icons.location_on_outlined),
-                                      suffix: Obx(() {
-                                        return controller
-                                                .isPredictionsLoading.value
-                                            ? SizedBox(
-                                                height: 4.w,
-                                                width: 4.w,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color:
-                                                      AppColors.kBerkeleyBlue,
-                                                  strokeWidth: 2,
-                                                ))
-                                            : InkWell(
-                                                onTap: () {
-                                                  controller
-                                                      .avenuePlaceController
-                                                      .clear();
-                                                  controller.placesList.value =
-                                                      [];
-                                                },
-                                                child: Icon(
-                                                  Icons.clear,
-                                                  size: 4.w,
-                                                  color: Colors.redAccent,
-                                                ));
-                                      }),
-                                      hintText: "venue Location",
-                                    ),
-                                    onChanged: (location) {
-                                      controller.getGooglePlaces(
-                                          value: location);
-                                    },
-                                  ),
-                                  SizedBox(height: 10),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: controller.placesList.length,
-                                    itemBuilder: (context, index) {
-                                      final place =
-                                          controller.placesList[index];
-                                      return GestureDetector(
-                                        onTap: () =>
-                                            controller.onPlaceSelected(place),
-                                        child: Container(
-                                          margin: EdgeInsets.only(bottom: 1.h),
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.kTextfieldColor,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                color: AppColors.kIconColor,
-                                              ),
-                                              SizedBox(
-                                                width: 7,
-                                              ),
-                                              Expanded(
-                                                  child: Text(place.fullText,
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.black))),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-
-                                      // ListTile(
-                                      //   tileColor: AppColors.kTextfieldColor,
-
-                                      //   leading: Icon(Icons.location_on_outlined,color: AppColors.kIconColor,),
-                                      //   title: Text(place.fullText ?? '',style: TextStyle(color: Colors.black),),
-                                      //   onTap: () =>
-                                      //       controller.onPlaceSelected(place),
-                                      // );
-                                    },
-                                  ),
-                                ],
-                              );
-                            }),
+                            CustomPlaceSearchField(
+                              onPlaceSelected: (name, coordinates) {
+                                controller.onPlaceSelected(
+                                    name,
+                                    LatLng(
+                                        lat: coordinates.latitude,
+                                        lng: coordinates.longitude));
+                              },
+                              suggestionColor: AppColors.kBlueLightShade,
+                            ),
                             SizedBox(
                               height: 2.h,
                             ),

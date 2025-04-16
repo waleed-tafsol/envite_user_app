@@ -7,10 +7,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../constants/ApiConstant.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors_constants.dart';
 import '../../controllers/AddEventController.dart';
+import '../../controllers/Auth_services.dart';
 import '../screens/Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
+import '../screens/NavBar/Screens/my_invites/PaymentWebView.dart';
 
 class BottomSheetManager {
   static void _customBottomSheet(BuildContext context, List<Widget> children) {
@@ -428,7 +431,12 @@ class BottomSheetManager {
       Spacer(),
       ElevatedButton(
         onPressed: () {
-          // Get.toNamed(BuyPackagesScreen.routeName, arguments: {"type": "all"});
+          Get.toNamed(
+            PaymentWebviewScreen.routeName,
+            arguments: {
+              'url': '${ApiConstants.upgradePlan}${authService.me.value!.slug}',
+            },
+          );
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

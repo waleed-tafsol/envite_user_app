@@ -38,57 +38,12 @@ class AddEventController extends GetxController {
   final googlePlaces = FlutterGooglePlacesSdk(ApiConstants.googleAPIKey);
 
   RxBool isPredictionsLoading = false.obs;
-  RxList<AutocompletePrediction> placesList = <AutocompletePrediction>[].obs;
+  String placeName = "";
+  LatLng? placeLatLang;
 
-  getGooglePlaces({required String value}) async {
-    isPredictionsLoading.value = true;
-    final FindAutocompletePredictionsResponse predictionsData =
-        await googlePlaces.findAutocompletePredictions(value);
-    print(predictionsData.predictions[0].fullText);
-    placesList.value = predictionsData.predictions;
-    isPredictionsLoading.value = false;
-  }
-
-  void onPlaceSelected(AutocompletePrediction place) async {
-    print('Selected place: ${place.fullText}');
-    isPredictionsLoading.value = false;
-
-    try {
-      final selectedPlace = await googlePlaces.fetchPlace(
-        place.placeId,
-        fields: [
-          PlaceField.Location, // Use PlaceField.geometry
-          PlaceField.Address,
-          // "name",
-          // "place_id",
-        ],
-      );
-
-      if (selectedPlace.place != null) {
-        final lat = selectedPlace.place!.latLng!.lat;
-        final lng = selectedPlace.place!.latLng!.lng;
-
-        avenueLat = lat.toString();
-        avenueLng = lng.toString();
-
-        // Update the controller's text with the selected place's full name
-        avenuePlaceController.text = place.fullText ?? '';
-
-        // Optionally clear the list of suggestions after selection
-        placesList.value = [];
-
-        // Print the lat and lng for debugging
-        print('Latitude: $avenueLat, Longitude: $avenueLng');
-      } else {
-        print('No details found for the selected place');
-        // Optional: Display an error message to the user
-      }
-    } catch (e) {
-      print("Error fetching place details: $e");
-      // Optional: Show a SnackBar or other error notification to the user
-      // You will need the context here to show a snackbar
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to get place details.")));
-    }
+  void onPlaceSelected(String name, LatLng latLang) async {
+    placeLatLang = LatLng(lat: latLang.lat, lng: latLang.lng);
+    placeName = name;
   }
 
   TextEditingController nameController = TextEditingController();
@@ -110,9 +65,9 @@ class AddEventController extends GetxController {
   Rx<DateTime?> selectedStartDate = Rx<DateTime?>(null);
   Rx<DateTime?> selectedEndDate = Rx<DateTime?>(null);
 
-  final TextEditingController avenuePlaceController = TextEditingController();
-  String? avenueLat;
-  String? avenueLng;
+  // final TextEditingController avenuePlaceController = TextEditingController();
+  // String? avenueLat;
+  // String? avenueLng;
 
   Rx<String?> selectedStartTime = Rx<String?>(null);
   Rx<String?> selectedEndTime = Rx<String?>(null);
@@ -325,9 +280,9 @@ class AddEventController extends GetxController {
           authService.me.value?.role?.first == UserRoles.user.text
               ? "private"
               : selectedOption.value ?? "";
-      request.fields['address'] = avenuePlaceController.text;
-      request.fields['latitude'] = avenueLat.toString();
-      request.fields['longitude'] = avenueLng.toString();
+      request.fields['address'] = placeName;
+      request.fields['latitude'] = placeLatLang!.lat.toString();
+      request.fields['longitude'] = placeLatLang!.lng.toString();
       if (emailController.first.text.isNotEmpty || emailController.length > 1) {
         for (int i = 0; i < emailController.length; i++) {
           emailController[i].text.isNotEmpty

@@ -89,7 +89,7 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
               } else if (request.url.contains('cancel')) {
                 // ColoredPrint.red('Payment Cancelled: ${request.url}');
                 CustomSnackbar.showError("Error", "Payment Cancelled");
-                Get.offAllNamed(NavBarScreen.routeName);
+                Get.back();
               } else {}
               return NavigationDecision.navigate;
             } else {
