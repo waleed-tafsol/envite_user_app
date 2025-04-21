@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -279,7 +280,8 @@ class _MyAppState extends State<MyFatoorahScreen> {
                     if (selectedPaymentMethodIndex != -1)
                       btn("Execute Payment", executePayment),
                     btn("Reload GooglePay", initiateSessionForGooglePay),
-                  /*  ColoredBox(
+                  */
+/*  ColoredBox(
                       color: const Color(0xFFD8E5EB),
                       child: SelectableText.rich(
                         TextSpan(
@@ -287,7 +289,8 @@ class _MyAppState extends State<MyFatoorahScreen> {
                           style: const TextStyle(),
                         ),
                       ),
-                    ),*/
+                    ),*//*
+
                   ]),
             ],
           ),
@@ -435,6 +438,7 @@ class _MyAppState extends State<MyFatoorahScreen> {
     );
   }
 
+*/
 /*
   Widget amountInput() {
     return TextField(
@@ -461,9 +465,11 @@ class _MyAppState extends State<MyFatoorahScreen> {
       },
     );
   }
-*/
+*//*
+
 
   TextStyle textStyle() {
     return const TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic);
   }
 }
+*/

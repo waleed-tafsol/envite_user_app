@@ -21,11 +21,11 @@ class NotificationResponseModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = this.status;
+    data['status'] = status;
     if (this.data.value != null) {
       data['data'] = this.data.value!.map((v) => v.toJson()).toList();
     }
-    data['unseenNotificationsCount'] = this.unseenNotificationsCount;
+    data['unseenNotificationsCount'] = unseenNotificationsCount;
     return data;
   }
 }
@@ -73,17 +73,17 @@ class NotificationModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    data['message'] = this.message;
-    data['sender'] = this.sender;
-    data['senderMode'] = this.senderMode;
-    data['notificationType'] = this.notificationType;
-    data['userType'] = this.userType;
-    data['seen'] = this.seen;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['_id'] = sId;
+    data['title'] = title;
+    data['message'] = message;
+    data['sender'] = sender;
+    data['senderMode'] = senderMode;
+    data['notificationType'] = notificationType;
+    data['userType'] = userType;
+    data['seen'] = seen;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

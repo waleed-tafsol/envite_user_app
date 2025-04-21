@@ -27,7 +27,7 @@ String validateAndCorrectUrl(String url) {
   // Check if the URL starts with "http://" or "https://"
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
     // If not, prepend 'https://' (You can choose 'http://' or 'https://')
-    url = 'https://' + url;
+    url = 'https://$url';
   }
 
   // Validate the URL

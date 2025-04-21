@@ -24,8 +24,8 @@ class CouponsController extends GetxController {
     try {
       final response = await http.post(Uri.parse(ApiConstants.getCoupons),
           body: jsonEncode({
-            "packageType": selectedType.value,
-            "packageFor": authService.me.value?.role?[0] ?? ""
+           /* "packageType": selectedType.value,
+            "packageFor": authService.me.value?.role?[0] ?? ""*/
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -33,7 +33,6 @@ class CouponsController extends GetxController {
           });
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
-
         List<Map<String, dynamic>> jsonResponseData =
             List<Map<String, dynamic>>.from(jsonResponse['data']);
         coupons.clear();

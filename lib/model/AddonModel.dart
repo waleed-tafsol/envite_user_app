@@ -83,7 +83,7 @@ class AddonsModel {
     sId = json['_id'];
     slug = json['slug'];
     slugId = json['slugId'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    name = json['name'] != null ? Name.fromJson(json['name']) : null;
     price = json['price'];
     packageType = json['packageType'];
     eventType = json['eventType'];
@@ -95,21 +95,21 @@ class AddonsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['slug'] = this.slug;
-    data['slugId'] = this.slugId;
-    if (this.name != null) {
-      data['name'] = this.name!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['slug'] = slug;
+    data['slugId'] = slugId;
+    if (name != null) {
+      data['name'] = name!.toJson();
     }
-    data['price'] = this.price;
-    data['packageType'] = this.packageType;
-    data['eventType'] = this.eventType;
-    data['packageFor'] = this.packageFor;
-    data['isActive'] = this.isActive;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['price'] = price;
+    data['packageType'] = packageType;
+    data['eventType'] = eventType;
+    data['packageFor'] = packageFor;
+    data['isActive'] = isActive;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }
@@ -128,10 +128,10 @@ class Name {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['en'] = this.en;
-    data['ar'] = this.ar;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['en'] = en;
+    data['ar'] = ar;
+    data['_id'] = sId;
     return data;
   }
 }

@@ -7,7 +7,7 @@ class CuponsModel {
   String? name;
   String? userType;
   bool? forSpecificUsers;
-  List<UserModel>? users;
+  List<String>? users;
   String? couponType;
   String? code;
   int? amountOrDiscount;
@@ -22,23 +22,24 @@ class CuponsModel {
 
   CuponsModel(
       {this.sId,
-      this.slug,
-      this.slugId,
-      this.name,
-      this.userType,
-      this.forSpecificUsers,
-      this.users,
-      this.couponType,
-      this.code,
-      this.amountOrDiscount,
-      this.usesPerCoupon,
-      this.usesPerUser,
-      this.startDate,
-      this.endDate,
-      this.isActive,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+        this.slug,
+        this.slugId,
+        this.name,
+        this.userType,
+        this.forSpecificUsers,
+        this.users,
+        this.couponType,
+        this.code,
+        this.amountOrDiscount,
+        this.usesPerCoupon,
+        this.usesPerUser,
+        this.startDate,
+        this.endDate,
+        this.isActive,
+        this.createdAt,
+        this.updatedAt,
+        this.iV
+      });
 
   CuponsModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -47,12 +48,7 @@ class CuponsModel {
     name = json['name'];
     userType = json['userType'];
     forSpecificUsers = json['forSpecificUsers'];
-    if (json['users'] != null) {
-      users = <UserModel>[];
-      json['users'].forEach((v) {
-        users!.add(UserModel.fromJson(v));
-      });
-    }
+    users = json['users'].cast<String>();
     couponType = json['couponType'];
     code = json['code'];
     amountOrDiscount = json['amountOrDiscount'];
@@ -67,27 +63,25 @@ class CuponsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['slug'] = slug;
-    data['slugId'] = slugId;
-    data['name'] = name;
-    data['userType'] = userType;
-    data['forSpecificUsers'] = forSpecificUsers;
-    if (users != null) {
-      data['users'] = users!.map((v) => v.toJson()).toList();
-    }
-    data['couponType'] = couponType;
-    data['code'] = code;
-    data['amountOrDiscount'] = amountOrDiscount;
-    data['usesPerCoupon'] = usesPerCoupon;
-    data['usesPerUser'] = usesPerUser;
-    data['startDate'] = startDate;
-    data['endDate'] = endDate;
-    data['isActive'] = isActive;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['slug'] = this.slug;
+    data['slugId'] = this.slugId;
+    data['name'] = this.name;
+    data['userType'] = this.userType;
+    data['forSpecificUsers'] = this.forSpecificUsers;
+    data['users'] = this.users;
+    data['couponType'] = this.couponType;
+    data['code'] = this.code;
+    data['amountOrDiscount'] = this.amountOrDiscount;
+    data['usesPerCoupon'] = this.usesPerCoupon;
+    data['usesPerUser'] = this.usesPerUser;
+    data['startDate'] = this.startDate;
+    data['endDate'] = this.endDate;
+    data['isActive'] = this.isActive;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
     return data;
   }
 }

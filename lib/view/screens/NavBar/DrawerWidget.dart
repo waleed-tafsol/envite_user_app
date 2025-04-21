@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/Auth_services.dart';
+import '../Drawer/Screens/couponScreen.dart';
 import '../Drawer/Screens/supportScreen/supportScreen.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -174,43 +175,43 @@ class MyDrawer extends StatelessWidget {
                   SizedBox(
                     height: 1.h,
                   ),
-                  // InkWell(
-                  //   onTap: () {
-                  //     Get.toNamed(CouponScreen.routeName);
-                  //   },
-                  //   child: Row(
-                  //     children: [
-                  //       Icon(
-                  //         size: 2.h,
-                  //         Icons.discount_outlined,
-                  //         color: AppColors.kBlueMediumShade,
-                  //       ),
-                  //       SizedBox(
-                  //         width: 4.w,
-                  //       ),
-                  //       Text("Coupon",
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .bodyMedium!
-                  //               .copyWith(
-                  //                   color: AppColors.kBlueMediumShade,
-                  //                   fontSize: 16.sp)),
-                  //     ],
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 1.h,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: const Divider(
-                  //     thickness: 0.1,
-                  //     color: AppColors.kBlueMediumShade,
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 1.h,
-                  // ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(CouponScreen.routeName);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          size: 2.h,
+                          Icons.discount_outlined,
+                          color: AppColors.kBlueMediumShade,
+                        ),
+                        SizedBox(
+                          width: 4.w,
+                        ),
+                        Text("Coupon",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color: AppColors.kBlueMediumShade,
+                                    fontSize: 16.sp)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: const Divider(
+                      thickness: 0.1,
+                      color: AppColors.kBlueMediumShade,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.toNamed(

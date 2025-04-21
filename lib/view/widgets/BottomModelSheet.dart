@@ -1,6 +1,5 @@
 import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
-import 'package:event_planner_light/view/screens/Drawer/Screens/MembershipScreens/BuyPackagesScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
