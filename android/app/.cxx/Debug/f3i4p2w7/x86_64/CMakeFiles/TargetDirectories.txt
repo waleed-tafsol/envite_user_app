@@ -1,0 +1,2 @@
+C:/Users/Taha Khan/AndroidStudioProjects/envite_user_app/android/app/.cxx/Debug/f3i4p2w7/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Taha Khan/AndroidStudioProjects/envite_user_app/android/app/.cxx/Debug/f3i4p2w7/x86_64/CMakeFiles/rebuild_cache.dir

@@ -32,27 +32,27 @@ class NotificationScreen extends GetView<NotificationController> {
                           child: sizedShimmer(height: 10.h))),
                 ),
               )
-            : controller.notificationList.value?.isNotEmpty ?? false
+            : controller.notificationList.isNotEmpty
                 ? RefreshIndicator(
                     onRefresh: () async {
                       await controller.refereshNotification();
                     },
                     child: ListView.builder(
-                      itemCount:
-                          controller.notificationList.value?.length ?? 0 + 1,
+                      itemCount: controller.notificationList.length,
                       controller: controller.scrollController,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index ==
-                            controller.notificationList.value?.length) {
+                        if (index == controller.notificationList.length - 1) {
                           // Show shimmer only when paginated data is loading
-                          return controller.isPaginationLoading.value
-                              ? Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(
-                                      child: CircularProgressIndicator()),
-                                )
-                              : SizedBox.shrink();
+                          return Obx(() {
+                            return controller.isPaginationLoading.value
+                                ? Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                        child: CircularProgressIndicator()),
+                                  )
+                                : SizedBox.shrink();
+                          });
                         }
 
                         return MynotificationTile(

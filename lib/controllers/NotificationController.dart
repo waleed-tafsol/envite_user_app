@@ -8,9 +8,7 @@ import 'Auth_services.dart';
 
 class NotificationController extends GetxController {
   // List of notifications
-  Rx<List<NotificationModel>?> notificationList =
-      Rx<List<NotificationModel>?>([]);
-
+  RxList<NotificationModel> notificationList = <NotificationModel>[].obs;
   // Pagination state
   RxBool isLoading = false.obs;
   RxBool isPaginationLoading = false.obs;
@@ -22,6 +20,7 @@ class NotificationController extends GetxController {
   void onInit() {
     super.onInit();
     getPaginatedNotification();
+    scrollController.addListener(scrollListener);
   }
 
   // Refresh notifications
@@ -41,7 +40,7 @@ class NotificationController extends GetxController {
 
       final response = await http.get(
         Uri.parse(
-            '${ApiConstants.getNotifications}?page=$currentPage&limit=$limit'),
+            '${ApiConstants.getNotifications}?page=$currentPage&limit=13'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${authService.authToken}',
@@ -54,7 +53,7 @@ class NotificationController extends GetxController {
         //     NotificationResponseModel.fromJson(jsonResponse);
 
         // Update totalRecords for pagination
-        totalRecords = jsonResponse['totalRecords'];
+        totalRecords = jsonResponse ['totalRecords'];
 
         if (currentPage == 1) {
           // Reset the list on the first page
@@ -65,12 +64,13 @@ class NotificationController extends GetxController {
         } else {
           // Append new notifications to the existing list
 
-          notificationList.value?.insertAll(
-              0,
-              jsonResponse['data'] != null
-                  ? List<NotificationModel>.from(jsonResponse['data']
-                      .map((v) => NotificationModel.fromJson(v)))
-                  : []);
+          notificationList.insertAll(
+            0,
+            jsonResponse['data'] != null
+                ? List<NotificationModel>.from(jsonResponse['data']
+                    .map((v) => NotificationModel.fromJson(v)))
+                : [],
+          );
         }
       }
     } catch (e) {
@@ -92,7 +92,7 @@ class NotificationController extends GetxController {
         scrollController.position.maxScrollExtent) {
       if (!isLoading.value &&
           !isPaginationLoading.value &&
-          (notificationList.value?.length ?? 0) < (totalRecords ?? 0)) {
+          (notificationList.length) < (totalRecords ?? 0)) {
         // Load more data when scrolled to the bottom
         currentPage++;
         isPaginationLoading.value = true;
@@ -102,5 +102,4 @@ class NotificationController extends GetxController {
       }
     }
   }
-
 }

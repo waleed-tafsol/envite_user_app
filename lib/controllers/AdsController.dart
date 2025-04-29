@@ -22,7 +22,8 @@ class AdsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getAllAds();
+    scrollController.addListener(_onScroll);
+    await getAllAds(callFirstTime: true);
   }
 
   RxBool isLoading = true.obs;
@@ -75,7 +76,7 @@ class AdsController extends GetxController {
   Rx<AdsListResponse> adsListResponse = Rx<AdsListResponse>(AdsListResponse());
 
   setAddList(AdsListResponse adsListData) {
-    adsList.clear();
+    //  adsList.clear();
     adsList.addAll(adsListData.data!);
   }
 
@@ -90,24 +91,57 @@ class AdsController extends GetxController {
     }
   }
 
-  Future<void> getAllAds() async {
-    isLoading.value = true;
+  final ScrollController scrollController = ScrollController();
+
+  Future<void> _onScroll() async {
+    if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent &&
+        hasMore.value) {
+      pagiNationLoading.value = true;
+      currentPage++;
+      await getAllAds(callFirstTime: false);
+    }
+  }
+
+  RxBool hasMore = false.obs;
+  int currentPage = 1;
+  int limit = 10;
+  RxBool pagiNationLoading = false.obs;
+  Future<void> getAllAds({required bool callFirstTime}) async {
+    if (callFirstTime) {
+      pagiNationLoading.value = false;
+      hasMore.value = true;
+      isLoading.value = true;
+      currentPage = 1;
+      adsList.clear();
+    } else {
+      pagiNationLoading.value = true;
+    }
 
     try {
-      final response = await http.post(Uri.parse(ApiConstants.getMyAds), body: {
-        "status": selectedChip.value
-        // "search": "event"
-      }, headers: {
-        'Authorization': 'Bearer ${authService.authToken}',
-        // 'Content-Type': 'application/json',
-      });
+      final response = await http.post(
+          Uri.parse("${ApiConstants.getMyAds}?page=$currentPage&limit=$limit"),
+          body: {
+            "status": selectedChip.value
+          },
+          headers: {
+            'Authorization': 'Bearer ${authService.authToken}',
+            // 'Content-Type': 'application/json',
+          });
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
-        // final List<dynamic> data = jsonResponse['data'];
+        final List<dynamic> data = jsonResponse['data'];
         adsListResponse.value = AdsListResponse.fromJson(jsonResponse);
+
         setAddList(adsListResponse.value);
+        if (data.isEmpty) {
+          pagiNationLoading.value = false;
+          hasMore.value = false;
+        }
+        pagiNationLoading.value = false;
         isLoading.value = false;
       } else {
+        pagiNationLoading.value = false;
         isLoading.value = false;
 
         final errorData = jsonDecode(response.body);
@@ -115,6 +149,7 @@ class AdsController extends GetxController {
             errorData["message"]["error"][0] ?? "An error occurred");
       }
     } catch (e) {
+      pagiNationLoading.value = false;
       isLoading.value = false;
 
       CustomSnackbar.showError('Error', e.toString());
