@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:whatsapp/whatsapp.dart';
 
 import '../constants/colors_constants.dart';
 import '../utills/UrlLauncherUtills.dart';
@@ -22,6 +23,9 @@ class ContactSelectionController extends GetxController {
   RxList<Contact> searchedContacts = <Contact>[].obs;
   List<Contact> allContacts = <Contact>[];
   RxBool isLoading = false.obs;
+
+
+
 
   @override
   void onInit() async {
@@ -104,13 +108,14 @@ class ContactSelectionController extends GetxController {
         final url = Uri.parse(
             '${ApiConstants.invitationUrl}$selectedEventId/${selectedContacts[0].phones.first.number}');
 
-        Get.dialog(AlertDialog(
+
+      /*  Get.dialog(AlertDialog(
             content: GestureDetector(
                 onTap: () => launchUrlWeb(url.toString()),
                 child: Text(
                   url.toString(),
                   style: TextStyle(color: Colors.black),
-                ))));
+                ))));*/
 
         selectedContacts.clear();
         searchedContacts.value = List.from(allContacts); // Reset the list
@@ -134,6 +139,49 @@ class ContactSelectionController extends GetxController {
       CustomSnackbar.showError('Error', e.toString());
     } finally {
       isLoading.value = false;
+    }
+  }
+
+
+  Future<void> callWhatsappBusiness () async {
+    isLoading.value = true;
+
+    const String accessToken ="EAAJpmtZAKSKMBO96xCdPSdFp0JFvC49Db8Y5C2TmAnZCiks78VhBXWZBDsejXQpcGKguhaeFQOmvYJeAyfcZBdVZBzqqiQz32oNcsIvGedKnEkK4bQ6HhbuXI9laZCr7uFGHOugnvEZBTGkbsfyG3uQTeZBTrTZBZBfAxDhSNoZAVavNoHOZC6UJZBO5ZAyeIamDd3";
+    const String fromNumberId = "665166890003755";
+
+    final whatsapp = WhatsApp(accessToken, fromNumberId);
+    var res = await whatsapp.sendMessage(
+      phoneNumber : '+923132797806',
+      text : "Hello, this is a test message!",
+        previewUrl : true,
+    );
+    if (res.isSuccess()) {
+      isLoading.value = false;
+
+      // when message sent
+      //Return id of message
+      debugPrint('Message ID: ${res.getMessageId()}');
+
+      //Return number where message sent
+      debugPrint('Message sent to: ${res.getPhoneNumber()}');
+
+      //Return exact API Response Body
+      debugPrint('API Response: ${res.getResponse().toString()}');
+    } else {
+      isLoading.value = false;
+
+      //when something went wrong
+      //Will return HTTP CODE
+      debugPrint('HTTP Code: ${res.getHttpCode()}');
+
+      // Will return exact error from WhatsApp Cloud API
+      debugPrint('API Error: ${res.getErrorMessage()}');
+
+      // Will return HTTP Request error
+      debugPrint('Request Error: ${res.getError()}');
+
+      //Return exact API Response Body
+      debugPrint('API Response: ${res.getResponse().toString()}');
     }
   }
 

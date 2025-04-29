@@ -33,7 +33,7 @@ class ContactsSelectionScreen extends GetView<ContactSelectionController> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 4.h),
           child: Column(
             children: [
               Expanded(child: Obx(() {
@@ -95,7 +95,9 @@ class ContactsSelectionScreen extends GetView<ContactSelectionController> {
                           controller.selectedContacts.isEmpty
                               ? CustomSnackbar.showError(
                                   "Error", "Please select a Contact")
-                              : controller.sendInvitation();
+                              :
+                              controller.callWhatsappBusiness();
+                             // : controller.sendInvitation();
                         }
                       },
                       child: Container(

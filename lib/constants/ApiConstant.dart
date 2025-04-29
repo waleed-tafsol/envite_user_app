@@ -29,6 +29,8 @@ class ApiConstants {
   static const getAllEvents = "${baseUrl}event/all";
   static const eventDetail = "${baseUrl}event/detail/";
   static const addEvent = "${baseUrl}event";
+  static const addAds = "${baseUrl}ads/create";
+
   static const updateEvent = "${baseUrl}event/update/";
   static const sendContacts = "${baseUrl}event/invitation/send/";
   static const invitationUrl = "${baseUrl}event/invitation/";
@@ -55,4 +57,6 @@ class ApiConstants {
   static const attendEvent = "${baseUrl}event/attend/";
   // Notifications
   static const getNotifications = "${baseUrl}notifications/all";
+  static const getMyAds = "${baseUrl}ads/my/all";
+
 }

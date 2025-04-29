@@ -31,7 +31,7 @@ class TagsContainer extends StatelessWidget {
           capitalizeFirstLetter(tag),
           style: TextStyle(
             color: Colors.black, // Changed text color to black for readability
-            fontSize: 14.sp,
+            fontSize: 12.sp,
           ),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,

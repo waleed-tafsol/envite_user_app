@@ -79,6 +79,10 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
         for (var ad in ads)
           Container(
               decoration: BoxDecoration(
+              /*    image: DecorationImage(
+                    image: NetworkImage( ad.image ?? "",),
+                    fit: BoxFit.contain,
+                  ),*/
                   color: AppColors.kBerkeleyBlue,
                   borderRadius: BorderRadius.circular(20)),
               width: double.infinity,
@@ -95,6 +99,16 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
                               ? SizedBox()
                               : CachedNetworkImage(
                                   imageUrl: ad.image ?? "",
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
                                   fit: BoxFit.contain,
                                   placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
@@ -108,7 +122,7 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
                                   ),
                                 ),
                           Positioned(
-                            left: 2.w,
+                            left: 2.h,
                             bottom: 2.h,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,9 +131,10 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
                                   capitalizeFirstLetter(ad.name ?? ""),
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 17.sp,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
+                                SizedBox(height: 1.h,),
                                 ad.tags == null
                                     ? SizedBox()
                                     : Wrap(
