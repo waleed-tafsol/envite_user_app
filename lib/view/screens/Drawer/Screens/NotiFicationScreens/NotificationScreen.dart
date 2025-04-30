@@ -55,9 +55,12 @@ class NotificationScreen extends GetView<NotificationController> {
                           });
                         }
 
-                        return MynotificationTile(
-                          notification:
-                              controller.notificationList.value![index],
+                        return Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 2.w),
+                          child: MyNotificationTile(
+                            notification:
+                                controller.notificationList[index],
+                          ),
                         );
                       },
                     ),
