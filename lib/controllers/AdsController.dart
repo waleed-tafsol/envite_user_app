@@ -107,6 +107,7 @@ class AdsController extends GetxController {
   int currentPage = 1;
   int limit = 10;
   RxBool pagiNationLoading = false.obs;
+
   Future<void> getAllAds({required bool callFirstTime}) async {
     if (callFirstTime) {
       pagiNationLoading.value = false;
@@ -204,8 +205,9 @@ class AdsController extends GetxController {
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
         final AdsModel adsData = AdsModel.fromJson(responseData['data']);
-        adsList.insert(0, adsData);
-        print(adsList[0].name);
+        if (selectedChip.value == 'all' || selectedChip.value == 'pending') {
+          adsList.insert(0, adsData);
+        }
         isLoading.value = false;
         Get.back();
       } else {

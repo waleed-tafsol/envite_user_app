@@ -221,22 +221,19 @@ class AdsScreen extends GetView<AdsController> {
             ),
             AdsContainer(),*/
             //Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.kPrimaryColor),
-                      onPressed: () {
-                        controller.clearData();
-                        Get.toNamed(AddAdsScreen.routeName);
-                      },
-                      child: Text(
-                        'Add Ads',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ),
-              ],
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kPrimaryColor),
+                  onPressed: () {
+                    controller.clearData();
+                    Get.toNamed(AddAdsScreen.routeName);
+                  },
+                  child: Text(
+                    'Add Ads',
+                    style: TextStyle(color: Colors.white),
+                  )),
             )
             // Row(
             //   children: [
