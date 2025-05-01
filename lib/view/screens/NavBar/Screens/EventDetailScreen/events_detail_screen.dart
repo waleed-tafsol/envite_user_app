@@ -578,33 +578,30 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                         return controller.isLoading.value
                             ? sizedShimmer(height: 5.h, width: double.infinity)
                             : isMyEvent && !isPast
-                                ? Row(
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    AppColors.kPrimaryColor),
-                                            onPressed: () {
-                                              // controller.sendInvites(context);
-                                              // controller
-                                              //     .showContactSelectionBottomSheet(
-                                              //         context);
-                                              Get.toNamed(
-                                                  ContactsSelectionScreen
-                                                      .routeName,
-                                                  arguments: {
-                                                    "eventslug": event?.slug
-                                                  });
-                                            },
-                                            child: Text(
-                                              'Send Invite',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                                      ),
-                                    ],
-                                  )
+                                ? SizedBox()
+                        //TODO: UNCOMMIT TO SEND INVITATIONS
+                        /*SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                AppColors.kPrimaryColor),
+                                        onPressed: () {
+                                          // controller.sendInvites(context);
+                                          // controller
+                                          //     .showContactSelectionBottomSheet(
+                                          //         context);
+                                          Get.toNamed(
+                                              ContactsSelectionScreen.routeName,
+                                              arguments: {
+                                                "eventslug": event?.slug
+                                              });
+                                        },
+                                        child: Text(
+                                          'Send Invite',
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                  )*/
                                 : SizedBox();
                       }),
                       Obx(() {
