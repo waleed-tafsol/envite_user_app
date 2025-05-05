@@ -21,7 +21,7 @@ class CouponScreen extends GetView<CouponsController> {
           return ListView.builder(
               itemCount: controller.coupons.length,
               itemBuilder: (context, index) {
-                return controller.isloading.value
+                return controller.isLoading.value
                     ? Center(
                         child: CircularProgressIndicator(),
                       )

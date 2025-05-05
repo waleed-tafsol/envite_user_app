@@ -7,6 +7,7 @@ import '../../../../../controllers/filters_controller.dart';
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';
 import '../../../../../utills/enums.dart';
 import '../../../../widgets/EventTileWidget.dart';
+import '../../../Drawer/Screens/AddEventsScreen/AddEventsScreens.dart';
 import '../../../view_all_my_events_screen.dart';
 
 class MyEventsScreen extends GetView<MyEventsController> {
@@ -47,7 +48,8 @@ class MyEventsScreen extends GetView<MyEventsController> {
                           onTap: () {
                             controller.myEventsScreenType.value =
                                 Events.myPastEvents.text;
-                            filtersController.clearFilterData(resetSelectScreenStatus: false);
+                            filtersController.clearFilterData(
+                                resetSelectScreenStatus: false);
                             filtersController.setSelectedScreen(
                                 value: Events.myPastEvents.text);
                             controller.getMyPaginatedEvents(
@@ -103,7 +105,28 @@ class MyEventsScreen extends GetView<MyEventsController> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
+                                        ElevatedButton.icon(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  AppColors.kPrimaryColor),
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
+                                            Get.toNamed(
+                                                AddEventsScreens.routeName,
+                                                arguments: {
+                                                  "isAddPastEvents": true,
+                                                });
+                                          },
+                                          label: Text(
+                                            'Add Past Events',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        /* Icon(
                                           Icons.event_busy_outlined,
                                           color: AppColors.kBluedarkShade,
                                         ),
@@ -112,7 +135,7 @@ class MyEventsScreen extends GetView<MyEventsController> {
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               color: AppColors.kBluedarkShade),
-                                        ),
+                                        ),*/
                                       ],
                                     ),
                                   ),
@@ -136,7 +159,8 @@ class MyEventsScreen extends GetView<MyEventsController> {
                           onTap: () {
                             controller.myEventsScreenType.value =
                                 Events.myUpcomingEvents.text;
-                            filtersController.clearFilterData(resetSelectScreenStatus: false);
+                            filtersController.clearFilterData(
+                                resetSelectScreenStatus: false);
                             filtersController.setSelectedScreen(
                                 value: Events.myUpcomingEvents.text);
                             controller.getMyPaginatedEvents(

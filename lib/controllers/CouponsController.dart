@@ -17,10 +17,10 @@ class CouponsController extends GetxController {
   List allTypes = ['all', 'basic', 'premium', 'enterprise', 'addon'];
   RxString selectedType = "all".obs;
 
-  RxBool isloading = false.obs;
+  RxBool isLoading = false.obs;
 
   Future<void> getCoupons() async {
-    isloading.value = true;
+    isLoading.value = true;
     try {
       final response = await http.post(Uri.parse(ApiConstants.getCoupons),
           body: jsonEncode({
@@ -38,13 +38,13 @@ class CouponsController extends GetxController {
         coupons.clear();
         coupons.addAll(
             jsonResponseData.map((e) => CuponsModel.fromJson(e)).toList());
-        isloading.value = false;
+        isLoading.value = false;
       } else {
-        isloading.value = false;
+        isLoading.value = false;
         throw Exception('Failed to load Coupons');
       }
     } catch (e) {
-      isloading.value = false;
+      isLoading.value = false;
       CustomSnackbar.showError('Error', e.toString());
     }
   }

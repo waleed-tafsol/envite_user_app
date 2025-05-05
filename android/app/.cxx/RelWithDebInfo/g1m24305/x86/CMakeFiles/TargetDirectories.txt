@@ -1,0 +1,2 @@
+/Users/waleed/Documents/flutter apps/envite_user_app/android/app/.cxx/RelWithDebInfo/g1m24305/x86/CMakeFiles/edit_cache.dir
+/Users/waleed/Documents/flutter apps/envite_user_app/android/app/.cxx/RelWithDebInfo/g1m24305/x86/CMakeFiles/rebuild_cache.dir
