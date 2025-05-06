@@ -1,17 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
+
 import 'package:event_planner_light/controllers/Auth_services.dart';
+import 'package:event_planner_light/model/TicketModel.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
-import '../constants/ApiConstant.dart';
-import 'package:http_parser/http_parser.dart';
 
-import 'package:event_planner_light/model/TicketModel.dart';
+import '../constants/ApiConstant.dart';
 
 class SupportController extends GetxController {
   @override

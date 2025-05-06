@@ -1,10 +1,11 @@
 import 'dart:ui' as ui;
+
 import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/model/event_model.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/EventDetailScreen/events_detail_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MarkerUtils {
   static Future<Set<Marker>> generateMarkers({

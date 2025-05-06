@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:event_planner_light/model/events_list_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

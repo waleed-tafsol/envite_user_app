@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:video_player/video_player.dart';
+
 import '../../constants/colors_constants.dart';
 
 class NetworkVideoPlayerWidget extends StatefulWidget {

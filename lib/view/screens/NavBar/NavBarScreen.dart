@@ -1,9 +1,10 @@
 import 'package:event_planner_light/controllers/filters_controller.dart';
+import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_events/my_events_screen.dart';
 import 'package:event_planner_light/view/screens/NavBar/Screens/my_invites/my_invites_screen.dart';
-import 'package:event_planner_light/view/screens/NavBar/Screens/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/ExploreController.dart';
 import '../../../utills/enums.dart';

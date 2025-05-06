@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:event_planner_light/model/event_detail_response.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/utills/enums.dart';
@@ -6,6 +7,7 @@ import 'package:event_planner_light/view/widgets/BottomModelSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../constants/ApiConstant.dart';
 import '../utills/UrlLauncherUtills.dart';
 import 'Auth_services.dart';

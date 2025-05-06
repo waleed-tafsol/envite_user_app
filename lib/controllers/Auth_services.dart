@@ -1,20 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:android_id/android_id.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:event_planner_light/services/FirebaseServices.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
+
 import '../constants/ApiConstant.dart';
 import '../model/UserModel.dart';
 import '../services/LocationServices.dart';
 import '../utills/CustomSnackbar.dart';
 import '../view/screens/auth_screen.dart';
 import 'Auth_token_services.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:android_id/android_id.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 class AuthService extends GetxService {
   @override

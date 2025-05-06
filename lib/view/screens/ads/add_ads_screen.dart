@@ -1,5 +1,4 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';

@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/model/AdsModel.dart';
 import 'package:event_planner_light/utills/string_decoration.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:http/http.dart' as http;
+import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../constants/ApiConstant.dart';
 import '../../controllers/Auth_services.dart';
 import '../../utills/CustomSnackbar.dart';

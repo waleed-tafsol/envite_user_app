@@ -1,28 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:event_planner_light/utills/enums.dart';
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 
-import 'package:event_planner_light/services/customPrint.dart';
-import 'package:event_planner_light/utills/aws_utills.dart';
-import 'package:http/http.dart' as http;
 import 'package:event_planner_light/controllers/Auth_services.dart';
+import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
+import 'package:event_planner_light/utills/aws_utills.dart';
+import 'package:event_planner_light/utills/enums.dart';
 import 'package:event_planner_light/view/screens/Drawer/Screens/AddEventsScreen/ConfirmOrAddMoreEvents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:get/get.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
+
 import '../constants/ApiConstant.dart';
 import '../model/CatagoryModel.dart';
 import '../utills/ConvertDateTime.dart';
-import 'package:http_parser/http_parser.dart';
-
 import '../view/widgets/BottomModelSheet.dart';
 
 class AddEventController extends GetxController {
@@ -158,6 +158,10 @@ class AddEventController extends GetxController {
   }
 
   verifyUserPackageAndSetEventType(String eventType, BuildContext context) {
+    if (isAddPastEvents.value) {
+      setSelectedOption(eventType);
+      return;
+    }
     final int publicIndex = authService.me.value!.subscriptions!
         .where((element) => element.eventType == Events.public.text)
         .length;

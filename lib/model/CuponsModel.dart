@@ -1,4 +1,3 @@
-import 'package:event_planner_light/model/UserModel.dart';
 
 class CuponsModel {
   String? sId;
@@ -63,25 +62,25 @@ class CuponsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['slug'] = this.slug;
-    data['slugId'] = this.slugId;
-    data['name'] = this.name;
-    data['userType'] = this.userType;
-    data['forSpecificUsers'] = this.forSpecificUsers;
-    data['users'] = this.users;
-    data['couponType'] = this.couponType;
-    data['code'] = this.code;
-    data['amountOrDiscount'] = this.amountOrDiscount;
-    data['usesPerCoupon'] = this.usesPerCoupon;
-    data['usesPerUser'] = this.usesPerUser;
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
-    data['isActive'] = this.isActive;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['slug'] = slug;
+    data['slugId'] = slugId;
+    data['name'] = name;
+    data['userType'] = userType;
+    data['forSpecificUsers'] = forSpecificUsers;
+    data['users'] = users;
+    data['couponType'] = couponType;
+    data['code'] = code;
+    data['amountOrDiscount'] = amountOrDiscount;
+    data['usesPerCoupon'] = usesPerCoupon;
+    data['usesPerUser'] = usesPerUser;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
+    data['isActive'] = isActive;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

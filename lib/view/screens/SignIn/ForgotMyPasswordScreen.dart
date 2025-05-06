@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
 import 'package:event_planner_light/view/screens/OtpScreen.dart';
 import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:http/http.dart' as http;
+import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../constants/ApiConstant.dart';
 
 class ForgotMyPasswordEmailScreen extends StatelessWidget {

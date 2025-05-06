@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../controllers/NotificationController.dart';
 
 class NotificationBindings extends Bindings {

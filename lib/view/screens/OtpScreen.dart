@@ -2,7 +2,6 @@ import 'package:event_planner_light/constants/TextConstant.dart';
 import 'package:event_planner_light/controllers/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/StyleConstants.dart';

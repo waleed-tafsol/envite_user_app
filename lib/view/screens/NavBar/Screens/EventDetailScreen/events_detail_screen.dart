@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../../constants/constants.dart';
 import '../../../../../controllers/edit_event_detail_controller.dart';
 import '../../../../../controllers/filters_controller.dart';
@@ -20,7 +21,6 @@ import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/PhotoViewerWidget.dart';
 import '../../../../widgets/network_video_player_widget.dart';
 import '../my_events/edit_event_details.dart';
-import 'ContactsScreen.dart';
 
 class EventsDetailScreen extends GetView<EventDetailController> {
   static const routeName = 'EventsDetailScreen';

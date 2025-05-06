@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/AdsController.dart';
 import 'package:event_planner_light/view/screens/ads/add_ads_screen.dart';
-import 'package:event_planner_light/view/widgets/ads_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

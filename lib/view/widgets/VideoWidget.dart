@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
-import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoThumbnailWidget extends StatelessWidget {
   final String videoPath;

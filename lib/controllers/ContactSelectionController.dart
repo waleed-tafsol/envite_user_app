@@ -12,7 +12,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:whatsapp/whatsapp.dart';
 
 import '../constants/colors_constants.dart';
-import '../utills/UrlLauncherUtills.dart';
 
 class ContactSelectionController extends GetxController {
   final TextEditingController searchController = TextEditingController();

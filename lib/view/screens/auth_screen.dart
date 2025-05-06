@@ -2,7 +2,6 @@ import 'package:event_planner_light/view/screens/SignIn/SignInScreen.dart';
 import 'package:event_planner_light/view/screens/SignUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/assets.dart';

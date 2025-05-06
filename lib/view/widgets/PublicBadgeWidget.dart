@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../constants/colors_constants.dart';
 
 class PublicBadgeWidget extends StatelessWidget {

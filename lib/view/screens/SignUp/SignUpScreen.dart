@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../constants/TextConstant.dart';
 import '../../../constants/colors_constants.dart';
 

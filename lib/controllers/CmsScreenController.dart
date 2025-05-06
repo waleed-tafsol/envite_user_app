@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:event_planner_light/constants/ApiConstant.dart';
 import 'package:event_planner_light/model/CmsModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../utills/CustomSnackbar.dart';
 
 class CmsScreenController extends GetxController {

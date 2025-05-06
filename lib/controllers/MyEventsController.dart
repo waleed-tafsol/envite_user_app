@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:event_planner_light/model/events_list_response.dart';
 import 'package:event_planner_light/utills/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../constants/ApiConstant.dart';
 import '../model/event_model.dart';
 import 'Auth_services.dart';

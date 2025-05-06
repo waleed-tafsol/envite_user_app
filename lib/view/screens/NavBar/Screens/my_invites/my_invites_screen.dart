@@ -2,6 +2,7 @@ import 'package:event_planner_light/controllers/MyInvitesController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../shimmer_loaders/event_tile_shimmer.dart';

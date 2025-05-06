@@ -1,7 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../constants/ApiConstant.dart';
 import '../model/event_model.dart';
 import '../utills/enums.dart';

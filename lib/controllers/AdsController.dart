@@ -5,7 +5,6 @@ import 'package:event_planner_light/model/AdsModel.dart';
 import 'package:event_planner_light/model/ads_list_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,7 +14,6 @@ import '../constants/ApiConstant.dart';
 import '../services/customPrint.dart';
 import '../utills/ConvertDateTime.dart';
 import '../utills/CustomSnackbar.dart';
-import '../utills/aws_utills.dart';
 import 'Auth_services.dart';
 
 class AdsController extends GetxController {

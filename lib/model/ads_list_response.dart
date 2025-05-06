@@ -13,7 +13,7 @@ class AdsListResponse {
     if (json['data'] != null) {
       data = <AdsModel>[];
       json['data'].forEach((v) {
-        data!.add(new AdsModel.fromJson(v));
+        data!.add(AdsModel.fromJson(v));
       });
     }
     results = json['results'];

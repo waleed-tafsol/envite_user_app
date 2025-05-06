@@ -1,10 +1,12 @@
 import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
 import 'package:event_planner_light/view/widgets/network_video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../../constants/TextConstant.dart';
 import '../../../../../constants/colors_constants.dart';
 import '../../../../../controllers/Auth_services.dart';

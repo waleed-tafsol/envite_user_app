@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../controllers/EditProfileController.dart';
 
 class EditProfileBindings extends Bindings {
