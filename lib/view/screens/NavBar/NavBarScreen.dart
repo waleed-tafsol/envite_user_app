@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/colors_constants.dart';
 import '../../../controllers/ExploreController.dart';
+import '../../../services/LocationServices.dart';
 import '../../../utills/enums.dart';
 import '../../../view_all_explorer_event_screen.dart';
 import '../../widgets/CustomAppBar.dart';

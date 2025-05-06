@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../services/Location_services.dart';
+import '../services/LocationServices.dart';
 import '../utills/MarkerUtills.dart';
 
 class ChooseYourLocationController extends GetxController {
@@ -35,7 +35,7 @@ class ChooseYourLocationController extends GetxController {
   }
 
   Future<void> determinePosition() async {
-    final position = await LocationService.getCurrentPosition();
+    final position = await LocationServices.getCurrentLocation();
     if (position == null) {
       CustomSnackbar.showError(
           "Location Error", "Failed to get current location.");

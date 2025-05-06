@@ -1,10 +1,10 @@
 import 'package:event_planner_light/constants/colors_constants.dart';
-import 'package:event_planner_light/controllers/GoogleMapController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../../controllers/GoogleMapController.dart';
 import '../../../../widgets/custom_place_search_field.dart';
 
 class ChooseYourLocationScreen extends StatelessWidget {
@@ -46,8 +46,8 @@ class ChooseYourLocationScreen extends StatelessWidget {
                         // print("Place selected: $name");
                         // print(
                         //     "Coordinates: ${coordinates.latitude}, ${coordinates.longitude}");
-                        controller.updateLocation(LatLng(
-                            coordinates.latitude, coordinates.longitude));
+                        controller.updateLocation(
+                            LatLng(coordinates.lat, coordinates.lng));
 
                         // Do whatever you want here!
                         // e.g. controller.getNearByEvents(coordinates);

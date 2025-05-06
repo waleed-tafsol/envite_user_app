@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show File;
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:event_planner_light/constants/StyleConstants.dart';
@@ -314,8 +314,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                 controller.onPlaceSelected(
                                     name,
                                     LatLng(
-                                        lat: coordinates.latitude,
-                                        lng: coordinates.longitude));
+                                        lat: coordinates.lat,
+                                        lng: coordinates.lng));
                               },
                               suggestionColor: AppColors.kBlueLightShade,
                             ),

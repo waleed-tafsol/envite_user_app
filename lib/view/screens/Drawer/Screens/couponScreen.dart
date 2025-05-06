@@ -1,3 +1,4 @@
+import 'package:event_planner_light/utills/CopyText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -19,135 +20,171 @@ class CouponScreen extends GetView<CouponsController> {
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
         child: Obx(() {
-          return ListView.builder(
-              itemCount: controller.coupons.length,
-              itemBuilder: (context, index) {
-                return controller.isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Padding(
-                      padding:  EdgeInsets.only(bottom: 2.h),
-                      child: Card(
-                          elevation: 3,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.h, horizontal: 4.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(capitalizeFirstLetter(controller.coupons[index].name ?? ""),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18.sp)),
-                                    controller.coupons[index].couponType == "discount"?
-                                    Text('${capitalizeFirstLetter(controller.coupons[index].couponType ?? "")}: ${controller.coupons[index].amountOrDiscount}%',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17.sp)):Text('${capitalizeFirstLetter(controller.coupons[index].couponType ?? "")}: ${controller.coupons[index].amountOrDiscount}AED',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17.sp)),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Divider(),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Coupon Code:",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 15.sp)),
-                                    Text(capitalizeFirstLetter(controller.coupons[index].code ?? ""),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15.sp)),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Divider(),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Uses Per Coupon:",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 15.sp)),
-                                    Text(
-                                        controller.coupons[index].usesPerCoupon
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15.sp)),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Divider(),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Start Date:",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 15.sp)),
-                                    Text(
-                                        convertToDateFormat(
-                                            controller.coupons[index].startDate ??
+          return controller.isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : controller.coupons.isEmpty
+                  ? Center(
+                      child: Text("No Coupons Available",
+                          style:
+                              TextStyle(color: Colors.black, fontSize: 15.sp)))
+                  : ListView.builder(
+                      itemCount: controller.coupons.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 2.h),
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 2.h, horizontal: 4.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                          capitalizeFirstLetter(
+                                              controller.coupons[index].name ??
+                                                  ""),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18.sp)),
+                                      controller.coupons[index].couponType ==
+                                              "discount"
+                                          ? Text(
+                                              '${capitalizeFirstLetter(controller.coupons[index].couponType ?? "")}: ${controller.coupons[index].amountOrDiscount}%',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17.sp))
+                                          : Text(
+                                              '${capitalizeFirstLetter(controller.coupons[index].couponType ?? "")}: ${controller.coupons[index].amountOrDiscount}AED',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17.sp)),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Coupon Code:",
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15.sp)),
+                                      InkWell(
+                                        onTap: () => copyToClipboard(
+                                            controller.coupons[index].code ??
                                                 ""),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15.sp)),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Divider(),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("End Date:",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 15.sp)),
-                                    Text(
-                                        convertToDateFormat(
-                                            controller.coupons[index].endDate ??
-                                                ""),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15.sp)),
-                                  ],
-                                ),
-                              ],
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                controller
+                                                        .coupons[index].code ??
+                                                    "",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.sp)),
+                                            SizedBox(
+                                              width: 1.w,
+                                            ),
+                                            Icon(
+                                              Icons.copy,
+                                              size: 15,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Uses Per Coupon:",
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15.sp)),
+                                      Text(
+                                          controller
+                                              .coupons[index].usesPerCoupon
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.sp)),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Start Date:",
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15.sp)),
+                                      Text(
+                                          convertToDateFormat(controller
+                                                  .coupons[index].startDate ??
+                                              ""),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.sp)),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("End Date:",
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15.sp)),
+                                      Text(
+                                          convertToDateFormat(controller
+                                                  .coupons[index].endDate ??
+                                              ""),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.sp)),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                    );
-              });
+                        );
+                      });
         }),
       ),
     );

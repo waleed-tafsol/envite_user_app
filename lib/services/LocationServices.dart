@@ -1,3 +1,5 @@
+import 'package:event_planner_light/services/customPrint.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationServices {
@@ -25,12 +27,32 @@ class LocationServices {
 
       // Get the current position
       return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 10,
+        ),
       );
     } catch (e) {
       // Log the error and return default position
-      print("Error fetching location: $e");
+      ColoredPrint.red("Error fetching location: $e");
       return _defaultPosition();
+    }
+  }
+
+  static Future<String> getCurrentAddress() async {
+    try {
+      Position position = await getCurrentLocation();
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        return '${place.street}, ${place.locality}';
+      } else {
+        return 'No address found.';
+      }
+    } catch (e) {
+      ColoredPrint.red('Failed to get address: $e');
+      return 'Failed to get address: $e';
     }
   }
 

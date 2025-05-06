@@ -73,6 +73,7 @@ dependencies:
   fast_contacts: ^4.0.0
   webview_flutter: ^4.11.0
   google_maps_flutter: ^2.12.1
+  geocoding: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

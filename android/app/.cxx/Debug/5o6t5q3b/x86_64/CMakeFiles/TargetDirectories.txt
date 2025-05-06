@@ -1,0 +1,2 @@
+D:/projects/Envite/envite_user_app/android/app/.cxx/Debug/5o6t5q3b/x86_64/CMakeFiles/edit_cache.dir
+D:/projects/Envite/envite_user_app/android/app/.cxx/Debug/5o6t5q3b/x86_64/CMakeFiles/rebuild_cache.dir

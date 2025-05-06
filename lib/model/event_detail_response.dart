@@ -10,9 +10,7 @@ class EventDetailResponse {
 
   EventDetailResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'] != null
-        ? EventDetailData.fromJson(json['data'])
-        : null;
+    data = json['data'] != null ? EventDetailData.fromJson(json['data']) : null;
   }
 }
 
@@ -104,9 +102,8 @@ class EventDetailData {
         videos!.add(ApiConstants.s3bucket + videosData[i]);
       }
     }
-    location = json['location'] != null
-        ? Location.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
     address = json['address'];
     startDate = json['startDate'];
     endDate = json['endDate'];
@@ -208,7 +205,7 @@ class Location {
     if (json['coordinates'] != null) {
       coordinates = <double>[];
       json['coordinates'].forEach((v) {
-        coordinates!.add(v);
+        coordinates!.add(v.toDouble());
       });
     }
     // coordinates = json['coordinates'];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
+    as gmaps;
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constants/ApiConstant.dart';
@@ -76,7 +77,7 @@ class _CustomPlaceSearchFieldState extends State<CustomPlaceSearchField> {
 
         widget.onPlaceSelected(
           placeName,
-          gmaps.LatLng(location.lat, location.lng),
+          gmaps.LatLng(lat: location.lat, lng: location.lng),
         );
       }
     } catch (e) {
