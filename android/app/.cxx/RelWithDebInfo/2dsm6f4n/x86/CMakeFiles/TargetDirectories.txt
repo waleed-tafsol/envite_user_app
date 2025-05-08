@@ -1,0 +1,2 @@
+D:/projects/Envite/envite_user_app/android/app/.cxx/RelWithDebInfo/2dsm6f4n/x86/CMakeFiles/edit_cache.dir
+D:/projects/Envite/envite_user_app/android/app/.cxx/RelWithDebInfo/2dsm6f4n/x86/CMakeFiles/rebuild_cache.dir

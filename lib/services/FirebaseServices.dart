@@ -1,9 +1,21 @@
 import 'dart:convert';
 
+import 'package:event_planner_light/utills/enums.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../constants/ApiConstant.dart';
+import '../constants/constants.dart';
+import '../controllers/Auth_services.dart';
 import '../firebase_options.dart';
+import '../model/NotificationResponseModel.dart';
+import '../model/PushNotificationModel.dart';
+import '../view/screens/Drawer/Screens/supportScreen/supportScreen.dart';
+import '../view/screens/NavBar/Screens/EventDetailScreen/events_detail_screen.dart';
+import '../view/screens/NavBar/Screens/my_invites/PaymentWebView.dart';
 import 'LocalNotificationServices.dart';
 import 'customPrint.dart';
 
@@ -51,8 +63,7 @@ class FirebaseService {
       if (message.data.isNotEmpty) {
         final LocalNotificationService notificationService =
             LocalNotificationService();
-        await notificationService
-            .initialize();
+        await notificationService.initialize();
         notificationService.showNotification(
           id: 0,
           title: message.notification!.title ?? 'New Notification',
@@ -62,27 +73,104 @@ class FirebaseService {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      Map<String, dynamic> jsondata = jsonDecode(message.data["payload"]);
+      try {
+        // Map<String, dynamic> jsondata = jsonDecode(message.data);
 
-      // final receivedNotification = NotificationModel.fromJson(jsondata);
-      ColoredPrint.green("onMessageOpenedApp: $jsondata");
+        if (message.notification != null) {
+          final receivedNotification =
+              PushNotificatificationModel.fromJson(message);
+          ColoredPrint.green(
+              "onMessageOpenedApp: ${receivedNotification.notificationType}");
+          switch (receivedNotification.notificationType) {
+            case "announcement":
+              Get.dialog(Dialog(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        receivedNotification.title ?? 'Announcement',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      k2hSizedBox,
+                      Text(
+                        receivedNotification.message ??
+                            'You have a new announcement.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.black,
+                        ),
+                      ),
+                      k1hSizedBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              'Ok',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                // color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ));
 
-      if (message.notification != null) {}
-      // if (jsondata['flag'] == 'memory') {
-      //   try {
-      //     // Response? response = await ApiService.getRequest(
-      //     //     ApiConstants.findMemories + jsondata['payload'][0]['id']);
-      //     // final memory = MemoryModel.fromJson(response?.data);
-      //     // Get.toNamed(
-      //     //   MemoryDetailScreen.routeName,
-      //     //   arguments: memory,
-      //     // );
-      //   } catch (e) {}
-      // } else if (jsondata['payload']['flag'] == 'subscription') {
-      //   // Get.toNamed(ChooseYourPlanScreen.routeName);
-      // } else {
-      //   null;
-      // }
+              break;
+            case "registration":
+              break;
+            case "ads":
+              break;
+            case "supportTicket":
+              Get.toNamed(SupportScreen.routeName);
+              break;
+            case "event":
+              // Get.toNamed(EventsDetailScreen.routeName,
+              //   arguments: {"slug": event!.slug ?? ""});
+              break;
+            case "subscription":
+              Get.toNamed(
+                PaymentWebviewScreen.routeName,
+                arguments: {
+                  'url':
+                      '${ApiConstants.upgradePlan}${authService.me.value!.slug}',
+                },
+              );
+              break;
+            default:
+              throw "Unknown notification type: ${receivedNotification.notificationType}";
+          }
+        } else {
+          throw "Notification null";
+        }
+      } catch (e) {
+        ColoredPrint.red("Error in onMessageOpenedApp: $e");
+      }
     });
   }
 
@@ -91,24 +179,33 @@ class FirebaseService {
   }
 
   static Future<void> backgroundMessageHandler(RemoteMessage message) async {
-    if (message.notification != null) {
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
       ColoredPrint.green('Background message: ${message.notification?.title}');
+      if (message.notification != null) {
+        ColoredPrint.green(
+            'Background message: ${message.notification?.title}');
 
-      // Check if the memoryId exists in the payload
+        // Check if the memoryId exists in the payload
 
-      // Map<String, dynamic> jsondata = jsonDecode(message.data["payload"]);
+        // Map<String, dynamic> jsondata = jsonDecode(message.data["payload"]);
 
-      // final receivedNotification = NotificationModel.fromJson(jsondata);
-      //   String? memoryId = message.data['memoryId'];
-      //   if (memoryId != null) {
-      //     ColoredPrint.green(
-      //         "Navigating to Memory Detail with memoryId: $memoryId");
-      //     // Navigate to MemoryDetailScreen with memoryId as a parameter
-      //     Get.toNamed(MemoryDetailScreen.routeName, arguments: memoryId);
-      //   }
-      // } else {
-      //   ColoredPrint.magenta('Background message with no notification');
-      // }
+        // final receivedNotification = NotificationModel.fromJson(jsondata);
+        //   String? memoryId = message.data['memoryId'];
+        //   if (memoryId != null) {
+        //     ColoredPrint.green(
+        //         "Navigating to Memory Detail with memoryId: $memoryId");
+        //     // Navigate to MemoryDetailScreen with memoryId as a parameter
+        //     Get.toNamed(MemoryDetailScreen.routeName, arguments: memoryId);
+        //   }
+        // } else {
+        //   ColoredPrint.magenta('Background message with no notification');
+        // }
+      }
+    } catch (e) {
+      ColoredPrint.red("Error initializing Firebase in background: $e");
     }
   }
 

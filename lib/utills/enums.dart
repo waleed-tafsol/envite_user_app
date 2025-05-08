@@ -28,6 +28,7 @@ enum UserRoles {
 
   final String text;
 }
+
 enum MyInvitesTabs {
   pinned("pinned"),
   plannedEvents("planned events");
@@ -36,4 +37,13 @@ enum MyInvitesTabs {
   const MyInvitesTabs(this.text);
 
   final String text;
+}
+
+enum NotificationTypeEnums {
+  announcement,
+  registration,
+  ads,
+  supportTicket,
+  event,
+  subscription;
 }
