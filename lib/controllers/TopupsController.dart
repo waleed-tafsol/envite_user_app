@@ -39,12 +39,11 @@ class TopupsController extends GetxController {
         isloading.value = false;
       } else {
         isloading.value = false;
-        throw Exception('Failed to load topups');
+        throw 'Failed to load topups';
       }
     } catch (e) {
       isloading.value = false;
       CustomSnackbar.showError('Error', e.toString());
     }
   }
-
 }

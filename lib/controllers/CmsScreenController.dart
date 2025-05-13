@@ -30,7 +30,7 @@ class CmsScreenController extends GetxController {
           cmsModel.value = CmsModel.fromJson(data);
         }
       } else {
-        throw Exception(data["message"]["error"][0] ?? "An error occurred");
+        throw data["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       CustomSnackbar.showError("Error", e.toString());
@@ -38,5 +38,4 @@ class CmsScreenController extends GetxController {
       isLoading.value = false;
     }
   }
-
 }

@@ -23,9 +23,6 @@ class ContactSelectionController extends GetxController {
   List<Contact> allContacts = <Contact>[];
   RxBool isLoading = false.obs;
 
-
-
-
   @override
   void onInit() async {
     super.onInit();
@@ -107,8 +104,7 @@ class ContactSelectionController extends GetxController {
         final url = Uri.parse(
             '${ApiConstants.invitationUrl}$selectedEventId/${selectedContacts[0].phones.first.number}');
 
-
-      /*  Get.dialog(AlertDialog(
+        /*  Get.dialog(AlertDialog(
             content: GestureDetector(
                 onTap: () => launchUrlWeb(url.toString()),
                 child: Text(
@@ -131,8 +127,8 @@ class ContactSelectionController extends GetxController {
               'Could Not Add To Favourites',
         );
       } else {
-        throw Exception(jsonResponse["message"]?["error"]?[0] ??
-            'Could Not Add To Favourites');
+        throw jsonResponse["message"]?["error"]?[0] ??
+            'Could Not Add To Favourites';
       }
     } catch (e) {
       CustomSnackbar.showError('Error', e.toString());
@@ -141,18 +137,18 @@ class ContactSelectionController extends GetxController {
     }
   }
 
-
-  Future<void> callWhatsappBusiness () async {
+  Future<void> callWhatsappBusiness() async {
     isLoading.value = true;
 
-    const String accessToken ="EAAJpmtZAKSKMBO96xCdPSdFp0JFvC49Db8Y5C2TmAnZCiks78VhBXWZBDsejXQpcGKguhaeFQOmvYJeAyfcZBdVZBzqqiQz32oNcsIvGedKnEkK4bQ6HhbuXI9laZCr7uFGHOugnvEZBTGkbsfyG3uQTeZBTrTZBZBfAxDhSNoZAVavNoHOZC6UJZBO5ZAyeIamDd3";
+    const String accessToken =
+        "EAAJpmtZAKSKMBO96xCdPSdFp0JFvC49Db8Y5C2TmAnZCiks78VhBXWZBDsejXQpcGKguhaeFQOmvYJeAyfcZBdVZBzqqiQz32oNcsIvGedKnEkK4bQ6HhbuXI9laZCr7uFGHOugnvEZBTGkbsfyG3uQTeZBTrTZBZBfAxDhSNoZAVavNoHOZC6UJZBO5ZAyeIamDd3";
     const String fromNumberId = "665166890003755";
 
     final whatsapp = WhatsApp(accessToken, fromNumberId);
     var res = await whatsapp.sendMessage(
-      phoneNumber : '+923132797806',
-      text : "Hello, this is a test message!",
-        previewUrl : true,
+      phoneNumber: '+923132797806',
+      text: "Hello, this is a test message!",
+      previewUrl: true,
     );
     if (res.isSuccess()) {
       isLoading.value = false;

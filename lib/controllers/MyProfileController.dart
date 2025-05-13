@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class MyProfileController extends GetxController {
-
   //RxList<CatagoryModel> categories = <CatagoryModel>[].obs;
 
   RxBool isloading = false.obs;
@@ -18,12 +17,11 @@ class MyProfileController extends GetxController {
   //       isloading.value = false;
   //     } else {
   //       isloading.value = false;
-  //       throw Exception('Failed to load categories');
+  //       throw 'Failed to load categories';
   //     }
   //   } catch (e) {
   //     isloading.value = false;
   //     Get.snackbar('Error', e.toString());
   //   }
   // }
-
 }

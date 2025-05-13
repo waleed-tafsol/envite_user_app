@@ -129,9 +129,7 @@ class EditEventDetailController extends GetxController {
 
   Future<void> pickImage() async {
     try {
-      pickedImages.length > 3
-          ? Exception('Cannot Upload Videos more than 3')
-          : null;
+      pickedImages.length > 3 ? 'Cannot Upload Videos more than 3' : null;
 
       final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
       if (file != null) {
@@ -215,8 +213,8 @@ class EditEventDetailController extends GetxController {
       } else {
         isloading.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw 
+            errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isloading.value = false;
@@ -364,8 +362,7 @@ class EditEventDetailController extends GetxController {
         isloading.value = false;
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isloading.value = false;

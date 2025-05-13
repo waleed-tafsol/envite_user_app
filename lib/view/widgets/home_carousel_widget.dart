@@ -63,7 +63,7 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
         ads.clear();
         ads.addAll(jsonResponseData.map((e) => AdsModel.fromJson(e)).toList());
       } else {
-        throw Exception('Failed to load Tickets');
+        throw 'Failed to load Tickets';
       }
     } catch (e) {
       CustomSnackbar.showError('Error', e.toString());
@@ -81,7 +81,7 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
         for (var ad in ads)
           Container(
               decoration: BoxDecoration(
-              /*    image: DecorationImage(
+                  /*    image: DecorationImage(
                     image: NetworkImage( ad.image ?? "",),
                     fit: BoxFit.contain,
                   ),*/
@@ -136,7 +136,9 @@ class _HomeCarouselWidgetState extends State<HomeCarouselWidget> {
                                     fontSize: 15.sp,
                                   ),
                                 ),
-                                SizedBox(height: 1.h,),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
                                 ad.tags == null
                                     ? SizedBox()
                                     : Wrap(

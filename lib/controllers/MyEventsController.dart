@@ -94,8 +94,7 @@ class MyEventsController extends GetxController {
           isEventLoading.value = false;
         }
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       if (callFirstTime) {
@@ -104,5 +103,4 @@ class MyEventsController extends GetxController {
       Get.snackbar('Error', e.toString());
     }
   }
-
 }

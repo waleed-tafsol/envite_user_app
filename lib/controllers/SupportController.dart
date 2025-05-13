@@ -40,9 +40,9 @@ class SupportController extends GetxController {
       Get.snackbar('Error', 'Failed to pick image or video: $e');
     }
   }
-  Future<void> removeImage() async {
 
-      pickedImage.value = null;
+  Future<void> removeImage() async {
+    pickedImage.value = null;
   }
 
   // Create Ticket
@@ -55,22 +55,20 @@ class SupportController extends GetxController {
       request.fields['title'] = titleController.value.text;
       request.fields['description'] = descriptionController.value.text;
 
-      if (pickedImage.value!= null) {
-        
-      final mimeType = lookupMimeType(pickedImage
-          .value!.path);
-      final mediaType = mimeType != null
-          ? MediaType.parse(mimeType)
-          : MediaType('image', 'jpeg');
+      if (pickedImage.value != null) {
+        final mimeType = lookupMimeType(pickedImage.value!.path);
+        final mediaType = mimeType != null
+            ? MediaType.parse(mimeType)
+            : MediaType('image', 'jpeg');
 
-      var multipartFile = await http.MultipartFile.fromPath(
-        'image',
-        pickedImage.value!.path,
-        // filename: file.uri.pathSegments.last,
-        contentType: mediaType,
-      );
+        var multipartFile = await http.MultipartFile.fromPath(
+          'image',
+          pickedImage.value!.path,
+          // filename: file.uri.pathSegments.last,
+          contentType: mediaType,
+        );
 
-      request.files.add(multipartFile);
+        request.files.add(multipartFile);
       }
 
       request.headers.addAll({
@@ -80,21 +78,20 @@ class SupportController extends GetxController {
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
-         final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(response.body);
 
       if (response.statusCode == 201) {
         isloading.value = false;
         // Map<String, dynamic> jsonResponseData =
-          // Map<String, dynamic>.from(jsonResponse['data']);
-        tickets.insert(0,
-           TicketModel.fromJson(jsonResponse["data"]));
-        
+        // Map<String, dynamic>.from(jsonResponse['data']);
+        tickets.insert(0, TicketModel.fromJson(jsonResponse["data"]));
+
         clearValues();
         Get.back();
         CustomSnackbar.showSuccess('Success', "Ticket Created Successfully");
       } else {
         isloading.value = false;
-        throw Exception(jsonResponse["message"]["error"][0]);
+        throw jsonResponse["message"]["error"][0];
       }
     } catch (e) {
       isloading.value = false;
@@ -127,7 +124,7 @@ class SupportController extends GetxController {
         isloading.value = false;
       } else {
         isloading.value = false;
-        throw Exception('Failed to load Tickets');
+        throw 'Failed to load Tickets';
       }
     } catch (e) {
       isloading.value = false;
@@ -135,9 +132,9 @@ class SupportController extends GetxController {
     }
   }
 
-  void clearValues(){
+  void clearValues() {
     removeImage();
-    titleController.text ="";
-    descriptionController.text ="";
+    titleController.text = "";
+    descriptionController.text = "";
   }
 }

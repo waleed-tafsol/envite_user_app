@@ -42,10 +42,9 @@ class ForgotMyPasswordEmailScreen extends StatelessWidget {
         } else {
           if (response.body.isNotEmpty) {
             final jsonresponse = json.decode(response.body);
-            throw Exception(
-                jsonresponse["message"]["error"][0] ?? "An error occurred");
+            throw jsonresponse["message"]["error"][0] ?? "An error occurred";
           } else {
-            Exception("An error occurred");
+            "An error occurred";
           }
         }
       }
@@ -176,8 +175,7 @@ class _ForgotMyPasswordConfirmScreenState
           // authService.setAuthToken(jsonresponse["data"]["token"]);
           Get.until((route) => route.settings.name == SigninScreen.routeName);
         } else {
-          throw Exception(
-              jsonresponse["message"]["error"][0] ?? "An error occurred");
+          throw jsonresponse["message"]["error"][0] ?? "An error occurred";
         }
       }
     } catch (e) {

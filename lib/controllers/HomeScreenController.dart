@@ -32,7 +32,7 @@ class HomeScreenController extends GetxController {
         final jsonResponse = json.decode(response.body);
         final List<dynamic> data = jsonResponse['data'];
         categories.value = data.map((e) => CategoryModel.fromJson(e)).toList();
-        if(categories.isNotEmpty){
+        if (categories.isNotEmpty) {
           selectedCategory.value = categories[0];
           await getPaginatedEvents();
         }
@@ -40,8 +40,7 @@ class HomeScreenController extends GetxController {
       } else {
         isLoadingCategories.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isLoadingCategories.value = false;
@@ -57,7 +56,7 @@ class HomeScreenController extends GetxController {
           body: jsonEncode({
             // "eventType": "exclusive",
             "categorySlugs": [selectedCategory.value.slug],
-           // "packageType": "all"
+            // "packageType": "all"
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -71,13 +70,11 @@ class HomeScreenController extends GetxController {
       } else {
         isEventLoading.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isEventLoading.value = false;
       Get.snackbar('Error', e.toString());
     }
   }
-
 }

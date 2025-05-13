@@ -28,7 +28,6 @@ class FiltersController extends GetxController {
   RxInt currentPage = 1.obs;
   final int limit = 10;
 
-
   void checkFiltersActive() {
     if ((categories.isNotEmpty) ||
             (eventType.value != Events.all.text) ||
@@ -128,8 +127,7 @@ class FiltersController extends GetxController {
       } else {
         isEventLoading.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isEventLoading.value = false;

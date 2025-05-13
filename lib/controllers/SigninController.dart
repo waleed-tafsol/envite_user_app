@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../view/screens/OtpScreen.dart';
 
 class SignInController extends GetxController {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   RxBool isEvetPlanner = false.obs;
@@ -29,7 +28,7 @@ class SignInController extends GetxController {
         Get.toNamed(OtpScreen.routeName, arguments: {
           'email': emailController.text,
         });
-        throw Exception("Please verify your email to login");
+        throw "Please verify your email to login";
       }
       CustomSnackbar.showSuccess('Success', 'Login successful');
       Get.offAllNamed(NavBarScreen.routeName);

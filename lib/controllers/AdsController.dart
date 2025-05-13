@@ -144,8 +144,7 @@ class AdsController extends GetxController {
         isLoading.value = false;
 
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       pagiNationLoading.value = false;
@@ -210,8 +209,7 @@ class AdsController extends GetxController {
         Get.back();
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isLoading.value = false;

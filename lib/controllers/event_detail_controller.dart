@@ -63,7 +63,7 @@ class EventDetailController extends GetxController {
         final jsonResponse = json.decode(response.body);
         eventDetailResponse.value = EventDetailResponse.fromJson(jsonResponse);
       } else {
-        throw Exception('Failed to load events Details');
+        throw 'Failed to load events Details';
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -91,8 +91,8 @@ class EventDetailController extends GetxController {
         await myInvitesController.getPaginatedEvents(callFirstTime: true);
         isLoading.value = false;
       } else {
-        throw Exception(jsonResponse["message"]?["error"]?[0] ??
-            'Could Not Add To Favourits');
+        throw jsonResponse["message"]?["error"]?[0] ??
+            'Could Not Add To Favourits';
       }
     } catch (e) {
       CustomSnackbar.showError('Error', e.toString());
@@ -119,8 +119,8 @@ class EventDetailController extends GetxController {
         MyInvitesController myInvitesController = Get.find();
         await myInvitesController.getPaginatedEvents(callFirstTime: true);
       } else {
-        throw Exception(jsonResponse["message"]?["error"]?[0] ??
-            'Could Not Add To Favourits');
+        throw jsonResponse["message"]?["error"]?[0] ??
+            'Could Not Add To Favourits';
       }
     } catch (e) {
       CustomSnackbar.showError('Error', e.toString());

@@ -78,9 +78,7 @@ class AddEventController extends GetxController {
 
   Future<void> pickImage() async {
     try {
-      pickedImages.length > 3
-          ? Exception('Cannot Upload Videos more than 3')
-          : null;
+      pickedImages.length > 3 ? ('Cannot Upload Videos more than 3') : null;
 
       final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
       if (file != null) {
@@ -116,8 +114,8 @@ class AddEventController extends GetxController {
   void setEndTime(String time) {
     if (selectedStartTime.value != null) {
       DateFormat format = DateFormat("HH:mm");
-      DateTime startTime = format.parse(selectedStartTime.value!);
-      DateTime endTime = format.parse(time);
+      // DateTime startTime = format.parse(selectedStartTime.value!);
+      // DateTime endTime = format.parse(time);
 
       if (selectedStartTime.value == time) {
         CustomSnackbar.showError(
@@ -125,11 +123,11 @@ class AddEventController extends GetxController {
         return;
       }
 
-      if (endTime.isBefore(startTime)) {
-        CustomSnackbar.showError(
-            "Error", "End time cannot be before start time");
-        return;
-      }
+      // if (endTime.isBefore(startTime)) {
+      //   CustomSnackbar.showError(
+      //       "Error", "End time cannot be before start time");
+      //   return;
+      // }
     }
 
     selectedEndTime.value = time;
@@ -222,7 +220,7 @@ class AddEventController extends GetxController {
       } else {
         isloading.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
+        throw (
             errorData["message"]["error"][0] ?? "An error occurred");
       }
     } catch (e) {
@@ -362,8 +360,7 @@ class AddEventController extends GetxController {
         // Get.offAndToNamed(ConfirmorAddMoreEvents.routeName);
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isloading.value = false;

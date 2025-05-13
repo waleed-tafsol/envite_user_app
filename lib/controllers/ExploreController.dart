@@ -60,7 +60,7 @@ class ExploreController extends GetxController {
                 })
               : jsonEncode({
                   "screen": 'explore-events-view-all',
-            "latestAndPast": exploreEventsScreenType.value ==
+                  "latestAndPast": exploreEventsScreenType.value ==
                           Events.explorerPastEvent.text
                       ? 'past-events'
                       : 'upcoming-events'
@@ -87,13 +87,11 @@ class ExploreController extends GetxController {
       } else {
         isEventLoading.value = false;
         final errorData = jsonDecode(response.body);
-        throw Exception(
-            errorData["message"]["error"][0] ?? "An error occurred");
+        throw errorData["message"]["error"][0] ?? "An error occurred";
       }
     } catch (e) {
       isEventLoading.value = false;
       Get.snackbar('Error', e.toString());
     }
   }
-
 }

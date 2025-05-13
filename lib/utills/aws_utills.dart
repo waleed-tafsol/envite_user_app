@@ -8,8 +8,7 @@ Future<void> uploadFilesToS3(
     required List<String> presignedUrls}) async {
   try {
     if (filePaths.length != presignedUrls.length) {
-      throw Exception(
-          "The number of file paths must match the number of presigned URLs.");
+      throw "The number of file paths must match the number of presigned URLs.";
     }
 
     // Loop through the files and presigned URLs
@@ -45,11 +44,11 @@ Future<void> uploadFilesToS3(
       } else {
         ColoredPrint.red(
             'Failed to upload file: ${filePaths[i]}, Status: ${response.statusCode}');
-        throw Exception('Error uploading files');
+        throw 'Error uploading files';
       }
     }
   } catch (e) {
     ColoredPrint.red('Error uploading files: $e');
-    throw Exception('Error uploading files: $e');
+    throw 'Error uploading files: $e';
   }
 }

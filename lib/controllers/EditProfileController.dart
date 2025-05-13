@@ -84,7 +84,7 @@ class EditProfileController extends GetxController {
           Get.back();
           CustomSnackbar.showSuccess('Success', 'Profile Updated Successfully');
         } else {
-          throw Exception(jsonResponse['message']['error'][0]);
+          throw jsonResponse['message']['error'][0];
         }
       } catch (e) {
         CustomSnackbar.showError('Error', e.toString());

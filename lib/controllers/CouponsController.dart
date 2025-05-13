@@ -26,7 +26,7 @@ class CouponsController extends GetxController {
     try {
       final response = await http.post(Uri.parse(ApiConstants.getCoupons),
           body: jsonEncode({
-           /* "packageType": selectedType.value,
+            /* "packageType": selectedType.value,
             "packageFor": authService.me.value?.role?[0] ?? ""*/
           }),
           headers: {
@@ -43,7 +43,7 @@ class CouponsController extends GetxController {
         isLoading.value = false;
       } else {
         isLoading.value = false;
-        throw Exception('Failed to load Coupons');
+        throw 'Failed to load Coupons';
       }
     } catch (e) {
       isLoading.value = false;

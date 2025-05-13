@@ -44,9 +44,7 @@ class Signupcontroller extends GetxController {
 
   Future<void> pickADocument() async {
     try {
-      pickedFiles.length >= 4
-          ? throw Exception('You can only pick 4 files')
-          : null;
+      pickedFiles.length >= 4 ? throw 'You can only pick 4 files' : null;
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf', 'doc'],
