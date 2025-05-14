@@ -360,6 +360,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                       // Dynamically determine the date range
                                       DateTime now =
                                           DateTime.now().add(Duration(days: 1));
+                                      print(now.toString());
                                       bool isPastEvent =
                                           controller.isAddPastEvents.value;
 
@@ -370,6 +371,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                         initialDate: controller
                                                 .selectedStartDate.value ??
                                             now,
+
                                         firstDate: isPastEvent
                                             ? DateTime(
                                                 2000) // Earliest date allowed for past events

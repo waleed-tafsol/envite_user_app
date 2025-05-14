@@ -8,7 +8,7 @@ String timeFormater(TimeOfDay time){
   return '$formattedDate';
 }*/
 
-String dateFormater(DateTime date){
+String dateFormater(DateTime date) {
   //Duration timezoneOffset = date.timeZoneOffset;
   //String formattedOffset = _formatTimezoneOffset(timezoneOffset);
   String formattedDate = DateFormat('dd/MMM/yyyy').format(date);
@@ -131,7 +131,7 @@ String extractMonthInitials(String isoTimestamp) {
 }
 
 String extractDate(String isoTimestamp) {
-  final dateTime = DateTime.parse(isoTimestamp);
+  final dateTime = DateTime.parse(isoTimestamp).toLocal();
   return dateTime.day
       .toString()
       .padLeft(2, '0'); // Ensures the date is in two-digit format
