@@ -450,7 +450,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                   child: GestureDetector(
                                     onTap: () async {
                                       // Dynamically determine the date range
-                                      DateTime now = DateTime.now();
+                                      DateTime now =
+                                          DateTime.now().add(Duration(days: 1));
                                       bool isPastEvent =
                                           controller.isAddPastEvents.value;
 
