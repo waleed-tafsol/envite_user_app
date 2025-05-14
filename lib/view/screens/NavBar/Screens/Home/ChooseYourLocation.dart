@@ -47,7 +47,7 @@ class ChooseYourLocationScreen extends StatelessWidget {
                         // print(
                         //     "Coordinates: ${coordinates.latitude}, ${coordinates.longitude}");
                         controller.updateLocation(
-                            LatLng(coordinates.lat, coordinates.lng));
+                            LatLng(coordinates!.lat, coordinates.lng));
 
                         // Do whatever you want here!
                         // e.g. controller.getNearByEvents(coordinates);

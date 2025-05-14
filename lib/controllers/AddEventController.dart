@@ -41,8 +41,8 @@ class AddEventController extends GetxController {
   String placeName = "";
   LatLng? placeLatLang;
 
-  void onPlaceSelected(String name, LatLng latLang) async {
-    placeLatLang = LatLng(lat: latLang.lat, lng: latLang.lng);
+  void onPlaceSelected(String name, LatLng? latLang) async {
+    placeLatLang = latLang;
     placeName = name;
   }
 
@@ -200,8 +200,12 @@ class AddEventController extends GetxController {
           "Error", "Please select the start and end time of event");
       return false;
     }
+    if (placeLatLang == null) {
+      CustomSnackbar.showError("Error", "Please Enter the location of event");
+      return false;
+    }
 
-    return true; // All validations passed
+    return true;
   }
 
 /*

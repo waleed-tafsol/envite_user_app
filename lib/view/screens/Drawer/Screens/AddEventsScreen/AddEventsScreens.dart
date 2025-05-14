@@ -311,11 +311,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                             ),
                             CustomPlaceSearchField(
                               onPlaceSelected: (name, coordinates) {
-                                controller.onPlaceSelected(
-                                    name,
-                                    LatLng(
-                                        lat: coordinates.lat,
-                                        lng: coordinates.lng));
+                                controller.onPlaceSelected(name, coordinates);
                               },
                               suggestionColor: AppColors.kBlueLightShade,
                             ),
@@ -362,7 +358,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                   child: GestureDetector(
                                     onTap: () async {
                                       // Dynamically determine the date range
-                                      DateTime now = DateTime.now();
+                                      DateTime now =
+                                          DateTime.now().add(Duration(days: 1));
                                       bool isPastEvent =
                                           controller.isAddPastEvents.value;
 

@@ -8,7 +8,7 @@ import '../../constants/ApiConstant.dart';
 import '../../constants/colors_constants.dart';
 
 class CustomPlaceSearchField extends StatefulWidget {
-  final Function(String placeName, gmaps.LatLng coordinates) onPlaceSelected;
+  final Function(String placeName, gmaps.LatLng? coordinates) onPlaceSelected;
   final Color? suggestionColor;
 
   const CustomPlaceSearchField({
@@ -114,6 +114,10 @@ class _CustomPlaceSearchFieldState extends State<CustomPlaceSearchField> {
                         _controller.clear();
                         _suggestions.clear();
                       });
+                      widget.onPlaceSelected(
+                        "",
+                        null,
+                      );
                     },
                     child:
                         Icon(Icons.clear, color: Colors.redAccent, size: 4.w),
