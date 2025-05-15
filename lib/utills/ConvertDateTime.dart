@@ -1,3 +1,4 @@
+import 'package:event_planner_light/services/customPrint.dart';
 import 'package:intl/intl.dart';
 
 /*
@@ -42,7 +43,7 @@ String _formatTimezoneOffset(Duration offset) {
 
 String formatISOToCustom(String isoTime) {
   // Parse the ISO time string to a DateTime object
-  DateTime dateTime = DateTime.parse(isoTime);
+  DateTime dateTime = DateTime.parse(isoTime).toLocal();
 
   // Get day name
   List<String> days = [
@@ -111,7 +112,7 @@ String extractMonthName(String isoTimestamp) {
 }
 
 String extractMonthInitials(String isoTimestamp) {
-  final dateTime = DateTime.parse(isoTimestamp);
+  final dateTime = DateTime.parse(isoTimestamp).toLocal();
   const monthNames = [
     "Jan",
     "Feb",
@@ -132,6 +133,8 @@ String extractMonthInitials(String isoTimestamp) {
 
 String extractDate(String isoTimestamp) {
   final dateTime = DateTime.parse(isoTimestamp).toLocal();
+  ColoredPrint.green(
+      "utcTime: $isoTimestamp , localTime: ${dateTime.toString()}");
   return dateTime.day
       .toString()
       .padLeft(2, '0'); // Ensures the date is in two-digit format
@@ -139,7 +142,7 @@ String extractDate(String isoTimestamp) {
 
 String convertToDateFormat(String isoDate) {
   // Parse the ISO 8601 string into a DateTime object
-  DateTime dateTime = DateTime.parse(isoDate);
+  DateTime dateTime = DateTime.parse(isoDate).toLocal();
 
   // Format the DateTime object to the desired format (YYYY-MM-DD)
   String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);

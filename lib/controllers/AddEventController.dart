@@ -325,10 +325,8 @@ class AddEventController extends GetxController {
       request.fields['videosCount'] = pickedVideo.length.toString();
       request.fields['avenue'] = avnueController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
-      request.fields['startDate'] =
-          formatToIso8601WithTimezone(selectedStartDate.value!);
-      request.fields['endDate'] =
-          formatToIso8601WithTimezone(selectedEndDate.value!);
+      request.fields['startDate'] = selectedStartDate.value!.toUtc().toString();
+      request.fields['endDate'] = selectedEndDate.value!.toUtc().toString();
       request.fields['startTime'] = selectedStartTime.value ?? "";
       request.fields['endTime'] = selectedEndTime.value ?? "";
       // request.fields['endTime'] = selectedEndTime.value;

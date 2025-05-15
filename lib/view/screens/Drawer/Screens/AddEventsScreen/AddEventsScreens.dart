@@ -360,7 +360,7 @@ class AddEventsScreens extends GetView<AddEventController> {
                                       // Dynamically determine the date range
                                       DateTime now =
                                           DateTime.now().add(Duration(days: 1));
-                                      print(now.toString());
+
                                       bool isPastEvent =
                                           controller.isAddPastEvents.value;
 
