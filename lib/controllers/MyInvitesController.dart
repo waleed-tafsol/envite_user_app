@@ -46,7 +46,7 @@ class MyInvitesController extends GetxController {
   }
 
   void changeMyInvitesTabs(bool selected, int index) {
-    if (selected) {
+    if (selected && !isEventLoading.value) {
       selectedChipIndex.value = index;
       getPaginatedEvents(callFirstTime: true);
     }
