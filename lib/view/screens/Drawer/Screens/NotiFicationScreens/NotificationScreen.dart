@@ -32,7 +32,7 @@ class NotificationScreen extends GetView<NotificationController> {
                           padding: EdgeInsets.all(8.0),
                           child: sizedShimmer(height: 10.h))),
                 )
-              : controller.notificationList.isEmpty
+              : controller.notificationList.isNotEmpty
                   ? ListView.builder(
                       itemCount: controller.notificationList.length,
                       controller: controller.scrollController,
@@ -60,8 +60,11 @@ class NotificationScreen extends GetView<NotificationController> {
                       },
                     )
                   : SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: Center(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      // padding: EdgeInsets.symmetric(vertical: 20.h),
+                      child: SizedBox(
+                        height: 80.h,
+                        width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
