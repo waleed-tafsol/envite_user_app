@@ -9,10 +9,16 @@ String timeFormater(TimeOfDay time){
   return '$formattedDate';
 }*/
 
-String dateFormater(DateTime date) {
-  //Duration timezoneOffset = date.timeZoneOffset;
-  //String formattedOffset = _formatTimezoneOffset(timezoneOffset);
-  String formattedDate = DateFormat('dd/MMM/yyyy').format(date);
+String dateFormater(String? date) {
+  if (date == null) {
+    return "";
+  }
+  final dateTime = DateTime.tryParse(date)?.toLocal();
+  if (dateTime == null) {
+    return "";
+  }
+  String formattedDate = DateFormat('dd/MMM/yyyy').format(dateTime);
+  ColoredPrint.green("utcTime: $date , localTime: ${formattedDate.toString()}");
   return formattedDate;
 }
 

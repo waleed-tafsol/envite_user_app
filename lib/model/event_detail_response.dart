@@ -1,3 +1,4 @@
+import 'package:event_planner_light/model/EventSchedulesModel.dart';
 import 'package:event_planner_light/model/event_model.dart';
 
 import '../constants/ApiConstant.dart';
@@ -33,6 +34,7 @@ class EventDetailData {
   String? category;
   CreatedBy? createdBy;
   List<Attendees>? attendees;
+  List<EventSchedulesModel>? eventSchedules;
   int? noOfInvites;
   List<String>? tags;
   List<String>? emails;
@@ -66,6 +68,7 @@ class EventDetailData {
       this.category,
       this.createdBy,
       this.attendees,
+      this.eventSchedules,
       this.noOfInvites,
       this.tags,
       this.emails,
@@ -117,6 +120,13 @@ class EventDetailData {
       attendees = <Attendees>[];
       json['attendees'].forEach((v) {
         attendees!.add(Attendees.fromJson(v));
+      });
+    }
+    // json['EventSchedulesModel']
+    if (json['eventSchedules'] != null) {
+      eventSchedules = <EventSchedulesModel>[];
+      json['eventSchedules'].forEach((v) {
+        eventSchedules!.add(EventSchedulesModel.fromJson(v));
       });
     }
     isFavorite = json['isFavorite'];

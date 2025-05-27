@@ -453,7 +453,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                         ? "Select Date"
                                                         : dateFormater(controller
                                                             .selectedStartDate
-                                                            .value!),
+                                                            .value!
+                                                            .toString()),
                                                     style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: Colors.black,
@@ -531,7 +532,8 @@ class AddEventsScreens extends GetView<AddEventController> {
                                                         : dateFormater(
                                                             controller
                                                                 .selectedEndDate
-                                                                .value!),
+                                                                .value!
+                                                                .toString()),
                                                     style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: controller

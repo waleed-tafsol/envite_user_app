@@ -1,3 +1,5 @@
+import 'package:event_planner_light/model/EventSchedulesModel.dart';
+
 import '../constants/ApiConstant.dart';
 
 class EventModel {
@@ -17,6 +19,7 @@ class EventModel {
   String? category;
   // String? createdBy;
   List<String>? attendees;
+  // List<EventSchedulesModel>? eventSchedules;
   int? noOfInvites;
   List<String>? tags;
   List<String>? emails;
@@ -43,6 +46,7 @@ class EventModel {
       this.category,
       // this.createdBy,
       this.attendees,
+      // this.eventSchedules,
       this.noOfInvites,
       this.tags,
       this.emails,
@@ -68,15 +72,19 @@ class EventModel {
       }
     }
     videos = json['videos'].cast<String>();
-    location = json['location'] != null
-        ? Location.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
     address = json['address'];
     startDate = json['startDate'];
     endDate = json['endDate'];
     category = json['category'];
     // createdBy = json['createdBy'];
     attendees = json['attendees'].cast<String>();
+    // if (json['EventSchedulesModel'] != null) {
+    //   attendees = json['EventSchedulesModel'].cast<EventSchedulesModel>();
+    // } else {
+    //   attendees = [];
+    // }
     noOfInvites = json['noOfInvites'];
     tags = json['tags'].cast<String>();
     emails = json['emails'].cast<String>();
