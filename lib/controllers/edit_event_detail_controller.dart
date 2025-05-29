@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/services/customPrint.dart';
 import 'package:event_planner_light/utills/CustomSnackbar.dart';
@@ -16,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-
 import '../constants/ApiConstant.dart';
 import '../main.dart';
 import '../model/CatagoryModel.dart';

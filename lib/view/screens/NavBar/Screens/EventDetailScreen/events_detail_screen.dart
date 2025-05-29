@@ -655,16 +655,20 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                                       AppColors.kBluedarkShade),
                                         ),
                                       ),
-                                      ...List.generate(
-                                          event?.eventSchedules?.length ?? 0,
-                                          (index) {
-                                        return Padding(
-                                          padding: EdgeInsets.only(top: 1.h),
-                                          child: TagsContainer(
-                                              tag:
-                                                  "Starts At: ${dateFormater(event?.eventSchedules?[index].startDateTime)} - ${event?.startTime ?? ""}  Ends At: ${dateFormater(event?.eventSchedules?[index].endDateTime)}  - ${event?.endTime ?? ""}"),
-                                        );
-                                      })
+                                      SizedBox(
+                                        height: 20.h,
+                                        child: ListView(
+                                            children: List.generate(
+                                                event?.eventSchedules?.length ??
+                                                    0, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(top: 1.h),
+                                            child: TagsContainer(
+                                                tag:
+                                                    "Starts At: ${dateFormater(event?.eventSchedules?[index].startDateTime)} - ${event?.startTime ?? ""}  Ends At: ${dateFormater(event?.eventSchedules?[index].endDateTime)}  - ${event?.endTime ?? ""}"),
+                                          );
+                                        })),
+                                      )
                                     ],
                                   );
                       }),
