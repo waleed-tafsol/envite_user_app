@@ -89,70 +89,45 @@ class AddEventController extends GetxController {
   }
 
   void setStartTime(String time) {
-    if (selectedEndTime.value != null) {
-      DateFormat format = DateFormat("HH:mm");
-      DateTime startTime = format.parse(time);
-      DateTime endTime = format.parse(selectedEndTime.value!);
-
-      if (time == selectedEndTime.value) {
-        CustomSnackbar.showError(
-            "Error", "Start time and end time cannot be the same");
-        return;
-      }
-
-      if (startTime.isAfter(endTime)) {
-        CustomSnackbar.showError(
-            "Error", "Start time cannot be after end time");
-        return;
-      }
+    if (selectedEndTime.value != null && time == selectedEndTime.value) {
+      CustomSnackbar.showError(
+          "Error", "Start time and end time cannot be the same");
+      return;
     }
-
     selectedStartTime.value = time;
   }
 
   void setEndTime(String time) {
-    if (selectedStartTime.value != null) {
-      DateFormat format = DateFormat("HH:mm");
-      // DateTime startTime = format.parse(selectedStartTime.value!);
-      // DateTime endTime = format.parse(time);
-
-      if (selectedStartTime.value == time) {
-        CustomSnackbar.showError(
-            "Error", "End time and start time cannot be the same");
-        return;
-      }
-
-      // if (endTime.isBefore(startTime)) {
-      //   CustomSnackbar.showError(
-      //       "Error", "End time cannot be before start time");
-      //   return;
-      // }
+    if (selectedStartTime.value != null && selectedStartTime.value == time) {
+      CustomSnackbar.showError(
+          "Error", "End time and start time cannot be the same");
+      return;
     }
 
     selectedEndTime.value = time;
   }
 
-  void setStartDate(DateTime date) {
-    if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
-      CustomSnackbar.showError(
-        "Invalid Date",
-        "For past events, the start date must be in the past.",
-      );
-    } else {
-      selectedStartDate.value = date;
-    }
-  }
+  // void setStartDate(DateTime date) {
+  //   if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
+  //     CustomSnackbar.showError(
+  //       "Invalid Date",
+  //       "For past events, the start date must be in the past.",
+  //     );
+  //   } else {
+  //     selectedStartDate.value = date;
+  //   }
+  // }
 
-  void setEndDate(DateTime date) {
-    if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
-      CustomSnackbar.showError(
-        "Invalid Date",
-        "For past events, the end date must be in the past.",
-      );
-    } else {
-      selectedEndDate.value = date;
-    }
-  }
+  // void setEndDate(DateTime date) {
+  //   if (isAddPastEvents.value && date.isAfter(DateTime.now())) {
+  //     CustomSnackbar.showError(
+  //       "Invalid Date",
+  //       "For past events, the end date must be in the past.",
+  //     );
+  //   } else {
+  //     selectedEndDate.value = date;
+  //   }
+  // }
 
   verifyUserPackageAndSetEventType(String eventType, BuildContext context) {
     if (isAddPastEvents.value) {
@@ -325,8 +300,8 @@ class AddEventController extends GetxController {
       request.fields['videosCount'] = pickedVideo.length.toString();
       request.fields['avenue'] = avnueController.value.text;
       request.fields['categorySlug'] = selectedCategory.value?.slug ?? "";
-      request.fields['startDate'] = selectedStartDate.value!.toUtc().toString();
-      request.fields['endDate'] = selectedEndDate.value!.toUtc().toString();
+      request.fields['startDate'] = selectedStartDate.value!.toString();
+      request.fields['endDate'] = selectedEndDate.value!.toString();
       request.fields['startTime'] = selectedStartTime.value ?? "";
       request.fields['endTime'] = selectedEndTime.value ?? "";
       // request.fields['endTime'] = selectedEndTime.value;

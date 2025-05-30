@@ -2,6 +2,7 @@ import 'package:event_planner_light/constants/assets.dart';
 import 'package:event_planner_light/constants/colors_constants.dart';
 import 'package:event_planner_light/controllers/Auth_services.dart';
 import 'package:event_planner_light/controllers/event_detail_controller.dart';
+import 'package:event_planner_light/utills/ConvertDateTime.dart';
 import 'package:event_planner_light/view/widgets/PublicBadgeWidget.dart';
 import 'package:event_planner_light/view/widgets/stats_container.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ import '../../../../../utills/enums.dart';
 import '../../../../../utills/string_decoration.dart';
 import '../../../../widgets/EventTileWidget.dart';
 import '../../../../widgets/PhotoViewerWidget.dart';
+import '../../../../widgets/TagContainer.dart';
 import '../../../../widgets/network_video_player_widget.dart';
 import '../my_events/edit_event_details.dart';
 
@@ -151,6 +153,67 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                     Theme.of(context).textTheme.headlineLarge,
                               );
                       }),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            size: 2.h,
+                            Icons.access_time,
+                            color: AppColors.kIconColor,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
+
+                            return controller.isLoading.value
+                                ? sizedShimmer(height: 2.h, width: 20.w)
+                                : Text(
+                                    "Timing: ${event?.startTime ?? ""} - ${event?.endTime ?? ""}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: AppColors.kTextBlack,
+                                            fontSize: 12.sp),
+                                  );
+                          }),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            size: 2.h,
+                            Icons.date_range,
+                            color: AppColors.kIconColor,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Obx(() {
+                            final event =
+                                controller.eventDetailResponse.value.data;
+                            return controller.isLoading.value
+                                ? sizedShimmer(height: 2.h, width: 20.w)
+                                : Text(
+                                    "${dateFormater(event?.startDate)} - ${(dateFormater(event?.endDate))}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: AppColors.kTextBlack,
+                                            fontSize: 12.sp),
+                                  );
+                          }),
+                        ],
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -571,6 +634,49 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                       ),
                       Obx(() {
                         final event = controller.eventDetailResponse.value.data;
+                        return controller.isLoading.value
+                            ? sizedShimmer(height: 2.h, width: double.infinity)
+                            : event?.eventSchedules?.isEmpty ?? true
+                                ? SizedBox()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 1.h),
+                                        child: Text(
+                                          "Schedules of the Event",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  color:
+                                                      AppColors.kBluedarkShade),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                        child: ListView(
+                                            children: List.generate(
+                                                event?.eventSchedules?.length ??
+                                                    0, (index) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(top: 1.h),
+                                            child: TagsContainer(
+                                                tag:
+                                                    "Starts At: ${dateFormater(event?.eventSchedules?[index].startDateTime)} - ${event?.startTime ?? ""}  Ends At: ${dateFormater(event?.eventSchedules?[index].endDateTime)}  - ${event?.endTime ?? ""}"),
+                                          );
+                                        })),
+                                      )
+                                    ],
+                                  );
+                      }),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Obx(() {
+                        final event = controller.eventDetailResponse.value.data;
                         final isMyEvent =
                             event?.createdBy?.sId == authService.me.value?.sId;
                         final isPast = event?.status == Events.completed.text ||
@@ -579,8 +685,8 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                             ? sizedShimmer(height: 5.h, width: double.infinity)
                             : isMyEvent && !isPast
                                 ? SizedBox()
-                        //TODO: UNCOMMIT TO SEND INVITATIONS
-                        /*SizedBox(
+                                //TODO: UNCOMMIT TO SEND INVITATIONS
+                                /*SizedBox(
                                     width: double.infinity,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -716,7 +822,7 @@ class EventsDetailScreen extends GetView<EventDetailController> {
                                               ),
                                             );
                                           });
-                                })
+                                }),
                               ],
                             );
                 }),

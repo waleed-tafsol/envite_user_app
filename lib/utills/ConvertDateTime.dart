@@ -9,10 +9,16 @@ String timeFormater(TimeOfDay time){
   return '$formattedDate';
 }*/
 
-String dateFormater(DateTime date) {
-  //Duration timezoneOffset = date.timeZoneOffset;
-  //String formattedOffset = _formatTimezoneOffset(timezoneOffset);
-  String formattedDate = DateFormat('dd/MMM/yyyy').format(date);
+String dateFormater(String? date) {
+  if (date == null) {
+    return "";
+  }
+  final dateTime = DateTime.tryParse(date);
+  if (dateTime == null) {
+    return "";
+  }
+  String formattedDate = DateFormat('dd/MMM/yyyy').format(dateTime);
+  // ColoredPrint.green("utcTime: $date , localTime: ${formattedDate.toString()}");
   return formattedDate;
 }
 
@@ -112,7 +118,7 @@ String extractMonthName(String isoTimestamp) {
 }
 
 String extractMonthInitials(String isoTimestamp) {
-  final dateTime = DateTime.parse(isoTimestamp).toLocal();
+  final dateTime = DateTime.parse(isoTimestamp);
   const monthNames = [
     "Jan",
     "Feb",
@@ -132,7 +138,7 @@ String extractMonthInitials(String isoTimestamp) {
 }
 
 String extractDate(String isoTimestamp) {
-  final dateTime = DateTime.parse(isoTimestamp).toLocal();
+  final dateTime = DateTime.parse(isoTimestamp);
   ColoredPrint.green(
       "utcTime: $isoTimestamp , localTime: ${dateTime.toString()}");
   return dateTime.day

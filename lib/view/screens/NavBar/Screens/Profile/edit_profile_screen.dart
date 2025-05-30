@@ -83,12 +83,12 @@ class EditProfileScreen extends GetView<EditProfileController> {
               k2hSizedBox,
               TextFormField(
                   controller: controller.phoneNumberController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Phone Number cannot be empty';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value.isEmpty) {
+                  //     return 'Phone Number cannot be empty';
+                  //   }
+                  //   return null;
+                  // },
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
                     hintText: "Phone Number",

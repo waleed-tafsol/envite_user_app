@@ -30,7 +30,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text( 'Edit Your event'),
+        title: Text('Edit Your event'),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -149,7 +149,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                 }
                                                 return null;
                                               },
-                                              keyboardType: TextInputType.emailAddress,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
                                               decoration: InputDecoration(
                                                 hintText: "Other Email",
                                                 prefixIcon: Icon(
@@ -282,41 +283,41 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                             SizedBox(
                               height: 2.h,
                             ),
-                             Obx(() {
+                            Obx(() {
                               return Column(
                                 children: [
                                   // TextField for typing the place name
                                   TextFormField(
                                     controller:
-                                    controller.avenuePlaceController,
+                                        controller.avenuePlaceController,
                                     decoration: InputDecoration(
                                       prefixIcon:
-                                      Icon(Icons.location_on_outlined),
+                                          Icon(Icons.location_on_outlined),
                                       suffix: Obx(() {
                                         return controller
-                                            .isPredictionsLoading.value
+                                                .isPredictionsLoading.value
                                             ? SizedBox(
-                                            height: 4.w,
-                                            width: 4.w,
-                                            child:
-                                            CircularProgressIndicator(
-                                              color:
-                                              AppColors.kBerkeleyBlue,
-                                              strokeWidth: 2,
-                                            ))
+                                                height: 4.w,
+                                                width: 4.w,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color:
+                                                      AppColors.kBerkeleyBlue,
+                                                  strokeWidth: 2,
+                                                ))
                                             : InkWell(
-                                            onTap: () {
-                                              controller
-                                                  .avenuePlaceController
-                                                  .clear();
-                                              controller.placesList.value =
-                                              [];
-                                            },
-                                            child: Icon(
-                                              Icons.clear,
-                                              size: 4.w,
-                                              color: Colors.redAccent,
-                                            ));
+                                                onTap: () {
+                                                  controller
+                                                      .avenuePlaceController
+                                                      .clear();
+                                                  controller.placesList.value =
+                                                      [];
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  size: 4.w,
+                                                  color: Colors.redAccent,
+                                                ));
                                       }),
                                       hintText: "venue Location",
                                     ),
@@ -331,7 +332,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                     itemCount: controller.placesList.length,
                                     itemBuilder: (context, index) {
                                       final place =
-                                      controller.placesList[index];
+                                          controller.placesList[index];
                                       return GestureDetector(
                                         onTap: () =>
                                             controller.onPlaceSelected(place),
@@ -341,7 +342,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                           decoration: BoxDecoration(
                                             color: AppColors.kTextfieldColor,
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                           ),
                                           child: Row(
                                             children: [
@@ -356,7 +357,7 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                   child: Text(place.fullText,
                                                       style: TextStyle(
                                                           color:
-                                                          Colors.black))),
+                                                              Colors.black))),
                                             ],
                                           ),
                                         ),
@@ -485,7 +486,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                 ),
                                                 Text(
                                                   dateFormater(controller
-                                                      .selectedStartDate.value),
+                                                      .selectedStartDate.value
+                                                      .toString()),
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: Colors.black,
@@ -585,7 +587,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                 ),
                                                 Text(
                                                   dateFormater(controller
-                                                      .selectedEndDate.value),
+                                                      .selectedEndDate.value
+                                                      .toString()),
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       color: Colors.black,
@@ -807,8 +810,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                 .textTheme
                                                 .bodyMedium!
                                                 .copyWith(
-                                                color:
-                                                AppColors.kTextBlack),
+                                                    color:
+                                                        AppColors.kTextBlack),
                                           ),
                                           Text(
                                             choice.name?.ar ?? "",
@@ -816,8 +819,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                                 .textTheme
                                                 .bodyMedium!
                                                 .copyWith(
-                                                color:
-                                                AppColors.kTextBlack),
+                                                    color:
+                                                        AppColors.kTextBlack),
                                           ),
                                         ],
                                       ),
@@ -1149,7 +1152,8 @@ class EditEventsDetailScreen extends GetView<EditEventDetailController> {
                                         if (controller.selectedOption.value !=
                                             null) {
                                           await controller.addEvent();
-                                          myEventsController.myEventsScreenType.value = Events.myEvents.text;
+                                          myEventsController.myEventsScreenType
+                                              .value = Events.myEvents.text;
                                           await myEventsController
                                               .getMyPaginatedEvents(
                                                   callFirstTime: true);
